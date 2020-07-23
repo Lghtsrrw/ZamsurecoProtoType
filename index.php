@@ -72,7 +72,6 @@
       </div>
     </div>
   </form>
-
 </div>
 
 <div id="id03" class="modal">
@@ -109,9 +108,7 @@
   </form>
 </div>
 
-<script>
-  closeModal();
-</script>
+<script> closeModal(modal); </script>
 
 </body>
 </html>
