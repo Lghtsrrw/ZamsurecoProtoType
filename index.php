@@ -3,19 +3,22 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="stylesheets/loginStylesheet.css" rel="stylesheet" type="text/css">
+  <script src="js/closingscript.js"></script>
 </head>
 <body>
-
 <h2>Zamsureco Login Form</h2>
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
 <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Register</button>
+
 <button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">TrackingNo</button>
+
 <button onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Enter as Guest</button>
 
 <div id="id01" class="modal">
-
   <form class="modal-content animate" action="/action_page.php" method="post">
+
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="img/userprofile.jpg" alt="Avatar" class="avatar">
@@ -40,8 +43,8 @@
     </div>
   </form>
 </div>
-<div id="id02" class="modal">
 
+<div id="id02" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
 
     <div class="container">
@@ -71,8 +74,8 @@
   </form>
 
 </div>
-<div id="id03" class="modal">
 
+<div id="id03" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
 
     <div class="container">
@@ -88,8 +91,8 @@
 
   </form>
 </div>
-<div id="id04" class="modal">
 
+<div id="id04" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
 
     <div class="container">
@@ -107,15 +110,7 @@
 </div>
 
 <script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+  closeModal();
 </script>
 
 </body>
