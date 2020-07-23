@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="stylesheets/regStylesheet.css" rel="stylesheet" type="text/css">
+<link href="stylesheets/loginStylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
