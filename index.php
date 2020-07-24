@@ -110,6 +110,6 @@
 
 <script> closeModal('id01'); </script>
 
-<button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Connection</button>
+<button>Connection</button>
 </body>
 </html>
