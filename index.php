@@ -4,10 +4,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="stylesheets/loginStylesheet.css" rel="stylesheet" type="text/css">
   <script src="js/closingscript.js"></script>
+  <?php require "databaseConnection/mysqlconn.php" ?>
 </head>
 <body>
 <h2>Zamsureco Login Form</h2>
-
+asdasdasdasdasd
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
 <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Register</button>
@@ -110,6 +111,6 @@
 
 <script> closeModal('id01'); </script>
 
-<button>Connection</button>
+<button> Connect </button>
 </body>
 </html>

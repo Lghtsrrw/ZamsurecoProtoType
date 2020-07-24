@@ -1,9 +1,9 @@
 <?php
 
-  function connection{
+  function connection(){
     $dbUser = "root";
     $dbpw = "";
-    $dbhost = "localhost"
+    $dbhost = "localhost";
 
     $conn = mysql_connect($dbhost, $dbUser, $dbpw);
 
