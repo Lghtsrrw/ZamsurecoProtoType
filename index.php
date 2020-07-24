@@ -78,8 +78,8 @@
   <form class="modal-content animate" action="/action_page.php" method="post">
 
     <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <label for="uname"><b>Tracking No.:</b></label>
+    <input type="text" placeholder="Enter Tracking No" name="uname" required>
 
     <button type="submit">Track</button>
   </div>
@@ -108,7 +108,8 @@
   </form>
 </div>
 
-<script> closeModal(modal); </script>
+<script> closeModal('id01'); </script>
 
+<button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Connection</button>
 </body>
 </html>
