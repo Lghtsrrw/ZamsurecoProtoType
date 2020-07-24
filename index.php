@@ -1,22 +1,31 @@
+<?php
+  session_start();
+  /*
+  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: index.php");
+    exit;
+  }
+  */
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="stylesheets/loginStylesheet.css" rel="stylesheet" type="text/css">
   <script src="js/closingscript.js"></script>
-  <?php require "databaseConnection/mysqlconn.php" ?>
 </head>
 <body>
 <h2>Zamsureco Login Form</h2>
-asdasdasdasdasd
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
-<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Register</button>
+<!-- buttons declaration -->
+<button onclick="document.getElementById('id01').style.display='block'; closeModal('id01');" style="width:auto;">Login</button>
+<button onclick="document.getElementById('id02').style.display='block'; closeModal('id02')" style="width:auto;">Register</button>
+<button onclick="document.getElementById('id03').style.display='block'; closeModal('id03')" style="width:auto;">Tracking No</button>
+<button onclick="document.getElementById('id04').style.display='block'; closeModal('id04')" style="width:auto;">Enter as Guest</button>
+<!-- buttons declaration -->
 
-<button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">TrackingNo</button>
-
-<button onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Enter as Guest</button>
-
+<!-- Modals declaration -->
 <div id="id01" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
 
@@ -44,7 +53,6 @@ asdasdasdasdasd
     </div>
   </form>
 </div>
-
 <div id="id02" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
 
@@ -74,7 +82,6 @@ asdasdasdasdasd
     </div>
   </form>
 </div>
-
 <div id="id03" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
 
@@ -88,18 +95,21 @@ asdasdasdasdasd
   <div class="container" style="background-color:#f1f1f1">
     <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
   </div>
-
   </form>
 </div>
-
 <div id="id04" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
 
-    <div class="container">
-    <label for="uname"><b>Guest Name</b></label>
-    <input type="text" placeholder="Enter Name" name="uname" required>
-
-    <button type="submit">Track</button>
+  <div class="container">
+      <label for="uname"><b>Guest Name</b></label>
+      <input type="text" placeholder="Enter Name" name="uname" required>
+      <label for="ucontact"><b>Contact No</b></label>
+      <input type="text" placeholder="Enter Contact No" name="ucontact" required>
+      <label for="uaddress"><b>Address</b></label>
+      <input type="text" placeholder="Enter Address" name="uaddress" required>
+      <label for="uemail"><b>Email Address</b></label>
+      <input type="text" placeholder="Enter EMAIL" name="uemail" required>
+      <button type="submit">Track</button>
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
@@ -108,9 +118,6 @@ asdasdasdasdasd
 
   </form>
 </div>
-
-<script> closeModal('id01'); </script>
-
-<button> Connect </button>
+<!-- Modals declaration -->
 </body>
 </html>
