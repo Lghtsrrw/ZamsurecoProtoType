@@ -10,34 +10,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="stylesheets/loginStylesheet.css" rel="stylesheet" type="text/css">
   <script src="js/closingscript.js"></script>
+  <script src="js/jquery-3.5.1.min.js"></script>
   <h2>Zamsureco Login Form</h2>
 </head>
 
 <body>
-
-<?php echo display_error(); ?>
 <!-- buttons declaration -->
-<button onclick="document.getElementById('id01').style.display='block'; closeModal('id01');" style="width:auto;">Login</button>
+<button onclick="document.getElementById('id01').style.display='block';" style="width:auto;">Login</button>
 <button onclick="document.getElementById('id02').style.display='block'; closeModal('id02')" style="width:auto;">Register</button>
 <button onclick="document.getElementById('id03').style.display='block'; closeModal('id03')" style="width:auto;">Tracking No</button>
 <button onclick="document.getElementById('id04').style.display='block'; closeModal('id04')" style="width:auto;">Enter as Guest</button>
 <!-- buttons declaration -->
 <!-- Modals declaration -->
 <div id="id01" class="modal">
-  <form class="modal-content animate" action="signin.php" method="post">
+  <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
     <div class="imgcontainer">
 
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="img/userprofile.jpg" alt="Avatar" class="avatar">
     </div>
-
+    <?php echo display_error(); ?>
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required>
+      <input type="text" placeholder="Enter Username" name="username">
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <input type="password" placeholder="Enter Password" name="password">
 
       <button type="submit" class="btn" name = "login_btn">Login</button>
       <label>
@@ -49,7 +48,6 @@
       <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
   </form>
-
 </div>
 <div id="id02" class="modal">
   <form class="modal-content animate" action="signin.php" method="post">

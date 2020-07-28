@@ -1,11 +1,24 @@
 <?php
 	session_start();
 
-	// connect to database
-	$db = mysqli_connect('localhost', 'root', '', 'protozmsrc1');
+	/* Database credentials. Assuming you are running MySQL
+	server with default setting (user 'root' with no password) */
+	define('DB_SERVER', 'localhost');
+	define('DB_USERNAME', 'root');
+	define('DB_PASSWORD', '');
+	define('DB_NAME', 'protozmsrc1');
 
+	/* Attempt to connect to MySQL database */
+	$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+	$db = $mysqli;
+
+	// Check connection
+	if($mysqli === false){
+	    die("ERROR: Could not connect. " . $mysqli->connect_error);
+	}
 	// variable declaration
 	$username = "";
+	$password = "";
 	$email    = "";
 	$errors   = array();
 
@@ -91,8 +104,12 @@
 		global $db, $username, $errors;
 
 		// grap form values
-		$username = e($_POST['username']);
-		$password = e($_POST['password']);
+		// $username = e($_POST['username']);
+		// $password = e($_POST['password']);
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		echo $username;
+		echo $password;
 
 		// make sure form is filled properly
 		if (empty($username)) {
@@ -104,7 +121,7 @@
 
 		// attempt login if no errors on form
 		if (count($errors) == 0) {
-			$password = md5($password);
+			// $password = md5($password);
 
 			$query = "SELECT * FROM syst_acct WHERE Username='$username' AND Password='$password' LIMIT 1";
 			$results = mysqli_query($db, $query);
@@ -145,10 +162,10 @@
 	}
 
 	// escape string
-	function e($val){
-		global $db;
-		return mysqli_real_escape_string($db, trim($val));
-	}
+	// function e($val){
+	// 	global $db;
+	// 	return mysqli_real_escape_string($db, trim($val));
+	// }
 
 	function display_error() {
 		global $errors;
