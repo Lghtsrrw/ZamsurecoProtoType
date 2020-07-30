@@ -12,6 +12,7 @@
   <script src="js/jquery-3.5.1.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
+      //This changes the Register Modal Entry-field by user selection.
       $( "#userType" ).click(function(){
         var usertype = $( "#userType" ).val();
           if (usertype == "User") {
@@ -19,29 +20,37 @@
             $("#guestField").hide();
             $("#dynamicRegister").text("Register");
             $("#dynamicInstruct").text("Please fill in this form to create an account.");
+            $("#guestbtn").hide();
+            $("#registerbtn").show();
           }else {
             $("#userField").hide();
             $("#guestField").show();
             $("#dynamicRegister").text("Enter as Guest");
             $("#dynamicInstruct").text("");
+            $("#registerbtn").hide();
+            $("#guestbtn").show();
           }
       })
+
+      //this opens the Login Modal when btnLogin is clicked
       $("#btnLogin").click(function(){
       	 $("#id01").css("display","block");
-         // closeModal();
-      });
+       });
+      //this opens the Register Modal when btnRegister is clicked
       $("#btnRegister").click(function(){
         $("#id02").css("display","block");
-        // closeModal();
       });
+      //this opens the Track Modal when btnTrack is clicked
       $("#btnTrack").click(function(){
         $("#id03").css("display","block");
         // closeModal();
       });
+      //this opens the Guest Modal when btnGuest is clicked
       $("#btnGuest").click(function(){
         $("#id04").css("display","block");
         // closeModal();
       });
+      //this closes all visible modal with class name 'close'.
       $(".close").click(function(){
         $(".modal").css("display","none");
       });
@@ -57,7 +66,7 @@
 <button id = "btnRegister" style="width:auto;">Register</button>
 <button id = "btnTrack" style="width:auto;">Tracking No</button>
 <button id = "btnGuest" style="width:auto;">Enter as Guest</button>
-<!-- buttons declaration -->
+<!-- buttons declaration end-->
 <!-- Modals declaration -->
 <div id="id01" class="modal">
   <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -90,14 +99,11 @@
 
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
-      <!-- <img src="img/userprofile.jpg" alt="Avatar" class="avatar"> -->
     </div>
     <div class="container">
       <h1 id = "dynamicRegister">Register</h1>
       <p id = "dynamicInstruct">Please fill in this form to create an account.</p>
-
       <hr>
-
       <label for="IDType">Select ID Type: </label>
       <select name="userType" id="userType">
         <option value="User">User</option>
@@ -106,37 +112,37 @@
 
       <div class="" id="userField">
         <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br>
+        <input type="text" id="username" name="username"><br>
 
         <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" required><br><br>
+        <input type="text" id="email" name="email"><br><br>
 
         <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
+        <input type="password" id="password" name="password"><br>
 
         <label for="confirmpassword">Confirm Password:</label><br>
-        <input type="password" id="confirmPass" name="confirmPass" required> <br><br>
+        <input type="password" id="confirmPass" name="confirmPass"> <br><br>
 
         <fieldset style="width:80%;">
           <legend>User's Information</legend>
           <br>
           <label for="fullname">Fullname</label><br>
-          <input type="text" id="fname" name="fname" placeholder="Enter First Name" required>
-          <input type="text" id="mname" name="mname" placeholder="Enter Middle Name" required>
-          <input type="text" id="lname" name="lname" placeholder="Enter Last Name" required><br>
+          <input type="text" id="fname" name="fname" placeholder="Enter First Name">
+          <input type="text" id="mname" name="mname" placeholder="Enter Middle Name">
+          <input type="text" id="lname" name="lname" placeholder="Enter Last Name"><br>
 
           <label for="Address">Address</label><br>
-          <input type="text" id="address" name="address" placeholder="Your Billing Address" required><br>
+          <input type="text" id="address" name="address" placeholder="Your Billing Address"><br>
 
           <label for="contact">Contact</label><br>
-          <input type="text" id="contact" name="contact" placeholder="Your Contact Number" required><br>
+          <input type="text" id="contact" name="contact" placeholder="Your Contact Number"><br>
 
           <label for="regAcctNo">Account Number</label><br>
-          <input type="text" id="regAcctNo" name="regAcctNo" placeholder="Your Account Number" required><br>
+          <input type="text" id="regAcctNo" name="regAcctNo" placeholder="Your Account Number"><br>
 
         </fieldset><br>
       </div>
-      <div class="" id = "guestField">
+      <div class="" id = "guestField" style="display:none">
         <label for="username">Guest Name</label><br>
         <input type="text" id="guestname" name="guestname" ><br>
 
@@ -152,7 +158,8 @@
       <hr>
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
-      <button type="submit" class="registerbtn" name="register_btn">Register</button>
+      <button type="submit" class="registerbtn" name="register_btn" id="registerbtn">Register</button>
+      <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn" style="display:none">Enter as Guest</button>
 
       <div class="container" style="background-color:#f1f1f1">
         <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
@@ -202,6 +209,6 @@
 
   </form>
 </div>
-<!-- Modals declaration -->
+<!-- Modals declaration end-->
 </body>
 </html>

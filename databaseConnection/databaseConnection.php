@@ -30,6 +30,9 @@
 	if (isset($_POST['login_btn'])) {
 		login();
 	}
+	if(isset($_POST['guestbtn'])){
+		echo "HelloWorld";
+	}
 	if (isset($_GET['logout'])) {
 		session_destroy();
 		unset($_SESSION['user']);
@@ -74,8 +77,6 @@
 		if ($password1 != $password2) {
 			array_push($errors, "The two passwords do not match");
 		}
-
-		echo "alert('Helloworld')";
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
 			$password = md5($password1);//encrypt the password before saving in the database
@@ -102,7 +103,7 @@
 				$logged_in_user_id = mysqli_insert_id($db);
 
 				$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
-				$_SESSION['success']  = "You are now logged in " . $password . " " . $password1;
+				$_SESSION['success']  = "You are now logged in ";
 				header('location: index.php');
 			}
 			echo "Out";
@@ -123,8 +124,6 @@
 		global $db, $username, $errors;
 
 		// grap form values
-		// $username = e($_POST['username']);
-		// $password = e($_POST['password']);
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
@@ -158,10 +157,11 @@
 					header('location: index.php');
 				}
 			}else {
-				array_push($errors, "Wrong username/password combination " . $password1 . " ". $password);
+				array_push($errors, "Wrong username/password combination ");
 			}
 		}
 	}
+
 	function isLoggedIn(){
 		if (isset($_SESSION['user'])) {
 			return true;
@@ -169,6 +169,7 @@
 			return false;
 		}
 	}
+
 	function isAdmin(){
 		if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin' ) {
 			return true;
