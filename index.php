@@ -14,6 +14,16 @@
     <title>Zamzureco-1</title>
   </head>
   <body>
+		<?php if (isset($_SESSION['success'])) : ?>
+			<div class="error success" >
+				<h3>
+					<?php
+						echo $_SESSION['success'];
+						unset($_SESSION['success']);
+					?>
+				</h3>
+			</div>
+		<?php endif ?>
     <h1>User's Homepage</h1>
 
 		<a href="index.php?logout='1'" style='color:red;'>Logout</a>

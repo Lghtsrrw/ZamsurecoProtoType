@@ -41,10 +41,22 @@
 		global $db, $errors;
 
 		// receive all input values from the form
-		$username    =  e($_POST['username']);
-		$email       =  e($_POST['email']);
-		$password_1  =  e($_POST['password1']);
-		$password_2  =  e($_POST['password2']);
+		// $username    =  e($_POST['username']);
+		// $email       =  e($_POST['email']);
+		// $password_1  =  e($_POST['password1']);
+		// $password_2  =  e($_POST['password2']);
+
+		$username = $_POST['username'];
+		$email = $_POST['email'];
+		$password1 = $_POST['password'];
+		$password2 = $_POST['confirmPass'];
+
+		$fname = $_POST['fname'];
+		$mname = $_POST['mname'];
+		$lname = $_POST['lname'];
+		$address = $_POST['address'];
+		$contact = $_POST['contact'];
+		$regAcctNo = $_POST['regAcctNo'];
 
 		// form validation: ensure that the form is correctly filled
 		if (empty($username)) {
@@ -56,18 +68,20 @@
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
     }
-		if (empty($password_1)) {
+		if (empty($password1)) {
 			array_push($errors, "Password is required");
 		}
-		if ($password_1 != $password_2) {
+		if ($password1 != $password2) {
 			array_push($errors, "The two passwords do not match");
 		}
 
+		echo "alert('Helloworld')";
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
-			$password = md5($password_1);//encrypt the password before saving in the database
+			$password = md5($password1);//encrypt the password before saving in the database
 
 			if (isset($_POST['userID'])) {
+				echo "oops";
 				$user_type = e($_POST['userID']);
 				$query = "INSERT INTO syst_acct (username, email, IDType, password)
 						  VALUES('$username', '$email', '$user_type', '$password')";
@@ -75,18 +89,23 @@
 				$_SESSION['success']  = "New user successfully created!!";
 				header('location: home.php');
 			}else{
-				$query = "INSERT INTO syst_acct (username, email, IDType, password)
-						  VALUES('$username', '$email', 'user', '$password')";
-				mysqli_query($db, $query);
+				echo "Wow";
+				$query2 = "INSERT INTO user (fname, mname, lname, address, contact, acctNo)
+									VALUES('$fname','$mname','$lname','$address','$contact','$regAcctNo')";
+				mysqli_query($db, $query2);
+				$query = "INSERT INTO syst_acct (username, IDType, password)
+									VALUES('$username', 'user', '$password')";
+				$results = mysqli_query($db, $query);
+
 
 				// get id of the created user
 				$logged_in_user_id = mysqli_insert_id($db);
 
 				$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
-				$_SESSION['success']  = "You are now logged in";
+				$_SESSION['success']  = "You are now logged in " . $password . " " . $password1;
 				header('location: index.php');
 			}
-
+			echo "Out";
 		}
 
 	}
@@ -108,8 +127,6 @@
 		// $password = e($_POST['password']);
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-		echo $username;
-		echo $password;
 
 		// make sure form is filled properly
 		if (empty($username)) {
@@ -121,9 +138,9 @@
 
 		// attempt login if no errors on form
 		if (count($errors) == 0) {
-			// $password = md5($password);
+			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct WHERE Username='$username' AND Password='$password' LIMIT 1";
+			$query = "SELECT * FROM syst_acct WHERE Username='$username' AND Password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -141,7 +158,7 @@
 					header('location: index.php');
 				}
 			}else {
-				array_push($errors, "Wrong username/password combination");
+				array_push($errors, "Wrong username/password combination " . $password1 . " ". $password);
 			}
 		}
 	}
@@ -152,7 +169,6 @@
 			return false;
 		}
 	}
-
 	function isAdmin(){
 		if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin' ) {
 			return true;
@@ -179,8 +195,7 @@
 		}
 	}
 
-	function logout()
-	{
+	function logout(){
 		$_SESSION = array();
 		session_destroy();
 

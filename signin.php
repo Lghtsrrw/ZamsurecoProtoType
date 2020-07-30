@@ -17,9 +17,13 @@
           if (usertype == "User") {
             $("#userField").show();
             $("#guestField").hide();
+            $("#dynamicRegister").text("Register");
+            $("#dynamicInstruct").text("Please fill in this form to create an account.");
           }else {
             $("#userField").hide();
             $("#guestField").show();
+            $("#dynamicRegister").text("Enter as Guest");
+            $("#dynamicInstruct").text("");
           }
       })
       $("#btnLogin").click(function(){
@@ -47,6 +51,7 @@
 </head>
 
 <body>
+<?php echo display_error(); ?>
 <!-- buttons declaration -->
 <button id = "btnLogin" style="width:auto">Login</button>
 <button id = "btnRegister" style="width:auto;">Register</button>
@@ -62,7 +67,6 @@
       <span class="close" title="Close Modal">&times;</span>
       <img src="img/userprofile.jpg" alt="Avatar" class="avatar">
     </div>
-    <?php echo display_error(); ?>
     <div class="container">
       <label for="uname"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="username">
@@ -89,8 +93,8 @@
       <!-- <img src="img/userprofile.jpg" alt="Avatar" class="avatar"> -->
     </div>
     <div class="container">
-      <h1>Register</h1>
-      <p>Please fill in this form to create an account.</p>
+      <h1 id = "dynamicRegister">Register</h1>
+      <p id = "dynamicInstruct">Please fill in this form to create an account.</p>
 
       <hr>
 
@@ -132,18 +136,18 @@
 
         </fieldset><br>
       </div>
-      <div class="" id = "guestField" style="display:none;">
+      <div class="" id = "guestField">
         <label for="username">Guest Name</label><br>
-        <input type="text" id="guestname" name="guestname" required><br>
+        <input type="text" id="guestname" name="guestname" ><br>
 
         <label for="gEmail">Email</label><br>
-        <input type="text" id="gEmail" name="gEmail" required><br><br>
+        <input type="text" id="gEmail" name="gEmail" ><br><br>
 
         <label for="gContact">Contact Number</label><br>
-        <input type="text" id="gContact" name="gContact" required><br>
+        <input type="text" id="gContact" name="gContact" ><br>
 
         <label for="gAddress">Address</label><br>
-        <input type="text" id="gAddress" name="gAddress" required> <br>
+        <input type="text" id="gAddress" name="gAddress" > <br>
       </div>
       <hr>
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
