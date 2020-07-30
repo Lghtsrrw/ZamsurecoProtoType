@@ -31,7 +31,7 @@
 		login();
 	}
 	if(isset($_POST['guestbtn'])){
-		echo "HelloWorld";
+		guest();
 	}
 	if (isset($_GET['logout'])) {
 		session_destroy();
@@ -160,6 +160,10 @@
 				array_push($errors, "Wrong username/password combination ");
 			}
 		}
+	}
+	//GUEST USER
+	function guest(){
+
 	}
 
 	function isLoggedIn(){

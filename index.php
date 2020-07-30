@@ -1,16 +1,16 @@
 <?php
-	include('databaseConnection/databaseConnection.php');
+include('databaseConnection/databaseConnection.php');
 
-	if (!isLoggedIn()) {
-		$_SESSION['msg'] = "You must log in first";
-		header('location: signin.php');
-	}
+if (empty(isset($_SESSION['user']))) {
+	header('location: signin.php');
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+		<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
     <title>Zamzureco-1</title>
   </head>
   <body>

@@ -1,5 +1,9 @@
 <?php
   include('databaseConnection/databaseConnection.php');
+
+  if (!empty(isset($_SESSION['user']))) {
+    header('location: index.php');
+  }
  ?>
 
 <!DOCTYPE html>
@@ -7,6 +11,7 @@
 
 <head>
   <title>Login Page</title>
+  <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
   <script src="js/jquery-3.5.1.min.js"></script>

@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
 <link href="stylesheets/loginStylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
