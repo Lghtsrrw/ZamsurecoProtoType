@@ -119,6 +119,15 @@
 		$user = mysqli_fetch_assoc($result);
 		return $user;
 	}
+	//return guest name from their registration
+	function getGuestById($id){
+		global $db;
+		$query = "SELECT * FROM guest WHERE guestID=" . $id;
+		$result = mysqli_query($db, $query);
+
+		$user = mysqli_fetch_assoc($result);
+		return $user;
+	}
 	// LOGIN USER
 	function login(){
 		global $db, $username, $errors;
@@ -163,8 +172,48 @@
 	}
 	//GUEST USER
 	function guest(){
+		echo "Error in guest";
+		global $db, $errors;
 
-	}
+		// grap form values
+		$guestname = $_POST['guestname'];
+		$guestMail = $_POST['gEmail'];
+		$gcontact = $_POST['gContact'];
+		$gaddress = $_POST['gAddress'];
+
+		// make sure form is filled properly
+		if (empty($guestname)) {
+			array_push($errors, "Guest Name is required");
+		}
+		if (empty($guestMail)) {
+			array_push($errors, "Your email is required");
+		}
+		if(!filter_var($guestMail, FILTER_VALIDATE_EMAIL)) {
+			array_push($errors, "Invalid Email address");
+    }
+		if (empty($gcontact)) {
+			array_push($errors, "Your contact is required");
+		}
+		if (empty($gaddress)) {
+			array_push($errors, "Your Address is required");
+		}
+
+		// attempt login if no errors on form
+		if (count($errors) == 0) {
+			echo "Somethings Wroooooooong";
+			$query = "INSERT INTO guest (Name, Contact, Address, Email)
+								VALUES('$guestname', $gcontact', '$gaddress', '$guestMail')";
+								echo $query;
+			$results = mysqli_query($db, $query);
+			// get id of the created user
+			$logged_in_user_id = mysqli_insert_id($db);
+
+			$_SESSION['user'] = getGuestById($logged_in_user_id); // put logged in user in session
+			$_SESSION['success']  = "You are now logged in ";
+			header('location: guesthomepage.php');
+			}
+				echo "Heeeeeeeenlo";
+		}
 
 	function isLoggedIn(){
 		if (isset($_SESSION['user'])) {
