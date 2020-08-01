@@ -106,7 +106,6 @@
 				$_SESSION['success']  = "You are now logged in ";
 				header('location: index.php');
 			}
-			echo "Out";
 		}
 
 	}
@@ -128,6 +127,7 @@
 		$user = mysqli_fetch_assoc($result);
 		return $user;
 	}
+
 	// LOGIN USER
 	function login(){
 		global $db, $username, $errors;
@@ -156,13 +156,12 @@
 				$logged_in_user = mysqli_fetch_assoc($results);
 				if ($logged_in_user['userID'] == 'admin') {
 
+				// 	$_SESSION['user'] = $logged_in_user;
+				// 	$_SESSION['success']  = "You are now logged in";
+				// 	header('location: admin/home.php');
+			}else{
 					$_SESSION['user'] = $logged_in_user;
 					$_SESSION['success']  = "You are now logged in";
-					header('location: admin/home.php');
-				}else{
-					$_SESSION['user'] = $logged_in_user;
-					$_SESSION['success']  = "You are now logged in";
-
 					header('location: index.php');
 				}
 			}else {
@@ -172,15 +171,12 @@
 	}
 	//GUEST USER
 	function guest(){
-		echo "Error in guest";
 		global $db, $errors;
-
 		// grap form values
 		$guestname = $_POST['guestname'];
 		$guestMail = $_POST['gEmail'];
 		$gcontact = $_POST['gContact'];
 		$gaddress = $_POST['gAddress'];
-
 		// make sure form is filled properly
 		if (empty($guestname)) {
 			array_push($errors, "Guest Name is required");
@@ -197,23 +193,20 @@
 		if (empty($gaddress)) {
 			array_push($errors, "Your Address is required");
 		}
-
+		echo "<script type='text/javascript'>alert('HelloWorld');</script>";
 		// attempt login if no errors on form
 		if (count($errors) == 0) {
-			echo "Somethings Wroooooooong";
 			$query = "INSERT INTO guest (Name, Contact, Address, Email)
-								VALUES('$guestname', $gcontact', '$gaddress', '$guestMail')";
-								echo $query;
+											VALUES('$guestname', '$gcontact', '$gaddress', '$guestMail')";
 			$results = mysqli_query($db, $query);
+			echo "<script type='text/javascript'>alert('$query');</script>";
 			// get id of the created user
 			$logged_in_user_id = mysqli_insert_id($db);
-
-			$_SESSION['user'] = getGuestById($logged_in_user_id); // put logged in user in session
-			$_SESSION['success']  = "You are now logged in ";
-			header('location: guesthomepage.php');
-			}
-				echo "Heeeeeeeenlo";
+			$_SESSION['name'] = getGuestById($logged_in_user_id); // put logged in user in session
+			$_SESSION['success']  = "You are now logged in as Guest ";
+			header('location: guestHomepage.php');
 		}
+	}
 
 	function isLoggedIn(){
 		if (isset($_SESSION['user'])) {

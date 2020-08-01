@@ -31,7 +31,7 @@
             $("#userField").hide();
             $("#guestField").show();
             $("#dynamicRegister").text("Enter as Guest");
-            $("#dynamicInstruct").text("");
+            $("#dynamicInstruct").hide();
             $("#registerbtn").hide();
             $("#guestbtn").show();
           }
@@ -205,7 +205,7 @@
         <input type="text" placeholder="Enter Address" name="uaddress" required>
         <label for="uemail"><b>Email Address</b></label>
         <input type="text" placeholder="Enter EMAIL" name="uemail" required>
-        <button type="submit">Track</button>
+        <button type="submit">Enter as Guest</button>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">

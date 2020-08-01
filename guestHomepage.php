@@ -1,7 +1,7 @@
 <?php
   include('databaseConnection/databaseConnection.php');
 
-  if (empty(isset($_SESSION['user']))) {
+  if (empty(isset($_SESSION['name']))) {
   	header('location: signin.php');
   }
 ?>
@@ -15,6 +15,17 @@
     <h1>Welcome Guest!</h1>
   </head>
   <body>
-
+    <?php if (isset($_SESSION['success'])) : ?>
+			<div class="error success" >
+				<h3>
+					<?php
+						echo $_SESSION['success'];
+						unset($_SESSION['success']);
+					?>
+				</h3>
+			</div>
+		<?php endif ?>
+    
+    <a href="index.php?logout='1'" style='color:red;'>Logout</a>
   </body>
 </html>
