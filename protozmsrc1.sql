@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2020 at 05:28 AM
+-- Generation Time: Aug 03, 2020 at 11:05 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -194,6 +194,14 @@ CREATE TABLE `id_verification` (
   `IDType` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `id_verification`
+--
+
+INSERT INTO `id_verification` (`UserID`, `IDType`) VALUES
+('atom', 'User'),
+('admin', 'User');
+
 -- --------------------------------------------------------
 
 --
@@ -201,22 +209,17 @@ CREATE TABLE `id_verification` (
 --
 
 CREATE TABLE `syst_acct` (
-  `UserID` int(255) NOT NULL,
-  `IDType` varchar(255) NOT NULL,
-  `Username` varchar(255) NOT NULL,
-  `Password` varchar(255) NOT NULL
+  `username` varchar(11) NOT NULL,
+  `password` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `syst_acct`
 --
 
-INSERT INTO `syst_acct` (`UserID`, `IDType`, `Username`, `Password`) VALUES
-(1, 'Employee', 'Lghtsrrw', 'Deys'),
-(2, 'f324', 'sdfsdf', 'sdfsdfsdf'),
-(15, 'user', 'admin', '21232f297a57a5a743894a0e4a801fc3'),
-(16, 'user', 'deys', '81dc9bdb52d04dc20036dbd8313ed055'),
-(17, 'user', '123231', 'caf1a3dfb505ffed0d024130f58c5cfa');
+INSERT INTO `syst_acct` (`username`, `password`) VALUES
+('admin', '21232f297a57a5a743894a0e4a801fc3'),
+('atom', '81dc9bdb52d04dc20036dbd8313ed055');
 
 -- --------------------------------------------------------
 
@@ -225,7 +228,7 @@ INSERT INTO `syst_acct` (`UserID`, `IDType`, `Username`, `Password`) VALUES
 --
 
 CREATE TABLE `user` (
-  `UserID` int(11) NOT NULL,
+  `UserID` varchar(100) NOT NULL,
   `Fname` varchar(255) NOT NULL,
   `Mname` varchar(255) NOT NULL,
   `Lname` varchar(255) NOT NULL,
@@ -239,10 +242,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Fname`, `Mname`, `Lname`, `Address`, `Contact`, `AcctNo`) VALUES
-(1, 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
-(2, 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
-(16, 'deys', 'anda', 'ganih', 'asdasdasda', 'asdasdas', 'asdasdasd'),
-(17, '321', '21', '321', '321', '321', '321');
+('1', 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
+('16', 'deys', 'anda', 'ganih', 'asdasdasda', 'asdasdas', 'asdasdasd'),
+('17', '321', '21', '321', '321', '321', '321'),
+('18', 'qweqwe', 'qweqw', 'eqweqw', 'eqweqwe', 'qweq', 'weqweqwe'),
+('2', 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
+('admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'),
+('atom', '123', '123', '123', '123', '123', '123');
 
 -- --------------------------------------------------------
 
@@ -345,7 +351,7 @@ ALTER TABLE `guest`
 -- Indexes for table `syst_acct`
 --
 ALTER TABLE `syst_acct`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `user`
@@ -375,18 +381,6 @@ ALTER TABLE `user_complaint`
 --
 ALTER TABLE `guest`
   MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `syst_acct`
---
-ALTER TABLE `syst_acct`
-  MODIFY `UserID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`

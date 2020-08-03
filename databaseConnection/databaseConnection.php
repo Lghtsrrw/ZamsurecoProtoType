@@ -166,7 +166,7 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct WHERE Username='$username' AND Password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID WHERE Username='$username' AND Password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -227,7 +227,8 @@
 			echo "<script type='text/javascript'>alert('$query');</script>";
 			// get id of the created user
 			$logged_in_user_id = mysqli_insert_id($db);
-			$_SESSION['user'] = getGuestById($logged_in_user_id); // put logged in user in session
+			$_fetchthingy = mysqli_fetch_assoc($logged_in_user_id);
+			$_SESSION['user'] = getGuestById($_fetchthingy); // put logged in user in session
 			$_SESSION['success']  = "You are now logged in as Guest ";
 			header('location: guestHomepage.php');
 		}
