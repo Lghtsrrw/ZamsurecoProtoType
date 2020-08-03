@@ -2,7 +2,9 @@
 include('databaseConnection/databaseConnection.php');
 
 if (empty(isset($_SESSION['user']))) {
-	header('location: signin.php');
+	if(!$_SESSION['user']['iv.IDType'] === 'User'){
+			header('location: signin.php');
+	}
 }
 ?>
 

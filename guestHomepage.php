@@ -1,8 +1,8 @@
 <?php
   include('databaseConnection/databaseConnection.php');
 
-  if (empty(isset($_SESSION['name']))) {
-  	header('location: signin.php');
+  if(empty(isset($_SESSION['user'])) || $_SESSION['user']['IDType'] !== 'Guest') {
+    header('location: signin.php');
   }
 ?>
 
@@ -25,7 +25,7 @@
 				</h3>
 			</div>
 		<?php endif ?>
-    
+
     <a href="index.php?logout='1'" style='color:red;'>Logout</a>
   </body>
 </html>

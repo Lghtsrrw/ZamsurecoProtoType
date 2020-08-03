@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2020 at 04:49 AM
+-- Generation Time: Aug 03, 2020 at 05:28 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -156,11 +156,42 @@ CREATE TABLE `emp_support_complaint` (
 --
 
 CREATE TABLE `guest` (
-  `GuestID` varchar(255) NOT NULL,
+  `GuestID` int(11) NOT NULL,
   `Name` varchar(255) NOT NULL,
   `Contact` varchar(255) NOT NULL,
   `Address` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `guest`
+--
+
+INSERT INTO `guest` (`GuestID`, `Name`, `Contact`, `Address`, `Email`) VALUES
+(1, 'ewrewrwer', 'erwerwe', 'werwerw', 'deys@gmail.com'),
+(2, 'asdasd', 'qwe', 'qwe', 'deys@gmail.com'),
+(3, 'asdasd', 'asdasd', 'asdasd', 'asdasd@gmail.co'),
+(4, 'asdasda', 'asdasda', 'asdasda', 'deys@gmail.com'),
+(5, 'dsfsfs', 'sdfsdf', 'sdfsfsfsf', 'deys@gmail.com'),
+(6, 'asdasda', 'asdasda', 'asdasd', '1234@gmail.om'),
+(7, 'sdfsdf', 'dfsdfs', 'fsdfsdfs', 'sdfsdfs@sdfsf.kk'),
+(8, 'asdasda', 'sdfsdf', 'sdfsdfsffsdf', 'qweqweqweq@gbdfbdd.vvv'),
+(9, 'asdasdasd', '123123', '123123', 'as@adasdasd.com'),
+(10, 'qweqwe', 'sdssd', 'dcsdcvsdv', 'sadasdasd@fsdfsdf.com'),
+(11, 'sdfsdfs', 'adafsdfsdvjn', 'dcsdvnklnvlk', 'dfsdfsdfsd@gmail.com'),
+(12, 'fsdfsdfsd', '234234234', '234234234', 'fsdfsdfsdfds@sdgdfgdfghfh.hfgh'),
+(13, 'werwerw', 'werwer', 'werwer', 'deys@gmail.com'),
+(14, 'qwqweqeqwe', 'asdasdasd', 'asdasdasdsd', 'deys@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `id_verification`
+--
+
+CREATE TABLE `id_verification` (
+  `UserID` varchar(255) NOT NULL,
+  `IDType` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -182,7 +213,10 @@ CREATE TABLE `syst_acct` (
 
 INSERT INTO `syst_acct` (`UserID`, `IDType`, `Username`, `Password`) VALUES
 (1, 'Employee', 'Lghtsrrw', 'Deys'),
-(2, 'f324', 'sdfsdf', 'sdfsdfsdf');
+(2, 'f324', 'sdfsdf', 'sdfsdfsdf'),
+(15, 'user', 'admin', '21232f297a57a5a743894a0e4a801fc3'),
+(16, 'user', 'deys', '81dc9bdb52d04dc20036dbd8313ed055'),
+(17, 'user', '123231', 'caf1a3dfb505ffed0d024130f58c5cfa');
 
 -- --------------------------------------------------------
 
@@ -191,7 +225,7 @@ INSERT INTO `syst_acct` (`UserID`, `IDType`, `Username`, `Password`) VALUES
 --
 
 CREATE TABLE `user` (
-  `UserID` varchar(255) NOT NULL,
+  `UserID` int(11) NOT NULL,
   `Fname` varchar(255) NOT NULL,
   `Mname` varchar(255) NOT NULL,
   `Lname` varchar(255) NOT NULL,
@@ -199,6 +233,16 @@ CREATE TABLE `user` (
   `Contact` varchar(255) NOT NULL,
   `AcctNo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`UserID`, `Fname`, `Mname`, `Lname`, `Address`, `Contact`, `AcctNo`) VALUES
+(1, 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
+(2, 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
+(16, 'deys', 'anda', 'ganih', 'asdasdasda', 'asdasdas', 'asdasdasd'),
+(17, '321', '21', '321', '321', '321', '321');
 
 -- --------------------------------------------------------
 
@@ -327,10 +371,22 @@ ALTER TABLE `user_complaint`
 --
 
 --
+-- AUTO_INCREMENT for table `guest`
+--
+ALTER TABLE `guest`
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `syst_acct`
 --
 ALTER TABLE `syst_acct`
-  MODIFY `UserID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `UserID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
