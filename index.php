@@ -5,8 +5,8 @@ if (!empty(isset($_SESSION['user'])) && $_SESSION['user']['IDType']==='Guest') {
 	header('location: guestHomepage.php');
 }elseif(empty(isset($_SESSION['user']))){
 	header('location: signin.php');
-}
-?>
+} 
+?>  
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

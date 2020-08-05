@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2020 at 11:05 AM
+-- Generation Time: Aug 05, 2020 at 11:10 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -156,32 +156,46 @@ CREATE TABLE `emp_support_complaint` (
 --
 
 CREATE TABLE `guest` (
-  `GuestID` int(11) NOT NULL,
-  `Name` varchar(255) NOT NULL,
-  `Contact` varchar(255) NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Email` varchar(255) NOT NULL
+  `guestNo` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `contact` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `guest`
 --
 
-INSERT INTO `guest` (`GuestID`, `Name`, `Contact`, `Address`, `Email`) VALUES
-(1, 'ewrewrwer', 'erwerwe', 'werwerw', 'deys@gmail.com'),
-(2, 'asdasd', 'qwe', 'qwe', 'deys@gmail.com'),
-(3, 'asdasd', 'asdasd', 'asdasd', 'asdasd@gmail.co'),
-(4, 'asdasda', 'asdasda', 'asdasda', 'deys@gmail.com'),
-(5, 'dsfsfs', 'sdfsdf', 'sdfsfsfsf', 'deys@gmail.com'),
-(6, 'asdasda', 'asdasda', 'asdasd', '1234@gmail.om'),
-(7, 'sdfsdf', 'dfsdfs', 'fsdfsdfs', 'sdfsdfs@sdfsf.kk'),
-(8, 'asdasda', 'sdfsdf', 'sdfsdfsffsdf', 'qweqweqweq@gbdfbdd.vvv'),
-(9, 'asdasdasd', '123123', '123123', 'as@adasdasd.com'),
-(10, 'qweqwe', 'sdssd', 'dcsdcvsdv', 'sadasdasd@fsdfsdf.com'),
-(11, 'sdfsdfs', 'adafsdfsdvjn', 'dcsdvnklnvlk', 'dfsdfsdfsd@gmail.com'),
-(12, 'fsdfsdfsd', '234234234', '234234234', 'fsdfsdfsdfds@sdgdfgdfghfh.hfgh'),
-(13, 'werwerw', 'werwer', 'werwer', 'deys@gmail.com'),
-(14, 'qwqweqeqwe', 'asdasdasd', 'asdasdasdsd', 'deys@gmail.com');
+INSERT INTO `guest` (`guestNo`, `name`, `address`, `contact`, `email`) VALUES
+(1, 'thales', 'thales', 'thales', 'once@once.once'),
+(2, 'admin', 'admin', 'admin', 'admin@admin.com'),
+(3, 'once', 'once', 'once', 'once@once.onc'),
+(4, 'tango', 'tango', 'tango', 'once@once.onc'),
+(5, 'ocne', 'ocne', 'ocne', 'once@once.onc'),
+(6, 'ocne', 'ocne', 'ocne', 'once@once.onc'),
+(7, 'ocne', 'ocne', 'ocne', 'once@once.onc'),
+(8, 'ocne', 'ocne', 'ocne', 'once@once.onc'),
+(9, 'ocne', 'ocne', 'ocne', 'once@once.onc'),
+(10, 'qweqweq', '234234234', '234234', 'qweqwe@sdfdsf.fwfwe'),
+(11, 'qweqweq', '234234234', '234234', 'qweqwe@sdfdsf.fwfwe'),
+(12, 'qweqweqwe', '1231231231', 'admin', 'once@once.onc'),
+(13, 'qweqweqwe', '1231231231', 'admin', 'once@once.onc'),
+(14, 'asdasd', 'once', 'asdasd', 'deys@gmail.com'),
+(15, 'qweqweqwe', '123123123123123123', '123123', '123123@sdf.sfsdfsd'),
+(16, '123', '123123123', '123123', 'once@once.onc'),
+(17, 'qweqweqwe', '1231231231', 'admin', 'once@once.onc'),
+(18, 'qweqweqwe', '1231231231', 'admin', 'once@once.onc'),
+(19, 'asdasd', '123123123', '123123123', 'deys@gmail.com'),
+(20, 'QWEQWE', 'QWEQE', 'QWEQWE', 'QWEEQWE@SSD.ASD'),
+(21, 'qweqwe', 'WEQWEQWEQWEQWEQWE', 'QWEQWEQ', 'qweqweqweq@gbdfbdd.vvv'),
+(22, 'qweqweqwe', '1231231231', 'admin', 'once@once.onc'),
+(23, 'asdasd', 'asdasd', 'asdasd', 'deys@gmail.com'),
+(24, 'asdasd', 'asdasd', 'asdasd', 'deys@gmail.com'),
+(25, 'qweqwe', 'asdasd', 'asdasd', 'deys@gmail.com'),
+(26, 'sdasdasasdasd', 'asdasd', 'asdasd', 'deys@gmail.com'),
+(27, 'qweqweqwe', '1231231231', 'admin', 'once@once.onc'),
+(28, 'qweqweqwe', '1231231231', 'admin', 'once@once.onc');
 
 -- --------------------------------------------------------
 
@@ -190,17 +204,35 @@ INSERT INTO `guest` (`GuestID`, `Name`, `Contact`, `Address`, `Email`) VALUES
 --
 
 CREATE TABLE `id_verification` (
-  `UserID` varchar(255) NOT NULL,
-  `IDType` varchar(255) NOT NULL
+  `UserID` varchar(100) NOT NULL,
+  `Date_created` varchar(100) NOT NULL,
+  `IDType` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `id_verification`
 --
 
-INSERT INTO `id_verification` (`UserID`, `IDType`) VALUES
-('atom', 'User'),
-('admin', 'User');
+INSERT INTO `id_verification` (`UserID`, `Date_created`, `IDType`) VALUES
+('12', 'curdate()', 'Guest'),
+('13', '2020-08-04', 'Guest'),
+('14', '2020-08-04', 'Guest'),
+('15', '2020-08-04', 'Guest'),
+('16', '2020-08-04', 'Guest'),
+('17', '2020-08-04', 'Guest'),
+('18', '2020-08-04', 'Guest'),
+('19', '2020-08-05', 'Guest'),
+('20', '2020-08-05', 'Guest'),
+('21', '2020-08-05', 'Guest'),
+('22', '2020-08-05', 'Guest'),
+('23', '2020-08-05', 'Guest'),
+('24', '2020-08-05', 'Guest'),
+('25', '2020-08-05', 'Guest'),
+('26', '2020-08-05', 'Guest'),
+('27', '2020-08-05', 'Guest'),
+('28', '2020-08-05', 'Guest'),
+('admin', '2020-08-05', 'User'),
+('tango', '', 'User');
 
 -- --------------------------------------------------------
 
@@ -218,8 +250,10 @@ CREATE TABLE `syst_acct` (
 --
 
 INSERT INTO `syst_acct` (`username`, `password`) VALUES
+('123', '81dc9bdb52d04dc20036dbd8313ed055'),
 ('admin', '21232f297a57a5a743894a0e4a801fc3'),
-('atom', '81dc9bdb52d04dc20036dbd8313ed055');
+('tango', '81dc9bdb52d04dc20036dbd8313ed055'),
+('thales', '3a8aa14b09c007603f0c93151120b014');
 
 -- --------------------------------------------------------
 
@@ -242,13 +276,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Fname`, `Mname`, `Lname`, `Address`, `Contact`, `AcctNo`) VALUES
-('1', 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
-('16', 'deys', 'anda', 'ganih', 'asdasdasda', 'asdasdas', 'asdasdasd'),
-('17', '321', '21', '321', '321', '321', '321'),
-('18', 'qweqwe', 'qweqw', 'eqweqw', 'eqweqwe', 'qweq', 'weqweqwe'),
-('2', 'qwe', 'qwe', '', 'qwe', 'qwe', 'qwe'),
+('123', 'asdassdf', 'dvfdvfdv', 'dfvdfvdfvd', 'fvdfvvdfv', 'dfvdfvdfv', 'dfvdfvdfvdfv'),
 ('admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'),
-('atom', '123', '123', '123', '123', '123', '123');
+('tango', '1234', '1234', '1234', '1234', '1234', '1234'),
+('thales', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -345,7 +376,13 @@ ALTER TABLE `emp_support_complaint`
 -- Indexes for table `guest`
 --
 ALTER TABLE `guest`
-  ADD PRIMARY KEY (`GuestID`);
+  ADD PRIMARY KEY (`guestNo`);
+
+--
+-- Indexes for table `id_verification`
+--
+ALTER TABLE `id_verification`
+  ADD PRIMARY KEY (`UserID`);
 
 --
 -- Indexes for table `syst_acct`
@@ -380,7 +417,7 @@ ALTER TABLE `user_complaint`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `guestNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
