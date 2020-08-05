@@ -1,10 +1,10 @@
 <?php
 include('databaseConnection/databaseConnection.php');
 
-if (empty(isset($_SESSION['user']))) {
-	if(!$_SESSION['user']['iv.IDType'] === 'User'){
-			header('location: signin.php');
-	}
+if (!empty(isset($_SESSION['user'])) && $_SESSION['user']['IDType']==='Guest') {
+	header('location: guestHomepage.php');
+}elseif(empty(isset($_SESSION['user']))){
+	header('location: signin.php');
 }
 ?>
 
@@ -20,8 +20,8 @@ if (empty(isset($_SESSION['user']))) {
 			<div class="error success" >
 				<h3>
 					<?php
-						echo $_SESSION['success'];
-						unset($_SESSION['success']);
+						echo $_SESSION['success'] . ' as ';
+						echo ucfirst($_SESSION['user']['username']);
 					?>
 				</h3>
 			</div>

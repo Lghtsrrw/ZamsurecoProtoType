@@ -1,7 +1,9 @@
 <?php
   include('databaseConnection/databaseConnection.php');
 
-  if(empty(isset($_SESSION['user'])) || $_SESSION['user']['IDType'] !== 'Guest') {
+  if (!empty(isset($_SESSION['user'])) && $_SESSION['user']['IDType']==='User') {
+      header('location: index.php');
+  }elseif(empty(isset($_SESSION['user']))){
     header('location: signin.php');
   }
 ?>

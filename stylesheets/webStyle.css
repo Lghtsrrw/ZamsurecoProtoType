@@ -1,4 +1,4 @@
-body {font-family: Arial, Helvetica, sans-serif;}
+body {font-family: 'Century Gothic', Courier, monospace, Helvetica, sans-serif;}
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
@@ -9,22 +9,27 @@ input[type=text], input[type=password] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-
+#fname,#lname,#mname {
+  width: auto;
+  display: inline-block;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 /* Set a style for all buttons */
 button {
-  background-color: #79a4ed;
-  color: white;
+  background-color: #4c80f1;
+  color: rgb(228, 255, 108);
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 100%;
 }
-
 button:hover {
   opacity: 0.8;
 }
-
 .error {
 	width: 92%;
   margin: 0px auto;
@@ -79,6 +84,12 @@ span.psw {
   padding-top: 60px;
 }
 
+.btnContainer{
+  text-align: center;
+  border: 1px solid #4c80f1;
+  padding: .5%;
+  margin: 0px auto;
+}
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;

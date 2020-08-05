@@ -42,6 +42,7 @@
 
 	// Check if the username is already in the system.
 	function checkUsername($_username){
+		global $db;
 		$query = "SELECT username FROM syst_acct where username =" . $_username;
 		$result = mysqli_query($db, $query);
 		if(!$result->mysqli_num_rows === 0){
@@ -77,7 +78,7 @@
 		if (empty($username)) {
 			array_push($errors, "Username is required");
 		}else {
-			checkUsername($username);
+			// checkUsername($username);
 		}
 		if (empty($email)) {
 			array_push($errors, "Email is required");
@@ -96,13 +97,13 @@
 			$password = md5($password1);//encrypt the password before saving in the database
 
 			if (isset($_POST['userID'])) {
-				echo "oops";
-				$user_type = e($_POST['userID']);
-				$query = "INSERT INTO syst_acct (username, email, IDType, password)
-						  VALUES('$username', '$email', '$user_type', '$password')";
-				mysqli_query($db, $query);
-				$_SESSION['success']  = "New user successfully created!!";
-				header('location: home.php');
+				// echo "oops";
+				// $user_type = e($_POST['userID']);
+				// $query = "INSERT INTO syst_acct (username, email, IDType, password)
+				// 		  VALUES('$username', '$email', '$user_type', '$password')";
+				// mysqli_query($db, $query);
+				// $_SESSION['success']  = "New user successfully created!!";
+				// header('location: home.php');
 			}else{
 				$query = "INSERT INTO syst_acct (username, password)
 									VALUES('$username', '$password')";
@@ -112,8 +113,8 @@
 									VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo')";
 				mysqli_query($db, $query);
 
-				$query = "INSERT INTO id_verification (UserID, IDType)
-									VALUES('$username', 'User')";
+				$query = "INSERT INTO id_verification (UserID, IDType, date_created)
+									VALUES('$username', 'User', curdate())";
 				$results = mysqli_query($db, $query);
 
 
@@ -139,7 +140,7 @@
 	//return guest name from their registration
 	function getGuestById($id){
 		global $db;
-		$query = "SELECT * FROM guest INNER JOIN id_verification ON GuestID = UserID WHERE guestID=" . $id;
+		$query = "SELECT * FROM guest g INNER JOIN id_verification iv ON iv.userID = g.guestNo WHERE g.guestNo = " . $id ;
 		$result = mysqli_query($db, $query);
 
 		$user = mysqli_fetch_assoc($result);
@@ -172,17 +173,11 @@
 			if (mysqli_num_rows($results) == 1) { // user found
 				// check if user is admin or user
 				$logged_in_user = mysqli_fetch_assoc($results);
-
-				if ($logged_in_user['userID'] == 'admin') {
-
-				// 	$_SESSION['user'] = $logged_in_user;
-				// 	$_SESSION['success']  = "You are now logged in";
-				// 	header('location: admin/home.php');
-				}else{
-					$_SESSION['user'] = $logged_in_user;
-					$_SESSION['success']  = "You are now logged in";
-					header('location: index.php');
-				}
+				
+				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['success']  = "You are now logged in";
+				header('location: index.php');
+					
 			}else {
 				array_push($errors, "Wrong username/password combination ");
 			}
@@ -205,32 +200,38 @@
 		}
 		if(!filter_var($guestMail, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
-    }
+    	}
 		if (empty($gcontact)) {
 			array_push($errors, "Your contact is required");
 		}
 		if (empty($gaddress)) {
 			array_push($errors, "Your Address is required");
 		}
-		echo "<script type='text/javascript'>alert('HelloWorld');</script>";
+		
 		// attempt login if no errors on form
 		if (count($errors) == 0) {
 
-			$query = "INSERT INTO id_verification (UserID, IdType)
-											VALUES('$guestname', 'Guest')";
+			$query = "INSERT INTO guest (name, address, contact, email)
+			VALUES('$guestname', '$gaddress', '$gcontact', '$guestMail')";
 			$results = mysqli_query($db, $query);
 
-			$query = "INSERT INTO guest (Name, Contact, Address, Email)
-											VALUES('$guestname', '$gcontact', '$gaddress', '$guestMail')";
-			$results = mysqli_query($db, $query);
-
-			echo "<script type='text/javascript'>alert('$query');</script>";
-			// get id of the created user
 			$logged_in_user_id = mysqli_insert_id($db);
-			$_fetchthingy = mysqli_fetch_assoc($logged_in_user_id);
-			$_SESSION['user'] = getGuestById($_fetchthingy); // put logged in user in session
-			$_SESSION['success']  = "You are now logged in as Guest ";
+
+			echo "<script type='text/javascript'>alert($logged_in_user_id);</script>";
+
+			$query = "INSERT INTO id_verification (userID, IdType, date_created)
+			VALUES('$logged_in_user_id', 'Guest', curdate())";
+			$results = mysqli_query($db, $query);
+
+			// // get id of the created user
+			// $logged_in_user_id = mysqli_insert_id($db);
+
+			$_SESSION['user'] =  getGuestById($logged_in_user_id); // put logged in user in session
+			$_SESSION['success']  = "You are now logged in as Guest";
+
 			header('location: guestHomepage.php');
+		}else {
+			array_push($errors, "Something is wrong");
 		}
 	}
 
@@ -270,6 +271,7 @@
 
 	function logout(){
 		$_SESSION = array();
+		unset($_SESSION['success']);
 		session_destroy();
 
 		header("location: signin.php");
