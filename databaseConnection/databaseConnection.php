@@ -33,6 +33,12 @@
 	if(isset($_POST['guestbtn'])){
 		guest();
 	}
+	if(isset($_POST['logout'])){
+		logout();
+	}
+	if(isset($_POST['btnComplaint'])){
+		header('location: complaintTicket.php');
+	}
 	if (isset($_GET['logout'])) {
 		session_destroy();
 		unset($_SESSION['user']);
@@ -85,7 +91,7 @@
 		}
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
-    }
+    	}	
 		if (empty($password1)) {
 			array_push($errors, "Password is required");
 		}
@@ -270,10 +276,8 @@
 	}
 
 	function logout(){
-		$_SESSION = array();
-		unset($_SESSION['success']);
 		session_destroy();
-
+		unset($_SESSION['user']);
 		header("location: signin.php");
 	}
 ?>
