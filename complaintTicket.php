@@ -17,12 +17,12 @@
 <body>
     <div id="divLogout">
     <ul>
-        <li>
-            <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
+        <li class = "liBack">
+            <a id="btnBack" href="signin.php">Back</a>
         </li>
         
-        <li>
-            <a id="btnBack" href="signin.php">Back</a>
+        <li class = "liLogout">
+            <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
         </li>
     </ul>
         

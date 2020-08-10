@@ -27,14 +27,14 @@ div #divLogout {
 textarea {
   float: left;
 }
-
 li{
   list-style: none;
-  float: left;
-  clear:none;
 }
-li #bnLogout{
-  text-align: right;
+.liBack{
+  float:left; width:50%; clear:left;
+}
+.liLogout{
+  float: right; width:50%; clear: right;
 }
 #fname,#lname,#mname {
   width: auto;
