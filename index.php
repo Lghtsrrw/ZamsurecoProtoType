@@ -30,7 +30,7 @@ if (!empty(isset($_SESSION['user'])) && $_SESSION['user']['IDType']==='Guest') {
 	  </div>
 	
 		<?php if (isset($_SESSION['success'])) : ?>
-			<div class="error success" >
+			<div class="success" >
 				<h3>
 					<?php
 						echo $_SESSION['success'] . ' as ';
