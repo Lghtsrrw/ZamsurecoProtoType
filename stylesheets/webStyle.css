@@ -11,17 +11,30 @@ input[type=text], input[type=password]  {
 }
 
 .ticket{
-  width:30%; text-align:left; 
+  width:30%; 
+  text-align:left; 
   padding:10px; 
   margin:auto;
-   border: 3px solid rgb(0, 66, 128);
+  border: 3px solid rgb(0, 66, 128);
+  clear: both;
+}
+div #divLogout {
+  text-align: center;
+}
+.ticket h1  {
+  text-align: center  ;
 }
 textarea {
   float: left;
 }
 
 li{
+  list-style: none;
   float: left;
+  clear:none;
+}
+li #bnLogout{
+  text-align: right;
 }
 #fname,#lname,#mname {
   width: auto;

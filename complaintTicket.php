@@ -40,7 +40,7 @@
             </select><br><br>
 
             <label for="description">Description</label><br>
-            <textarea style="resize:none;" name="description" id="styled" cols = "60"rows="3"></textarea><br>
+            <textarea style="resize:none;" name="description" id="styled" cols = "60"rows="3"></textarea><br><br><br>
 
             <label for="location">Location</label><br>
             <input type="text" id="location" name="location"><br>
