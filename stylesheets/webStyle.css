@@ -31,10 +31,10 @@ li{
   list-style: none;
 }
 .liBack{
-  float:left; width:50%; clear:left;
+  float:left; width:100%; clear:left;
 }
 .liLogout{
-  float: right; width:50%; clear: right;
+  float: right; width:100%; clear: right;
 }
 #fname,#lname,#mname {
   width: auto;

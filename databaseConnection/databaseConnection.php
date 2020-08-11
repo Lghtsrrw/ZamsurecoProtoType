@@ -105,21 +105,21 @@
 				// $_SESSION['success']  = "New user successfully created!!";
 				// header('location: home.php');
 			}else{
-
 				if (!mysqli_query($db,"INSERT INTO syst_acct (username, password) VALUES('$username', '$password')")) {
 					echo("Error description: " . mysqli_error($db));
-				}
+			  }
 				if (!mysqli_query($db,"INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo')")) {
 					echo("Error description: " . mysqli_error($db));
-			  	}
+			  }
 				if (!mysqli_query($db,"INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
 					echo("Error description: " . mysqli_error($db));
-			  	}
+			  }
+				// get id of the created user
+				$logged_in_user_id = mysqli_insert_id($db);
 
-				$_SESSION['user'] = getUserById($username); // put logged in user in session
+				$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
 				$_SESSION['success']  = "You are now logged in ";
 				header('location: index.php');
-
 			}
 		}
 		$mysqli -> close();
@@ -127,15 +127,24 @@
 	// return user array from their id
 	function getUserById($id){
 		global $db;
-		$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.UserID WHERE sa.username = '$id'" ;
+		$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.UserID WHERE sa.username = " . $id;
 		$result = mysqli_query($db, $query);
-		
-		$user = mysqli_fetch_assoc($result);
 
+		$user = mysqli_fetch_assoc($result);
 		return $user;
 		$mysqli -> close();
 	}
-	
+	//return guest name from their registration
+	function getGuestById($id){
+		global $db;
+		$query = "SELECT * FROM guest g INNER JOIN id_verification iv ON iv.userID = g.guestNo WHERE g.guestNo = " . $id ;
+		$result = mysqli_query($db, $query);
+
+		$user = mysqli_fetch_assoc($result);
+		return $user;
+		$mysqli -> close();
+	}
+
 	// LOGIN USER
 	function login(){
 		global $db, $username, $errors;
@@ -200,15 +209,20 @@
 		// attempt login if no errors on form
 		if (count($errors) == 0) {
 
-			if (!mysqli_query($db,"INSERT INTO guest (name, address, contact, email) VALUES ('$guestname', '$gaddress', '$gcontact', '$guestMail')")) {
-				echo("Error description: " . mysqli_error($db));
-			}
+			$query = "INSERT INTO guest (name, address, contact, email)
+			VALUES('$guestname', '$gaddress', '$gcontact', '$guestMail')";
+			$results = mysqli_query($db, $query);
 
 			$logged_in_user_id = mysqli_insert_id($db);
 
-			if (!mysqli_query($db,"INSERT INTO id_verification (userID, IdType, date_created) VALUES ('$logged_in_user_id', 'Guest', now())")) {
-				echo("Error description: " . mysqli_error($db));
-			}
+			echo "<script type='text/javascript'>alert($logged_in_user_id);</script>";
+
+			$query = "INSERT INTO id_verification (userID, IdType, date_created)
+			VALUES('$logged_in_user_id', 'Guest', now())";
+			$results = mysqli_query($db, $query);
+
+			// // get id of the created user
+			// $logged_in_user_id = mysqli_insert_id($db);
 
 			$_SESSION['user'] =  getGuestById($logged_in_user_id); // put logged in user in session
 			$_SESSION['success']  = "You are now logged in as Guest";
@@ -218,16 +232,6 @@
 			array_push($errors, "Something is wrong");
 		}
 
-		$mysqli -> close();
-	}
-	//return guest name from their registration
-	function getGuestById($id){
-		global $db;
-		$query = "SELECT * FROM guest g INNER JOIN id_verification iv ON iv.userID = g.guestNo WHERE g.guestNo = '$id'";
-		$result = mysqli_query($db, $query);
-
-		$user = mysqli_fetch_assoc($result);
-		return $user;
 		$mysqli -> close();
 	}
 

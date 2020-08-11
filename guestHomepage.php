@@ -26,7 +26,7 @@
   </head>
 
   <body>
-    <div id="divLogout"style="text-align:right;">
+    <div id="divLogout"style="text-align:right; clear: none;">
       <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
     </div>
 
@@ -34,7 +34,7 @@
     <?php if (isset($_SESSION['success'])) : ?>
 			<div class="success" > <h3> <?php echo $_SESSION['success']; ?> </h3> </div>
     <?php endif ?>
-    
+
     <button id = "btnComplaint" style="width:auto;">Create a complaint Ticket</button>
   </body>
 
