@@ -18,8 +18,23 @@
         $("#btnBack").click(function(){
           window.location.href = "signin.php";
         });
+        $.ajax({
+          url:'php/populateregion.php',
+          type: 'get',
+          success: function(data){
+            console.log(data);
 
-        let dropdown = $('#ddRegion');
+            $.each(data, function(key, modelName){
+              //Use the Option() constructor to create a new HTMLOptionElement.
+              var option = new Option(modelName, modelName);
+              //Convert the HTMLOptionElement into a JQuery object that can be used with the append method.
+              $(option).html(modelName);
+              //Append the option to our Select element.
+              ddRegion.append(option);
+            });
+          }
+        });
+          /*let dropdown = $('#ddRegion');
         dropdown.empty();
         dropdown.append('<option selected="true" disabled>Choose Region</option>');
         dropdown.prop('selectedIndex', 0);
@@ -60,8 +75,8 @@
           ddBrgy.prop('selectedIndex', 0);
           <?php populateBrgy('PAGADIAN CITY (Capital)') ?>
         }
+      });*/
       });
-    });
     </script>
     <title>Create a Ticket</title>
 </head>
@@ -92,7 +107,7 @@
 
             <label for="lblRegion">Region</label><br>
             <select name="region" id="ddRegion" style="width:100%; height:30px; text-align:CENTER;">
-              <?php populateRegion(); ?>
+
             </select><br>
             <div id = "divProvince" style = "display: none">
                 <label for="lblProvince">Province</label><br>
