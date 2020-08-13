@@ -274,39 +274,4 @@
 		unset($_SESSION['user']);
 		header("location: signin.php");
 	}
-
-	function populateRegion(){
-		global $db;
-		$sql = "SELECT regCode, regDesc FROM refRegion";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)) {
-  		echo "dropdown.append('<option>". $row['regDesc'] ."</option>');";
-		}
-	}
-
-	function populateProvince($reg){
-		global $db;
-		$sql = "SELECT provDesc FROM refProvince rp inner join refregion rg on rp.regCode = rg.regCode where regDesc = '$reg'";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)) {
-  		echo "ddProvince.append('<option>". $row['provDesc'] ."</option>');";
-		}
-	}
-
-	function populateMunicipal($prov){
-		global $db;
-		$sql = "SELECT citymunDesc FROM refcitymun rcm inner join refProvince rp on rcm.provCode = rp.provCode where provDesc = '$prov'";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)) {
-  		echo "ddMunicipal.append('<option>". $row['citymunDesc'] ."</option>');";
-		}
-	}
-	function populateBrgy($citymun){
-		global $db;
-		$sql = "SELECT brgyDesc FROM refbrgy rb inner join refcitymun rcm on rb.citymunCode = rcm.citymunCode where citymunDesc = '$citymun'";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)) {
-  		echo "ddBrgy.append('<option>". $row['brgyDesc'] ."</option>');";
-		}
-	}
 ?>

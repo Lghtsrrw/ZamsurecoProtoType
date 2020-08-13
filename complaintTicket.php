@@ -4,6 +4,48 @@
     if(empty(isset($_SESSION['user']))){
         header('location: signin.php');
     }
+
+    function populateRegion(){
+      global $db;
+      $sql = "SELECT regCode, regDesc FROM refRegion";
+      $result = mysqli_query($db, $sql);
+      while ($row = mysqli_fetch_array($result)) {
+        echo "ddRegion.append('<option> ". $row['regDesc'] ."</option>');";
+      }
+    }
+
+    function populateProvince(){
+      global $db;
+      if(isset($_POST['_region'])){
+        $sql = "SELECT provDesc FROM refProvince rp inner join refregion rg on rp.regCode = rg.regCode where regDesc = " . $_POST['_region']  ;
+        $result = mysqli_query($db, $sql);
+        while ($row = mysqli_fetch_array($result)) {
+          echo "ddProvince.append('<option>". $row['provDesc'] ."</option>');";
+        }
+      }
+      else {
+        echo "alert('no data pass in _region from ajax')";
+      }
+
+    }
+
+    function populateMunicipal($prov){
+      global $db;
+      $sql = "SELECT citymunDesc FROM refcitymun rcm inner join refProvince rp on rcm.provCode = rp.provCode where provDesc = '$prov'";
+      $result = mysqli_query($db, $sql);
+      while ($row = mysqli_fetch_array($result)) {
+        echo "ddMunicipal.append('<option>". $row['citymunDesc'] ."</option>');";
+      }
+    }
+    function populateBrgy($citymun){
+      global $db;
+      $sql = "SELECT brgyDesc FROM refbrgy rb inner join refcitymun rcm on rb.citymunCode = rcm.citymunCode where citymunDesc = '$citymun'";
+      $result = mysqli_query($db, $sql);
+
+      while ($row = mysqli_fetch_array($result)) {
+        echo "ddBrgy.append('<option>". $row['brgyDesc'] ."</option>');";
+      }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -18,64 +60,31 @@
         $("#btnBack").click(function(){
           window.location.href = "signin.php";
         });
-        $.ajax({
-          url:'php/populateregion.php',
-          type: 'get',
-          success: function(data){
-            console.log(data);
-
-            $.each(data, function(key, modelName){
-              //Use the Option() constructor to create a new HTMLOptionElement.
-              var option = new Option(modelName, modelName);
-              //Convert the HTMLOptionElement into a JQuery object that can be used with the append method.
-              $(option).html(modelName);
-              //Append the option to our Select element.
-              ddRegion.append(option);
-            });
-          }
-        });
-          /*let dropdown = $('#ddRegion');
-        dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose Region</option>');
-        dropdown.prop('selectedIndex', 0);
+        let ddRegion = $('#ddRegion');
+        ddRegion.empty();
+        ddRegion.append('<option selected ="true" disabled>Choose Region</option>');
         <?php populateRegion(); ?>
 
         $('#ddRegion').change(function(){
-          if($('#ddRegion').val() !== 'Choose Region'){
-            $('#divProvince').show();
+          if($('#ddRegion').val() !== "Choose Region"){
+            $('#divProvince').show(); //show hidden select Option for Province
+            var _region = $('#ddRegion').val();
+            $.ajax({
+                type: "POST",
+                url: 'complaintTicket.php',
+                data: { hakdog : _region },
+                success: function(data)
+                {
+                  alert (hakdog);
+                }
+            });
 
-            let ddProvince = $('#ddProvince');
-            ddProvince.empty();
-            ddProvince.append('<option selected = "true" disabled>Choose Province</option>');
-            ddProvince.prop('selectedIndex',0);
-            var _reg = $('#ddRegion').val();
-            <?php populateProvince('REGION XI (DAVAO REGION)'); ?>
           }
         });
-
-        $('#ddProvince').change(function(){
-          if($('#ddProvince').val() !== 'Choose Province'){
-            $('#divMunicipal').show();
-
-            let ddMunicipal = $('#ddMunicipal');
-            ddMunicipal.empty();
-            ddMunicipal.append('<option selected = "true" disabled>Choose City/Municipal</option>');
-            ddMunicipal.prop('selectedIndex', 0);
-            <?php populateMunicipal('ZAMBOANGA DEL SUR'); ?>
-          }
-        });
-
-      $('#ddMunicipal').change(function(){
-        if($('#ddMunicipal').val() !== "Choose City/Municipal"){
-          $('#divBrgy').show();
-
-          let ddBrgy = $('#ddBrgy');
-          ddBrgy.empty();
-          ddBrgy.append('<option selected = "true" disabled>Choose Barangay</option>');
-          ddBrgy.prop('selectedIndex', 0);
-          <?php populateBrgy('PAGADIAN CITY (Capital)') ?>
-        }
-      });*/
+        let ddProvince = $('#ddProvince');
+        ddProvince.empty();
+        ddProvince.append('<option selected = "true" disabled> Choose Province</option>');
+        <?php populateProvince(); ?>
       });
     </script>
     <title>Create a Ticket</title>
@@ -91,7 +100,7 @@
         </li>
     </ul>
     </div>
-    <div class = "ticket" style="width:30%; text-align:left; padding:10px; margin:auto;border: 3px solid rgb(0, 66, 128);">
+    <div class = "ticket" style="width:50%; text-align:left; padding:10px; margin:auto;border: 3px solid rgb(0, 66, 128);">
         <h1>Create a Ticket</h1>
         <form action="complaintTicket.php" method="post">
             <label for="natureOfComplaint">Nature of Complaint </label><br>
@@ -107,7 +116,6 @@
 
             <label for="lblRegion">Region</label><br>
             <select name="region" id="ddRegion" style="width:100%; height:30px; text-align:CENTER;">
-
             </select><br>
             <div id = "divProvince" style = "display: none">
                 <label for="lblProvince">Province</label><br>
