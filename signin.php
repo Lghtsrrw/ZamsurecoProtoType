@@ -74,11 +74,13 @@
 <div class ="btnContainer">
   <button id = "btnLogin" style="width:auto;">Login</button>
   <button id = "btnRegister" style="width:auto;">Register</button>
-  <button id = "btnTrack" style="width:auto;">Tracking No</button>
+  <button id = "btnTrack" style="width:auto;">Track your complaint</button>
   <button id = "btnGuest" style="width:auto;">Enter as Guest</button>
 </div>
 <!-- buttons declaration end-->
+
 <!-- Modals declaration -->
+<!-- modal for LoginPage -->
 <div id="id01" class="modal">
   <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
@@ -105,6 +107,8 @@
     </div>
   </form>
 </div>
+
+<!-- modal for Register -->
 <div id="id02" class="modal">
   <form class="modal-content animate" action="signin.php" method="post">
 
@@ -121,7 +125,8 @@
         <option value="Guest">Guest</option>
       </select><br><br>
 
-      <div class="" id="userField">
+
+      <div class="" id="userField"> <!-- User form -->
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br>
 
@@ -153,7 +158,7 @@
 
         </fieldset><br>
       </div>
-      <div class="" id = "guestField" style="display:none">
+      <div class="" id = "guestField" style="display:none"><!-- Guest form -->
         <label for="username">Guest Name</label><br>
         <input type="text" id="guestname" name="guestname" ><br>
 
@@ -179,6 +184,8 @@
     </div>
   </form>
 </div>
+
+<!-- modal for complaint-tracking -->
 <div id="id03" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
     <div class="imgcontainer">
@@ -196,30 +203,36 @@
   </div>
   </form>
 </div>
+
+<!-- modal for guest -->
 <div id="id04" class="modal">
-  <form class="modal-content animate" action="/action_page.php" method="post">
+  <form class="modal-content animate" action="signin.php" method="post">
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
-      <!-- <img src="img/userprofile.jpg" alt="Avatar" class="avatar"> -->
     </div>
     <div class="container">
         <label for="uname"><b>Guest Name</b></label>
         <input type="text" placeholder="Enter Name" name="uname" required>
+
         <label for="ucontact"><b>Contact No</b></label>
         <input type="text" placeholder="Enter Contact No" name="ucontact" required>
+
         <label for="uaddress"><b>Address</b></label>
         <input type="text" placeholder="Enter Address" name="uaddress" required>
+
         <label for="uemail"><b>Email Address</b></label>
         <input type="text" placeholder="Enter EMAIL" name="uemail" required>
-        <button type="submit">Enter as Guest</button>
+
+        <button name = "guestbtn" type="submit">Enter as Guest</button>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id04').style.display='none'" class="cancelbtn">Cancel</button>
+      <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>
     </div>
 
   </form>
 </div>
 <!-- Modals declaration end-->
+
 </body>
 </html>

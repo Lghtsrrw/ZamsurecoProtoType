@@ -11,9 +11,9 @@ input[type=text], input[type=password]  {
 }
 
 .ticket{
-  width:30%; 
-  text-align:left; 
-  padding:10px; 
+  width:30%;
+  text-align:left;
+  padding:10px;
   margin:auto;
   border: 3px solid rgb(0, 66, 128);
   clear: both;
@@ -21,7 +21,7 @@ input[type=text], input[type=password]  {
 div #divLogout {
   text-align: center;
 }
-.ticket h1  {
+.divTicket h1  {
   text-align: center  ;
 }
 textarea {
@@ -71,7 +71,7 @@ button:hover {
 .success{
 	width:30%;
   /* margin: 0px auto; */
-  padding: 16px;  
+  padding: 16px;
   border: 1px solid #425aa9;
   color: #425aa9;
   background: #dee3f2;

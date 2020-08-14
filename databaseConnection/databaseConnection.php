@@ -22,6 +22,13 @@
 	$email    = "";
 	$errors   = array();
 
+	if(isset($_POST['btnregion'])){
+		$regionname = $_POST['region'];
+			echo "<script>alert('". $regionname ."');</script>";
+		// populateProvince($_POST['region_select']);
+	}else {
+		// code...
+	}
 	// call the register() function if register_btn is clicked
 	if (isset($_POST['register_btn'])) {
 		register();
@@ -80,6 +87,13 @@
 		}else {
 			// checkUsername($username);
 		}
+		if(empty(trim($_POST["regAcctNo"]))){
+        array_push($errors, "Please enter your Account Number.");
+    }
+    elseif(strlen(trim($_POST["regAcctNo"])) != 10) {
+        array_push($errors, "Please check your Account Number.");
+    }
+
 		if (empty($email)) {
 			array_push($errors, "Email is required");
 		}
@@ -96,31 +110,21 @@
 		if (count($errors) == 0) {
 			$password = md5($password1);//encrypt the password before saving in the database
 
-			if (isset($_POST['userID'])) {
-				// echo "oops";
-				// $user_type = e($_POST['userID']);
-				// $query = "INSERT INTO syst_acct (username, email, IDType, password)
-				// 		  VALUES('$username', '$email', '$user_type', '$password')";
-				// mysqli_query($db, $query);
-				// $_SESSION['success']  = "New user successfully created!!";
-				// header('location: home.php');
-			}else{
-				if (!mysqli_query($db,"INSERT INTO syst_acct (username, password) VALUES('$username', '$password')")) {
-					echo("Error description: " . mysqli_error($db));
-			  }
-				if (!mysqli_query($db,"INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo')")) {
-					echo("Error description: " . mysqli_error($db));
-			  }
-				if (!mysqli_query($db,"INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
-					echo("Error description: " . mysqli_error($db));
-			  }
-				// get id of the created user
-				$logged_in_user_id = mysqli_insert_id($db);
+			if (!mysqli_query($db,"INSERT INTO syst_acct (username, password) VALUES('$username', '$password')")) {
+				echo("Error description: " . mysqli_error($db));
+		  }
+			if (!mysqli_query($db,"INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo')")) {
+				echo("Error description: " . mysqli_error($db));
+		  }
+			if (!mysqli_query($db,"INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
+				echo("Error description: " . mysqli_error($db));
+		  }
+			// get id of the created user
+			$logged_in_user_id = mysqli_insert_id($db);
 
-				$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
-				$_SESSION['success']  = "You are now logged in ";
-				header('location: index.php');
-			}
+			$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
+			$_SESSION['success']  = "You are now logged in ";
+			header('location: index.php');
 		}
 		$mysqli -> close();
 	}
@@ -273,5 +277,40 @@
 		session_destroy();
 		unset($_SESSION['user']);
 		header("location: signin.php");
+	}
+	
+	function populateRegion(){
+		global $db;
+		$sql = "SELECT regCode, regDesc FROM refRegion";
+		$result = mysqli_query($db, $sql);
+		while ($row = mysqli_fetch_array($result)) {
+			echo "ddRegion.append('<option> ". $row['regDesc'] ."</option>');";
+		}
+	}
+
+	function populateProvince($reg){
+		global $db;
+			$sql = "SELECT provDesc FROM refProvince rp inner join refregion rg on rp.regCode = rg.regCode where regDesc = '$reg'";
+			$result = mysqli_query($db, $sql);
+			while ($row = mysqli_fetch_array($result)) {
+				echo "ddProvince.append('<option>". $row['provDesc'] ."</option>');";
+			}
+	}
+	function populateMunicipal($prov){
+		global $db;
+		$sql = "SELECT citymunDesc FROM refcitymun rcm inner join refProvince rp on rcm.provCode = rp.provCode where provDesc = '$prov'";
+		$result = mysqli_query($db, $sql);
+		while ($row = mysqli_fetch_array($result)) {
+			echo "ddMunicipal.append('<option>". $row['citymunDesc'] ."</option>');";
+		}
+	}
+	function populateBrgy($citymun){
+		global $db;
+		$sql = "SELECT brgyDesc FROM refbrgy rb inner join refcitymun rcm on rb.citymunCode = rcm.citymunCode where citymunDesc = '$citymun'";
+		$result = mysqli_query($db, $sql);
+
+		while ($row = mysqli_fetch_array($result)) {
+			echo "ddBrgy.append('<option>". $row['brgyDesc'] ."</option>');";
+		}
 	}
 ?>
