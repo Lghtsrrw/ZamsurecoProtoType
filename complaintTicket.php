@@ -5,6 +5,7 @@
         header('location: signin.php');
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,7 @@
     <title>Create a Ticket</title>
 </head>
 <body>
+
     <div id="divLogout">
     <ul>
         <li class = "liBack">
@@ -29,6 +31,17 @@
     <div class = "divTicket" style="width:50%; padding:10px; margin:auto;border: 3px solid rgb(0, 66, 128);">
         <h1>Create a Ticket</h1>
         <form action="complaintTicket.php" method="post">
+          <hr>
+          <p style="text-align:center">Update from this ticket will be sent to :<br><br>
+            <?php
+            $_contact = (isset($_SESSION['user']['contact']))? $_SESSION['user']['contact']:"Empty";
+            $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
+              echo "Contact No: " . $_contact . "<br>";
+              echo "Email: " .$_email . "<br>";
+             ?>
+          </p>
+          <hr>
+            <h5>Ticket No: <?php  ?></h5>
             <label for="natureOfComplaint">Nature of Complaint </label><br>
             <select name="_noc" id="_noc" style="width:100%">
                 <option value="brownout">Brown Out</option>
@@ -38,8 +51,7 @@
             </select><br><br>
 
             <label for="description">Description</label><br>
-            <textarea style="resize:none; clear: both;" name="description" id="styled" cols = "60"rows="3"></textarea><br><br><br>
-
+            <textarea name="description" class="classDescription" ></textarea><br><br><br>
 
             <div class="divAddressSelect">
               <div class="divRegion">
@@ -53,7 +65,7 @@
                   </select>
               </div><br>
               <div id = "divMunicipal" style = "display:none">
-                  <label for="lblMunicipal">Municipal</label><br>
+                  <label for="lblMunicipal">City/Municipal</label><br>
                   <select name="municipal" id="ddMunicipal" style="width:100%; height:30px; text-align:CENTER;">
                   </select>
               </div><br>

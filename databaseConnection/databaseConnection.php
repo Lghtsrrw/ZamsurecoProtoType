@@ -56,12 +56,10 @@
 	// Check if the username is already in the system.
 	function checkUsername($_username){
 		global $db;
-		$query = "SELECT username FROM syst_acct where username =" . $_username;
-		$result = mysqli_query($db, $query);
-		if(!$result->mysqli_num_rows === 0){
+		if (!mysqli_query($db,"SELECT username FROM syst_acct where username =" . $_username)) {
 			array_push($errors, "Sorry ". $_username ." is already in use, please try another. ");
 		}else {
-			// code...
+			return true;
 		}
 	}
 
@@ -84,8 +82,10 @@
 		// form validation: ensure that the form is correctly filled
 		if (empty($username)) {
 			array_push($errors, "Username is required");
+		}elseif (!empty($username)){
+			checkUsername($username);
 		}else {
-			// checkUsername($username);
+			// nada...
 		}
 		if(empty(trim($_POST["regAcctNo"]))){
         array_push($errors, "Please enter your Account Number.");
@@ -188,7 +188,7 @@
 	//GUEST USER
 	function guest(){
 		global $db, $errors;
-		// grap form values
+		// grab values
 		$guestname = $_POST['guestname'];
 		$guestMail = $_POST['gEmail'];
 		$gcontact = $_POST['gContact'];
@@ -278,39 +278,8 @@
 		unset($_SESSION['user']);
 		header("location: signin.php");
 	}
-	
-	function populateRegion(){
-		global $db;
-		$sql = "SELECT regCode, regDesc FROM refRegion";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)) {
-			echo "ddRegion.append('<option> ". $row['regDesc'] ."</option>');";
-		}
-	}
 
-	function populateProvince($reg){
-		global $db;
-			$sql = "SELECT provDesc FROM refProvince rp inner join refregion rg on rp.regCode = rg.regCode where regDesc = '$reg'";
-			$result = mysqli_query($db, $sql);
-			while ($row = mysqli_fetch_array($result)) {
-				echo "ddProvince.append('<option>". $row['provDesc'] ."</option>');";
-			}
-	}
-	function populateMunicipal($prov){
-		global $db;
-		$sql = "SELECT citymunDesc FROM refcitymun rcm inner join refProvince rp on rcm.provCode = rp.provCode where provDesc = '$prov'";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)) {
-			echo "ddMunicipal.append('<option>". $row['citymunDesc'] ."</option>');";
-		}
-	}
-	function populateBrgy($citymun){
-		global $db;
-		$sql = "SELECT brgyDesc FROM refbrgy rb inner join refcitymun rcm on rb.citymunCode = rcm.citymunCode where citymunDesc = '$citymun'";
-		$result = mysqli_query($db, $sql);
+	function getTicketNo(){
 
-		while ($row = mysqli_fetch_array($result)) {
-			echo "ddBrgy.append('<option>". $row['brgyDesc'] ."</option>');";
-		}
 	}
 ?>

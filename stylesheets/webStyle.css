@@ -10,6 +10,9 @@ input[type=text], input[type=password]  {
   box-sizing: border-box;
 }
 
+.classDescription{
+  width: 100%;
+}
 .ticket{
   width:30%;
   text-align:left;
@@ -31,10 +34,10 @@ li{
   list-style: none;
 }
 .liBack{
-  float:left; width:100%; clear:left;
+  float:left; width:100%;
 }
 .liLogout{
-  float: right; width:100%; clear: right;
+  float: right; width:100%;
 }
 #fname,#lname,#mname {
   width: auto;
@@ -44,6 +47,7 @@ li{
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+
 /* Set a style for all buttons */
 button {
   background-color: #4c80f1;
@@ -67,7 +71,6 @@ button:hover {
   border-radius: 5px;
   text-align: left;
 }
-
 .success{
 	width:30%;
   /* margin: 0px auto; */
@@ -92,16 +95,13 @@ button:hover {
   margin: 24px 0 12px 0;
   position: relative;
 }
-
 img.avatar {
   width: 30%;
   border-radius: 50%;
 }
-
 .container {
   padding: 16px;
 }
-
 span.psw {
   float: right;
   padding-top: 16px;
@@ -121,7 +121,6 @@ span.psw {
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   padding-top: 60px;
 }
-
 #logout{
   background-color: #4CAF50;
   border: none;
@@ -132,7 +131,6 @@ span.psw {
   display: inline-block;
   font-size: 16px;
 }
-
 .btnContainer{
   text-align: center;
   border: 1px solid #4c80f1;
@@ -146,7 +144,6 @@ span.psw {
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
 }
-
 /* The Close Button (x) */
 .close {
   position: absolute;
@@ -156,9 +153,7 @@ span.psw {
   font-size: 35px;
   font-weight: bold;
 }
-
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: red;
   cursor: pointer;
 }
@@ -168,12 +163,10 @@ span.psw {
   -webkit-animation: animatezoom 0.6s;
   animation: animatezoom 0.6s
 }
-
 @-webkit-keyframes animatezoom {
   from {-webkit-transform: scale(0)}
   to {-webkit-transform: scale(1)}
 }
-
 @keyframes animatezoom {
   from {transform: scale(0)}
   to {transform: scale(1)}
@@ -189,12 +182,10 @@ span.psw {
      width: 100%;
   }
 }
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: white;
 }
-
 * {
   box-sizing: border-box;
 }
@@ -214,7 +205,6 @@ input[type=text], input[type=password] {
   border: none;
   background: #f1f1f1;
 }
-
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
@@ -237,7 +227,6 @@ hr {
   width: 100%;
   opacity: 0.9;
 }
-
 .registerbtn:hover {
   opacity: 1;
 }
