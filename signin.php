@@ -19,52 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
   <script src="js/jquery-3.5.1.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      //This changes the Register Modal Entry-field by user selection.
-      $( "#userType" ).click(function(){
-        var usertype = $( "#userType" ).val();
-          if (usertype == "User") {
-            $("#userField").show();
-            $("#guestField").hide();
-            $("#dynamicRegister").text("Register");
-            $("#dynamicInstruct").text("Please fill in this form to create an account.");
-            $("#guestbtn").hide();
-            $("#registerbtn").show();
-          }else {
-            $("#userField").hide();
-            $("#guestField").show();
-            $("#dynamicRegister").text("Enter as Guest");
-            $("#dynamicInstruct").hide();
-            $("#registerbtn").hide();
-            $("#guestbtn").show();
-          }
-      })
-
-      //this opens the Login Modal when btnLogin is clicked
-      $("#btnLogin").click(function(){
-      	 $("#id01").css("display","block");
-       });
-      //this opens the Register Modal when btnRegister is clicked
-      $("#btnRegister").click(function(){
-        $("#id02").css("display","block");
-      });
-      //this opens the Track Modal when btnTrack is clicked
-      $("#btnTrack").click(function(){
-        $("#id03").css("display","block");
-        // closeModal();
-      });
-      //this opens the Guest Modal when btnGuest is clicked
-      $("#btnGuest").click(function(){
-        $("#id04").css("display","block");
-        // closeModal();
-      });
-      //this closes all visible modal with class name 'close'.
-      $(".close").click(function(){
-        $(".modal").css("display","none");
-      });
-    });
-  </script>
+  <script src="js/signin.js"></script>
   <h2>Zamsureco Login Form</h2>
 </head>
 
@@ -72,10 +27,12 @@
 <?php echo display_error(); ?>
 <!-- buttons declaration -->
 <div class ="btnContainer">
-  <button id = "btnLogin" style="width:auto;">Login</button>
-  <button id = "btnRegister" style="width:auto;">Register</button>
-  <button id = "btnTrack" style="width:auto;">Track your complaint</button>
-  <button id = "btnGuest" style="width:auto;">Enter as Guest</button>
+<fieldset style="width:50%; margin:0px auto;">
+  <button id = "btnLogin" style = "width:auto">Login</button>
+    <button id = "btnRegister" style = "width:auto">Register</button>
+    <button id = "btnTrack" style = "width:auto">Track your complaint</button>
+    <button id = "btnGuest" style = "width:auto">Enter as Guest</button>
+  </fieldset>
 </div>
 <!-- buttons declaration end-->
 
@@ -89,7 +46,7 @@
       <span class="close" title="Close Modal">&times;</span>
       <img src="img/userprofile.jpg" alt="Avatar" class="avatar">
     </div>
-    <div class="container">
+    <div class="container"> <!-- Check -->
       <label for="uname"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="username">
 
@@ -103,7 +60,7 @@
     </div>
     <div class="container" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
+      <span class="psw"><a href="#">Forgot password?</a></span>
     </div>
   </form>
 </div>
@@ -124,7 +81,6 @@
         <option value="User">User</option>
         <option value="Guest">Guest</option>
       </select><br><br>
-
 
       <div class="" id="userField"> <!-- User form -->
         <label for="username">Username:</label><br>
@@ -171,6 +127,7 @@
         <label for="gAddress">Address</label><br>
         <input type="text" id="gAddress" name="gAddress" > <br>
       </div>
+
       <hr>
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
@@ -211,19 +168,19 @@
       <span class="close" title="Close Modal">&times;</span>
     </div>
     <div class="container">
-        <label for="uname"><b>Guest Name</b></label>
-        <input type="text" placeholder="Enter Name" name="uname" required>
+        <label for="username"><b>Guest Name</b></label><br>
+        <input type="text" id="guestname" name="guestname" placeholder="Enter Name" ><br>
 
-        <label for="ucontact"><b>Contact No</b></label>
-        <input type="text" placeholder="Enter Contact No" name="ucontact" required>
+        <label for="gEmail"><b>Email</b></label><br>
+        <input type="text" placeholder="Enter EMAIL" id="gEmail" name="gEmail" ><br><br>
 
-        <label for="uaddress"><b>Address</b></label>
-        <input type="text" placeholder="Enter Address" name="uaddress" required>
+        <label for="gContact"><b>Contact Number</b></label><br>
+        <input type="text" id="gContact" placeholder="Enter Contact No" name="gContact" ><br>
 
-        <label for="uemail"><b>Email Address</b></label>
-        <input type="text" placeholder="Enter EMAIL" name="uemail" required>
+        <label for="gAddress"><b>Address</b></label><br>
+        <input type="text" id="gAddress" name="gAddress" > <br>
 
-        <button name = "guestbtn" type="submit">Enter as Guest</button>
+        <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn" style="display:none">Enter as Guest</button>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">

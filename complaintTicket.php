@@ -18,18 +18,15 @@
 </head>
 <body>
 
-    <div id="divLogout">
-    <ul>
-        <li class = "liBack">
-            <a id="btnBack">Back</a>
-        </li>
-        <li class = "liLogout">
-            <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
-        </li>
-    </ul>
+    <div id="divLogout" style="width:100%">
+      <h5>
+        <a id="btnBack" href="#">BACK</a>
+        <a id="btnLogout" href="index.php?logout='1'" style='color:red; float:right'>LOGOUT</a>
+      </h5>
+
     </div>
     <div class = "divTicket" style="width:50%; padding:10px; margin:auto;border: 3px solid rgb(0, 66, 128);">
-        <h1>Create a Ticket</h1>
+        <h1>Creating Ticket</h1>
         <form action="complaintTicket.php" method="post">
           <hr>
           <p style="text-align:center">Update from this ticket will be sent to :<br><br>

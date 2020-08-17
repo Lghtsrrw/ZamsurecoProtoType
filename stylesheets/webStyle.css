@@ -24,7 +24,7 @@ input[type=text], input[type=password]  {
 div #divLogout {
   text-align: center;
 }
-.divTicket h1  {
+.divTicket h1 {
   text-align: center  ;
 }
 textarea {
@@ -49,7 +49,7 @@ li{
 }
 
 /* Set a style for all buttons */
-button {
+button{
   background-color: #4c80f1;
   color: rgb(228, 255, 108);
   padding: 14px 20px;
@@ -63,7 +63,7 @@ button:hover {
 }
 .error {
 	width: 92%;
-  margin: 0px auto;
+  margin: 10px auto;
   padding: 16px;
   border: 1px solid #a94442;
   color: #a94442;
@@ -73,7 +73,7 @@ button:hover {
 }
 .success{
 	width:30%;
-  /* margin: 0px auto; */
+  margin: 0px auto;
   padding: 16px;
   border: 1px solid #425aa9;
   color: #425aa9;
@@ -133,7 +133,6 @@ span.psw {
 }
 .btnContainer{
   text-align: center;
-  border: 1px solid #4c80f1;
   padding: .5%;
   margin: 0px auto;
 }
