@@ -38,11 +38,11 @@
              ?>
           </p>
           <hr>
-            <h5>Ticket No: <?php  ?></h5>
-            <label for="natureOfComplaint">Nature of Complaint </label><br>
+            <h5>Ticket No: </h5>
+            <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
             <select name="_noc" id="_noc" style="width:100%">
-                <option value="brownout">Brown Out</option>
-                <option value="blackout">Black Out</option>
+                <option value="brownout"><b>Brown Out</b></option>
+                <option value="blackout"><b></b>Black Out</option>
                 <option value="brokenLine">Broken Line</option>
                 <option value="fallenPost">Fallen Post</option>
             </select><br><br>
@@ -53,13 +53,11 @@
             <div class="divAddressSelect">
               <div class="divRegion">
                 <label for="lblRegion">Region</label><br>
-                <select id = "ddRegion" name="nameregion" class="classregion" style="width:100%; height:30px; text-align:CENTER;">
-                </select>
+                <select id = "ddRegion" name="nameregion" class="classregion" style="width:100%; height:30px; text-align:CENTER;"></select>
               </div><br>
               <div id = "divProvince" style = "display: none">
                   <label for="lblProvince">Province</label><br>
-                  <select name="province" id="ddProvince" style="width:100%; height:30px; text-align:CENTER;">
-                  </select>
+                  <select name="province" id="ddProvince" style="width:100%; height:30px; text-align:CENTER;"></select>
               </div><br>
               <div id = "divMunicipal" style = "display:none">
                   <label for="lblMunicipal">City/Municipal</label><br>
@@ -68,8 +66,7 @@
               </div><br>
               <div id = "divBrgy" style = "display:none">
                   <label for="lblBrgy">Barangay</label><br>
-                  <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:CENTER;">
-                  </select>
+                  <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:CENTER;"></select>
               </div><br>
               <div id="divPurok" style = "display:none">
                   <label for="area_landmark" required>Purok</label><br>

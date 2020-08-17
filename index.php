@@ -5,8 +5,8 @@ if (!empty(isset($_SESSION['user'])) && $_SESSION['user']['IDType']==='Guest') {
 	header('location: guestHomepage.php');
 }elseif(empty(isset($_SESSION['user']))){
 	header('location: signin.php');
-} 
-?>  
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -28,13 +28,15 @@ if (!empty(isset($_SESSION['user'])) && $_SESSION['user']['IDType']==='Guest') {
 	  <div style="width:100%; text-align:right;">
 	  	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
 	  </div>
-	
+
 		<?php if (isset($_SESSION['success'])) : ?>
 			<div class="success" >
 				<h3>
 					<?php
 						echo $_SESSION['success'] . ' as ';
 						echo ucfirst($_SESSION['user']['username']);
+						echo ucfirst($_SESSION['user']['Contact']);
+						echo ucfirst($_SESSION['user']['Email']);
 					?>
 				</h3>
 			</div>

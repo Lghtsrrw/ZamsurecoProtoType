@@ -67,7 +67,7 @@
 
 <!-- modal for Register -->
 <div id="id02" class="modal">
-  <form class="modal-content animate" action="signin.php" method="post">
+  <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
@@ -76,40 +76,40 @@
       <h1 id = "dynamicRegister">Register</h1>
       <p id = "dynamicInstruct">Please fill in this form to create an account.</p>
       <hr>
-      <label for="IDType">Select ID Type: </label>
+      <label for="IDType"><b>Select ID Type:</b></label>
       <select name="userType" id="userType">
         <option value="User">User</option>
         <option value="Guest">Guest</option>
       </select><br><br>
 
       <div class="" id="userField"> <!-- User form -->
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
+        <label for="username"><b>Username:</b></label><br>
+        <input type="text" id="username" placeholder="Enter username" name="username"><br>
 
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email"><br><br>
+        <label for="email"><b>Email:</b></label><br>
+        <input type="text" id="email" placeholder="Enter email" name="email"><br><br>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
+        <label for="password"><b>Password:</b></label><br>
+        <input type="password" id="password" placeholder="Enter password" name="password"><br>
 
-        <label for="confirmpassword">Confirm Password:</label><br>
-        <input type="password" id="confirmPass" name="confirmPass"> <br><br>
+        <label for="confirmpassword"><b>Confirm Password:</b></label><br>
+        <input type="password" id="confirmPass" placeholder="Re-enter password" name="confirmPass"> <br><br>
 
         <fieldset style="width:80%;">
-          <legend>User's Information</legend>
+          <legend><b>User's Information</b></legend>
           <br>
-          <label for="fullname">Fullname</label><br>
+          <label for="fullname"><b>Fullname</b></label><br>
           <input type="text" id="fname" name="fname" placeholder="Enter First Name">
           <input type="text" id="mname" name="mname" placeholder="Enter Middle Name">
           <input type="text" id="lname" name="lname" placeholder="Enter Last Name"><br>
 
-          <label for="Address">Address</label><br>
+          <label for="Address"><b>Address</b></label><br>
           <input type="text" id="address" name="address" placeholder="Your Billing Address"><br>
 
-          <label for="contact">Contact</label><br>
+          <label for="contact"><b>Contact</b></label><br>
           <input type="text" id="contact" name="contact" placeholder="Your Contact Number"><br>
 
-          <label for="regAcctNo">Account Number</label><br>
+          <label for="regAcctNo"><b>Account Number</b></label><br>
           <input type="text" id="regAcctNo" name="regAcctNo" placeholder="Your Account Number"><br>
 
         </fieldset><br>
@@ -167,7 +167,7 @@
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
     </div>
-    <div class="container">
+    <!-- <div class="container">
         <label for="username"><b>Guest Name</b></label><br>
         <input type="text" id="guestname" name="guestname" placeholder="Enter Name" ><br>
 
@@ -178,10 +178,10 @@
         <input type="text" id="gContact" placeholder="Enter Contact No" name="gContact" ><br>
 
         <label for="gAddress"><b>Address</b></label><br>
-        <input type="text" id="gAddress" name="gAddress" > <br>
+        <input type="text" id="gAddress" placeholder="Enter Address" name="gAddress" > <br>
 
         <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn" style="display:none">Enter as Guest</button>
-    </div>
+    </div> -->
 
     <div class="container" style="background-color:#f1f1f1">
       <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>

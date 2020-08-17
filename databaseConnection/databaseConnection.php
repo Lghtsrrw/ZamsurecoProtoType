@@ -22,13 +22,6 @@
 	$email    = "";
 	$errors   = array();
 
-	if(isset($_POST['btnregion'])){
-		$regionname = $_POST['region'];
-			echo "<script>alert('". $regionname ."');</script>";
-		// populateProvince($_POST['region_select']);
-	}else {
-		// code...
-	}
 	// call the register() function if register_btn is clicked
 	if (isset($_POST['register_btn'])) {
 		register();
@@ -55,12 +48,12 @@
 
 	// Check if the username is already in the system.
 	function checkUsername($_username){
-		global $db;
-		if (!mysqli_query($db,"SELECT username FROM syst_acct where username =" . $_username)) {
-			array_push($errors, "Sorry ". $_username ." is already in use, please try another. ");
-		}else {
-			return true;
-		}
+			global $db, $errors;
+			$retunval;
+			$results = mysqli_query($db, "SELECT username FROM syst_acct where username ='$_username' limit 1");
+			if (mysqli_num_rows($results) == 1) {
+				array_push($errors, "Sorry this username already exist, try another");
+			}
 	}
 
 	// REGISTER USER
@@ -80,45 +73,48 @@
 		$regAcctNo = $_POST['regAcctNo'];
 
 		// form validation: ensure that the form is correctly filled
-		if (empty($username)) {
-			array_push($errors, "Username is required");
-		}elseif (!empty($username)){
-			checkUsername($username);
-		}else {
-			// nada...
-		}
-		if(empty(trim($_POST["regAcctNo"]))){
-        array_push($errors, "Please enter your Account Number.");
-    }
-    elseif(strlen(trim($_POST["regAcctNo"])) != 10) {
-        array_push($errors, "Please check your Account Number.");
-    }
-
-		if (empty($email)) {
-			array_push($errors, "Email is required");
-		}
-		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			array_push($errors, "Invalid Email address");
-    	}
-		if (empty($password1)) {
-			array_push($errors, "Password is required");
-		}
-		if ($password1 != $password2) {
-			array_push($errors, "The two passwords do not match");
-		}
+		// if (empty($username)) {
+		// 	array_push($errors, "Username is required");
+		// }
+		// // elseif (!empty($username)){
+		// // 	// checkUsername($username);
+		// // }
+		// if(empty(trim($_POST["regAcctNo"]))){
+    //     array_push($errors, "Please enter your Account Number.");
+    // }
+    // elseif(strlen(trim($_POST["regAcctNo"])) != 10) {
+    //     array_push($errors, "Please check your Account Number.");
+    // }
+		// if (empty($email)) {
+		// 	array_push($errors, "Email is required");
+		// } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		// 	array_push($errors, "Invalid Email address");
+    // 	}
+		// if (empty($password1)) {
+		// 	array_push($errors, "Password is required");
+		// }
+		// if ($password1 != $password2) {
+		// 	array_push($errors, "The two passwords do not match");
+		// }
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
 			$password = md5($password1);//encrypt the password before saving in the database
 
-			if (!mysqli_query($db,"INSERT INTO syst_acct (username, password) VALUES('$username', '$password')")) {
+			if (!mysqli_query($db,"INSERT INTO syst_acct (username, password) VALUES ('$username', '$password')")) {
 				echo("Error description: " . mysqli_error($db));
+		  }else {
+		  	echo "<script> alert('Success1'); </script>";
 		  }
-			if (!mysqli_query($db,"INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo')")) {
+			if (!mysqli_query($db,"INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo, email) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo','$email')")) {
 				echo("Error description: " . mysqli_error($db));
-		  }
+			}else {
+				echo "<script> alert('Success2'); </script>";
+			}
 			if (!mysqli_query($db,"INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
 				echo("Error description: " . mysqli_error($db));
-		  }
+			}else {
+				echo "<script> alert('Success3'); </script>";
+			}
 			// get id of the created user
 			$logged_in_user_id = mysqli_insert_id($db);
 
@@ -131,7 +127,7 @@
 	// return user array from their id
 	function getUserById($id){
 		global $db;
-		$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.UserID WHERE sa.username = " . $id;
+		$query = "SELECT sa.username as 'username', u.contact as 'contact', u.email 'email', iv.IDType 'idtype'  FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.UserID inner join user u on iv.userID = u.userID  WHERE sa.userID = " . $id;
 		$result = mysqli_query($db, $query);
 
 		$user = mysqli_fetch_assoc($result);
@@ -169,7 +165,7 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID WHERE Username='$username' AND Password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join user u on u.userID = sa.username WHERE sa.Username='$username' AND Password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -225,9 +221,6 @@
 			VALUES('$logged_in_user_id', 'Guest', now())";
 			$results = mysqli_query($db, $query);
 
-			// // get id of the created user
-			// $logged_in_user_id = mysqli_insert_id($db);
-
 			$_SESSION['user'] =  getGuestById($logged_in_user_id); // put logged in user in session
 			$_SESSION['success']  = "You are now logged in as Guest";
 
@@ -254,12 +247,6 @@
 			return false;
 		}
 	}
-
-	// escape string
-	// function e($val){
-	// 	global $db;
-	// 	return mysqli_real_escape_string($db, trim($val));
-	// }
 
 	function display_error() {
 		global $errors;
