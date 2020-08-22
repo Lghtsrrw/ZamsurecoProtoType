@@ -15,18 +15,18 @@
     <script src="js/complaintTicket.js"></script>
     <title>Create a Ticket</title>
 </head>
-<body>
+<body style="background-color: #edf8ff">
 
     <div id="divLogout" style="width:100%">
       <h5>
         <a id="btnBack" href="#">BACK</a>
         <a id="btnLogout" href="index.php?logout='1'" style='color:red; float:right'>LOGOUT</a>
       </h5>
-
     </div>
-    <div class = "divTicket" style="width:50%; padding:10px; margin:auto;border: 3px solid rgb(0, 66, 128);">
-        <h1>Creating Ticket</h1>
-        <form action="complaintTicket.php" method="post">
+
+    <div class = "divTicket">
+        <h1>CREATING TICKET</h1>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <hr>
             <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 5%  ;">
               <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to :</h4>
@@ -47,10 +47,10 @@
               <option value="" selected="selected" disabled>-- Complaint --</option>
               <?php fillNatureOfComplaint(); ?>
             </select><br><br>
-
-            <label for="description"><b>Description</b></label><br>
-            <textarea name="description" class="classDescription"></textarea><br><br><br>
-
+            <div class="divDescription">
+              <label for="description"><b>Description</b></label><br>
+              <textarea id="descID" class="classDescription"></textarea><br><br>
+            </div>
             <div class="divAddressSelect">
               <div class="divRegion">
                 <label for="lblRegion"><b>Region</b></label><br>
@@ -75,7 +75,7 @@
               </div><br>
             </div>
 
-            <button>Submit Ticket</button>
+            <button type="submit" class="ticketbtn" id="ticketBtnId">Submit Ticket</button>
         </form>
     </div>
 </body>

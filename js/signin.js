@@ -42,10 +42,4 @@ $(document).ready(function(){
   $(".close").click(function(){
     $(".modal").css("display","none");
   });
-
-
-
-
-
-
 });

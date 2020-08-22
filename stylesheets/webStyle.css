@@ -1,4 +1,4 @@
-body {font-family: 'Century Gothic', Courier, monospace, Helvetica, sans-serif;}
+body {font-family: Courier, monospace, Helvetica, sans-serif;}
 
 /* Full-width input fields */
 input[type=text], input[type=password]  {
@@ -9,13 +9,18 @@ input[type=text], input[type=password]  {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-.ticket{
-  width:30%;
+.divTicket{
+  width:50%;
   text-align:left;
   padding:10px;
   margin:auto;
   border: 3px solid rgb(0, 66, 128);
   clear: both;
+  background-color: white;
+}
+.classDescription{
+  width:100%;
+  resize:none;
 }
 div #divLogout {
   text-align: center;
@@ -23,10 +28,7 @@ div #divLogout {
 .divTicket h1 {
   text-align: center  ;
 }
-textarea {
-  float: left;
-  width: 100%;
-}
+
 li{
   list-style: none;
 }

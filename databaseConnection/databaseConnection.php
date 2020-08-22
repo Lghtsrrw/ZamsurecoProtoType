@@ -30,7 +30,7 @@
 	if (isset($_POST['login_btn'])) {
 		login();
 	}
-	if(isset($_POST['guestbtn'])){
+		if(isset($_POST['guestbtn'])){
 		guest();
 	}
 	if(isset($_POST['logout'])){
@@ -43,6 +43,9 @@
 		session_destroy();
 		unset($_SESSION['user']);
 		header("location: signin.php");
+	}
+	if(isset($_POST['ticketBtnId'])){
+		submitTicket();
 	}
 	// call Logout(); whenever logout button is clicked
 
@@ -269,7 +272,17 @@
 			$sql = mysqli_query($db,"SELECT * from complaint_list") or die (mysqli_error());
 
 			while ($row = mysqli_fetch_assoc($sql)) {
-				echo "<option value=" . $row['Detail'] . ">". $row['Detail'] ."</option>";
+				echo "<option value=" . $row['complaintID'] . ">". $row['Detail'] ."</option>";
 			}
+	}
+
+	function submitTicket(){
+		global $db;
+
+		$complaint = (isset( $_POST['_noc']))? $_POST['_noc'] : 'Empty';
+		$description = $_POST['descID'];
+
+
+		if(empty()){}
 	}
 ?>
