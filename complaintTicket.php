@@ -1,6 +1,5 @@
 <?php
     include("databaseConnection/databaseConnection.php");
-
     if(empty(isset($_SESSION['user']))){
         header('location: signin.php');
     }
@@ -29,47 +28,49 @@
         <h1>Creating Ticket</h1>
         <form action="complaintTicket.php" method="post">
           <hr>
-          <p style="text-align:center">Update from this ticket will be sent to :<br><br>
-            <?php
-            $_contact = (isset($_SESSION['user']['contact']))? $_SESSION['user']['contact']:"Empty";
-            $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
-              echo "Contact No: " . $_contact . "<br>";
-              echo "Email: " .$_email . "<br>";
-             ?>
-          </p>
+            <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 5%  ;">
+              <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to :</h4>
+                <p style="text-align:center; color: #3c393c">
+                  <?php
+                  $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"Empty";
+                  $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
+                    echo "Contact No: <i>" . $_contact . "</i><br>";
+                    echo "Email: <i>" .$_email . "</i><br>";
+                  ?>
+                </p>
+
+            </div>
           <hr>
             <h5>Ticket No: </h5>
             <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
             <select name="_noc" id="_noc" style="width:100%">
-                <option value="brownout"><b>Brown Out</b></option>
-                <option value="blackout"><b></b>Black Out</option>
-                <option value="brokenLine">Broken Line</option>
-                <option value="fallenPost">Fallen Post</option>
+              <option value="" selected="selected" disabled>-- Complaint --</option>
+              <?php fillNatureOfComplaint(); ?>
             </select><br><br>
 
-            <label for="description">Description</label><br>
-            <textarea name="description" class="classDescription" ></textarea><br><br><br>
+            <label for="description"><b>Description</b></label><br>
+            <textarea name="description" class="classDescription"></textarea><br><br><br>
 
             <div class="divAddressSelect">
               <div class="divRegion">
-                <label for="lblRegion">Region</label><br>
-                <select id = "ddRegion" name="nameregion" class="classregion" style="width:100%; height:30px; text-align:CENTER;"></select>
+                <label for="lblRegion"><b>Region</b></label><br>
+                <select id = "ddRegion" name="nameregion" class="classregion" style="width:100%; height:30px; text-align:left;"></select>
               </div><br>
               <div id = "divProvince" style = "display: none">
-                  <label for="lblProvince">Province</label><br>
-                  <select name="province" id="ddProvince" style="width:100%; height:30px; text-align:CENTER;"></select>
+                  <label for="lblProvince"><b>Province</b></label><br>
+                  <select name="province" id="ddProvince" style="width:100%; height:30px; text-align:left;"></select>
               </div><br>
               <div id = "divMunicipal" style = "display:none">
-                  <label for="lblMunicipal">City/Municipal</label><br>
-                  <select name="municipal" id="ddMunicipal" style="width:100%; height:30px; text-align:CENTER;">
+                  <label for="lblMunicipal"><b>City/Municipal</b></label><br>
+                  <select name="municipal" id="ddMunicipal" style="width:100%; height:30px; text-align:left;">
                   </select>
               </div><br>
               <div id = "divBrgy" style = "display:none">
-                  <label for="lblBrgy">Barangay</label><br>
-                  <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:CENTER;"></select>
+                  <label for="lblBrgy"><b>Barangay</b></label><br>
+                  <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:left;"></select>
               </div><br>
               <div id="divPurok" style = "display:none">
-                  <label for="area_landmark" required>Purok</label><br>
+                  <label for="area_landmark" required><b>Purok</b></label><br>
                   <input type="text" id="arealandmark" name="arealandmark">
               </div><br>
             </div>

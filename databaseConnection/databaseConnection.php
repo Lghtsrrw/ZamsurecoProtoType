@@ -73,74 +73,66 @@
 		$regAcctNo = $_POST['regAcctNo'];
 
 		// form validation: ensure that the form is correctly filled
-		// if (empty($username)) {
-		// 	array_push($errors, "Username is required");
-		// }
-		// // elseif (!empty($username)){
-		// // 	// checkUsername($username);
-		// // }
-		// if(empty(trim($_POST["regAcctNo"]))){
-    //     array_push($errors, "Please enter your Account Number.");
-    // }
-    // elseif(strlen(trim($_POST["regAcctNo"])) != 10) {
-    //     array_push($errors, "Please check your Account Number.");
-    // }
-		// if (empty($email)) {
-		// 	array_push($errors, "Email is required");
-		// } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		// 	array_push($errors, "Invalid Email address");
-    // 	}
-		// if (empty($password1)) {
-		// 	array_push($errors, "Password is required");
-		// }
-		// if ($password1 != $password2) {
-		// 	array_push($errors, "The two passwords do not match");
-		// }
+		if (empty($username)) {
+			array_push($errors, "Username is required");
+		}elseif (!empty($username)){
+			 checkUsername($username);
+		}
+		if(empty(trim($_POST["regAcctNo"]))){
+        array_push($errors, "Please enter your Account Number.");
+    }
+    elseif(strlen(trim($_POST["regAcctNo"])) != 10) {
+        array_push($errors, "Please check your Account Number.");
+    }
+		if (empty($email)) {
+			array_push($errors, "Email is required");
+		} elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			array_push($errors, "Invalid Email address");
+    	}
+		if (empty($password1)) {
+			array_push($errors, "Password is required");
+		}
+		if ($password1 != $password2) {
+			array_push($errors, "The two passwords do not match");
+		}
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
 			$password = md5($password1);//encrypt the password before saving in the database
 
-			if (!mysqli_query($db,"INSERT INTO syst_acct (username, password) VALUES ('$username', '$password')")) {
-				echo("Error description: " . mysqli_error($db));
-		  }else {
-		  	echo "<script> alert('Success1'); </script>";
-		  }
-			if (!mysqli_query($db,"INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo, email) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo','$email')")) {
-				echo("Error description: " . mysqli_error($db));
-			}else {
-				echo "<script> alert('Success2'); </script>";
+			if (mysqli_query($db, "INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo, email) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo','$email')")) {
+			  echo "New user created successfully";
+			} else {
+			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
-			if (!mysqli_query($db,"INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
-				echo("Error description: " . mysqli_error($db));
-			}else {
-				echo "<script> alert('Success3'); </script>";
-			}
-			// get id of the created user
-			$logged_in_user_id = mysqli_insert_id($db);
 
-			$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
-			$_SESSION['success']  = "You are now logged in ";
+			if (mysqli_query($db, "INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
+			  echo "New id_verification created successfully";
+			} else {
+			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password')")) {
+			  echo "New id_verification created successfully";
+			}else {
+			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+			$_user = getUserById($username);
+
+			echo "<script> alert('". implode($_user) ."'); </script>";
+			$_SESSION['user'] = $_user;
+			$_SESSION['success']  = "You are now logged in";
 			header('location: index.php');
-			$mysqli -> close();
 		}
 	}
 	// return user array from their id
 	function getUserById($id){
 		global $db;
-		$query = "SELECT sa.username as 'username', u.contact as 'contact', u.email 'email', iv.IDType 'idtype'  FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.UserID inner join user u on iv.userID = u.userID  WHERE sa.userID = " . $id;
-		$result = mysqli_query($db, $query);
 
-		$user = mysqli_fetch_assoc($result);
-		return $user;
-		$mysqli -> close();
-	}
-	//return guest name from their registration
-	function getGuestById($id){
-		global $db;
-		$query = "SELECT * FROM guest g INNER JOIN id_verification iv ON iv.userID = g.guestNo WHERE g.guestNo = " . $id ;
-		$result = mysqli_query($db, $query);
-
-		$user = mysqli_fetch_assoc($result);
+		$results = mysqli_query($db, "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join user u on u.userID = sa.username WHERE sa.Username='$id' LIMIT 1 ");
+		if (mysqli_num_rows($results) == 1) {
+			$user = mysqli_fetch_assoc($results);
+		}
 		return $user;
 		$mysqli -> close();
 	}
@@ -195,10 +187,9 @@
 		}
 		if (empty($guestMail)) {
 			array_push($errors, "Your email is required");
-		}
-		if(!filter_var($guestMail, FILTER_VALIDATE_EMAIL)) {
+		}elseif(!filter_var($guestMail, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
-    	}
+  	}
 		if (empty($gcontact)) {
 			array_push($errors, "Your contact is required");
 		}
@@ -215,8 +206,6 @@
 
 			$logged_in_user_id = mysqli_insert_id($db);
 
-			echo "<script type='text/javascript'>alert($logged_in_user_id);</script>";
-
 			$query = "INSERT INTO id_verification (userID, IdType, date_created)
 			VALUES('$logged_in_user_id', 'Guest', now())";
 			$results = mysqli_query($db, $query);
@@ -225,23 +214,31 @@
 			$_SESSION['success']  = "You are now logged in as Guest";
 
 			header('location: guestHomepage.php');
-		}else {
-			array_push($errors, "Something is wrong");
+			$mysqli -> close();
 		}
+	}
 
+	//return guest name from their registration
+	function getGuestById($id){
+		global $db;
+		$query = "SELECT * FROM guest g INNER JOIN id_verification iv ON iv.userID = g.guestNo WHERE g.guestNo = " . $id ;
+		$result = mysqli_query($db, $query);
+
+		$user = mysqli_fetch_assoc($result);
+		return $user;
 		$mysqli -> close();
 	}
 
 	function isLoggedIn(){
-		if (isset($_SESSION['user'])) {
+		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'User') {
 			return true;
 		}else{
 			return false;
 		}
 	}
 
-	function isAdmin(){
-		if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin' ) {
+	function isGuest(){
+		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'guest' ) {
 			return true;
 		}else{
 			return false;
@@ -266,7 +263,13 @@
 		header("location: signin.php");
 	}
 
-	function getTicketNo(){
+	function fillNatureOfComplaint(){
+			global $db;
 
+			$sql = mysqli_query($db,"SELECT * from complaint_list") or die (mysqli_error());
+
+			while ($row = mysqli_fetch_assoc($sql)) {
+				echo "<option value=" . $row['Detail'] . ">". $row['Detail'] ."</option>";
+			}
 	}
 ?>

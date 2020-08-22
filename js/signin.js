@@ -35,14 +35,17 @@ $(document).ready(function(){
   //this opens the Guest Modal when btnGuest is clicked
   $("#btnGuest").click(function(){
     $("#id04").css("display","block");
-    // closeModal();
+    $(".guestfieldClass").css("display","block");
+    $('.guestfieldClass').clone().appendTo('.guestII');
   });
   //this closes all visible modal with class name 'close'.
   $(".close").click(function(){
     $(".modal").css("display","none");
   });
 
-  //if empty show error
+
+
+
 
 
 });

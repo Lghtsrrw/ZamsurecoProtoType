@@ -82,7 +82,7 @@
         <option value="Guest">Guest</option>
       </select><br><br>
 
-      <div class="" id="userField"> <!-- User form -->
+      <div class="userfieldClass" id="userField"> <!-- User form -->
         <label for="username"><b>Username:</b></label><br>
         <input type="text" id="username" placeholder="Enter username" name="username"><br>
 
@@ -114,7 +114,7 @@
 
         </fieldset><br>
       </div>
-      <div class="" id = "guestField" style="display:none"><!-- Guest form -->
+      <div class="guestfieldClass" id = "guestField" style="display:none"><!-- Guest form -->
         <label for="username">Guest Name</label><br>
         <input type="text" id="guestname" name="guestname" ><br>
 
@@ -147,7 +147,6 @@
   <form class="modal-content animate" action="/action_page.php" method="post">
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
-      <!-- <img src="img/userprofile.jpg" alt="Avatar" class="avatar"> -->
     </div>
     <div class="container">
     <label for="uname"><b>Tracking No.:</b></label>
@@ -167,22 +166,21 @@
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
     </div>
-    <!-- <div class="container">
-        <label for="username"><b>Guest Name</b></label><br>
-        <input type="text" id="guestname" name="guestname" placeholder="Enter Name" ><br>
+    <div class="container">
+      <label for="username"><b>Guest Name</b></label><br>
+      <input type="text" id="guestname" name="guestname" placeholder="Enter Name" ><br>
 
-        <label for="gEmail"><b>Email</b></label><br>
-        <input type="text" placeholder="Enter EMAIL" id="gEmail" name="gEmail" ><br><br>
+      <label for="gEmail"><b>Email</b></label><br>
+      <input type="text" placeholder="Enter EMAIL" id="gEmail" name="gEmail" ><br><br>
 
-        <label for="gContact"><b>Contact Number</b></label><br>
-        <input type="text" id="gContact" placeholder="Enter Contact No" name="gContact" ><br>
+      <label for="gContact"><b>Contact Number</b></label><br>
+      <input type="text" id="gContact" placeholder="Enter Contact No" name="gContact" ><br>
 
-        <label for="gAddress"><b>Address</b></label><br>
-        <input type="text" id="gAddress" placeholder="Enter Address" name="gAddress" > <br>
+      <label for="gAddress"><b>Address</b></label><br>
+      <input type="text" id="gAddress" placeholder="Enter Adrress" name="gAddress" > <br>
 
-        <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn" style="display:none">Enter as Guest</button>
-    </div> -->
-
+      <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn">Enter as Guest</button>
+    </div>
     <div class="container" style="background-color:#f1f1f1">
       <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>
     </div>

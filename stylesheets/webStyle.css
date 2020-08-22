@@ -9,10 +9,6 @@ input[type=text], input[type=password]  {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-
-.classDescription{
-  width: 100%;
-}
 .ticket{
   width:30%;
   text-align:left;
@@ -29,6 +25,7 @@ div #divLogout {
 }
 textarea {
   float: left;
+  width: 100%;
 }
 li{
   list-style: none;
@@ -74,7 +71,7 @@ button:hover {
 .success{
 	width:30%;
   margin: 0px auto;
-  padding: 16px;
+  padding: 10px;
   border: 1px solid #425aa9;
   color: #425aa9;
   background: #dee3f2;

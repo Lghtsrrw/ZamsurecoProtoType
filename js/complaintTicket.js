@@ -9,7 +9,7 @@ $(document).ready(function(){
   var regCode = "";
   let ddRegion = $('#ddRegion');
   ddRegion.empty();
-  ddRegion.append('<option selected ="true" disabled>Choose Region</option>');
+  ddRegion.append('<option selected ="true" disabled>-- Choose Region --</option>');
   ddRegion.prop('selectedIndex', 0);
 
   $.getJSON(regURL, function(data){
@@ -27,7 +27,7 @@ $(document).ready(function(){
       const provURL = 'json/refprovince.json';
       let ddProvince = $('#ddProvince');
       ddProvince.empty();
-      ddProvince.append('<option selected = "true" disabled>Choose Province</option>');
+      ddProvince.append('<option selected = "true" disabled>-- Choose Province --</option>');
       ddProvince.prop('selectedIndex', 0);
 
       $.getJSON(provURL, function(data){
@@ -48,7 +48,7 @@ $(document).ready(function(){
       let ddMunicipal = $('#ddMunicipal');
       const muniURL = 'json/refcitymun.json'
       ddMunicipal.empty();
-      ddMunicipal.append('<option selected ="true" disabled>Choose City/Municipal</option>');
+      ddMunicipal.append('<option selected ="true" disabled>-- Choose City/Municipal --</option>');
       ddMunicipal.prop('selectedIndex', 0);
 
       $.getJSON(muniURL, function(data){
@@ -69,7 +69,7 @@ $(document).ready(function(){
       let ddBrgy = $('#ddBrgy');
       const brgyURL = 'json/refbrgy.json'
       ddBrgy.empty();
-      ddBrgy.append('<option selected ="true" disabled>Choose Barangay</option>');
+      ddBrgy.append('<option selected ="true" disabled>-- Choose Barangay --</option>');
       ddBrgy.prop('selectedIndex', 0);
 
       $.getJSON(brgyURL, function(data){
