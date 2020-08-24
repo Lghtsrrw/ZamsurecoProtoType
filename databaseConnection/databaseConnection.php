@@ -30,21 +30,18 @@
 	if (isset($_POST['login_btn'])) {
 		login();
 	}
-		if(isset($_POST['guestbtn'])){
+	if(isset($_POST['guestbtn'])){
 		guest();
 	}
 	if(isset($_POST['logout'])){
 		logout();
-	}
-	if(isset($_POST['btnComplaint'])){
-		header('location: complaintTicket.php');
 	}
 	if (isset($_GET['logout'])) {
 		session_destroy();
 		unset($_SESSION['user']);
 		header("location: signin.php");
 	}
-	if(isset($_POST['ticketBtnId'])){
+	if(isset($_POST['nTicketbtn'])){
 		submitTicket();
 	}
 	// call Logout(); whenever logout button is clicked
@@ -211,7 +208,7 @@
 
 			$query = "INSERT INTO id_verification (userID, IdType, date_created)
 			VALUES('$logged_in_user_id', 'Guest', now())";
-			$results = mysqli_query($db, $query);
+			$results = mysqli_query($db, $query) or die(mysqli_error());
 
 			$_SESSION['user'] =  getGuestById($logged_in_user_id); // put logged in user in session
 			$_SESSION['success']  = "You are now logged in as Guest";
@@ -283,7 +280,7 @@
 		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as complaintcount from complaints limit 1") or die (mysqli_error());
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
-			$ticketno = $result['datenow'] . str_pad($result['complaintcount'],3,"0",STR_PAD_LEFT) ;
+			$ticketno = $result['datenow'] . str_pad($result['complaintcount'],3,"0",STR_PAD_LEFT);
 		}
 		return $ticketno;
 	}
@@ -291,26 +288,34 @@
 	function submitTicket(){
 		global $db, $errors;
 
-		$complaint = $_POST['_noc'];
-		$description = $_POST['descID'];
-		$region = $_POST['ddRegion'];
-		$province = $_POST['ddProvince'];
-		$citymun = $_POST['ddMunicipal'];
-		$brgy = $_POST['ddBrgy'];
-		$purok  = $_POST['ddPurok'];
+		$complaint = $_POST['ncomplaint'];
+		$description = $_POST['ndesc'];
+		$region = $_POST['nameregion'];
+		$province = $_POST['province'];
+		$citymun = $_POST['municipal'];
+		$brgy = $_POST['brgy'];
+		$purok  = $_POST['purokname'];
 
 		if($complaint === "-- Complaint --"){
 			array_push($errors, "Choose your complaint");
 		}
-
 		if (empty($description)) {
 			array_push($errors, "Please elaborate your complaint.");
 		}
-
 		if ($region === "-- Choose Region --" || $province	=== "-- Choose Province --" || $citymun === "-- Choose City/Municipal --" || $brgy === "-- Choose Barangay --" || empty($purok)) {
 			array_push($errors, "Please properly fill out your address.");
 		}
 
-		// if(empty()){}
+		if(count($errors) == 0){
+			$queryAddress = "INSERT INTO address (cRegion, cProvince, cCityMun, cBrgy, cPurok) values ('$region', '$province', '$citymun', '$brgy', '$purok')";
+			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+
+			$addressID = mysqli_insert_id($db);
+
+			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint) values ('" . generateTicketID() ."', '$description', '$addressID', '$complaint')";
+			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
+
+			echo "<script> showSubmitMessage(); </script>";
+		}
 	}
 ?>

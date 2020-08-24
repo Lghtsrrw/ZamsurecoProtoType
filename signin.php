@@ -28,7 +28,7 @@
 <!-- buttons declaration -->
 <div class ="btnContainer">
 <fieldset style="width:50%; margin:0px auto;">
-  <button id = "btnLogin" style = "width:auto">Login</button>
+    <button id = "btnLogin" style = "width:auto">Login</button>
     <button id = "btnRegister" style = "width:auto">Register</button>
     <button id = "btnTrack" style = "width:auto">Track your complaint</button>
     <button id = "btnGuest" style = "width:auto">Enter as Guest</button>

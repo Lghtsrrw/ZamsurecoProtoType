@@ -6,8 +6,6 @@
   } elseif(empty(isset($_SESSION['user']))){
     header('location: signin.php');
   }
-
-
 ?>
 
 <!DOCTYPE html>

@@ -6,10 +6,6 @@ if (isGuest()) {
 }elseif(empty(isset($_SESSION['user']))){
 	header('location: signin.php');
 }
-
-if(isGuest()){
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +13,7 @@ if(isGuest()){
 <head>
 	<meta charset="utf-8">
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
+	<link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
 	<script src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -27,29 +24,32 @@ if(isGuest()){
     </script>
 	<title>Zamzureco-1</title>
 </head>
-  <body>
-	  <div style="width:100%; text-align:right;">
-	  	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
-	  </div>
 
-		<?php if (isset($_SESSION['success'])) : ?>
-			<div class="success" >
-				<h3>
-					Success
-					<?php
-					echo "Email: " . $_SESSION['user']['email'] . "<br>";
-					echo "Contact: " . $_SESSION['user']['Contact'] . "<br>";
-					?>
-				</h3>
-			</div>
-		<?php endif ?>
-    <h1>User's Homepage</h1>
+<body>
+  <div style="width:100%; text-align:right;">
+  	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
+  </div>
 
-	<button id = "btnComplaints" style="width:auto;">Complaints</button>
-	<button id = "btnInquireBill" style="width:auto;">Inquire Bill</button>
-	<button id = "btnPayBills" style="width:auto;">Pay Bills</button>
-	<button id = "btnEvents" style="width:auto;">Events</button>
-	<button id = "btnPortal" style="width:auto;">Portal</button>
 
-	</body>
+	<h1>User's Homepage</h1>
+	<?php if (isset($_SESSION['success'])) : ?>
+		<div class="success" >
+			<h5>
+				Logged in as:
+				<?php
+				echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
+				echo "Email: " . $_SESSION['user']['email'] . "<br>";
+				echo "Contact: " . $_SESSION['user']['Contact'] . "<br>";
+				?>
+			</h5>
+		</div>
+	<?php endif ?>
+	<div class="divBtn">
+		<button id = "btnComplaints" class="mainBtn">Complaints</button>
+		<button id = "btnInquireBill" class="mainBtn">Inquire Bill</button>
+		<button id = "btnPayBills" class="mainBtn">Pay Bills</button>
+		<button id = "btnEvents" class="mainBtn">Events</button>
+		<button id = "btnPortal" class="mainBtn">Portal</button>
+	</div>
+</body>
 </html>

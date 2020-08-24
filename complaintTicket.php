@@ -71,14 +71,19 @@
                   <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:left;"></select>
               </div><br>
               <div id = "divPurok" style = "display:none">
-                  <label for="area_landmark" required><b>Purok</b></label><br>
+                  <label for="area_landmark" required><b>Purok or Area Landmarks</b></label><br>
                   <input type="text" id="ddPurok" name="purokname">
               </div><br>
             </div>
 
-            <button type="submit" class="ticketbtn" id="ticketBtnId" style="display:none">Submit Ticket</button>
+            <button type="submit" name="nTicketbtn" class="ticketbtn" id="ticketBtnId" style="display:none">Submit Ticket</button>
 
         </form>
     </div>
+
+    <div class="divSubmitMessage" style="display:none">
+      <h1>TICKET SUBMITTED SUCCESSFULLY</h1>
+    </div>
+
 </body>
 </html>

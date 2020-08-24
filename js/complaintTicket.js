@@ -109,3 +109,10 @@ $(document).ready(function(){
     }
   });
 });
+
+function showSubmitMessage(){
+  $(document).ready(function(){
+    $('#divTicket').hide();
+    $('#divSubmitMessage').show();
+  });
+}
