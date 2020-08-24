@@ -1,3 +1,12 @@
+$(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+        if($('#ddPurok').val() !== ""){
+        $('#ticketBtnId').show();
+      }
+    }
+});
 $(document).ready(function(){
   //back to previous page when btnBack is click
   $("#btnBack").click(function(){
@@ -19,9 +28,18 @@ $(document).ready(function(){
       });
     });
   });
+
+  // Show 'description' input if the 'complaint' is selected
+  $('#_noc').change(function(){
+    if($('#_noc').val() !== "-- Complaint --"){
+      $('#divDescription').show();
+      $('#divRegion').show();
+    }
+  });
+
   //Populate Province
   $('#ddRegion').change(function(){
-    if($('#ddRegion').val() !== "Choose Region"){
+    if($('#ddRegion').val() !== "-- Choose Region --"){
       $('#divProvince').show();
 
       const provURL = 'json/refprovince.json';
@@ -42,11 +60,11 @@ $(document).ready(function(){
   });
   //Populate City/Municipal
   $('#ddProvince').change(function(){
-    if($('#ddProvince').text() !== "Choose Province"){
+    if($('#ddProvince').text() !== "-- Choose Province --"){
       $('#divMunicipal').show();
 
       let ddMunicipal = $('#ddMunicipal');
-      const muniURL = 'json/refcitymun.json'
+      const muniURL = 'json/refcitymun.json';
       ddMunicipal.empty();
       ddMunicipal.append('<option selected ="true" disabled>-- Choose City/Municipal --</option>');
       ddMunicipal.prop('selectedIndex', 0);
@@ -63,11 +81,11 @@ $(document).ready(function(){
   });
   //Populate Brgy
   $('#ddMunicipal').change(function(){
-    if($('#ddMunicipal').text() !== "Choose City/Municipal"){
+    if($('#ddMunicipal').text() !== "-- Choose City/Municipal --"){
       $('#divBrgy').show();
 
       let ddBrgy = $('#ddBrgy');
-      const brgyURL = 'json/refbrgy.json'
+      const brgyURL = 'json/refbrgy.json';
       ddBrgy.empty();
       ddBrgy.append('<option selected ="true" disabled>-- Choose Barangay --</option>');
       ddBrgy.prop('selectedIndex', 0);
@@ -83,9 +101,11 @@ $(document).ready(function(){
     }
   });
 
+  //show purok input on brgy change
   $('#ddBrgy').change(function(){
-    if($('#ddBrgy').val !== "Choose Barangay"){
+    if($('#ddBrgy').val() !== "-- Choose Barangay --"){
       $('#divPurok').show();
+      $('#ddPurok').attr("autofocus", true);
     }
   });
 });

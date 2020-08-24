@@ -276,13 +276,41 @@
 			}
 	}
 
-	function submitTicket(){
+	function generateTicketID(){
 		global $db;
 
-		$complaint = (isset( $_POST['_noc']))? $_POST['_noc'] : 'Empty';
+		$ticketno = 0;
+		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as complaintcount from complaints limit 1") or die (mysqli_error());
+		$result = mysqli_fetch_assoc($results);
+		if (mysqli_num_rows($results) == 1) {
+			$ticketno = $result['datenow'] . str_pad($result['complaintcount'],3,"0",STR_PAD_LEFT) ;
+		}
+		return $ticketno;
+	}
+
+	function submitTicket(){
+		global $db, $errors;
+
+		$complaint = $_POST['_noc'];
 		$description = $_POST['descID'];
+		$region = $_POST['ddRegion'];
+		$province = $_POST['ddProvince'];
+		$citymun = $_POST['ddMunicipal'];
+		$brgy = $_POST['ddBrgy'];
+		$purok  = $_POST['ddPurok'];
 
+		if($complaint === "-- Complaint --"){
+			array_push($errors, "Choose your complaint");
+		}
 
-		if(empty()){}
+		if (empty($description)) {
+			array_push($errors, "Please elaborate your complaint.");
+		}
+
+		if ($region === "-- Choose Region --" || $province	=== "-- Choose Province --" || $citymun === "-- Choose City/Municipal --" || $brgy === "-- Choose Barangay --" || empty($purok)) {
+			array_push($errors, "Please properly fill out your address.");
+		}
+
+		// if(empty()){}
 	}
 ?>

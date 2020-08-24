@@ -16,7 +16,7 @@
     <title>Create a Ticket</title>
 </head>
 <body style="background-color: #edf8ff">
-
+<?php display_error(); ?>
     <div id="divLogout" style="width:100%">
       <h5>
         <a id="btnBack" href="#">BACK</a>
@@ -26,33 +26,34 @@
 
     <div class = "divTicket">
         <h1>CREATING TICKET</h1>
+        <h5>Ticket No: <?php echo generateTicketID(); ?></h5>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
           <hr>
             <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 5%  ;">
               <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to :</h4>
-                <p style="text-align:center; color: #3c393c">
-                  <?php
+                <p style="text-align:center; color: #3c393c"><?php
                   $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"Empty";
                   $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
                     echo "Contact No: <i>" . $_contact . "</i><br>";
                     echo "Email: <i>" .$_email . "</i><br>";
-                  ?>
-                </p>
-
+                ?></p>
             </div>
           <hr>
-            <h5>Ticket No: </h5>
+
             <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
-            <select name="_noc" id="_noc" style="width:100%">
+            <select class="_noc" id="_noc" style="width:100%; height:35px;font-size:25px; text-align: center">
               <option value="" selected="selected" disabled>-- Complaint --</option>
               <?php fillNatureOfComplaint(); ?>
             </select><br><br>
-            <div class="divDescription">
-              <label for="description"><b>Description</b></label><br>
+
+            <div id="divDescription" style="display:none">
+              <label for="description"><b>Elaborate</b></label><br>
               <textarea id="descID" class="classDescription"></textarea><br><br>
             </div>
+
             <div class="divAddressSelect">
-              <div class="divRegion">
+              <div id = "divRegion" style="display:none">
                 <label for="lblRegion"><b>Region</b></label><br>
                 <select id = "ddRegion" name="nameregion" class="classregion" style="width:100%; height:30px; text-align:left;"></select>
               </div><br>
@@ -69,13 +70,14 @@
                   <label for="lblBrgy"><b>Barangay</b></label><br>
                   <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:left;"></select>
               </div><br>
-              <div id="divPurok" style = "display:none">
+              <div id = "divPurok" style = "display:none">
                   <label for="area_landmark" required><b>Purok</b></label><br>
-                  <input type="text" id="arealandmark" name="arealandmark">
+                  <input type="text" id="ddPurok" name="purokname">
               </div><br>
             </div>
 
-            <button type="submit" class="ticketbtn" id="ticketBtnId">Submit Ticket</button>
+            <button type="submit" class="ticketbtn" id="ticketBtnId" style="display:none">Submit Ticket</button>
+
         </form>
     </div>
 </body>
