@@ -14,7 +14,7 @@ input[type=text], input[type=password]  {
   width: 100%;
   text-align: center;
 }
-.divTicket{
+#divTicket{
   width:50%;
   text-align:left;
   padding:10px;
@@ -23,11 +23,12 @@ input[type=text], input[type=password]  {
   clear: both;
   background-color: white;
 }
-.divSubmitMessage{
-  width:30%;
-  text-align:left;
+#divSubmitMessage{
+  width:50%;
+  text-align:center ;
   padding:10px;
-  margin:auto;
+  margin: 12% auto;
+  color: #71a682;
   border: 3px solid #71a682;
   clear: both;
   background-color: #e8ffef;
@@ -39,7 +40,7 @@ input[type=text], input[type=password]  {
 div #divLogout {
   text-align: center;
 }
-.divTicket h1 {
+#divTicket h1 {
   text-align: center  ;
 }
 
