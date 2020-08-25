@@ -315,11 +315,16 @@
 			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint) values ('" . generateTicketID() ."', '$description', '$addressID', '$complaint')";
 			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
 
+<<<<<<< HEAD
 			$_SESSION['sessTicketSubmit'] = "Success";
 
 			session_destroy();
 			unset($_SESSION['user']);
 			header("Location: signin.php?submit='1'");
+=======
+			$_SESSION['TicketSubmit'] = "Success";
+			logout();
+>>>>>>> 8d069b81a076e24a2f1989614f23fbda40aee7d9
 		}else {
 			echo "final error count: " . count($errors);
 		}

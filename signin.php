@@ -188,10 +188,20 @@
   </form>
 </div>
 <!-- Modals declaration end-->
+<<<<<<< HEAD
 <?php if(isset($_GET['submit'])) : ?>
 <div id="divSubmitMessage">
   <h3>TICKET SUBMITTED SUCCESSFULLY</h3>
 </div>
 <?php endif ?>
+=======
+<?php if(isset($_SESSION['sessTicketSubmit'])) : ?>
+<div id="divSubmitMessage" style="display:none">
+  <h3>TICKET SUBMITTED SUCCESSFULLY</h3>
+</div>
+<?php endif ?>
+
+
+>>>>>>> 8d069b81a076e24a2f1989614f23fbda40aee7d9
 </body>
 </html>
