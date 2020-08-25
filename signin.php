@@ -20,7 +20,6 @@
   <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/signin.js"></script>
-  <h2>Zamsureco Login Form</h2>
 </head>
 
 <body>
@@ -28,6 +27,7 @@
 <!-- buttons declaration -->
 <div class ="btnContainer">
 <fieldset style="width:50%; margin:0px auto;">
+<h2>Zamsureco Login Form</h2>
     <button id = "btnLogin" style = "width:auto">Login</button>
     <button id = "btnRegister" style = "width:auto">Register</button>
     <button id = "btnTrack" style = "width:auto">Track your complaint</button>
@@ -188,6 +188,10 @@
   </form>
 </div>
 <!-- Modals declaration end-->
-
+<?php if(isset($_GET['submit'])) : ?>
+<div id="divSubmitMessage">
+  <h3>TICKET SUBMITTED SUCCESSFULLY</h3>
+</div>
+<?php endif ?>
 </body>
 </html>

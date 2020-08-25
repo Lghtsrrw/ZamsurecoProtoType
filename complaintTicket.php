@@ -24,10 +24,9 @@
       </h5>
     </div>
 
-    <div class = "divTicket">
+    <div id = "divTicket">
         <h1>CREATING TICKET</h1>
         <h5>Ticket No: <?php echo generateTicketID(); ?></h5>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
           <hr>
             <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 5%  ;">
@@ -41,34 +40,39 @@
             </div>
           <hr>
 
+          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
-            <select class="_noc" id="_noc" style="width:100%; height:35px;font-size:25px; text-align: center">
+            <select class="_noc" id="_noc" name="ncomplaint"onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:35px;font-size:25px; text-align: center">
               <option value="" selected="selected" disabled>-- Complaint --</option>
               <?php fillNatureOfComplaint(); ?>
             </select><br><br>
+            <input type="hidden" name="inputComplaint" id="idComplaint" value="" />
 
             <div id="divDescription" style="display:none">
               <label for="description"><b>Elaborate</b></label><br>
-              <textarea id="descID" class="classDescription"></textarea><br><br>
+              <textarea id="descID" name="ndesc" class="classDescription"></textarea><br><br>
             </div>
 
             <div class="divAddressSelect">
               <div id = "divRegion" style="display:none">
                 <label for="lblRegion"><b>Region</b></label><br>
-                <select id = "ddRegion" name="nameregion" class="classregion" style="width:100%; height:30px; text-align:left;"></select>
+                <select id = "ddRegion" name="nameregion" class="classregion" onchange="document.getElementById('idRegion').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                <input type="hidden" name="inputRegion" id="idRegion" value="" />
               </div><br>
               <div id = "divProvince" style = "display: none">
                   <label for="lblProvince"><b>Province</b></label><br>
-                  <select name="province" id="ddProvince" style="width:100%; height:30px; text-align:left;"></select>
+                  <select name="province" id="ddProvince" onchange="document.getElementById('idProvince').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                  <input type="hidden" name="inputProvince" id="idProvince" value="" />
               </div><br>
               <div id = "divMunicipal" style = "display:none">
                   <label for="lblMunicipal"><b>City/Municipal</b></label><br>
-                  <select name="municipal" id="ddMunicipal" style="width:100%; height:30px; text-align:left;">
-                  </select>
+                  <select name="municipal" id="ddMunicipal" onchange="document.getElementById('idCityMun').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                  <input type="hidden" name="inputCityMun" id="idCityMun" value="" />
               </div><br>
               <div id = "divBrgy" style = "display:none">
                   <label for="lblBrgy"><b>Barangay</b></label><br>
-                  <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:left;"></select>
+                  <select name="brgy" id="ddBrgy" onchange="document.getElementById('idBrgy').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                  <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
               </div><br>
               <div id = "divPurok" style = "display:none">
                   <label for="area_landmark" required><b>Purok or Area Landmarks</b></label><br>
@@ -79,10 +83,6 @@
             <button type="submit" name="nTicketbtn" class="ticketbtn" id="ticketBtnId" style="display:none">Submit Ticket</button>
 
         </form>
-    </div>
-
-    <div class="divSubmitMessage" style="display:none">
-      <h1>TICKET SUBMITTED SUCCESSFULLY</h1>
     </div>
 
 </body>

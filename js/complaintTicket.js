@@ -1,3 +1,4 @@
+
 $(document).keypress(
   function(event){
     if (event.which == '13') {
@@ -109,10 +110,7 @@ $(document).ready(function(){
     }
   });
 });
-
 function showSubmitMessage(){
-  $(document).ready(function(){
     $('#divTicket').hide();
     $('#divSubmitMessage').show();
-  });
 }

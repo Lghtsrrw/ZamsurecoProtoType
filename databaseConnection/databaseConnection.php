@@ -280,7 +280,7 @@
 		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as complaintcount from complaints limit 1") or die (mysqli_error());
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
-			$ticketno = $result['datenow'] . str_pad($result['complaintcount'],3,"0",STR_PAD_LEFT);
+			$ticketno = str_pad($result['datenow'] . $result['complaintcount'],9,"0");
 		}
 		return $ticketno;
 	}
@@ -288,12 +288,12 @@
 	function submitTicket(){
 		global $db, $errors;
 
-		$complaint = $_POST['ncomplaint'];
+		$complaint = $_POST['inputComplaint'];
 		$description = $_POST['ndesc'];
-		$region = $_POST['nameregion'];
-		$province = $_POST['province'];
-		$citymun = $_POST['municipal'];
-		$brgy = $_POST['brgy'];
+		$region = $_POST['inputRegion'];
+		$province = $_POST['inputProvince'];
+		$citymun = $_POST['inputCityMun'];
+		$brgy = $_POST['inputBrgy'];
 		$purok  = $_POST['purokname'];
 
 		if($complaint === "-- Complaint --"){
@@ -315,7 +315,13 @@
 			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint) values ('" . generateTicketID() ."', '$description', '$addressID', '$complaint')";
 			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
 
-			echo "<script> showSubmitMessage(); </script>";
+			$_SESSION['sessTicketSubmit'] = "Success";
+
+			session_destroy();
+			unset($_SESSION['user']);
+			header("Location: signin.php?submit='1'");
+		}else {
+			echo "final error count: " . count($errors);
 		}
 	}
 ?>
