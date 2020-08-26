@@ -5,6 +5,8 @@ $(document).keypress(
       event.preventDefault();
         if($('#ddPurok').val() !== ""){
         $('#ticketBtnId').show();
+      }else {
+        $('#ticketBtnId').hide();
       }
     }
 });
@@ -107,6 +109,14 @@ $(document).ready(function(){
     if($('#ddBrgy').val() !== "-- Choose Barangay --"){
       $('#divPurok').show();
       $('#ddPurok').attr("autofocus", true);
+    }
+  });
+
+  $('#ddPurok').blur(function() {
+    if($('#ddPurok').val() !== ""){
+    $('#ticketBtnId').show();
+    }else {
+      $('#ticketBtnId').hide();
     }
   });
 });

@@ -300,7 +300,7 @@
 			array_push($errors, "Choose your complaint");
 		}
 		if (empty($description)) {
-			array_push($errors, "Please elaborate your complaint.");
+			array_push($errors, "Please add remarks on your complaint.");
 		}
 		if ($region === "-- Choose Region --" || $province	=== "-- Choose Province --" || $citymun === "-- Choose City/Municipal --" || $brgy === "-- Choose Barangay --" || empty($purok)) {
 			array_push($errors, "Please properly fill out your address.");
@@ -312,21 +312,20 @@
 
 			$addressID = mysqli_insert_id($db);
 
-			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint) values ('" . generateTicketID() ."', '$description', '$addressID', '$complaint')";
+			$trackno = generateTicketID();
+			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint) values ('$trackno', '$description', '$addressID', '$complaint')";
 			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
 
-<<<<<<< HEAD
-			$_SESSION['sessTicketSubmit'] = "Success";
 
-			session_destroy();
-			unset($_SESSION['user']);
-			header("Location: signin.php?submit='1'");
-=======
-			$_SESSION['TicketSubmit'] = "Success";
-			logout();
->>>>>>> 8d069b81a076e24a2f1989614f23fbda40aee7d9
-		}else {
-			echo "final error count: " . count($errors);
-		}
+			$_SESSION['success'] = 'Success';
+			if($_SESSION['user']['IDType'] === 'Guest'){
+				session_destroy();
+				unset($_SESSION['user']);
+				header('location: signin.php' . "?submit=1&trackno='". $trackno ."'");
+			}elseif ($_SESSION['user']['IDType'] === "User") {
+				header('location: index.php' . "?submit=1&trackno='". $trackno ."'");
+			}
+
+		}else {}
 	}
 ?>

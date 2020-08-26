@@ -15,13 +15,13 @@ if (isGuest()) {
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
 	<link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
 	<script src="js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $("#btnComplaints").click(function(){
-          window.location.href = "complaintTicket.php";
-        });
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#btnComplaints").click(function(){
+        window.location.href = "complaintTicket.php";
       });
-    </script>
+    });
+  </script>
 	<title>Zamzureco-1</title>
 </head>
 
@@ -44,6 +44,7 @@ if (isGuest()) {
 			</h5>
 		</div>
 	<?php endif ?>
+
 	<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
 		<button id = "btnInquireBill" class="mainBtn">Inquire Bill</button>
@@ -51,5 +52,12 @@ if (isGuest()) {
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
 	</div>
+
+	<?php if(isset($_GET['submit'])) : ?>
+	<div id="divSubmitMessage">
+	  <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
+	  <p>Your tracking number is:<?php  echo if(isset($_GET['trackno']))? $_GET['trackno'] : "Empty"; ?></p>
+	</div>
+	<?php endif ?>
 </body>
 </html>

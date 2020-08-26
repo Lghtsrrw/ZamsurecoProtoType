@@ -16,7 +16,6 @@
     <title>Create a Ticket</title>
 </head>
 <body style="background-color: #edf8ff">
-<?php display_error(); ?>
     <div id="divLogout" style="width:100%">
       <h5>
         <a id="btnBack" href="#">BACK</a>
@@ -27,10 +26,10 @@
     <div id = "divTicket">
         <h1>CREATING TICKET</h1>
         <h5>Ticket No: <?php echo generateTicketID(); ?></h5>
-
+        <?php display_error(); ?>
           <hr>
             <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 5%  ;">
-              <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to :</h4>
+              <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to: </h4>
                 <p style="text-align:center; color: #3c393c"><?php
                   $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"Empty";
                   $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
@@ -42,14 +41,14 @@
 
           <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
-            <select class="_noc" id="_noc" name="ncomplaint"onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:35px;font-size:25px; text-align: center">
+            <select class="_noc" id="_noc" name="ncomplaint"onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
               <option value="" selected="selected" disabled>-- Complaint --</option>
               <?php fillNatureOfComplaint(); ?>
             </select><br><br>
             <input type="hidden" name="inputComplaint" id="idComplaint" value="" />
 
             <div id="divDescription" style="display:none">
-              <label for="description"><b>Elaborate</b></label><br>
+              <label for="description"><b>Remarks</b></label><br>
               <textarea id="descID" name="ndesc" class="classDescription"></textarea><br><br>
             </div>
 

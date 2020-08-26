@@ -1,7 +1,7 @@
 <?php
   include('databaseConnection/databaseConnection.php');
 
-  if (!empty(isset($_SESSION['user']))) {
+  if (isset($_SESSION['user'])) {
     if($_SESSION['user']['IDType'] === 'User'){
       header('location: index.php');
     }elseif($_SESSION['user']['IDType'] === 'Guest'){
@@ -24,15 +24,22 @@
 
 <body>
 <?php echo display_error(); ?>
+
+<?php if(isset($_GET['submit'])) : ?>
+<div id="divSubmitMessage">
+  <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
+  <p>Your tracking number is: <b><?php  echo $_GET['trackno']; ?></b></p>
+</div>
+<?php endif ?>
 <!-- buttons declaration -->
 <div class ="btnContainer">
-<fieldset style="width:50%; margin:0px auto;">
+<fieldset style="width:80%; margin:10% auto; ">
 <h2>Zamsureco Login Form</h2>
     <button id = "btnLogin" style = "width:auto">Login</button>
     <button id = "btnRegister" style = "width:auto">Register</button>
     <button id = "btnTrack" style = "width:auto">Track your complaint</button>
     <button id = "btnGuest" style = "width:auto">Enter as Guest</button>
-  </fieldset>
+</fieldset>
 </div>
 <!-- buttons declaration end-->
 
@@ -188,20 +195,6 @@
   </form>
 </div>
 <!-- Modals declaration end-->
-<<<<<<< HEAD
-<?php if(isset($_GET['submit'])) : ?>
-<div id="divSubmitMessage">
-  <h3>TICKET SUBMITTED SUCCESSFULLY</h3>
-</div>
-<?php endif ?>
-=======
-<?php if(isset($_SESSION['sessTicketSubmit'])) : ?>
-<div id="divSubmitMessage" style="display:none">
-  <h3>TICKET SUBMITTED SUCCESSFULLY</h3>
-</div>
-<?php endif ?>
 
-
->>>>>>> 8d069b81a076e24a2f1989614f23fbda40aee7d9
 </body>
 </html>
