@@ -1,6 +1,5 @@
 <?php
     include("databaseConnection/databaseConnection.php");
-
     if(empty(isset($_SESSION['user']))){
         header('location: signin.php');
     }
@@ -16,72 +15,74 @@
     <script src="js/complaintTicket.js"></script>
     <title>Create a Ticket</title>
 </head>
-<body>
-
-    <div id="divLogout">
-    <ul>
-        <li class = "liBack">
-            <button id="btnBack" type="button" name="button">Henlo</button>
-        </li>
-        <li class = "liLogout">
-            <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
-        </li>
-    </ul>
+<body style="background-color: #edf8ff">
+    <div id="divLogout" style="width:100%">
+      <h5>
+        <a id="btnBack" href="#">BACK</a>
+        <a id="btnLogout" href="index.php?logout='1'" style='color:red; float:right'>LOGOUT</a>
+      </h5>
     </div>
-    <div class = "divTicket" style="width:50%; padding:10px; margin:auto;border: 3px solid rgb(0, 66, 128);">
-        <h1>Create a Ticket</h1>
-        <form action="complaintTicket.php" method="post">
-          <hr>
-          <p style="text-align:center">Update from this ticket will be sent to :<br><br>
-            <?php
-            $_contact = (isset($_SESSION['user']['contact']))? $_SESSION['user']['contact']:"Empty";
-            $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
-              echo "Contact No: " . $_contact . "<br>";
-              echo "Email: " .$_email . "<br>";
-             ?>
-          </p>
-          <hr>
-            <h5>Ticket No: <?php  ?></h5>
-            <label for="natureOfComplaint">Nature of Complaint </label><br>
-            <select name="_noc" id="_noc" style="width:100%">
-                <option value="brownout">Brown Out</option>
-                <option value="blackout">Black Out</option>
-                <option value="brokenLine">Broken Line</option>
-                <option value="fallenPost">Fallen Post</option>
-            </select><br><br>
 
-            <label for="description">Description</label><br>
-            <textarea name="description" class="classDescription" ></textarea><br><br><br>
+    <div id = "divTicket">
+        <h1>CREATING TICKET</h1>
+        <h5>Ticket No: <?php echo generateTicketID(); ?></h5>
+        <?php display_error(); ?>
+          <hr>
+            <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 5%  ;">
+              <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to: </h4>
+                <p style="text-align:center; color: #3c393c"><?php
+                  $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"Empty";
+                  $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
+                    echo "Contact No: <i>" . $_contact . "</i><br>";
+                    echo "Email: <i>" .$_email . "</i><br>";
+                ?></p>
+            </div>
+          <hr>
+
+          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
+            <select class="_noc" id="_noc" name="ncomplaint"onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
+              <option value="" selected="selected" disabled>-- Complaint --</option>
+              <?php fillNatureOfComplaint(); ?>
+            </select><br><br>
+            <input type="hidden" name="inputComplaint" id="idComplaint" value="" />
+
+            <div id="divDescription" style="display:none">
+              <label for="description"><b>Remarks</b></label><br>
+              <textarea id="descID" name="ndesc" class="classDescription"></textarea><br><br>
+            </div>
 
             <div class="divAddressSelect">
-              <div class="divRegion">
-                <label for="lblRegion">Region</label><br>
-                <select id = "ddRegion" name="nameregion" class="classregion" style="width:100%; height:30px; text-align:CENTER;">
-                </select>
+              <div id = "divRegion" style="display:none">
+                <label for="lblRegion"><b>Region</b></label><br>
+                <select id = "ddRegion" name="nameregion" class="classregion" onchange="document.getElementById('idRegion').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                <input type="hidden" name="inputRegion" id="idRegion" value="" />
               </div><br>
               <div id = "divProvince" style = "display: none">
-                  <label for="lblProvince">Province</label><br>
-                  <select name="province" id="ddProvince" style="width:100%; height:30px; text-align:CENTER;">
-                  </select>
+                  <label for="lblProvince"><b>Province</b></label><br>
+                  <select name="province" id="ddProvince" onchange="document.getElementById('idProvince').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                  <input type="hidden" name="inputProvince" id="idProvince" value="" />
               </div><br>
               <div id = "divMunicipal" style = "display:none">
-                  <label for="lblMunicipal">City/Municipal</label><br>
-                  <select name="municipal" id="ddMunicipal" style="width:100%; height:30px; text-align:CENTER;">
-                  </select>
+                  <label for="lblMunicipal"><b>City/Municipal</b></label><br>
+                  <select name="municipal" id="ddMunicipal" onchange="document.getElementById('idCityMun').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                  <input type="hidden" name="inputCityMun" id="idCityMun" value="" />
               </div><br>
               <div id = "divBrgy" style = "display:none">
-                  <label for="lblBrgy">Barangay</label><br>
-                  <select name="brgy" id="ddBrgy" style="width:100%; height:30px; text-align:CENTER;">
-                  </select>
+                  <label for="lblBrgy"><b>Barangay</b></label><br>
+                  <select name="brgy" id="ddBrgy" onchange="document.getElementById('idBrgy').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
+                  <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
               </div><br>
-              <div id="divPurok" style = "display:none">
-                  <label for="area_landmark" required>Purok</label><br>
-                  <input type="text" id="arealandmark" name="arealandmark">
+              <div id = "divPurok" style = "display:none">
+                  <label for="area_landmark" required><b>Purok or Area Landmarks</b></label><br>
+                  <input type="text" id="ddPurok" name="purokname">
               </div><br>
             </div>
 
-            <button>Submit Ticket</button>
+            <button type="submit" name="nTicketbtn" class="ticketbtn" id="ticketBtnId" style="display:none">Submit Ticket</button>
+
         </form>
     </div>
+
 </body>
 </html>
