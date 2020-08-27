@@ -21,7 +21,7 @@
     <div id="divLogout">
     <ul>
         <li class = "liBack">
-            <a id="btnBack">Back</a>
+            <button id="btnBack" type="button" name="button">Henlo</button>
         </li>
         <li class = "liLogout">
             <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
