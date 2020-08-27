@@ -326,7 +326,25 @@
 			}elseif ($_SESSION['user']['IDType'] === "User") {
 				header('location: index.php' . "?submit=1&trackno=". $trackno ."");
 			}
+		}
+	}
 
-		}else {}
+	function fillComplaintTable(){
+		global $db;
+		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+
+		$data = mysqli_fetch_assoc($results);
+		if(mysqli_num_rows($results) > 0){
+			while ($row <= $data) {
+				echo $row['ComplaintNo'];
+				echo $row['Nature_of_Complaint'];
+				echo $row['Description'];
+				echo $row['cRegion'];
+				echo $row['cProvince'];
+				echo $row['cCityMun'];
+				echo $row['cBrgy'];
+			}
+		}
 	}
 ?>
