@@ -29,7 +29,7 @@
     <div id="divLogout"style="text-align:right; clear:none;">
       <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
     </div>
-    <div class="">
+    <div class="divGuest">
       <h1>Welcome Guest!</h1>
       <?php if (isset($_SESSION['success'])) : ?>
   			<div class="success" >
@@ -39,17 +39,21 @@
           <h5>
             <?php echo 'Email: ' . $_SESSION['user']['email']; ?> <br>
             <?php echo 'Contact: ' . $_SESSION['user']['Contact']; ?> <br>
+            <?php echo 'ID: ' . $_SESSION['user']['UserID']; ?> <br>
             <?php echo "User Type: " . $_SESSION['user']['IDType']; ?>
           </h5>
-
         </div>
       <?php endif ?>
 
       <button id = "btnComplaint" style="width:auto;">Create a complaint Ticket</button>
     </div>
 
-    <div id="divSubmitMessage" style="display:none">
-      <h1>TICKET SUBMITTED SUCCESSFULLY</h1>
+    <?php if(isset($_GET['submit'])) : ?>
+    <div id="divSubmitMessage">
+      <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
+      <p>Your tracking number is: <a></a><b><?php  echo $_GET['trackno']; ?></b></p>
     </div>
+    <?php endif ?>
+
   </body>
 </html>

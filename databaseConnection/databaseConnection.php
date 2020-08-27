@@ -316,14 +316,15 @@
 			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint) values ('$trackno', '$description', '$addressID', '$complaint')";
 			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
 
+			$user = (isset($_SESSION['user']['UserID']))? $_SESSION['user']['UserID'] : "Empty";
+			$queryComplaint = "INSERT INTO user_complaint (complaintID, ComplaintNo, Date_Time_Complaint) values ('$user', '$trackno', now())";
+			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
 
 			$_SESSION['success'] = 'Success';
 			if($_SESSION['user']['IDType'] === 'Guest'){
-				session_destroy();
-				unset($_SESSION['user']);
-				header('location: signin.php' . "?submit=1&trackno='". $trackno ."'");
+				header('location: guestHomepage.php' . "?submit=1&trackno=". $trackno ."");
 			}elseif ($_SESSION['user']['IDType'] === "User") {
-				header('location: index.php' . "?submit=1&trackno='". $trackno ."'");
+				header('location: index.php' . "?submit=1&trackno=". $trackno ."");
 			}
 
 		}else {}

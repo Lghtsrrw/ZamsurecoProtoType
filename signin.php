@@ -25,12 +25,6 @@
 <body>
 <?php echo display_error(); ?>
 
-<?php if(isset($_GET['submit'])) : ?>
-<div id="divSubmitMessage">
-  <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
-  <p>Your tracking number is: <b><?php  echo $_GET['trackno']; ?></b></p>
-</div>
-<?php endif ?>
 <!-- buttons declaration -->
 <div class ="btnContainer">
 <fieldset style="width:80%; margin:10% auto; ">

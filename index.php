@@ -39,6 +39,7 @@ if (isGuest()) {
 				<?php
 				echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
 				echo "Email: " . $_SESSION['user']['email'] . "<br>";
+				echo "ID: " . $_SESSION['user']['UserID'] . "<br>";
 				echo "Contact: " . $_SESSION['user']['Contact'] . "<br>";
 				?>
 			</h5>
@@ -56,7 +57,7 @@ if (isGuest()) {
 	<?php if(isset($_GET['submit'])) : ?>
 	<div id="divSubmitMessage">
 	  <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
-	  <p>Your tracking number is:<?php  echo if(isset($_GET['trackno']))? $_GET['trackno'] : "Empty"; ?></p>
+	  <p>Your tracking number is:<?php echo  $_GET['trackno']; ?> </p>
 	</div>
 	<?php endif ?>
 </body>
