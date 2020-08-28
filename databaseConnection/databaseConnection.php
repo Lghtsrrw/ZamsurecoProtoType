@@ -329,21 +329,23 @@
 		}
 	}
 
+
 	function fillComplaintTable(){
 		global $db;
+		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
 		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
-
-		$data = mysqli_fetch_assoc($results);
 		if(mysqli_num_rows($results) > 0){
-			while ($row = mysqli_fetch_array($results)) {
-				echo "<tr><td>" . $row['ComplaintNo'] . "</td>";
+			while ($row = mysqli_fetch_assoc($results)) {
+				echo "<tr>";
+				echo "<td>" . $row['ComplaintNo'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
 				echo "<td>" . $row['Description'] . "</td>";
 				echo "<td>" . $row['cRegion'] . "</td>";
 				echo "<td>" . $row['cProvince'] . "</td>";
 				echo "<td>" . $row['cCityMun'] . "</td>";
-				echo "<td>" . $row['cBrgy'] . "</td></tr>";
+				echo "<td>" . $row['cBrgy'] . "</td>";
+				echo "</tr>";
 			}
 		}
 	}

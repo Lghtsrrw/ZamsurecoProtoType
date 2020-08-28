@@ -12,8 +12,9 @@ if (isGuest()) {
 <html lang="en" dir="ltr">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
-	<link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
+	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
 	<script src="js/jquery-3.5.1.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
@@ -32,6 +33,7 @@ if (isGuest()) {
 
 
 	<h1>User's Homepage</h1>
+
 	<?php if (isset($_SESSION['success'])) : ?>
 		<div class="success" >
 			<h5>
@@ -54,11 +56,13 @@ if (isGuest()) {
 		<button id = "btnPortal" class="mainBtn">Portal</button>
 	</div>
 
+	<!-- show submit Ticket and Tracking No -->
 	<?php if(isset($_GET['submit'])) : ?>
 	<div id="divSubmitMessage">
 	  <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
 	  <p>Your tracking number is:<?php echo  $_GET['trackno']; ?> </p>
 	</div>
 	<?php endif ?>
+
 </body>
 </html>

@@ -3,7 +3,8 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type ="text/css"href="stylesheets/allStyle.css">
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/employeeAgent.js"></script>
     <title>Employee</title>
@@ -17,7 +18,7 @@
       <button id = "btnInquireBill" class="mainBtn">Dispatch</button>
       <button id = "btnPayBills" class="mainBtn">Crew</button>
       <br>
-      <div class="divTblComplaint" id="divIdTblComplaint" style="overflow-x:auto; width:80%; display:none;">
+      <div class="divTblComplaint" id="divIdTblComplaint" style="overflow-x:auto; width:100%; display:none;">
         <h3>Active Complaint</h3>
         <table border="1" id="tblData">
           <tr>
