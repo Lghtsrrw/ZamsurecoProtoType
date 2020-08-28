@@ -19,7 +19,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
   <script src="js/jquery-3.5.1.min.js"></script>
-  <script src="js/signin.js"></script>
+  <script src="js/signin.js">
+
+  </script>
+  <h2>Zamsureco Login Form</h2>
 </head>
 
 <body>
