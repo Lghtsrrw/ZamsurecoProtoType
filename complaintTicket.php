@@ -15,7 +15,9 @@
     <script src="js/complaintTicket.js"></script>
     <title>Create a Ticket</title>
 </head>
+
 <body style="background-color: #edf8ff">
+
     <div id="divLogout" style="width:100%">
       <h5>
         <a id="btnBack" href="#">BACK</a>
@@ -30,12 +32,14 @@
           <hr>
             <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 5%  ;">
               <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to: </h4>
-                <p style="text-align:center; color: #3c393c"><?php
+                <p style="text-align:center; color: #3c393c">
+                  <?php
                   $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"Empty";
                   $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
                     echo "Contact No: <i>" . $_contact . "</i><br>";
                     echo "Email: <i>" .$_email . "</i><br>";
-                ?></p>
+                  ?>
+                </p>
             </div>
           <hr>
 
@@ -49,7 +53,7 @@
 
             <div id="divDescription" style="display:none">
               <label for="description"><b>Remarks</b></label><br>
-              <textarea id="descID" name="ndesc" class="classDescription"></textarea><br><br>
+              <textarea id="descID" name="ndesc" maxlength="200" class="classDescription"></textarea><br><br>
             </div>
 
             <div class="divAddressSelect">

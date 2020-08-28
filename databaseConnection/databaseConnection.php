@@ -336,14 +336,14 @@
 
 		$data = mysqli_fetch_assoc($results);
 		if(mysqli_num_rows($results) > 0){
-			while ($row <= $data) {
-				echo $row['ComplaintNo'];
-				echo $row['Nature_of_Complaint'];
-				echo $row['Description'];
-				echo $row['cRegion'];
-				echo $row['cProvince'];
-				echo $row['cCityMun'];
-				echo $row['cBrgy'];
+			while ($row = mysqli_fetch_array($results)) {
+				echo "<tr><td>" . $row['ComplaintNo'] . "</td>";
+				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
+				echo "<td>" . $row['Description'] . "</td>";
+				echo "<td>" . $row['cRegion'] . "</td>";
+				echo "<td>" . $row['cProvince'] . "</td>";
+				echo "<td>" . $row['cCityMun'] . "</td>";
+				echo "<td>" . $row['cBrgy'] . "</td></tr>";
 			}
 		}
 	}
