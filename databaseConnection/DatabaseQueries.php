@@ -17,9 +17,6 @@
 	    die("ERROR: Could not connect. " . $mysqli->connect_error);
 	}
 	// variable declaration
-	$username = "";
-	$password = "";
-	$email    = "";
 	$errors   = array();
 
 	// call the register() function if register_btn is clicked
@@ -43,6 +40,10 @@
 	}
 	if(isset($_POST['nTicketbtn'])){
 		submitTicket();
+	}
+
+	if (isset($_POST['btnEmpLogin'])) {
+		empLogin();
 	}
 	// call Logout(); whenever logout button is clicked
 
@@ -128,7 +129,6 @@
 	// return user array from their id
 	function getUserById($id){
 		global $db;
-
 		$results = mysqli_query($db, "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join user u on u.userID = sa.username WHERE sa.Username='$id' LIMIT 1 ");
 		if (mysqli_num_rows($results) == 1) {
 			$user = mysqli_fetch_assoc($results);
@@ -136,10 +136,9 @@
 		return $user;
 		$mysqli -> close();
 	}
-
 	// LOGIN USER
 	function login(){
-		global $db, $username, $errors;
+		global $db, $errors;
 
 		// grap form values
 		$username = $_POST['username'];
@@ -158,6 +157,42 @@
 			$password1 = md5($password);
 
 			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join user u on u.userID = sa.username WHERE sa.Username='$username' AND Password='$password1' LIMIT 1";
+			$results = mysqli_query($db, $query);
+
+			if (mysqli_num_rows($results) == 1) { // user found
+				// check if user is admin or user
+				$logged_in_user = mysqli_fetch_assoc($results);
+
+				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['success']  = "You are now logged in";
+				header('location: index.php');
+
+			}else {
+				array_push($errors, "Wrong username/password combination ");
+			}
+		}
+	}
+
+	function emplogin(){
+		global $db, $errors;
+
+		// grap form values
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+
+		// make sure form is filled properly
+		if (empty($username)) {
+			array_push($errors, "Username is required");
+		}
+		if (empty($password)) {
+			array_push($errors, "Password is required");
+		}
+
+		// attempt login if no errors on form
+		if (count($errors) == 0) {
+			$password1 = md5($password);
+
+			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join employee emp on emp.empID = sa.username WHERE sa.Username='$username' AND Password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -239,6 +274,13 @@
 
 	function isGuest(){
 		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'guest' ) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function isAgent(){
+		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Agent' ) {
 			return true;
 		}else{
 			return false;
@@ -334,6 +376,26 @@
 		global $db;
 		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
 		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0){
+			while ($row = mysqli_fetch_assoc($results)) {
+				echo "<tr>";
+				echo "<td>" . $row['ComplaintNo'] . "</td>";
+				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
+				echo "<td>" . $row['Description'] . "</td>";
+				echo "<td>" . $row['cRegion'] . "</td>";
+				echo "<td>" . $row['cProvince'] . "</td>";
+				echo "<td>" . $row['cCityMun'] . "</td>";
+				echo "<td>" . $row['cBrgy'] . "</td>";
+				echo "</tr>";
+			}
+		}
+	}
+
+	function fillComplaintTable($searched){
+		global $db;
+		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
+		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo where c.ComplaintNo = '$searched'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {

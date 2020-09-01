@@ -1,28 +1,29 @@
 <?php
-  include('databaseConnection/databaseConnection.php');
+  include('databaseConnection/DatabaseQueries.php');
 
   if (isset($_SESSION['user'])) {
-    if($_SESSION['user']['IDType'] === 'User'){
+    if(isLoggedIn()){
       header('location: index.php');
-    }elseif($_SESSION['user']['IDType'] === 'Guest'){
+    }elseif(isGuest()){
       header('location: guestHomepage.php');
+    }elseif (isAgent()) {
+      header('location: employeeAgent.php');
     }
   }
  ?>
 
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Login Page</title>
+    <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/signin.js">
 
-<head>
-  <title>Login Page</title>
-  <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
-  <script src="js/jquery-3.5.1.min.js"></script>
-  <script src="js/signin.js">
-
-  </script>
-</head>
+    </script>
+  </head>
 
 <body>
 <?php echo display_error(); ?>
@@ -31,10 +32,10 @@
 <div class ="btnContainer">
 <fieldset style="width:80%; margin:10% auto; ">
 <h2>Zamsureco Login Form</h2>
-    <button id = "btnLogin" style = "width:auto">Login</button>
-    <button id = "btnRegister" style = "width:auto">Register</button>
-    <button id = "btnTrack" style = "width:auto">Track your complaint</button>
-    <button id = "btnGuest" style = "width:auto">Enter as Guest</button>
+    <button id = "btnLogin" style="width:auto">Login</button>
+    <button id = "btnRegister" style="width:auto">Register</button>
+    <button id = "btnTrack" style="width:auto">Track your complaint</button>
+    <button id = "btnGuest" style="width:auto">Enter as Guest</button>
 </fieldset>
 </div>
 <!-- buttons declaration end-->

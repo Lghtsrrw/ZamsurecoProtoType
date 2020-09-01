@@ -1,5 +1,5 @@
 <?php
-    include("databaseConnection/databaseConnection.php");
+    include("databaseConnection/DatabaseQueries.php");
     if(empty(isset($_SESSION['user']))){
         header('location: signin.php');
     }

@@ -1,4 +1,16 @@
+<?php
+  include('databaseConnection/DatabaseQueries.php');
 
+  if (isset($_SESSION['user'])) {
+    if(isLoggedIn()){
+      header('location: index.php');
+    }elseif(isGuest()){
+      header('location: guestHomepage.php');
+    }elseif (isAgent()) {
+      header('location: employeeAgent.php');
+    }
+  }
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -10,18 +22,19 @@
     <title></title>
   </head>
   <body>
+    <?php display_error(); ?>
     <div class="divLogin">
       <h1>Employee Login</h1>
-      <form class="" action="index.html" method="post">
-        <label for="username"><b>Username</b></label>
-        <input type="text" name="empUsername" value="">
+      <form class="formEmpLogin" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" name="username">
         <br>
-        <label for="password"><b>Password</b></label>
-        <input type="password" name="empPassword" value="">
+        <label for="psw"><b>Password</b></label>
+        <input type="password" name="password">
         <br>
         <div class="divBtn" style="text-align: left;">
-          <button type="button" name="button" class="mainBtn">Login</button>
-          <button type="button" name="button" class="mainBtn" style="float:right">Forgot Password</button>
+          <button type="submit" name="btnEmpLogin" class="mainBtn" style="width:100%">LOGIN</button>
+          <!-- <button type="button" name="btnEmpForgotPass" class="mainBtn" style="float:right">Forgot Password</button> -->
         </div>
       </form>
       <p style="color:#666"><i>Contact your administrator for your account.</i></p>

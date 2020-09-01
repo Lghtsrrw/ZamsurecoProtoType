@@ -1,8 +1,10 @@
 <?php
-include('databaseConnection/databaseConnection.php');
+include('databaseConnection/DatabaseQueries.php');
 
 if (isGuest()) {
 	header('location: guestHomepage.php');
+}elseif (isAgent()) {
+	header('location: employeeAgent.php');
 }elseif(empty(isset($_SESSION['user']))){
 	header('location: signin.php');
 }

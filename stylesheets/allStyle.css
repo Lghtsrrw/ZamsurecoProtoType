@@ -10,11 +10,15 @@ input[type=text], input[type=password]  {
   box-sizing: border-box;
 }
 
+.cSearch{
+  clear: both;
+  float: left;
+  display: inline-block;
+}
 .selected, .selected:nth-child(even){
   background-color: teal;
     color: #FFF;
 }
-
 #divIdTblComplaint{
   border-radius: .5em;
   border: 1px solid #666;
@@ -247,7 +251,6 @@ span.psw {
   font-size: 35px;
   font-weight: bold;
 }
-
 .close:hover, .close:focus {
   color: red;
   cursor: pointer;

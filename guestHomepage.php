@@ -1,8 +1,10 @@
 <?php
-  include('databaseConnection/databaseConnection.php');
+  include('databaseConnection/DatabaseQueries.php');
 
   if (isLoggedIn()) {
       header('location: index.php');
+  }elseif (isAgent()) {
+    header('location: employeeAgent.php');  
   } elseif(empty(isset($_SESSION['user']))){
     header('location: signin.php');
   }
@@ -44,7 +46,7 @@
         </h5>
       </div>
   	<?php endif ?>
-    
+
     <div class="divBtn">
       <button id = "btnComplaint" style="width:auto;">Create a complaint Ticket</button>
     </div>
