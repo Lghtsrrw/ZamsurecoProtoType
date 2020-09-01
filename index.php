@@ -27,12 +27,13 @@ if (isGuest()) {
 </head>
 
 <body>
+
   <div style="width:100%; text-align:right;">
   	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
   </div>
 
 
-	<h1>User's Homepage</h1>
+	<h1>Homepage</h1>
 
 	<?php if (isset($_SESSION['success'])) : ?>
 		<div class="success" >

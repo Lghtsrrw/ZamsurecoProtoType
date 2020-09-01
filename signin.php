@@ -22,7 +22,6 @@
   <script src="js/signin.js">
 
   </script>
-  <h2>Zamsureco Login Form</h2>
 </head>
 
 <body>

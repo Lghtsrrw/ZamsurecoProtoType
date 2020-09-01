@@ -38,17 +38,27 @@ tr:nth-child(even){background-color: #e8e8e8}
 
 #divIdTblComplaint{
   padding: 5px;
+  padding-right: 10px;
+  height:500px;
+  display: inline-block;
 }
 
 .divBtn{
   width: 100%;
   text-align: center;
+  display: block;
 }
-
+.divLogin{
+  margin:auto;
+  width: 80%;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
 #divTicket{
   width:90%;
   text-align:left;
-  padding:30px;
+  display: block;
+  padding-left:10px;
   margin: 0px auto;
   border: 3px solid rgb(0, 66, 128);
   clear: both;
@@ -101,7 +111,8 @@ li{
 }
 
 /* Set a style for all buttons */
-button{
+
+/* button{
   background-color: #4c80f1;
   color: rgb(228, 255, 108);
   padding: 14px 20px;
@@ -109,7 +120,7 @@ button{
   border: none;
   cursor: pointer;
   width: 100%;
-}
+} */
 
 .mainBtn{
   background-color: #4c80f1;
@@ -120,7 +131,15 @@ button{
   cursor: pointer;
   width: auto;
 }
-
+.mainBtn:disabled{
+  opacity: 0.8;
+  color: rgb(228, 255, 108);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: auto;
+}
 button:hover {
   opacity: 0.8;
 }
@@ -137,7 +156,7 @@ button:hover {
 }
 
 .success{
-	width:50%;
+	width:80%;
   margin: 0px auto;
   padding: 5px;
   border: 1px solid #425aa9;

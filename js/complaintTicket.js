@@ -13,7 +13,7 @@ $(document).keypress(
 $(document).ready(function(){
   //back to previous page when btnBack is click
   $("#btnBack").click(function(){
-    window.location.href = "signin.php";
+    history.go(-1);
   });
 
   // populate Region

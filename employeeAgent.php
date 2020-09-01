@@ -15,11 +15,21 @@
       <h1>Employee Agent</h1>
 
       <button id = "btnComplaints" class="mainBtn">Complaint List</button>
-      <button id = "btnInquireBill" class="mainBtn">Dispatch</button>
-      <button id = "btnPayBills" class="mainBtn">Crew</button>
+      <button id = "btnDispatch" class="mainBtn" disabled>Dispatch</button>
+      <button id = "btnCrew" class="mainBtn">Crew</button>
       <br>
-      <div class="divTblComplaint" id="divIdTblComplaint" style="overflow-x:auto; width:100%; display:none;">
+
+    </div>
+
+    <div class="modal" id="divTbl">
+
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; width:100%;">
+        <a id="btnBack" href="#">BACK</a>
+
         <h3>Active Complaint</h3>
+        <label for="inSearchButton" style="clear:both; float:left;">Search</label>
+        <input type="text" name="" value="">
+
         <table border="1" id="tblData">
           <tr>
             <th>Complaint No</th>
@@ -34,6 +44,7 @@
         </table>
       </div>
     </div>
+
   </body>
 
 </html>
