@@ -40,7 +40,8 @@ if (isLoggedIn()) {
 
       <button id = "btnComplaints" class="mainBtn">Complaint List</button>
       <button id = "btnDispatch" class="mainBtn" disabled>Dispatch</button>
-      <button id = "btnCrew" class="mainBtn">Crew</button>
+      <button id = "btnCrew" class="mainBtn">Complaint Receiver</button>
+      <button id = "btnCrew" class="mainBtn">Update Complaint Status</button>
       <br>
     </div>
 
@@ -68,8 +69,6 @@ if (isLoggedIn()) {
           </table>
         </div>
         <div id="tblSearchedData">
-          <table border="1" id="tblSearched" style="display:none">
-          </table>
         </div>
       </div>
     </div>

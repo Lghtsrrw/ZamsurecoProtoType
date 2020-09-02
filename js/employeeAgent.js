@@ -15,11 +15,13 @@ $(document).ready(function(){
   });
 
   $('#btnIDSearch').click(function(){
-
-    $('#tblData').css("display","none");
-    $('#tblSearched').css("display","block  ");
-
-    $('#tblSearchedData').load("ajax/search-complaint.php", {
+    $('#tblData tr').click(function(){
+      $(this).addClass('selected').siblings().removeClass('selected');
+      var value=$(this).find('td:first').html();
+      $('#inSearch').val(value);
+      // alert(value);
+    });
+    $('#tblAllData').load("search-complaint.php", {
       complaintNo_tobesearch: $('#inSearch').val()
     });
   });

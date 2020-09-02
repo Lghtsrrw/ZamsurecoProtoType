@@ -395,7 +395,7 @@
 	function fillSearchTable($id){
 		global $db;
 		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
-		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo where c.complaintID = " . $id;
+		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo where c.complaintNo = '" . $id . "' or description = '" . $id . "' or cregion = '". $id . "' or cprovince = '" . $id . "' or cCityMun = '". $id . "' or cBrgy = '" . $id . "' or Nature_of_Complaint = '" . $id . "'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
