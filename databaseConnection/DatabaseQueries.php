@@ -392,10 +392,10 @@
 		}
 	}
 
-	function fillComplaintTable($searched){
+	function fillSearchTable($id){
 		global $db;
 		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
-		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo where c.ComplaintNo = '$searched'";
+		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo where c.complaintID = " . $id;
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {

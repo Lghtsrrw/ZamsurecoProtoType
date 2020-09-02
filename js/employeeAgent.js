@@ -15,7 +15,12 @@ $(document).ready(function(){
   });
 
   $('#btnIDSearch').click(function(){
-    $('#divTbl').css("display","block");
-    $('#divTbl tr').remove();
+
+    $('#tblData').css("display","none");
+    $('#tblSearched').css("display","block  ");
+
+    $('#tblSearchedData').load("ajax/search-complaint.php", {
+      complaintNo_tobesearch: $('#inSearch').val()
+    });
   });
 });

@@ -22,6 +22,9 @@ if (isLoggedIn()) {
 
   <body style="background-color: #fcffed">
     <div id="divTicket">
+      <div style="width:100%; text-align:right; padding:10px">
+      	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
+      </div>
       <h1>Employee Agent</h1>
 
       <?php if (isset($_SESSION['success'])) : ?>
@@ -42,39 +45,32 @@ if (isLoggedIn()) {
     </div>
 
     <div class="modal" id="divTbl">
-      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; width:100%;">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto;">
         <a id="btnBack" href="#" style="float:right;">BACK</a>
 
         <h3>Active Complaint</h3>
-            <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch">
-            <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn">Search</button>
+            <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
+            <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
         <label for="cmplntN" id="lblComplaintNo"></label>
 
-        <table border="1" id="tblData">
-          <tr>
-            <th>Complaint No</th>
-            <th>Nature of Complaint</th>
-            <th>Description</th>
-            <th>Region</th>
-            <th>Province</th>
-            <th>City/Mun</th>
-            <th>Barangay</th>
-          </tr>
-          <?php fillComplaintTable(); ?>
-        </table>
-
-        <table border="0" id="tblSearch" style="display:none">
-          <tr>
-            <th>Complaint No</th>
-            <th>Nature of Complaint</th>
-            <th>Description</th>
-            <th>Region</th>
-            <th>Province</th>
-            <th>City/Mun</th>
-            <th>Barangay</th>
-          </tr>
-          <?php fillComplaintTable(); ?>
-        </table>
+        <div id="tblAllData">
+          <table border="1" id="tblData">
+            <tr>
+              <th>Complaint No</th>
+              <th>Nature of Complaint</th>
+              <th>Description</th>
+              <th>Region</th>
+              <th>Province</th>
+              <th>City/Mun</th>
+              <th>Barangay</th>
+            </tr>
+            <?php fillComplaintTable(); ?>
+          </table>
+        </div>
+        <div id="tblSearchedData">
+          <table border="1" id="tblSearched" style="display:none">
+          </table>
+        </div>
       </div>
     </div>
 
