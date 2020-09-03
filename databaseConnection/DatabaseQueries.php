@@ -370,8 +370,7 @@
 			}
 		}
 	}
-
-
+	
 	function fillComplaintTable(){
 		global $db;
 		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
@@ -394,8 +393,14 @@
 
 	function fillSearchTable($id){
 		global $db;
-		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
-		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo where c.complaintNo = '" . $id . "' or description = '" . $id . "' or cregion = '". $id . "' or cprovince = '" . $id . "' or cCityMun = '". $id . "' or cBrgy = '" . $id . "' or Nature_of_Complaint = '" . $id . "'";
+		$queryAddress = "SELECT * FROM complaints c INNER JOIN address a ON c.location = a.addressNo
+											WHERE c.complaintNo LIKE '%" . $id . "%'
+											OR description LIKE '%" . $id . "%'
+											OR cregion LIKE '%". $id . "%'
+											OR cprovince LIKE '%" . $id . "%'
+											OR cCityMun LIKE '%". $id . "%'
+											OR cBrgy LIKE '%" . $id . "%'
+											OR Nature_of_Complaint LIKE '%". $id ."%'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {

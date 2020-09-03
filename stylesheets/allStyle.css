@@ -40,13 +40,6 @@ th, td {
 
 tr:nth-child(even){background-color: #e8e8e8}
 
-#divIdTblComplaint{
-  padding: 5px;
-  padding-right: 10px;
-  height:500px;
-  display: inline-block;
-}
-
 .divBtn{
   width: 100%;
   text-align: center;

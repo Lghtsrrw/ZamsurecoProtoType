@@ -45,8 +45,8 @@ if (isLoggedIn()) {
       <br>
     </div>
 
-    <div class="modal" id="divTbl">
-      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto;">
+    <div class="modal" id="divTbl" >
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="#" style="float:right;">BACK</a>
 
         <h3>Active Complaint</h3>
