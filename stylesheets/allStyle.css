@@ -29,6 +29,8 @@ table {
   width: 100%;
   border: 1px solid #666;
   text-align: center;
+  table-layout: fixed;
+  word-wrap : break-word;
 }
 
 th, td {

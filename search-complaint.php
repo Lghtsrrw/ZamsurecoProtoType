@@ -1,6 +1,6 @@
 <?php
   include('databaseConnection/DatabaseQueries.php');
-  
+
   if(!empty($_POST['complaintNo_tobesearch'])){
     $searchValue = $_POST['complaintNo_tobesearch'];
     echo "<table border='1' id='tblData'>";

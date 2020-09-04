@@ -370,7 +370,7 @@
 			}
 		}
 	}
-	
+
 	function fillComplaintTable(){
 		global $db;
 		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
@@ -396,7 +396,7 @@
 		$queryAddress = "SELECT * FROM complaints c INNER JOIN address a ON c.location = a.addressNo
 											WHERE c.complaintNo LIKE '%" . $id . "%'
 											OR description LIKE '%" . $id . "%'
-											OR cregion LIKE '%". $id . "%'
+											OR cregion LIKE '%" . $id . "%'
 											OR cprovince LIKE '%" . $id . "%'
 											OR cCityMun LIKE '%". $id . "%'
 											OR cBrgy LIKE '%" . $id . "%'

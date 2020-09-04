@@ -68,8 +68,6 @@ if (isLoggedIn()) {
             <?php fillComplaintTable(); ?>
           </table>
         </div>
-        <div id="tblSearchedData">
-        </div>
       </div>
     </div>
 
