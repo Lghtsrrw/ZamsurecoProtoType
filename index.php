@@ -63,7 +63,7 @@ if (isGuest()) {
 	<?php if(isset($_GET['submit'])) : ?>
 	<div id="divSubmitMessage">
 	  <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
-	  <p>Your tracking number is:<?php echo  $_GET['trackno']; ?> </p>
+	  <p>Your tracking number is: <b><?php echo  $_GET['trackno']; ?></b> </p>
 	</div>
 	<?php endif ?>
 

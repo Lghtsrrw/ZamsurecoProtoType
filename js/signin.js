@@ -23,20 +23,24 @@ $(document).ready(function(){
   $("#btnLogin").click(function(){
      $("#id01").css("display","block");
    });
+   
   //this opens the Register Modal when btnRegister is clicked
   $("#btnRegister").click(function(){
     $("#id02").css("display","block");
   });
+
   //this opens the Track Modal when btnTrack is clicked
   $("#btnTrack").click(function(){
     $("#id03").css("display","block");
     // closeModal();
   });
+
   //this opens the Guest Modal when btnGuest is clicked
   $("#btnGuest").click(function(){
     $("#id04").css("display","block");
     // closeModal();
   });
+
   //this closes all visible modal with class name 'close'.
   $(".close").click(function(){
     $(".modal").css("display","none");

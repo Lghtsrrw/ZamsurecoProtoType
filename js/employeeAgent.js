@@ -1,24 +1,22 @@
 $(document).ready(function(){
+
   $('#btnComplaints').click(function(){
     $('#divTbl').css("display","block");
   });
-  //
-  // $('#tblData tr').click(function(){
-  //   $(this).addClass('selected').siblings().removeClass('selected');
-  //   var value=$(this).find('td:first').html();
-  //   $('#inSearch').val(value);
-  //   alert(value);
-  // });
 
   $('body').on("click",'#tblData tr', function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     var value=$(this).find('td:first').html();
     $('#inSearch').val(value);
-    // alert(value);
+  });
+
+  $('body').on("dblclick",'#tblData tr', function(){
+    $('#btnDispatch').prop("disabled", false);
   });
 
   $("#btnBack").click(function(){
-    $('#divTbl').css("display","none");
+    // $('#divTbl').css("display","none");
+    window.history(-1);
   });
 
   $('#btnIDSearch').click(function(){
@@ -27,5 +25,8 @@ $(document).ready(function(){
     });
   });
 
+  $('#btnMngDspt').click(function(){
+    window.location.href = "dispatch_management.php";
+  });
 
 });

@@ -4,7 +4,7 @@
   if (isLoggedIn()) {
       header('location: index.php');
   }elseif (isAgent()) {
-    header('location: employeeAgent.php');  
+    header('location: employeeAgent.php');
   } elseif(empty(isset($_SESSION['user']))){
     header('location: signin.php');
   }

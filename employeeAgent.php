@@ -21,6 +21,7 @@ if (isLoggedIn()) {
   </head>
 
   <body style="background-color: #fcffed">
+
     <div id="divTicket">
       <div style="width:100%; text-align:right; padding:10px">
       	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
@@ -39,9 +40,9 @@ if (isLoggedIn()) {
     	<?php endif ?>
 
       <button id = "btnComplaints" class="mainBtn">Complaint List</button>
-      <button id = "btnDispatch" class="mainBtn" disabled>Dispatch</button>
-      <button id = "btnCrew" class="mainBtn">Complaint Receiver</button>
       <button id = "btnCrew" class="mainBtn">Update Complaint Status</button>
+      <button id = "btnRegSupp" class="mainBtn">Register Support</button>
+      <button id = "btnMngDspt" class="mainBtn">Manage Dispatch</button>
       <br>
     </div>
 
@@ -52,6 +53,7 @@ if (isLoggedIn()) {
         <h3>Active Complaint</h3>
             <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
             <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
+            <button type="button" name="btnSearch" id="btnDispatch" class="mainBtn" style="height:42px; float:right;" disabled>Dispatch</button>
         <label for="cmplntN" id="lblComplaintNo"></label>
 
         <div id="tblAllData">
