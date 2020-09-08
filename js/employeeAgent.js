@@ -15,8 +15,7 @@ $(document).ready(function(){
   });
 
   $("#btnBack").click(function(){
-    // $('#divTbl').css("display","none");
-    window.history(-1);
+    $('#divTbl').css("display","none");
   });
 
   $('#btnIDSearch').click(function(){
