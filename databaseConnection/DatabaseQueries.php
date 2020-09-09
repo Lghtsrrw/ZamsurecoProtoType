@@ -327,6 +327,18 @@
 		return $ticketno;
 	}
 
+	function generateEmployeeID(){
+		global $db;
+
+		$ticketno = 0;
+		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as employeecount from employee limit 1") or die (mysqli_error());
+		$result = mysqli_fetch_assoc($results);
+		if (mysqli_num_rows($results) == 1) {
+			$ticketno = 'E' . str_pad($result['datenow'] . $result['employeecount'],8,"0");
+		}
+		return $ticketno;
+	}
+
 	function submitTicket(){
 		global $db, $errors;
 

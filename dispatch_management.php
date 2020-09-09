@@ -29,7 +29,7 @@ if (isLoggedIn()) {
             <option value = "-- complaint --" selected="selected" disabled>-- Complaint --</option>
             <?php fillNatureOfComplaint(); ?>
           </select><br><br>
-          <input type="hidden" name="inputComplaint" id="idComplaint" value="" />
+          <input type="hidden" name="inputComplaint" id="idComplaint" value="">
           <b><label for="">Employee ID</label></b>
           <input type="text" name="inputComplaint" id="idEmpName" value="">
 
