@@ -28,6 +28,7 @@ if (isLoggedIn()) {
       </div>
       <h1>Employee Agent</h1>
 
+      <!-- Show current user -->
       <?php if (isset($_SESSION['success'])) : ?>
     			<h5>
     				Logged in as:
@@ -39,6 +40,7 @@ if (isLoggedIn()) {
     			</h5>
     	<?php endif ?>
 
+      <!-- Button declaration -->
       <button id = "btnComplaints" class="mainBtn">Complaint List</button>
       <button id = "btnCrew" class="mainBtn">Update Complaint Status</button>
       <button id = "btnRegSupp" class="mainBtn">Register Support</button>
@@ -46,15 +48,15 @@ if (isLoggedIn()) {
       <br>
     </div>
 
+    <!-- modal section -->
     <div class="modal" id="divTbl" >
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <a id="btnBack" href="#" style="float:right;">BACK</a>
+        <a id="btnBack" href="" style="float:right;">BACK</a>
 
         <h3>Active Complaint</h3>
             <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
             <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
             <button type="button" name="btnSearch" id="btnDispatch" class="mainBtn" style="height:42px; float:right;" disabled>Dispatch</button>
-        <label for="cmplntN" id="lblComplaintNo"></label>
 
         <div id="tblAllData">
           <table border="1" id="tblData">
@@ -70,6 +72,76 @@ if (isLoggedIn()) {
             <?php fillComplaintTable(); ?>
           </table>
         </div>
+      </div>
+    </div>
+    <div class="modal" id="divRegSupp">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <a id="btnBack" href="" style="float:right;">Back</a>
+
+        <h1>Employee Registration Form</h1>
+
+        <button id = "btnEmpList" class="mainBtn">Employee List</button>
+
+        <?php display_error(); ?>
+        <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+          <h5>Employee ID: <?php echo generateEmployeeID(); ?></h5>
+          <b><label for="">First Name</label></b><br>
+          <input type="text" name="txtFname" onkeyup="this.value = this.value.toUpperCase();"><br>
+          <b><label for="">Middle Name</label></b><br>
+          <input type="text" name="txtMname" onkeyup="this.value = this.value.toUpperCase();" maxlength="1"><br>
+          <b><label for="">Last Name</label></b><br>
+          <input type="text" name="txtLname" onkeyup="this.value = this.value.toUpperCase();">
+          <b><label for="">Area</label></b><br>
+          <input type="text" name="txtArea" onkeyup="this.value = this.value.toUpperCase();">
+          <b><label for="">Department</label></b><br>
+          <input type="text" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" >
+          <div class="divBtn" style="text-align: left;">
+
+          <button type="submit" name="btnSaveEmpSupp" class="mainBtn" style="width:100%">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="divEmpList">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <a id="btnBack" href="" style="float:right;">BACK</a>
+
+        <h2>Employee List</h2>
+        <table id="tblEmpList">
+          <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Area</th>
+            <th>Department</th>
+          </tr>
+          <?php fillEmpListTable(); ?>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal" id="divMngCmplntDispt">
+      <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <a id="btnBack" href="" style="float:right;">BACK</a>
+        <h2>Dispatch Management</h2>
+        <form class="frmDsptMng" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+          <b><label for="">Complaint</label></b>
+          <select value ="" class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
+            <option value = "-- complaint --" selected="selected" disabled>-- Complaint --</option>
+            <?php fillNatureOfComplaint(); ?>
+          </select><br><br>
+          <input type="hidden" name="inputComplaint" id="idComplaint" value="">
+          <b><label for="">Employee ID</label></b>
+          <input type="text" list ='empIDList' name="inputComplaint" id="idEmpName" value="">
+          <datalist id="empIDList">
+            <?php retrieveEmployeeList(); ?>
+          </datalist>
+          <b><label for="">Employee Name</label></b><br>
+          <input type="text" name="inputComplaint" id="empname" value=""  disabled>
+
+
+          <button type="submit" id = "btnUpdateDsptMng" class="mainBtn" >Update</button>
+          <button type="submit" id = "btnRemoveDsptMng" class="mainBtn" >Remove</button>
+        </form>
       </div>
     </div>
 

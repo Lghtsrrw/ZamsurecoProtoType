@@ -45,6 +45,9 @@
 	if (isset($_POST['btnEmpLogin'])) {
 		empLogin();
 	}
+	if (isset($_POST['btnSaveEmpSupp'])) {
+		saveRegisteredEmployeeSupp();
+	}
 	// call Logout(); whenever logout button is clicked
 
 	// Check if the username is already in the system.
@@ -329,14 +332,13 @@
 
 	function generateEmployeeID(){
 		global $db;
-
 		$ticketno = 0;
 		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as employeecount from employee limit 1") or die (mysqli_error());
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
-			$ticketno = 'E' . str_pad($result['datenow'] . $result['employeecount'],8,"0");
+			$ticketno = str_pad($result['datenow'] . $result['employeecount'],8,"0");
 		}
-		return $ticketno;
+		return 'E' . $ticketno;
 	}
 
 	function submitTicket(){
@@ -385,7 +387,6 @@
 
 	function fillComplaintTable(){
 		global $db;
-		// $queryColumn = "SELECT Count(*) as 'complaintColumn' from information_schema.columns where complaints c inner join address a on c.location = a.addressNo "
 		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
@@ -427,5 +428,85 @@
 				echo "</tr>";
 			}
 		}
+	}
+
+	function fillEmpListTable()
+	{
+		global $db;
+		$queryAddress = "SELECT EmpID, concat(fname, ' ', mname,' ',lname)as'Name', Area, Dept  FROM employee";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo "<tr>";
+				echo "<td>" . $row['EmpID'] . "</td>";
+				echo "<td>" . $row['Name'] . "</td>";
+				echo "<td>" . $row['Area'] . "</td>";
+				echo "<td>" . $row['Dept'] . "</td>";
+				echo "</tr>";
+			}
+		}
+	}
+
+	function saveRegisteredEmployeeSupp(){
+		global $db, $errors;
+
+		$empid = generateEmployeeID();
+		$fname = $_POST['txtFname'];
+		$mname = $_POST['txtMname'];
+		$lname = $_POST['txtLname'];
+		$area = $_POST['txtArea'];
+		$dept = $_POST['txtDept'];
+
+		if(empty(isset($_POST['txtFname']))){
+			array_push($errors, "Insert your FirstName");
+		}
+		if(empty(isset($_POST['txtMname']))){
+			array_push($errors, "Insert your Middle Initial");
+		}
+		if(empty(isset($_POST['txtLname']))){
+			array_push($errors, "Insert your LastName");
+		}
+		if(empty(isset($_POST['txtArea']))){
+			array_push($errors, "Fill in Area Location ");
+		}
+		if(empty(isset($_POST['txtDept']))){
+			array_push($errors, "Insert your Department");
+		}
+
+		if(count($errors) == 0){
+			$query = "INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')";
+			$results = mysqli_query($db,$query) or die(mysqli_error());
+			echo "<script> alert('Save Suceessfully'); </script>";
+		}
+	}
+
+	function retrieveEmployeeList(){
+		global $db;
+		$queryAddress = "SELECT * FROM Employee";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo "<option value=".$row['EmpID'].">";
+			}
+		}
+	}
+
+	function retrieveEmpName($empid){
+		global $db;
+		$returnValue = "";
+		$queryAddress = "SELECT concat(fname,' ',mname,' ',lname)as'Name' FROM Employee where empid = '$empid' limit 1";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				$returnValue = $row['Name'];
+			}
+		}
+		return $returnValue;
 	}
 ?>

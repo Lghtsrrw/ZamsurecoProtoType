@@ -1,5 +1,7 @@
 <?php
     include("databaseConnection/DatabaseQueries.php");
+
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +17,7 @@
     <div class="divLogin">
       <h1>Employee Registration Form</h1>
       <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <label for="empID"><b>Employee ID: <?php generateEmployeeID(); ?></b></label><br>
+        <label for="empID"><b>Employee ID: <?php generateEmployeeID(); ?></b></label><br><br>
         <b><label for="">First Name</label></b><br>
         <input type="text" name="inputComplaint" ><br>
         <b><label for="">Middle Name</label></b><br>
