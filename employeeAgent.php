@@ -124,20 +124,22 @@ if (isLoggedIn()) {
         <a id="btnBack" href="" style="float:right;">BACK</a>
         <h2>Dispatch Management</h2>
         <form class="frmDsptMng" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+
           <b><label for="">Complaint</label></b>
           <select value ="" class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
             <option value = "-- complaint --" selected="selected" disabled>-- Complaint --</option>
             <?php fillNatureOfComplaint(); ?>
           </select><br><br>
           <input type="hidden" name="inputComplaint" id="idComplaint" value="">
+
           <b><label for="">Employee ID</label></b>
-          <input type="text" list ='empIDList' name="inputComplaint" id="idEmpName" value="">
+          <input type="text" list ='empIDList' name="inputComplaint" id="idEmpName" value="" autocomplete="off">
           <datalist id="empIDList">
             <?php retrieveEmployeeList(); ?>
           </datalist>
+
           <b><label for="">Employee Name</label></b><br>
           <input type="text" name="inputComplaint" id="empname" value=""  disabled>
-
 
           <button type="submit" id = "btnUpdateDsptMng" class="mainBtn" >Update</button>
           <button type="submit" id = "btnRemoveDsptMng" class="mainBtn" >Remove</button>

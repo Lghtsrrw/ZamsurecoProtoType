@@ -459,19 +459,19 @@
 		$area = $_POST['txtArea'];
 		$dept = $_POST['txtDept'];
 
-		if(empty(isset($_POST['txtFname']))){
+		if(empty($_POST['txtFname'])){
 			array_push($errors, "Insert your FirstName");
 		}
-		if(empty(isset($_POST['txtMname']))){
+		if(empty($_POST['txtMname'])){
 			array_push($errors, "Insert your Middle Initial");
 		}
-		if(empty(isset($_POST['txtLname']))){
+		if(empty($_POST['txtLname'])){
 			array_push($errors, "Insert your LastName");
 		}
-		if(empty(isset($_POST['txtArea']))){
+		if(empty($_POST['txtArea'])){
 			array_push($errors, "Fill in Area Location ");
 		}
-		if(empty(isset($_POST['txtDept']))){
+		if(empty($_POST['txtDept'])){
 			array_push($errors, "Insert your Department");
 		}
 
@@ -484,7 +484,7 @@
 
 	function retrieveEmployeeList(){
 		global $db;
-		$queryAddress = "SELECT * FROM Employee";
+		$queryAddress = "SELECT * FROM employee";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{
@@ -493,20 +493,5 @@
 				echo "<option value=".$row['EmpID'].">";
 			}
 		}
-	}
-
-	function retrieveEmpName($empid){
-		global $db;
-		$returnValue = "";
-		$queryAddress = "SELECT concat(fname,' ',mname,' ',lname)as'Name' FROM Employee where empid = '$empid' limit 1";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
-		if(mysqli_num_rows($results) > 0)
-		{
-			while ($row = mysqli_fetch_assoc($results))
-			{
-				$returnValue = $row['Name'];
-			}
-		}
-		return $returnValue;
 	}
 ?>

@@ -41,4 +41,15 @@ $(document).ready(function(){
     });
   });
 
+  $('#idEmpName').change(function(e){
+    e.preventDefault();
+    var val = $('#idEmpName').val();
+    $.ajax({
+      url: 'load-empname.php',
+      data: 'valempid=' + val,
+      success: function(result){
+        $('#empname').val(result)
+      }
+    })
+  })
 });
