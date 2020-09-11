@@ -105,7 +105,6 @@ if (isLoggedIn()) {
     <div class="modal" id="divEmpList">
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">BACK</a>
-
         <h2>Employee List</h2>
         <table id="tblEmpList">
           <tr>
@@ -118,7 +117,6 @@ if (isLoggedIn()) {
         </table>
       </div>
     </div>
-
     <div class="modal" id="divMngCmplntDispt">
       <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">BACK</a>
@@ -132,14 +130,24 @@ if (isLoggedIn()) {
           </select><br><br>
           <input type="hidden" name="inputComplaint" id="idComplaint" value="">
 
-          <b><label for="">Employee ID</label></b>
-          <input type="text" list ='empIDList' name="inputComplaint" id="idEmpName" value="" autocomplete="off">
-          <datalist id="empIDList">
-            <?php retrieveEmployeeList(); ?>
-          </datalist>
+          <fieldset>
+            <legend><b>Employee ID</b></legend>
+            <input type="text" list ='empIDList' name="inputComplaint" id="idEmpName" value="" autocomplete="off">
+            <datalist id="empIDList">
+              <?php retrieveEmployeeList(); ?>
+            </datalist>
+            <input type="text" name="inputComplaint" id="empname" value=""  disabled><br><br>
+          </fieldset>
+          <fieldset>
+            <legend><b>Location Coverage</b></legend>
 
-          <b><label for="">Employee Name</label></b><br>
-          <input type="text" name="inputComplaint" id="empname" value=""  disabled>
+            <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
+            <datalist id="empLocaCover"></datalist>
+            <table id="tblLocaCover" style="width:25%; ">
+              <th>Locations</th>
+            </table>
+            <p style="font-size: 10px; color:#999;"><i>Double click to remove entry</i></p>
+          </fieldset>
 
           <button type="submit" id = "btnUpdateDsptMng" class="mainBtn" >Update</button>
           <button type="submit" id = "btnRemoveDsptMng" class="mainBtn" >Remove</button>
