@@ -1,7 +1,7 @@
 body {font-family: 'Century Gothic';}
 
 /* Full-width input fields */
-input[type=text], input[type=password], option{
+input[type=text], input[type=password],input[type=number] option{
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

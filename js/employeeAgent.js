@@ -1,3 +1,15 @@
+$(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+        if($('#ddPurok').val() !== ""){
+        $('#ticketBtnId').show();
+      }else {
+        $('#ticketBtnId').hide();
+      }
+    }
+});
+
 $(document).ready(function(){
 
 
@@ -17,12 +29,7 @@ $(document).ready(function(){
     alert(e);
   }
 
-  $('body').on("dblclick",'#tblLocaCover tr', function(){
-    alert('HelloWorld');
-    // $(this).addClass('selected').siblings().removeClass('selected');
-    document.getElementById("tblLocaCover").deleteRow($('#tblLocaCover tr').index(tr));
-  });
-
+  // Adding rows and Value to TBl in Dispatch Manage Modal
   $('#idEmpLocat').change(function(){
     var _tblLoc = document.getElementById('tblLocaCover').getElementsByTagName('tbody')[0];
     var _tblRow = _tblLoc.insertRow();
@@ -30,6 +37,8 @@ $(document).ready(function(){
     var employeeLocation = $('#idEmpLocat').val();
     var _tblValue = document.createTextNode(employeeLocation);
     _tblCell.appendChild(_tblValue);
+
+    $('#empIDList').find("option[value='"+ employeeLocation +"']").remove();
     $('#idEmpLocat').val("");
   })
 
@@ -57,10 +66,13 @@ $(document).ready(function(){
     $('#inSearch').val(value);
   });
 
-  $('body').on("dblclick",'#tblLocaCover tr:has(td)', function(){
-    $(this).addClass('selected').siblings().removeClass('selected');
-    var value=$(this).find('td:first').html();
-    alert(value);
+  $('body').on("click",'#tblLocaCover tr:has(td)', function(){
+
+    if (confirm("Are you sure you want to remove?") == true) {
+    $(this).closest('tr').remove();
+    }
+
+    alert( $('#tblLocaCover tr').index(this) );
   });
 
   $('body').on("dblclick",'#tblData tr', function(){
@@ -92,3 +104,21 @@ $(document).ready(function(){
     })
   })
 });
+
+function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}

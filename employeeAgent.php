@@ -1,5 +1,6 @@
 <?php
 include('databaseConnection/DatabaseQueries.php');
+include('databaseConnection/employeeAgentQueries.php');
 
 if (isLoggedIn()) {
     header('location: index.php');
@@ -8,6 +9,7 @@ if (isLoggedIn()) {
 } elseif(empty(isset($_SESSION['user']))){
   header('location: empLogin.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -130,6 +132,19 @@ if (isLoggedIn()) {
           </select><br><br>
           <input type="hidden" name="inputComplaint" id="idComplaint" value="">
 
+          <!-- Office -->
+          <fieldset>
+            <legend><b>Office</b></legend>
+            <input type="Text" name="inputEmpOffice" list="officeList" id="idEmpOffice" value="" autocomplete="off">
+            <datalist id="officeList">
+                <option value="DLS">
+                <option value="MSD">
+                <option value="HR">
+                <option value="CAD">
+            </datalist>
+          </fieldset>
+
+          <!-- Employee Details -->
           <fieldset>
             <legend><b>Employee ID</b></legend>
             <input type="text" list ='empIDList' name="inputComplaint" id="idEmpName" value="" autocomplete="off">
@@ -138,15 +153,23 @@ if (isLoggedIn()) {
             </datalist>
             <input type="text" name="inputComplaint" id="empname" value=""  disabled><br><br>
           </fieldset>
-          <fieldset>
-            <legend><b>Location Coverage</b></legend>
 
+          <!-- Area Coverage -->
+          <fieldset>
+            <legend><b>Area Coverage</b></legend>
+            <p style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p>
             <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
             <datalist id="empLocaCover"></datalist>
-            <table id="tblLocaCover" style="width:25%; ">
+            <table id="tblLocaCover">
               <th>Locations</th>
             </table>
-            <p style="font-size: 10px; color:#999;"><i>Double click to remove entry</i></p>
+            <p style="font-size: 10px; color:#999;"><i>Click to remove entry</i></p>
+          </fieldset>
+
+          <!-- Contacts Field -->
+          <fieldset>
+            <legend><b>Contact</b></legend>
+            <input type="text" onkeypress="validate(event);" maxlength="11" name="inputEmpContact" id="idEmpContact" value="" autocomplete="off">
           </fieldset>
 
           <button type="submit" id = "btnUpdateDsptMng" class="mainBtn" >Update</button>
