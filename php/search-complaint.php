@@ -1,7 +1,11 @@
 <?php
   include('databaseConnection/DatabaseQueries.php');
 
-  if(!empty($_POST['complaintNo_tobesearch'])){
+  if(!empty($_POST['complaintNo_tobesearch']) && isset($_POST['complaintNo_tobesearch'])){
+    performSearch();
+  }
+
+  function performSearch(){
     $searchValue = $_POST['complaintNo_tobesearch'];
     echo "<table border='1' id='tblData'>";
     echo "<tr>";

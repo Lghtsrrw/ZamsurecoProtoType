@@ -1,4 +1,5 @@
 <?php
+$areaCoverageArray = array();
 
 function generateAreaCoverageNo(){
 	global $db;
@@ -10,4 +11,10 @@ function generateAreaCoverageNo(){
 	}
 	return 'A' . $ticketno;
 }
- ?>
+
+function saveEmployeeAreaCoverage(){
+	global $db, $areaCoverageArray;
+
+	
+}
+?>

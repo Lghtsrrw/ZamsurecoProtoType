@@ -40,6 +40,7 @@ $(document).ready(function(){
 
     $('#empIDList').find("option[value='"+ employeeLocation +"']").remove();
     $('#idEmpLocat').val("");
+    $('#countthis').html($('#tblLocaCover tr').length - 1);
   })
 
   $('#btnComplaints').click(function(){
@@ -67,12 +68,11 @@ $(document).ready(function(){
   });
 
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
-
     if (confirm("Are you sure you want to remove?") == true) {
     $(this).closest('tr').remove();
-    }
 
-    alert( $('#tblLocaCover tr').index(this) );
+    $('#countthis').html($('#tblLocaCover tr').length - 1);
+    }
   });
 
   $('body').on("dblclick",'#tblData tr', function(){
@@ -87,7 +87,7 @@ $(document).ready(function(){
   });
 
   $('#btnIDSearch').click(function(){
-    $('#tblAllData').load("search-complaint.php", {
+    $('#tblAllData').load("php/search-complaint.php", {
       complaintNo_tobesearch: $('#inSearch').val()
     });
   });
@@ -96,7 +96,7 @@ $(document).ready(function(){
     e.preventDefault();
     var val = $('#idEmpName').val();
     $.ajax({
-      url: 'load-empname.php',
+      url: 'php/load-empname.php',
       data: 'valempid=' + val,
       success: function(result){
         $('#empname').val(result)

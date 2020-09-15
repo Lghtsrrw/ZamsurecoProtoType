@@ -48,8 +48,6 @@
 	if (isset($_POST['btnSaveEmpSupp'])) {
 		saveRegisteredEmployeeSupp();
 	}
-	// call Logout(); whenever logout button is clicked
-
 	// Check if the username is already in the system.
 	function checkUsername($_username){
 			global $db, $errors;

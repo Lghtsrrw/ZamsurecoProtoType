@@ -147,7 +147,7 @@ if (isLoggedIn()) {
           <!-- Employee Details -->
           <fieldset>
             <legend><b>Employee ID</b></legend>
-            <input type="text" list ='empIDList' name="inputComplaint" id="idEmpName" value="" autocomplete="off">
+            <input type="text" list ='empIDList' placeholder="Select Employee ID" name="inputComplaint" id="idEmpName" value="" autocomplete="off">
             <datalist id="empIDList">
               <?php retrieveEmployeeList(); ?>
             </datalist>
@@ -163,6 +163,7 @@ if (isLoggedIn()) {
             <table id="tblLocaCover">
               <th>Locations</th>
             </table>
+            <p id="countthis"></p>
             <p style="font-size: 10px; color:#999;"><i>Click to remove entry</i></p>
           </fieldset>
 

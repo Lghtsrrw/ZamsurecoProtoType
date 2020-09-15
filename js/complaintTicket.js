@@ -61,6 +61,7 @@ $(document).ready(function(){
       });
     }
   });
+
   //Populate City/Municipal
   $('#ddProvince').change(function(){
     if($('#ddProvince').text() !== "-- Choose Province --"){

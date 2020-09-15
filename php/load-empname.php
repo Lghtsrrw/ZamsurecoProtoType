@@ -3,9 +3,13 @@
   include 'databaseConnection/DatabaseQueries.php';
 
   if(!empty(isset($_GET['valempid']))){
-    $the_value = $_GET['valempid'];
+    echo loadEmployee();
+	}
 
+  function loadEmployee(){
     global $db;
+
+    $the_value = $_GET['valempid'];
     $returnValue = "";
     $queryAddress = "SELECT concat(fname,' ',mname,' ',lname)as'Name' FROM Employee where empid = '".$_GET['valempid']."' limit 1";
     $results = mysqli_query($db,$queryAddress) or die(mysqli_error());
@@ -16,8 +20,6 @@
         $returnValue = $row['Name'];
       }
     }
-    echo $returnValue;
-  }else {
-    echo $_GET['valempid'];
+    return $returnValue;
   }
  ?>
