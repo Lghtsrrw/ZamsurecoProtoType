@@ -23,7 +23,7 @@ if (isLoggedIn()) {
   </head>
 
   <body style="background-color: #fcffed">
-
+    <?php display_error(); ?>
     <div id="divTicket">
       <div style="width:100%; text-align:right; padding:10px">
       	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
@@ -84,7 +84,6 @@ if (isLoggedIn()) {
 
         <button id = "btnEmpList" class="mainBtn">Employee List</button>
 
-        <?php display_error(); ?>
         <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Employee ID: <?php echo generateEmployeeID(); ?></h5>
           <b><label for="">First Name</label></b><br>
@@ -141,18 +140,18 @@ if (isLoggedIn()) {
                 <option value="MSD">
                 <option value="HR">
                 <option value="CAD">
-                <option value="TSD">
+                <option value="  TSD">
             </datalist>
           </fieldset>
 
           <!-- Employee Details -->
           <fieldset>
             <legend><b>Employee ID</b></legend>
-            <input type="text" list ='empIDList' placeholder="Select Employee ID" name="inputComplaint" id="idEmpName" value="" autocomplete="off">
+            <input type="text" list ='empIDList' placeholder="Select Employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
             <datalist id="empIDList">
               <?php retrieveEmployeeList(); ?>
             </datalist>
-            <input type="text" name="inputComplaint" id="empname" value=""  disabled><br><br>
+            <input type="text" name="txtEmpName" id="empname" value=""  disabled><br><br>
           </fieldset>
 
           <!-- Area Coverage -->
@@ -176,7 +175,7 @@ if (isLoggedIn()) {
             <input type="text" onkeypress="validate(event);" maxlength="11" name="inputEmpContact" id="idEmpContact" value="" autocomplete="off">
           </fieldset>
 
-          <button type="submit" id = "btnUpdateDsptMng" name="subDsptMng" class="mainBtn" >Update</button>
+          <button type="submit" id = "btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
         </form>
       </div>
     </div>

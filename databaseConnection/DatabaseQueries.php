@@ -17,7 +17,7 @@
 	    die("ERROR: Could not connect. " . $mysqli->connect_error);
 	}
 	// variable declaration
-	$errors   = array();
+	$errors = array();
 
 	// call the register() function if register_btn is clicked
 	if (isset($_POST['register_btn'])) {

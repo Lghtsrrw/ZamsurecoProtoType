@@ -1,3 +1,4 @@
+
 $(document).keypress(
   function(event){
     if (event.which == '13') {
@@ -11,7 +12,7 @@ $(document).keypress(
 });
 
 $(document).ready(function(){
-
+var arrEmpLocCov = [];
 
   // insert City/Municipal on divMngCmplntDispt Modal location autocomplete
   try {
@@ -38,7 +39,9 @@ $(document).ready(function(){
     var _tblValue = document.createTextNode(employeeLocation);
     _tblCell.appendChild(_tblValue);
 
-    // $('#empIDList').find("option[value='"+ employeeLocation +"']").remove();
+    arrEmpLocCov.push(employeeLocation);
+    console.log(arrEmpLocCov);
+
     $('#idEmpLocat').val("");
     $('#countthis').html($('#tblLocaCover tr').length - 1);
   })
@@ -69,9 +72,17 @@ $(document).ready(function(){
 
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
     if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
-    $(this).closest('tr').remove();
+      // remove selected row from the dsptmng modal
+      $(this).closest('tr').remove();
+      $('#countthis').html($('#tblLocaCover tr').length - 1);
 
-    $('#countthis').html($('#tblLocaCover tr').length - 1);
+      // remove selected index from the array
+      for(var i = 0; i < arrEmpLocCov.length; i++ ){
+        if(arrEmpLocCov[i] == $(this).text()){
+          arrEmpLocCov.splice(i,1);
+        }
+      }
+      console.log(arrEmpLocCov);
     }
   });
 
@@ -100,6 +111,17 @@ $(document).ready(function(){
       data: 'valempid=' + val,
       success: function(result){
         $('#empname').val(result)
+      }
+    })
+  })
+
+  $('#btnSubmitDsptMng').click(function(){
+    var jsonStringArr = JSON.stringify(arrEmpLocCov);
+    $.ajax({
+      url: 'databaseConnection/DatabaseQueries.php',
+      data: 'arrayEmpLocCov:' + jsonStringArr,
+      success: function(result){
+        alert(result);
       }
     })
   })

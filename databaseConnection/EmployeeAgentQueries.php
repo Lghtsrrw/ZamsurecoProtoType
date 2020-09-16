@@ -1,5 +1,12 @@
 <?php
-$areaCoverageArray = array();
+if(isset($_POST['dsptMngBtn'])){
+
+}
+
+if(isset($_GET['arrayEmpLocCov'])){
+	$newArray = json_decode(stripslashes($_GET['arrayEmpLocCov']));
+	echo $newArray;
+}
 
 function generateAreaCoverageNo(){
 	global $db;
@@ -10,11 +17,5 @@ function generateAreaCoverageNo(){
 		$ticketno = str_pad($result['datenow'] . $result['areacount'],8,"0");
 	}
 	return 'A' . $ticketno;
-}
-
-function saveEmployeeAreaCoverage(){
-	global $db, $areaCoverageArray;
-
-	
 }
 ?>
