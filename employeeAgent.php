@@ -141,6 +141,7 @@ if (isLoggedIn()) {
                 <option value="MSD">
                 <option value="HR">
                 <option value="CAD">
+                <option value="TSD">
             </datalist>
           </fieldset>
 
@@ -163,8 +164,10 @@ if (isLoggedIn()) {
             <table id="tblLocaCover">
               <th>Locations</th>
             </table>
-            <p id="countthis"></p>
-            <p style="font-size: 10px; color:#999;"><i>Click to remove entry</i></p>
+            <div class="" style="text-align:right;">
+              <p id="countthis"></p>
+            </div>
+            <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
           </fieldset>
 
           <!-- Contacts Field -->
@@ -173,8 +176,7 @@ if (isLoggedIn()) {
             <input type="text" onkeypress="validate(event);" maxlength="11" name="inputEmpContact" id="idEmpContact" value="" autocomplete="off">
           </fieldset>
 
-          <button type="submit" id = "btnUpdateDsptMng" class="mainBtn" >Update</button>
-          <button type="submit" id = "btnRemoveDsptMng" class="mainBtn" >Remove</button>
+          <button type="submit" id = "btnUpdateDsptMng" name="subDsptMng" class="mainBtn" >Update</button>
         </form>
       </div>
     </div>

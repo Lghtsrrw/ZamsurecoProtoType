@@ -38,7 +38,7 @@ $(document).ready(function(){
     var _tblValue = document.createTextNode(employeeLocation);
     _tblCell.appendChild(_tblValue);
 
-    $('#empIDList').find("option[value='"+ employeeLocation +"']").remove();
+    // $('#empIDList').find("option[value='"+ employeeLocation +"']").remove();
     $('#idEmpLocat').val("");
     $('#countthis').html($('#tblLocaCover tr').length - 1);
   })
@@ -68,7 +68,7 @@ $(document).ready(function(){
   });
 
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
-    if (confirm("Are you sure you want to remove?") == true) {
+    if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
     $(this).closest('tr').remove();
 
     $('#countthis').html($('#tblLocaCover tr').length - 1);
@@ -87,7 +87,7 @@ $(document).ready(function(){
   });
 
   $('#btnIDSearch').click(function(){
-    $('#tblAllData').load("php/search-complaint.php", {
+    $('#tblAllData').load("search-complaint.php", {
       complaintNo_tobesearch: $('#inSearch').val()
     });
   });
@@ -96,7 +96,7 @@ $(document).ready(function(){
     e.preventDefault();
     var val = $('#idEmpName').val();
     $.ajax({
-      url: 'php/load-empname.php',
+      url: 'load-empname.php',
       data: 'valempid=' + val,
       success: function(result){
         $('#empname').val(result)

@@ -2,7 +2,7 @@
 
   include 'databaseConnection/DatabaseQueries.php';
 
-  if(!empty(isset($_GET['valempid']))){
+  if(!empty($_GET['valempid']) && isset($_GET['valempid'])){
     echo loadEmployee();
 	}
 
