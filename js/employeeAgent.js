@@ -9,10 +9,18 @@ $(document).keypress(
         $('#ticketBtnId').hide();
       }
     }
+
+    if(event.which == "27") {
+        event.preventDefault();
+        $('#divTbl').css("display","none");
+        $('#divRegSupp').css("display","none");
+        $('#divEmpList').css("display","none");
+        $('#divMngCmplntDispt').css("display","none")
+    }
 });
 
 $(document).ready(function(){
-var arrEmpLocCov = [];
+var arrEmpLocCov = {};
 
   // insert City/Municipal on divMngCmplntDispt Modal location autocomplete
   try {
@@ -39,7 +47,8 @@ var arrEmpLocCov = [];
     var _tblValue = document.createTextNode(employeeLocation);
     _tblCell.appendChild(_tblValue);
 
-    arrEmpLocCov.push(employeeLocation);
+    // arrEmpLocCov.push(employeeLocation);
+    arrEmpLocCov[$('#idEmpLocat').val()] =  $('#idEmpLocat').val();
     console.log(arrEmpLocCov);
 
     $('#idEmpLocat').val("");
@@ -77,11 +86,21 @@ var arrEmpLocCov = [];
       $('#countthis').html($('#tblLocaCover tr').length - 1);
 
       // remove selected index from the array
-      for(var i = 0; i < arrEmpLocCov.length; i++ ){
-        if(arrEmpLocCov[i] == $(this).text()){
-          arrEmpLocCov.splice(i,1);
+      // for(var i = 0; i < Object.keys(arrEmpLocCov).length; i++ ){
+      //   // if(arrEmpLocCov[i][$(this).text()] == $(this).text()){
+      //   //   // arrEmpLocCov.splice(i,1);
+      //   //   delete arrEmpLocCov.$(this).text();
+      //   // }
+      //
+      //   console.log(i);
+      // }
+
+      for(i in arrEmpLocCov){
+        if(arrEmpLocCov[i] === $(this).text() ){
+          delete arrEmpLocCov[i];
         }
       }
+
       console.log(arrEmpLocCov);
     }
   });
@@ -116,20 +135,12 @@ var arrEmpLocCov = [];
   })
 
   $('#btnSubmitDsptMng').click(function(){
-    var jsonStringArr = JSON.stringify(arrEmpLocCov);
-    $.ajax({
-      url: 'databaseConnection/DatabaseQueries.php',
-      data: 'arrayEmpLocCov:' + jsonStringArr,
-      success: function(result){
-        alert(result);
-      }
-    })
+
   })
 });
 
 function validate(evt) {
   var theEvent = evt || window.event;
-
   // Handle paste
   if (theEvent.type === 'paste') {
       key = event.clipboardData.getData('text/plain');

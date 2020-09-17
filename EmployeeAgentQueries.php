@@ -1,11 +1,12 @@
 <?php
 if(isset($_POST['dsptMngBtn'])){
-
+	// echo "<script>alert('HelloWorld');</script>";
 }
 
-if(isset($_GET['arrayEmpLocCov'])){
-	$newArray = json_decode(stripslashes($_GET['arrayEmpLocCov']));
-	echo $newArray;
+if(isset($_POST['paramName'])){
+	// $newArray = json_decode($_POST['paramName'], true);
+	// echo $newArray;
+	echo "<script>alert('HelloWorld');</script>";
 }
 
 function generateAreaCoverageNo(){

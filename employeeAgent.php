@@ -1,6 +1,6 @@
 <?php
 include('databaseConnection/DatabaseQueries.php');
-include('databaseConnection/employeeAgentQueries.php');
+include('employeeAgentQueries.php');
 
 if (isLoggedIn()) {
     header('location: index.php');
@@ -140,7 +140,7 @@ if (isLoggedIn()) {
                 <option value="MSD">
                 <option value="HR">
                 <option value="CAD">
-                <option value="  TSD">
+                <option value="TSD">
             </datalist>
           </fieldset>
 
@@ -175,7 +175,7 @@ if (isLoggedIn()) {
             <input type="text" onkeypress="validate(event);" maxlength="11" name="inputEmpContact" id="idEmpContact" value="" autocomplete="off">
           </fieldset>
 
-          <button type="submit" id = "btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
+          <button type="button" id = "btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
         </form>
       </div>
     </div>
