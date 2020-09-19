@@ -21,6 +21,7 @@ $(document).keypress(
 
 $(document).ready(function(){
 var arrEmpLocCov = {};
+arrEmpLocCov['Area'] = [];
 
   // insert City/Municipal on divMngCmplntDispt Modal location autocomplete
   try {
@@ -48,7 +49,7 @@ var arrEmpLocCov = {};
     _tblCell.appendChild(_tblValue);
 
     // arrEmpLocCov.push(employeeLocation);
-    arrEmpLocCov[$('#idEmpLocat').val()] =  $('#idEmpLocat').val();
+    arrEmpLocCov['Area'].push(employeeLocation);
     console.log(arrEmpLocCov);
 
     $('#idEmpLocat').val("");
@@ -85,22 +86,11 @@ var arrEmpLocCov = {};
       $(this).closest('tr').remove();
       $('#countthis').html($('#tblLocaCover tr').length - 1);
 
-      // remove selected index from the array
-      // for(var i = 0; i < Object.keys(arrEmpLocCov).length; i++ ){
-      //   // if(arrEmpLocCov[i][$(this).text()] == $(this).text()){
-      //   //   // arrEmpLocCov.splice(i,1);
-      //   //   delete arrEmpLocCov.$(this).text();
-      //   // }
-      //
-      //   console.log(i);
-      // }
-
-      for(i in arrEmpLocCov){
-        if(arrEmpLocCov[i] === $(this).text() ){
-          delete arrEmpLocCov[i];
+      for(var i = 0; i < arrEmpLocCov['Area'].length; i++){
+        if(i == arrEmpLocCov['Area'].indexOf($(this).text())){
+          arrEmpLocCov['Area'].splice(i,1);
         }
       }
-
       console.log(arrEmpLocCov);
     }
   });
@@ -135,7 +125,15 @@ var arrEmpLocCov = {};
   })
 
   $('#btnSubmitDsptMng').click(function(){
-
+    $.ajax({
+      type: "POST",
+      url: 'EmployeeAgentQueries.php',
+      data: { 'paramName': JSON.stringify(arrEmpLocCov),
+              'areaCovNo': $('#AreaCovID').html() },
+      success: function(result){
+        console.log(result);
+      }
+    })
   })
 });
 

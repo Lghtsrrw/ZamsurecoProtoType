@@ -3,10 +3,12 @@ if(isset($_POST['dsptMngBtn'])){
 	// echo "<script>alert('HelloWorld');</script>";
 }
 
-if(isset($_POST['paramName'])){
-	// $newArray = json_decode($_POST['paramName'], true);
-	// echo $newArray;
-	echo "<script>alert('HelloWorld');</script>";
+if(isset($_POST['areaCovNo'])){
+	$newArray = json_decode($_POST['paramName'], true);
+	var_dump($newArray);
+	echo $_POST['areaCovNo'];
+}else {
+	echo "No set";
 }
 
 function generateAreaCoverageNo(){
@@ -17,6 +19,21 @@ function generateAreaCoverageNo(){
 	if (mysqli_num_rows($results) == 1) {
 		$ticketno = str_pad($result['datenow'] . $result['areacount'],8,"0");
 	}
+	$mysqli -> close();
+
 	return 'A' . $ticketno;
+}
+
+function saveAreaCoverage($objName, $areacovNo){
+	global $db;
+
+	for($i = 0; $i < count($objName['Area']); $i++){
+		$city = $objName['Area'][$i];
+		if (mysqli_query($db, "INSERT INTO receiver_area_coverage (area_coverage_no, city_mun) VALUES ( '$areacovNo', '$city')")){
+				echo "Success Saving:"  . $city;
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+	}
 }
 ?>

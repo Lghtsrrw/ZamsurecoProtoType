@@ -157,7 +157,7 @@ if (isLoggedIn()) {
           <!-- Area Coverage -->
           <fieldset>
             <legend><b>Area Coverage</b></legend>
-            <p style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p>
+            <p id = "AreaCovID" style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p>
             <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
             <datalist id="empLocaCover"></datalist>
             <table id="tblLocaCover">
