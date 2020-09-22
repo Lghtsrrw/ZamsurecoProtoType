@@ -156,8 +156,12 @@ if (isLoggedIn()) {
           <!-- Area Coverage -->
           <fieldset>
             <legend><b>Area Coverage</b></legend>
+<<<<<<< HEAD
             <!-- <p id = "AreaCovID" style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p> -->
             <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
+=======
+            <p id = "AreaCovID" style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p>
+>>>>>>> 2163a36174ccf1dcb022097f9cf18e9f14ad2ba8
             <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
             <input type="hidden" name="hidAreaCovNo" value="<?php generateAreaCoverageNo(); ?>">
             <datalist id="empLocaCover"></datalist>

@@ -48,6 +48,10 @@ arrEmpLocCov['Area'] = [];
     var _tblValue = document.createTextNode(employeeLocation);
     _tblCell.appendChild(_tblValue);
 
+<<<<<<< HEAD
+=======
+    // arrEmpLocCov.push(employeeLocation);
+>>>>>>> 2163a36174ccf1dcb022097f9cf18e9f14ad2ba8
     arrEmpLocCov['Area'].push(employeeLocation);
     console.log(arrEmpLocCov);
 
@@ -124,12 +128,21 @@ arrEmpLocCov['Area'] = [];
     })
   })
 
+<<<<<<< HEAD
   $('#btnSubmitDsptMng').on("click", function(){
     $.ajax({
       type: "POST",
       url: 'databaseConnection/DatabaseQueries.php',
       data: { 'paramName': JSON.stringify(arrEmpLocCov),
               'areaCovNo': $('#AreaCovID').val() },
+=======
+  $('#btnSubmitDsptMng').click(function(){
+    $.ajax({
+      type: "POST",
+      url: 'EmployeeAgentQueries.php',
+      data: { 'paramName': JSON.stringify(arrEmpLocCov),
+              'areaCovNo': $('#AreaCovID').html() },
+>>>>>>> 2163a36174ccf1dcb022097f9cf18e9f14ad2ba8
       success: function(result){
         console.log(result);
       }
