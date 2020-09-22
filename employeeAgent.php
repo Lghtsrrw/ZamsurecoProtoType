@@ -1,6 +1,5 @@
 <?php
 include('databaseConnection/DatabaseQueries.php');
-include('employeeAgentQueries.php');
 
 if (isLoggedIn()) {
     header('location: index.php');
@@ -122,14 +121,14 @@ if (isLoggedIn()) {
       <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">BACK</a>
         <h2>Dispatch Management</h2>
-        <form class="frmDsptMng" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <form class="frmDsptMng" id="dsptMngForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
           <b><label for="">Complaint</label></b>
           <select value ="" class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
             <option value = "-- complaint --" selected="selected" disabled>-- Complaint --</option>
             <?php fillNatureOfComplaint(); ?>
           </select><br><br>
-          <input type="hidden" name="inputComplaint" id="idComplaint" value="">
+          <input type="text" name="inputComplaint" id="idComplaint" value="">
 
           <!-- Office -->
           <fieldset>
@@ -157,14 +156,16 @@ if (isLoggedIn()) {
           <!-- Area Coverage -->
           <fieldset>
             <legend><b>Area Coverage</b></legend>
-            <p id = "AreaCovID" style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p>
+            <!-- <p id = "AreaCovID" style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p> -->
+            <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
             <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
+            <input type="hidden" name="hidAreaCovNo" value="<?php generateAreaCoverageNo(); ?>">
             <datalist id="empLocaCover"></datalist>
             <table id="tblLocaCover">
               <th>Locations</th>
             </table>
             <div class="" style="text-align:right;">
-              <p id="countthis"></p>
+              <input type="hidden" name="rowAreaCov" id="countthis" value="">
             </div>
             <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
           </fieldset>
@@ -175,11 +176,9 @@ if (isLoggedIn()) {
             <input type="text" onkeypress="validate(event);" maxlength="11" name="inputEmpContact" id="idEmpContact" value="" autocomplete="off">
           </fieldset>
 
-          <button type="button" id = "btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
+          <button type="submit" id="btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
         </form>
       </div>
     </div>
-
   </body>
-
 </html>

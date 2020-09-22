@@ -127,6 +127,7 @@
 			header('location: index.php');
 		}
 	}
+
 	// return user array from their id
 	function getUserById($id){
 		global $db;
@@ -137,6 +138,7 @@
 		return $user;
 		$mysqli -> close();
 	}
+
 	// LOGIN USER
 	function login(){
 		global $db, $errors;
@@ -489,6 +491,118 @@
 			while ($row = mysqli_fetch_assoc($results))
 			{
 				echo "<option value=".$row['EmpID'].">";
+			}
+		}
+	}
+
+	function generateAreaCoverageNo(){
+		global $db;
+		$ticketno = 0;
+		$results = mysqli_query($db, "SELECT date_format(curdate(), '%d%m%y') as datenow, lpad(count(*) + 1,2,'0') as areacount from complaint_receiver limit 1") or die (mysqli_error());
+		$result = mysqli_fetch_assoc($results);
+		if (mysqli_num_rows($results) == 1) {
+			$ticketno = str_pad($result['datenow'] . $result['areacount'],8,"0");
+		}
+		return 'A' . $ticketno;
+		$mysqli -> close();
+	}
+
+	function saveAreaCoverage($objName, $areacovNo){
+		global $db;
+
+		for($i = 0; $i < count($objName); $i++){
+			$city = $objName[$i];
+			if (mysqli_query($db, "INSERT INTO receiver_area_coverage (area_coverage_no, city_mun) VALUES ( '$areacovNo', '$city')")){
+					printf( "Success Saving:"  . $city);
+			} else {
+				echo "Error: <br>" . mysqli_error($db);
+			}
+		}
+	}
+
+	// saving 'Area Coverage Array' on manageDispatch Modal, when pressing  "Save"
+	if(!isset($_POST['paramName']) || !isset($_POST['areaCovNo'])){
+		print_r('No Value manageDispatch Modal [AreaCov button]' );
+	}else {
+		$newArraythis = json_decode($_POST['paramName'], true);
+		var_dump($newArraythis);
+		printf($_POST['areaCovNo']);
+		$areacovthis = $_POST['areaCovNo'];
+		saveAreaCoverage( $newArraythis['Area'], $areacovthis);
+		print_r('lol');
+	}
+	// saving Form on manageDispatch Modal, when pressing  "Save"
+	if(!isset($_POST['dsptMngBtn'])){
+			print_r('No Value manageDispatch Modal [Submit button]' );
+	}else {
+		saveComplaintReceiver();
+	}
+
+	function generateComplaintReceiverNo(){
+		global $db;
+		$ticketno = 0;
+		$results = mysqli_query($db, "SELECT lpad(count(*) + 1,4,'0') as areacount from complaint_receiver limit 1") or die (mysqli_error());
+		$result = mysqli_fetch_assoc($results);
+		if (mysqli_num_rows($results) == 1) {
+			$ticketno = str_pad($result['areacount'],4,"0");
+		}
+		return 'C' . $ticketno;
+		$mysqli -> close();
+	}
+
+	function saveComplaintReceiver(){
+		global $db, $errors;
+
+		$compRecNo = generateComplaintReceiverNo();
+		$compID = $_POST['inputComplaint'];
+		$empid = $_POST['txtEmpID'];
+		$empcontact = $_POST['inputEmpContact'];
+		$areacovNO = $_POST['hidAreaCovNo'];
+		$empoffice = $_POST['inputEmpOffice'];
+		$areacovNo = $_POST['hidAreaCovNo'];
+		$rowareacount = $_POST['rowAreaCov'];
+
+		if($compID === "-- Complaint --"){
+			array_push($errors, "Choose your complaint");
+		}else {
+			print_r($compID);
+		}
+		if (empty($_POST['txtEmpID'])) {
+			array_push($errors, "Insert Employee ID");
+		}else {
+			print_r($empid);
+		}
+		if (empty($_POST['inputEmpContact'])) {
+			array_push($errors, "Input Employee Contact");
+		}
+		if(empty($_POST['inputEmpOffice'])){
+			array_push($errors, 'Input Employee designated office');
+		}
+		if($rowareacount <= 0){
+			array_push($errors, 'select Area Coverage');
+		}
+
+		if(count($errors) == 0){
+			$query = "INSERT INTO
+							complaint_receiver (
+								complaint_receiver_No,
+								ComplaintID,
+								empid,
+								contact,
+								area_coverage_no,
+								office
+							) VALUES (
+								'$compRecNo',
+								'$compID',
+								'$empid',
+								'$empcontact',
+								'$areacovNo',
+								'$empoffice'
+							)";
+			if (mysqli_query($db, $query)){
+					printf( "Success Saving:"  . $areacovNO);
+			} else {
+				echo "Error: <br>" . mysqli_error($db);
 			}
 		}
 	}

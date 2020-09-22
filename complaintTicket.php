@@ -75,7 +75,7 @@
               <div id = "divBrgy" style = "display:none">
                   <label for="lblBrgy"><b>Barangay</b></label><br>
                   <select name="brgy" id="ddBrgy" onchange="document.getElementById('idBrgy').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
-                  <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
+                    <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
               </div><br>
               <div id = "divPurok" style = "display:none">
                   <label for="area_landmark" required><b>Purok or Area Landmarks</b></label><br>

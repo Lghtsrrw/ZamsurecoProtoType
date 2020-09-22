@@ -48,12 +48,12 @@ arrEmpLocCov['Area'] = [];
     var _tblValue = document.createTextNode(employeeLocation);
     _tblCell.appendChild(_tblValue);
 
-    // arrEmpLocCov.push(employeeLocation);
     arrEmpLocCov['Area'].push(employeeLocation);
     console.log(arrEmpLocCov);
 
     $('#idEmpLocat').val("");
-    $('#countthis').html($('#tblLocaCover tr').length - 1);
+    // $('#countthis').html($('#tblLocaCover tr').length - 1);
+    $('#countthis').val($('#tblLocaCover tr').length - 1);
   })
 
   $('#btnComplaints').click(function(){
@@ -124,12 +124,12 @@ arrEmpLocCov['Area'] = [];
     })
   })
 
-  $('#btnSubmitDsptMng').click(function(){
+  $('#btnSubmitDsptMng').on("click", function(){
     $.ajax({
       type: "POST",
-      url: 'EmployeeAgentQueries.php',
+      url: 'databaseConnection/DatabaseQueries.php',
       data: { 'paramName': JSON.stringify(arrEmpLocCov),
-              'areaCovNo': $('#AreaCovID').html() },
+              'areaCovNo': $('#AreaCovID').val() },
       success: function(result){
         console.log(result);
       }
@@ -148,8 +148,21 @@ function validate(evt) {
       key = String.fromCharCode(key);
   }
   var regex = /[0-9]|\./;
-  if( !regex.test(key) ) {
+  if( !regex.test(key)){
     theEvent.returnValue = false;
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
+}
+
+// passing value to Server Side (php) on 'Submit' DsptMng modal
+function  passValue(){
+  $.ajax({
+    type: "POST",
+    url: 'databaseConnection/DatabaseQueries.php',
+    data: { 'paramName': JSON.stringify(arrEmpLocCov),
+            'areaCovNo': $('#AreaCovID').val() },
+    success: function(result){
+      console.log("Error");
+    }
+  })
 }
