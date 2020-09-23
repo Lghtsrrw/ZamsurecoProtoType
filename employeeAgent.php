@@ -23,6 +23,7 @@ if (isLoggedIn()) {
 
   <body style="background-color: #fcffed">
     <?php display_error(); ?>
+
     <div id="divTicket">
       <div style="width:100%; text-align:right; padding:10px">
       	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
@@ -45,9 +46,18 @@ if (isLoggedIn()) {
       <button id = "btnComplaints" class="mainBtn">Complaint List</button>
       <button id = "btnCrew" class="mainBtn">Update Complaint Status</button>
       <button id = "btnRegSupp" class="mainBtn">Register Support</button>
-      <button id = "btnMngDspt" class="mainBtn">Manage Dispatch</button>
+      <button id = "btnMngDspt" class="mainBtn">Dispatch Management</button>
       <br>
     </div>
+
+    <!-- Display process success of failure -->
+    <?php if(isset($_GET['submit'])) : ?>
+    <div id="divSubmitMessage" style="margin-top: 20px">
+      <h4>COMPLAINT RECEIVER UPDATED</h4>
+      <p>For Complaint No.: <b><?php  echo $_GET['CompRec']; ?></b></p>
+      <p>Area Coverage No.: <b><?php  echo $_GET['areaCovno']; ?></b></p>
+    </div>
+    <?php endif ?>
 
     <!-- modal section -->
     <div class="modal" id="divTbl" >
@@ -124,11 +134,11 @@ if (isLoggedIn()) {
         <form class="frmDsptMng" id="dsptMngForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
           <b><label for="">Complaint</label></b>
-          <select value ="" class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
+          <select value ="" class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('hididComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
             <option value = "-- complaint --" selected="selected" disabled>-- Complaint --</option>
             <?php fillNatureOfComplaint(); ?>
           </select><br><br>
-          <input type="text" name="inputComplaint" id="idComplaint" value="">
+          <input type="hidden" name="hidComplaintNo" id="hididComplaint" value="">
 
           <!-- Office -->
           <fieldset>
@@ -156,12 +166,7 @@ if (isLoggedIn()) {
           <!-- Area Coverage -->
           <fieldset>
             <legend><b>Area Coverage</b></legend>
-<<<<<<< HEAD
-            <!-- <p id = "AreaCovID" style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p> -->
             <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
-=======
-            <p id = "AreaCovID" style="color:#555; font-size: 10px;"><?php echo generateAreaCoverageNo(); ?></p>
->>>>>>> 2163a36174ccf1dcb022097f9cf18e9f14ad2ba8
             <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
             <input type="hidden" name="hidAreaCovNo" value="<?php generateAreaCoverageNo(); ?>">
             <datalist id="empLocaCover"></datalist>
@@ -181,7 +186,22 @@ if (isLoggedIn()) {
           </fieldset>
 
           <button type="submit" id="btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
+          <button type="button" id="btnShowComplaintRec" class="mainBtn" >Complaint Handlers</button>
         </form>
+      </div>
+    </div>
+    <div class="modal" id="divCmplntHndlr">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <a id="btnBack" href="" style="float:right;">BACK</a>
+        <h2>Complaint Handler</h2>
+        <div id="divTicket" style="width:100%; clear:both;">
+          <div class="locationFloatLeft">
+
+          </div>
+          <div class="locationFloatRight">
+
+          </div>
+        </div>
       </div>
     </div>
   </body>

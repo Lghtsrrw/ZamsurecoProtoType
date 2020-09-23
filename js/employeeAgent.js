@@ -48,10 +48,6 @@ arrEmpLocCov['Area'] = [];
     var _tblValue = document.createTextNode(employeeLocation);
     _tblCell.appendChild(_tblValue);
 
-<<<<<<< HEAD
-=======
-    // arrEmpLocCov.push(employeeLocation);
->>>>>>> 2163a36174ccf1dcb022097f9cf18e9f14ad2ba8
     arrEmpLocCov['Area'].push(employeeLocation);
     console.log(arrEmpLocCov);
 
@@ -77,6 +73,11 @@ arrEmpLocCov['Area'] = [];
   $('#btnMngDspt').click(function(){
     $('#divMngCmplntDispt').css("display","block")
   });
+
+  $('#btnShowComplaintRec').click(function(){
+    hideModals();
+    $('#divCmplntHndlr').css("display","block");
+  })
 
   $('body').on("click",'#tblData tr', function(){
     $(this).addClass('selected').siblings().removeClass('selected');
@@ -104,10 +105,7 @@ arrEmpLocCov['Area'] = [];
   });
 
   $("#btnBack").click(function(){
-    $('#divTbl').css("display","none");
-    $('#divRegSupp').css("display","none");
-    $('#divEmpList').css("display","none");
-    $('#divMngCmplntDispt').css("display","none")
+    hideModals();
   });
 
   $('#btnIDSearch').click(function(){
@@ -128,27 +126,27 @@ arrEmpLocCov['Area'] = [];
     })
   })
 
-<<<<<<< HEAD
   $('#btnSubmitDsptMng').on("click", function(){
     $.ajax({
       type: "POST",
       url: 'databaseConnection/DatabaseQueries.php',
       data: { 'paramName': JSON.stringify(arrEmpLocCov),
               'areaCovNo': $('#AreaCovID').val() },
-=======
-  $('#btnSubmitDsptMng').click(function(){
-    $.ajax({
-      type: "POST",
-      url: 'EmployeeAgentQueries.php',
-      data: { 'paramName': JSON.stringify(arrEmpLocCov),
-              'areaCovNo': $('#AreaCovID').html() },
->>>>>>> 2163a36174ccf1dcb022097f9cf18e9f14ad2ba8
       success: function(result){
         console.log(result);
       }
     })
   })
+
 });
+
+function hideModals(){
+  $('#divTbl').css("display","none");
+  $('#divRegSupp').css("display","none");
+  $('#divEmpList').css("display","none");
+  $('#divMngCmplntDispt').css("display","none")
+  $('#divCmplntHndlr').css("display","none")
+}
 
 function validate(evt) {
   var theEvent = evt || window.event;
@@ -165,17 +163,4 @@ function validate(evt) {
     theEvent.returnValue = false;
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
-}
-
-// passing value to Server Side (php) on 'Submit' DsptMng modal
-function  passValue(){
-  $.ajax({
-    type: "POST",
-    url: 'databaseConnection/DatabaseQueries.php',
-    data: { 'paramName': JSON.stringify(arrEmpLocCov),
-            'areaCovNo': $('#AreaCovID').val() },
-    success: function(result){
-      console.log("Error");
-    }
-  })
 }

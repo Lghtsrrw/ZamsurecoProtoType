@@ -507,37 +507,6 @@
 		$mysqli -> close();
 	}
 
-	function saveAreaCoverage($objName, $areacovNo){
-		global $db;
-
-		for($i = 0; $i < count($objName); $i++){
-			$city = $objName[$i];
-			if (mysqli_query($db, "INSERT INTO receiver_area_coverage (area_coverage_no, city_mun) VALUES ( '$areacovNo', '$city')")){
-					printf( "Success Saving:"  . $city);
-			} else {
-				echo "Error: <br>" . mysqli_error($db);
-			}
-		}
-	}
-
-	// saving 'Area Coverage Array' on manageDispatch Modal, when pressing  "Save"
-	if(!isset($_POST['paramName']) || !isset($_POST['areaCovNo'])){
-		print_r('No Value manageDispatch Modal [AreaCov button]' );
-	}else {
-		$newArraythis = json_decode($_POST['paramName'], true);
-		var_dump($newArraythis);
-		printf($_POST['areaCovNo']);
-		$areacovthis = $_POST['areaCovNo'];
-		saveAreaCoverage( $newArraythis['Area'], $areacovthis);
-		print_r('lol');
-	}
-	// saving Form on manageDispatch Modal, when pressing  "Save"
-	if(!isset($_POST['dsptMngBtn'])){
-			print_r('No Value manageDispatch Modal [Submit button]' );
-	}else {
-		saveComplaintReceiver();
-	}
-
 	function generateComplaintReceiverNo(){
 		global $db;
 		$ticketno = 0;
@@ -548,18 +517,45 @@
 		}
 		return 'C' . $ticketno;
 		$mysqli -> close();
+		}
+
+	// saving 'Area Coverage Array' on manageDispatch Modal, when pressing  "Save"
+	if(isset($_POST['paramName']) && isset($_POST['areaCovNo'])){
+			$newArraythis = json_decode($_POST['paramName'], true);
+			var_dump($newArraythis);
+			printf($_POST['areaCovNo']);
+			$areacovthis = $_POST['areaCovNo'];
+			saveAreaCoverage( $newArraythis['Area'], $areacovthis);
+			print_r('lol');
+	}
+
+	// saving Form on manageDispatch Modal, when pressing  "Save"
+	if(isset($_POST['dsptMngBtn'])){
+			saveComplaintReceiver();
+	}
+	function saveAreaCoverage($objName, $areacovNo){
+		global $db;
+
+		for($i = 0; $i < count($objName); $i++){
+			$city = $objName[$i];
+			if(mysqli_query($db, "INSERT INTO receiver_area_coverage (area_coverage_no, city_mun) VALUES ( '$areacovNo', '$city')")){
+				printf( "Success Saving:"  . $city);
+			} else {
+				echo "Error: <br>" . mysqli_error($db);
+			}
+		}
 	}
 
 	function saveComplaintReceiver(){
 		global $db, $errors;
 
 		$compRecNo = generateComplaintReceiverNo();
-		$compID = $_POST['inputComplaint'];
+		$compID = $_POST['hidComplaintNo'];
 		$empid = $_POST['txtEmpID'];
 		$empcontact = $_POST['inputEmpContact'];
 		$areacovNO = $_POST['hidAreaCovNo'];
 		$empoffice = $_POST['inputEmpOffice'];
-		$areacovNo = $_POST['hidAreaCovNo'];
+		$areacovNo = generateAreaCoverageNo();
 		$rowareacount = $_POST['rowAreaCov'];
 
 		if($compID === "-- Complaint --"){
@@ -581,6 +577,9 @@
 		if($rowareacount <= 0){
 			array_push($errors, 'select Area Coverage');
 		}
+		if (empty($areacovNo)) {
+			array_push($errors, 'No Value Passed in AreaCovID');
+		}
 
 		if(count($errors) == 0){
 			$query = "INSERT INTO
@@ -600,7 +599,8 @@
 								'$empoffice'
 							)";
 			if (mysqli_query($db, $query)){
-					printf( "Success Saving:"  . $areacovNO);
+				$_SESSION['success'] = 'Success';
+				header('location: employeeAgent.php' . "?submit=1&CompRec=" . $compRecNo . "&areaCovno=" . $areacovNo ."");
 			} else {
 				echo "Error: <br>" . mysqli_error($db);
 			}
