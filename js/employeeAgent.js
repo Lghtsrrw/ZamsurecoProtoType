@@ -138,6 +138,11 @@ arrEmpLocCov['Area'] = [];
     })
   })
 
+    $('body').on("click",'#tblLocation tr', function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
+    var value=$(this).find('td:first').html();
+    $('#selectedRow').val(value);
+  });
 });
 
 function hideModals(){

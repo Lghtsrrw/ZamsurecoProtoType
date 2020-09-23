@@ -37,7 +37,7 @@
                   $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"Empty";
                   $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
                     echo "Contact No: <i>" . $_contact . "</i><br>";
-                    echo "Email: <i>" .$_email . "</i><br>";
+                    echo "Email: <i>" . $_email . "</i><br>";
                   ?>
                 </p>
             </div>

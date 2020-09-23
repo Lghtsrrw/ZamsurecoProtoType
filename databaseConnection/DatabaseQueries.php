@@ -606,4 +606,49 @@
 			}
 		}
 	}
+
+	function fillCmplntHndlrLocation()
+	{
+		global $db;
+		$queryAddress = "SELECT DISTINCT city_mun from receiver_area_coverage";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo "<tr>";
+				echo "<td>" . $row['city_mun'] . "</td>";
+				echo "</tr>";
+			}
+		}
+	}
+
+	function fillCmplntHndlrOffice($cityMun)
+	{
+		if(!empty($cityMun)){
+			global $db;
+			$queryAddress = "SELECT DISTINCT office
+											FROM complaint_receiver cr
+											INNER JOIN receiver_area_coverage rac
+											ON cr.area_coverage_no = rac.area_coverage_no
+											WHERE rac.city_mun = '$cityMun'";
+			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+			if(mysqli_num_rows($results) > 0)
+			{
+
+				echo "<tr>";
+				echo "<th>Office</th>";
+				echo "</tr>";
+				while ($row = mysqli_fetch_assoc($results))
+				{
+					echo "<tr>";
+					echo "<td>" . $row['office'] . "</td>";
+					echo "</tr>";
+				}
+			}
+			return true;
+		}else {
+			return false;
+		}
+	}
 ?>

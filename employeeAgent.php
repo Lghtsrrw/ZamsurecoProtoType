@@ -195,11 +195,21 @@ if (isLoggedIn()) {
         <a id="btnBack" href="" style="float:right;">BACK</a>
         <h2>Complaint Handler</h2>
         <div id="divTicket" style="width:100%; clear:both;">
-          <div class="locationFloatLeft">
-
+          <div class="locationFloatLeft" style="width:50%; float: left;">
+            <h3>Location</h3>
+            <table id="tblLocation">
+              <tr>
+                <th>City/Municipal</th>
+              </tr>
+              <?php fillCmplntHndlrLocation(); ?>
+            </table>
+            <input type="hidden" id="selectedRow" name="" value="">
           </div>
-          <div class="locationFloatRight">
-
+          <div class="locationFloatRight" style="width:50%; float: right;">
+            <h3>Offices</h3>
+            <table id="tblOffices">
+              <?php fillCmplntHndlrOffice(""); ?>
+            </table>
           </div>
         </div>
       </div>
