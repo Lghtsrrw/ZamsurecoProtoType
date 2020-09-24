@@ -213,8 +213,14 @@ if (isLoggedIn()) {
                   <?php fillCmplntHndlrLocation(); ?>
                 </table>
                 <input type="hidden" id="selectedRow" value="">
+<<<<<<< HEAD
                 <input type="hidden" id="selectedOffice" value="">
               </fieldset>
+=======
+              </fieldset>
+
+              <input type="hidden" id="selectedOffice" value="">
+>>>>>>> ff3c0df54a6a67e76bb6255e9c6e383910d09a34
             </div>
             <div class="locationFloatRight" style="width:50%; float: right;">
               <!-- Automated Entry in js file using AJAX -->
