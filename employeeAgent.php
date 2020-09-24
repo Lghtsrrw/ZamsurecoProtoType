@@ -60,14 +60,14 @@ if (isLoggedIn()) {
     <?php endif ?>
 
     <!-- modal section -->
+    <!-- List of Active Complaint -->
     <div class="modal" id="divTbl" >
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">BACK</a>
-
         <h3>Active Complaint</h3>
-            <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
-            <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
-            <button type="button" name="btnSearch" id="btnDispatch" class="mainBtn" style="height:42px; float:right;" disabled>Dispatch</button>
+          <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
+          <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
+          <button type="button" name="btnSearch" id="btnDispatch" class="mainBtn" style="height:42px; float:right;" disabled>Dispatch</button>
 
         <div id="tblAllData">
           <table border="1" id="tblData">
@@ -85,6 +85,8 @@ if (isLoggedIn()) {
         </div>
       </div>
     </div>
+
+    <!-- Support Registration Modal  -->
     <div class="modal" id="divRegSupp">
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">Back</a>
@@ -112,6 +114,8 @@ if (isLoggedIn()) {
         </form>
       </div>
     </div>
+
+    <!-- List of Registered Support Modal-->
     <div class="modal" id="divEmpList">
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">BACK</a>
@@ -127,6 +131,8 @@ if (isLoggedIn()) {
         </table>
       </div>
     </div>
+
+    <!-- Dispatch Mananagement Dispatch modal -->
     <div class="modal" id="divMngCmplntDispt">
       <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">BACK</a>
@@ -190,29 +196,36 @@ if (isLoggedIn()) {
         </form>
       </div>
     </div>
+
+    <!-- Complaint Handlr Modal -->
     <div class="modal" id="divCmplntHndlr">
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <a id="btnBack" href="" style="float:right;">BACK</a>
-        <h2>Complaint Handler</h2>
-        <div id="divTicket" style="width:100%; clear:both;">
-          <div class="locationFloatLeft" style="width:50%; float: left;">
-            <h3>Location</h3>
-            <table id="tblLocation">
-              <tr>
-                <th>City/Municipal</th>
-              </tr>
-              <?php fillCmplntHndlrLocation(); ?>
-            </table>
-            <input type="hidden" id="selectedRow" name="" value="">
-          </div>
-          <div class="locationFloatRight" style="width:50%; float: right;">
-            <h3>Offices</h3>
-            <table id="tblOffices">
-              <?php fillCmplntHndlrOffice(""); ?>
-            </table>
-          </div>
+        <div class="">
+          <h2>Complaint Handler</h2>
+            <div class="locationFloatLeft" style="width:50%; float: left;">
+              <fieldset>
+                <legend>Location</legend>
+                <table id="tblLocation">
+                  <tr>
+                    <th>City/Municipal</th>
+                  </tr>
+                  <?php fillCmplntHndlrLocation(); ?>
+                </table>
+                <input type="hidden" id="selectedRow" value="">
+              </fieldset>
+
+              <input type="hidden" id="selectedOffice" value="">
+            </div>
+            <div class="locationFloatRight" style="width:50%; float: right;">
+              <!-- Automated Entry in js file using AJAX -->
+            </div>
+            <div class="divEmpDetails" style="width:100%; float: bottom;">
+
+            </div>
         </div>
       </div>
     </div>
+
   </body>
 </html>

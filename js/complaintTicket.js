@@ -116,11 +116,13 @@ $(document).ready(function(){
   $('#ddPurok').blur(function() {
     if($('#ddPurok').val() !== ""){
     $('#ticketBtnId').show();
-    }else {
+    }else{
       $('#ticketBtnId').hide();
     }
   });
+
 });
+
 function showSubmitMessage(){
     $('#divTicket').hide();
     $('#divSubmitMessage').show();

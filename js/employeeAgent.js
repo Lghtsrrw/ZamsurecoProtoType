@@ -138,10 +138,26 @@ arrEmpLocCov['Area'] = [];
     })
   })
 
-    $('body').on("click",'#tblLocation tr', function(){
+  $('body').on("click",'#tblLocation tr', function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     var value=$(this).find('td:first').html();
     $('#selectedRow').val(value);
+
+    $('.locationFloatRight').load("databaseConnection/DatabaseQueries.php", {
+      locationvalue: $('#selectedRow').val()
+    });
+    console.log("No error");
+  });
+
+  $('body').on("click",'#tblOffices tr', function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
+    var value=$(this).find('td:first').html();
+    $('#selectedOffice').val(value);
+
+    $('.divEmpDetails').load("databaseConnection/DatabaseQueries.php", {
+      officeval: $('#selectedOffice').val(),
+      cityval: $('#selectedRow').val()
+    });
   });
 });
 
@@ -149,8 +165,8 @@ function hideModals(){
   $('#divTbl').css("display","none");
   $('#divRegSupp').css("display","none");
   $('#divEmpList').css("display","none");
-  $('#divMngCmplntDispt').css("display","none")
-  $('#divCmplntHndlr').css("display","none")
+  $('#divMngCmplntDispt').css("display","none");
+  $('#divCmplntHndlr').css("display","none");
 }
 
 function validate(evt) {

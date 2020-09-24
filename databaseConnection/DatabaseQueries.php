@@ -560,15 +560,11 @@
 
 		if($compID === "-- Complaint --"){
 			array_push($errors, "Choose your complaint");
-		}else {
-			print_r($compID);
 		}
-		if (empty($_POST['txtEmpID'])) {
+		if(empty($_POST['txtEmpID'])) {
 			array_push($errors, "Insert Employee ID");
-		}else {
-			print_r($empid);
 		}
-		if (empty($_POST['inputEmpContact'])) {
+		if(empty($_POST['inputEmpContact'])) {
 			array_push($errors, "Input Employee Contact");
 		}
 		if(empty($_POST['inputEmpOffice'])){
@@ -577,7 +573,7 @@
 		if($rowareacount <= 0){
 			array_push($errors, 'select Area Coverage');
 		}
-		if (empty($areacovNo)) {
+		if(empty($areacovNo)) {
 			array_push($errors, 'No Value Passed in AreaCovID');
 		}
 
@@ -623,11 +619,16 @@
 		}
 	}
 
+	// Check if the location value passed from the client side
+	if(isset($_POST['locationvalue']) && !empty($_POST['locationvalue'])){
+		fillCmplntHndlrOffice($_POST['locationvalue']);
+	}
+
 	function fillCmplntHndlrOffice($cityMun)
 	{
 		if(!empty($cityMun)){
 			global $db;
-			$queryAddress = "SELECT DISTINCT office
+			$queryAddress = "SELECT DISTINCT office, rac.area_coverage_no as 'Area'
 											FROM complaint_receiver cr
 											INNER JOIN receiver_area_coverage rac
 											ON cr.area_coverage_no = rac.area_coverage_no
@@ -635,16 +636,68 @@
 			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 			if(mysqli_num_rows($results) > 0)
 			{
-
+				echo "<h3>Offices</h3>";
+				echo "<table id='tblOffices'>";
 				echo "<tr>";
 				echo "<th>Office</th>";
+				echo "<th>Code</th>";
 				echo "</tr>";
 				while ($row = mysqli_fetch_assoc($results))
 				{
 					echo "<tr>";
 					echo "<td>" . $row['office'] . "</td>";
+					echo "<td>" . $row['Area'] . "</td>";
 					echo "</tr>";
+
 				}
+				echo "</table>";
+			}
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+
+	// Check if the emp support details value passed from the client side
+	if(isset($_POST['officeval']) && isset($_POST['cityval'])){
+		fillCmplntHndlrEmp($_POST['cityval'],$_POST['officeval']);
+	}
+
+	function fillCmplntHndlrEmp($city, $val){
+		if(!empty($val) && !empty($city)){
+			global $db;
+
+			$queryAddress = "SELECT e.empid, concat(fname,' ',lname)as'fullname', office, contact, complaintid as 'Complaint Handling'
+											FROM complaint_receiver cr
+											INNER JOIN receiver_area_coverage rac
+											ON cr.area_coverage_no = rac.area_coverage_no
+											INNER JOIN EMPLOYEE E
+											ON e.EmpID = cr.empid
+											WHERE rac.city_mun = '$city' and cr.office = '$val'";
+			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+			if(mysqli_num_rows($results) > 0)
+			{
+				echo "<table id='tblempDetails'>";
+				echo "<tr>";
+				echo "<th>Employee ID</th>";
+				echo "<th>Fullname</th>";
+				echo "<th>Office</th>";
+				echo "<th>Contact</th>";
+				echo "<th>Complaint Handling</th>";
+				echo "</tr>";
+				while ($row = mysqli_fetch_assoc($results))
+				{
+					echo "<tr>";
+					echo "<td>" . $row['empid'] . "</td>";
+					echo "<td>" . $row['fullname'] . "</td>";
+					echo "<td>" . $row['office'] . "</td>";
+					echo "<td>" . $row['contact'] . "</td>";
+					echo "<td>" . $row['Complaint Handling'] . "</td>";
+					echo "</tr>";
+
+				}
+				echo "</table>";
 			}
 			return true;
 		}else {
