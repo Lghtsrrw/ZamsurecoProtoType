@@ -108,7 +108,15 @@ if (isLoggedIn()) {
           <b><label for="">Department</label></b><br>
           <input type="text" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" >
           <div class="divBtn" style="text-align: left;">
-
+            <fieldset>
+              <legend>Account</legend>
+              <b><label for="">Username</label></b>
+              <input type="text" name="txtEmpUsername" value="">
+              <b><label for="">Password</label></b>
+              <input type="password" name="txtEmpPass" value="">
+              <b><label for="">Confirm Password</label></b>
+              <input type="password" name="txtEmpConPass" value="">
+            </fieldset>
           <button type="submit" name="btnSaveEmpSupp" class="mainBtn" style="width:100%">SAVE</button>
           </div>
         </form>
@@ -213,20 +221,14 @@ if (isLoggedIn()) {
                   <?php fillCmplntHndlrLocation(); ?>
                 </table>
                 <input type="hidden" id="selectedRow" value="">
-<<<<<<< HEAD
                 <input type="hidden" id="selectedOffice" value="">
               </fieldset>
-=======
-              </fieldset>
-
-              <input type="hidden" id="selectedOffice" value="">
->>>>>>> ff3c0df54a6a67e76bb6255e9c6e383910d09a34
             </div>
             <div class="locationFloatRight" style="width:50%; float: right;">
               <!-- Automated Entry in js file using AJAX -->
             </div>
             <div class="divEmpDetails" style="width:100%; float: bottom;">
-
+              <!-- Automated Entry in js file using AJAX -->
             </div>
         </div>
       </div>

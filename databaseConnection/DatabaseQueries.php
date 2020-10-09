@@ -16,6 +16,7 @@
 	if($mysqli === false){
 	    die("ERROR: Could not connect. " . $mysqli->connect_error);
 	}
+
 	// variable declaration
 	$errors = array();
 
@@ -23,21 +24,21 @@
 	if (isset($_POST['register_btn'])) {
 		register();
 	}
-	// call the login() function if register_btn is clicked
-	if (isset($_POST['login_btn'])) {
-		login();
-	}
+
 	if(isset($_POST['guestbtn'])){
 		guest();
 	}
+
 	if(isset($_POST['logout'])){
 		logout();
 	}
+
 	if (isset($_GET['logout'])) {
 		session_destroy();
 		unset($_SESSION['user']);
 		header("location: signin.php");
 	}
+
 	if(isset($_POST['nTicketbtn'])){
 		submitTicket();
 	}
@@ -45,9 +46,7 @@
 	if (isset($_POST['btnEmpLogin'])) {
 		empLogin();
 	}
-	if (isset($_POST['btnSaveEmpSupp'])) {
-		saveRegisteredEmployeeSupp();
-	}
+
 	// Check if the username is already in the system.
 	function checkUsername($_username){
 			global $db, $errors;
@@ -139,6 +138,11 @@
 		$mysqli -> close();
 	}
 
+	// call the login() function if register_btn is clicked
+	if (isset($_POST['login_btn'])) {
+		login();
+	}
+
 	// LOGIN USER
 	function login(){
 		global $db, $errors;
@@ -211,6 +215,7 @@
 			}
 		}
 	}
+
 	//GUEST USER
 	function guest(){
 		global $db, $errors;
@@ -282,6 +287,7 @@
 			return false;
 		}
 	}
+
 	function isAgent(){
 		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Agent' ) {
 			return true;
@@ -430,8 +436,7 @@
 		}
 	}
 
-	function fillEmpListTable()
-	{
+	function fillEmpListTable(){
 		global $db;
 		$queryAddress = "SELECT EmpID, concat(fname, ' ', mname,' ',lname)as'Name', Area, Dept  FROM employee";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
@@ -447,6 +452,10 @@
 				echo "</tr>";
 			}
 		}
+	}
+
+	if (isset($_POST['btnSaveEmpSupp'])) {
+		saveRegisteredEmployeeSupp();
 	}
 
 	function saveRegisteredEmployeeSupp(){
@@ -648,7 +657,6 @@
 					echo "<td>" . $row['office'] . "</td>";
 					echo "<td>" . $row['Area'] . "</td>";
 					echo "</tr>";
-
 				}
 				echo "</table>";
 			}
@@ -657,7 +665,6 @@
 			return false;
 		}
 	}
-
 
 	// Check if the emp support details value passed from the client side
 	if(isset($_POST['officeval']) && isset($_POST['cityval'])){
@@ -695,7 +702,6 @@
 					echo "<td>" . $row['contact'] . "</td>";
 					echo "<td>" . $row['Complaint Handling'] . "</td>";
 					echo "</tr>";
-
 				}
 				echo "</table>";
 			}

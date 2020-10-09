@@ -34,7 +34,6 @@ if (isGuest()) {
   	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
   </div>
 
-
 	<h1>Homepage</h1>
 
 	<?php if (isset($_SESSION['success'])) : ?>
@@ -46,10 +45,15 @@ if (isGuest()) {
 				echo "Email: " . $_SESSION['user']['email'] . "<br>";
 				echo "ID: " . $_SESSION['user']['UserID'] . "<br>";
 				echo "Contact: " . $_SESSION['user']['Contact'] . "<br>";
+				echo "Account No. : " . $_SESSION['user']['AcctNo'] . "<br>";;
 				?>
 			</h5>
 		</div>
 	<?php endif ?>
+
+	<div class="divLogin" id="divBillList">
+
+	</div>
 
 	<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
@@ -58,6 +62,7 @@ if (isGuest()) {
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
 	</div>
+
 
 	<!-- show submit Ticket and Tracking No -->
 	<?php if(isset($_GET['submit'])) : ?>

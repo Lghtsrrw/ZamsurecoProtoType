@@ -19,22 +19,27 @@ input[type=text]:disabled, input[type=password]:disabled{
   box-sizing: border-box;
   background-color: #eee;
 }
+
 fieldset{
   margin-bottom: 20px;
 }
+
 .cSearch{
   clear: both;
   float: left;
   display: inline-block;
 }
+
 .selected, .selected:nth-child(even){
   background-color: teal;
     color: #FFF;
 }
+
 #divIdTblComplaint{
   border-radius: .5em;
   border: 1px solid #666;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -59,6 +64,7 @@ tr:nth-child(even){background-color: #e8e8e8}
   text-align: center;
   display: block;
 }
+
 .divLogin{
   margin:auto;
   width: 80%;
@@ -67,6 +73,8 @@ tr:nth-child(even){background-color: #e8e8e8}
   background-color: white;
   margin-top: 5%;
 }
+
+
 #divTicket{
   width:90%;
   text-align:left;
