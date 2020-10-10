@@ -43,14 +43,9 @@
 		submitTicket();
 	}
 
-	if (isset($_POST['btnEmpLogin'])) {
-		empLogin();
-	}
-
 	// Check if the username is already in the system.
 	function checkUsername($_username){
 			global $db, $errors;
-			$retunval;
 			$results = mysqli_query($db, "SELECT username FROM syst_acct where username ='$_username' limit 1");
 			if (mysqli_num_rows($results) == 1) {
 				array_push($errors, "Sorry this username already exist, try another");
@@ -178,6 +173,11 @@
 				array_push($errors, "Wrong username/password combination ");
 			}
 		}
+	}
+
+
+	if (isset($_POST['btnEmpLogin'])) {
+		empLogin();
 	}
 
 	function emplogin(){
@@ -708,6 +708,54 @@
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	if (isset($_POST['_acctNo'])) {
+		echo getBillExistence($_POST['_acctNo']);
+	}
+
+	function ifBillExist($val){
+		global $db;
+		$returnVal = false;
+		$queryAddress = "SELECT * from bill
+										WHERE AccountNo = '$val'";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			$returnVal = true;
+		}
+		return $returnVal;
+	}
+
+	function displayBill($val){
+		global $db;
+		$queryAddress = "SELECT distinct * FROM bill
+										WHERE accountNo like %'$val'%";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			echo "<table id='tblBill'>";
+			echo "<tr>";
+			echo "<th>Period Cover</th>";
+			echo "<th>Kwh Used</th>";
+			echo "<th>On Due</th>";
+			echo "<th>Before Due</th>";
+			echo "<th>After Due</th>";
+			echo "<th>Due Date</th>";
+			echo "</tr>";
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo "<tr>";
+				echo "<td>" . $row['PeriodCovered'] . "</td>";
+				echo "<td>" . $row['KwHUsed'] . "</td>";
+				echo "<td>" . $row['onDue'] . "</td>";
+				echo "<td>" . $row['beforeDue'] . "</td>";
+				echo "<td>" . $row['afterDue'] . "</td>";
+				echo "<td>" . $row['DueDate'] . "</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
 		}
 	}
 ?>

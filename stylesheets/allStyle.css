@@ -65,7 +65,7 @@ tr:nth-child(even){background-color: #e8e8e8}
   display: block;
 }
 
-.divLogin{
+.divLogin, #divBillList{
   margin:auto;
   width: 80%;
   border: 1px solid #ccc;

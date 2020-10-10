@@ -18,7 +18,7 @@ if (isGuest()) {
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
 	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
 	<script src="js/jquery-3.5.1.min.js"></script>
-  <script type="text/javascript">
+	<script type="text/javascript">
     $(document).ready(function(){
       $("#btnComplaints").click(function(){
         window.location.href = "complaintTicket.php";
@@ -37,23 +37,27 @@ if (isGuest()) {
 	<h1>Homepage</h1>
 
 	<?php if (isset($_SESSION['success'])) : ?>
-		<div class="success" >
-			<h5>
-				Logged in as:
-				<?php
-				echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
-				echo "Email: " . $_SESSION['user']['email'] . "<br>";
-				echo "ID: " . $_SESSION['user']['UserID'] . "<br>";
-				echo "Contact: " . $_SESSION['user']['Contact'] . "<br>";
-				echo "Account No. : " . $_SESSION['user']['AcctNo'] . "<br>";;
-				?>
-			</h5>
-		</div>
+	<div class="success" >
+		<h5>
+			Logged in as:
+			<?php
+			echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
+			echo "Email: " . $_SESSION['user']['email'] . "<br>";
+			echo "ID: " . $_SESSION['user']['UserID'] . "<br>";
+			echo "Contact: " . $_SESSION['user']['Contact'] . "<br>";
+			echo "Account No. : " . $_SESSION['user']['AcctNo'] . "<br>";;
+			?>
+		</h5>
+		<input type="hidden" name="_accountno" id="_idAcctNo" value="<?php echo $_SESSION['user']['AcctNo']; ?>">
+	</div>
 	<?php endif ?>
 
-	<div class="divLogin" id="divBillList">
 
-	</div>
+	<?php if (isset($_SESSION['user']['AcctNo'])) : ?>
+		<div id="divBillList">
+			<?php displayBill($_SESSION['user']['AcctNo']); ?>
+		</div>
+	<?php endif ?>
 
 	<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
@@ -67,8 +71,7 @@ if (isGuest()) {
 	<!-- show submit Ticket and Tracking No -->
 	<?php if(isset($_GET['submit'])) : ?>
 	<div id="divSubmitMessage">
-	  <h4>TICKET SUBMITTED SUCCESSFULLY</h4>
-	  <p>Your tracking number is: <b><?php echo  $_GET['trackno']; ?></b> </p>
+ 	  <p>Your tracking number is: <b><?php echo  $_GET['trackno']; ?></b> </p>
 	</div>
 	<?php endif ?>
 
