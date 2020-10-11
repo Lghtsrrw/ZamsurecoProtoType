@@ -28,7 +28,11 @@ if (isLoggedIn()) {
       <div style="width:100%; text-align:right; padding:10px">
       	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
       </div>
-      <h1>Employee Agent</h1>
+
+      <div class="logoimg">
+      <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
+      <h3>ZAMSURECO AGENT</h3>
+      </div>
 
       <!-- Show current user -->
       <?php if (isset($_SESSION['success'])) : ?>

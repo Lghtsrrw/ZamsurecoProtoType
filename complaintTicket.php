@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type ="text/css"href="stylesheets/webStyle.css">
+    <link rel="stylesheet" type ="text/css"href="stylesheets/allStyle.css">
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/complaintTicket.js"></script>
     <title>Create a Ticket</title>
@@ -26,7 +26,10 @@
     </div>
 
     <div id = "divTicket">
-        <h1>CREATING TICKET</h1>
+      <div class="logoimg">
+      <img src="img/logo.png" id="logotitle" style="height:150px; width:150px">
+      <h2>COMPLAINT TICKET</h2>
+      </div>
         <h5>Ticket No: <?php echo generateTicketID(); ?></h5>
         <?php display_error(); ?>
           <hr>

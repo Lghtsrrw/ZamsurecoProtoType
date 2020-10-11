@@ -37,7 +37,7 @@
     <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
     <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
     <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
-    <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as Guest</button>
+    <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
 </fieldset>
 </div>
 <!-- buttons declaration end-->
@@ -186,7 +186,7 @@
       <label for="gAddress"><b>Address</b></label><br>
       <input type="text" id="gAddress" placeholder="Enter Adrress" name="gAddress" > <br>
 
-      <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn">Enter as Guest</button>
+      <button type="submit" class="mainBtn" name="guestbtn" id="guestbtn">Enter as Guest</button>
     </div>
     <div class="container" style="background-color:#f1f1f1">
       <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>
