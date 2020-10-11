@@ -731,7 +731,7 @@
 	function displayBill($val){
 		global $db;
 		$queryAddress = "SELECT distinct * FROM bill
-										WHERE accountNo like %'$val'%";
+										WHERE AccountNo like '$val'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{

@@ -18,7 +18,7 @@
     <title>Login Page</title>
     <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/signin.js">
     </script>
@@ -30,11 +30,14 @@
 <!-- buttons declaration -->
 <div class ="btnContainer">
 <fieldset style="width:80%; margin:10% auto; ">
-<h2>Zamsureco Login Form</h2>
-    <button id = "btnLogin" style="width:auto">Login</button>
-    <button id = "btnRegister" style="width:auto">Register</button>
-    <button id = "btnTrack" style="width:auto">Track your complaint</button>
-    <button id = "btnGuest" style="width:auto">Enter as Guest</button>
+<div class="logoimg">
+<img src="img/logo.png" id="logotitle">
+<h3>ZAMSURECO-I MOBILE APPLICATION</h3>
+</div>
+    <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
+    <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
+    <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
+    <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as Guest</button>
 </fieldset>
 </div>
 <!-- buttons declaration end-->
@@ -47,7 +50,7 @@
     <div class="imgcontainer">
 
       <span class="close" title="Close Modal">&times;</span>
-      <img src="img/userprofile.jpg" alt="Avatar" class="avatar">
+      <img src="img/userprofile.png" alt="Avatar" class="avatar">
     </div>
     <div class="container"> <!-- Check -->
       <label for="uname"><b>Username</b></label>
@@ -56,13 +59,13 @@
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password">
 
-      <button type="submit" class="btn" name = "login_btn">Login</button>
+      <button type="submit" class="mainBtn" name = "login_btn">Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
     </div>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" class="cancelbtn" onclick="document.getElementById('id01').style.display='none'">Cancel</button>
       <span class="psw"><a href="#">Forgot password?</a></span>
     </div>
   </form>
@@ -168,6 +171,7 @@
   <form class="modal-content animate" action="signin.php" method="post">
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
+      <img src="img/userprofile.png" alt="Avatar" class="avatar">
     </div>
     <div class="container">
       <label for="username"><b>Guest Name</b></label><br>

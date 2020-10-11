@@ -52,21 +52,21 @@ if (isGuest()) {
 	</div>
 	<?php endif ?>
 
-
-	<?php if (isset($_SESSION['user']['AcctNo'])) : ?>
-		<div id="divBillList">
-			<?php displayBill($_SESSION['user']['AcctNo']); ?>
-		</div>
-	<?php endif ?>
-
 	<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
-		<button id = "btnInquireBill" class="mainBtn">Inquire Bill</button>
+		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->
 		<button id = "btnPayBills" class="mainBtn">Pay Bills</button>
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
 	</div>
 
+	<!-- Display Bills  -->
+	<?php if (isset($_SESSION['user']['AcctNo'])) : ?>
+		<div id="divBillList">
+			<p><b>Bills</b></p>
+			<?php displayBill($_SESSION['user']['AcctNo']); ?>
+		</div>
+	<?php endif ?>
 
 	<!-- show submit Ticket and Tracking No -->
 	<?php if(isset($_GET['submit'])) : ?>

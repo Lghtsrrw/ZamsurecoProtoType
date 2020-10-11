@@ -60,8 +60,8 @@ th, td {
 tr:nth-child(even){background-color: #e8e8e8}
 
 .divBtn{
-  width: 100%;
-  text-align: center;
+  width: 80%;
+  text-align: center ;
   display: block;
 }
 
@@ -142,7 +142,15 @@ li{
   cursor: pointer;
   width: 100%;
 } */
-
+.logoimg{
+  width:100%;
+  clear:both;
+  text-align: center;
+}
+#logotitle{
+  width: 100px;
+  height: 100px;
+}
 .mainBtn{
   background-color: #4c80f1;
   color: rgb(228, 255, 108);
@@ -206,7 +214,7 @@ button:hover {
 }
 
 img.avatar {
-  width: 30%;
+  width: 20%;
   border-radius: 50%;
 }
 
