@@ -173,7 +173,7 @@ function validate(evt) {
   var theEvent = evt || window.event;
   // Handle paste
   if (theEvent.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
+      key = Event.clipboardData.getData('text/plain');
   } else {
   // Handle key press
       var key = theEvent.keyCode || theEvent.which;

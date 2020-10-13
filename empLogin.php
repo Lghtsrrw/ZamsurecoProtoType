@@ -19,12 +19,16 @@
   	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
   	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
   	<script src="js/jquery-3.5.1.min.js"></script>
-    <title></title>
+    <title>Employee Login</title>
   </head>
   <body>
     <?php display_error(); ?>
     <div class="divLogin">
-      <h1>Employee Login</h1>
+      <!-- Image and Title -->
+      <div class="logoimg">
+        <img src="img/logo.png" id="logotitle">
+        <h3>ZAMSURECO-I EMPLOYEE</h3>
+      </div>
       <form class="formEmpLogin" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <label for="uname"><b>Username</b></label>
         <input type="text" name="username">

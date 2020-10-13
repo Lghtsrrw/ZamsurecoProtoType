@@ -34,46 +34,62 @@ if (isGuest()) {
   	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
   </div>
 
-	<h1>Homepage</h1>
-
 	<?php if (isset($_SESSION['success'])) : ?>
 	<div class="success" >
-		<h5>
-			Logged in as:
-			<?php
-			echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
-			echo "Email: " . $_SESSION['user']['email'] . "<br>";
-			echo "ID: " . $_SESSION['user']['UserID'] . "<br>";
-			echo "Contact: " . $_SESSION['user']['Contact'] . "<br>";
-			echo "Account No. : " . $_SESSION['user']['AcctNo'] . "<br>";;
-			?>
-		</h5>
-		<input type="hidden" name="_accountno" id="_idAcctNo" value="<?php echo $_SESSION['user']['AcctNo']; ?>">
+		<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
+		<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
 	</div>
 	<?php endif ?>
 
-
-	<?php if (isset($_SESSION['user']['AcctNo'])) : ?>
-		<div id="divBillList">
-			<?php displayBill($_SESSION['user']['AcctNo']); ?>
-		</div>
-	<?php endif ?>
-
-	<div class="divBtn">
+	<div class="btnContainer">
+		<fieldset style="width:80%; margin:1% auto; ">
+	  <div class="logoimg">
+	  <img src="img/logo.png" id="logotitle">
+	  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
+	  </div>
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
-		<button id = "btnInquireBill" class="mainBtn">Inquire Bill</button>
+		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->
 		<button id = "btnPayBills" class="mainBtn">Pay Bills</button>
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
-	</div>
 
+		<!-- Display Bills  -->
+		<div id="divBillList" style="width: 100%; text-align: left">
 
-	<!-- show submit Ticket and Tracking No -->
-	<?php if(isset($_GET['submit'])) : ?>
-	<div id="divSubmitMessage">
- 	  <p>Your tracking number is: <b><?php echo  $_GET['trackno']; ?></b> </p>
+			<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
+
+			<p><b>Bills</b></p>
+			<table id='tblBill'>
+			<tr>
+			<th>Period Covered</th>
+			<th>Kwh Used</th>
+			<th>On Due</th>
+			<th>Before Due</th>
+			<th>After Due</th>
+			<th>Due Date</th>
+			</tr>
+			<?php displayBill($_SESSION['user']['AcctNo']); ?>
+			</table>
+
+		<?php else : ?>
+			<p><b>Bills</b></p>
+			<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
+		<?php endif ?>
+		</div>
+
+		<!-- show submit Ticket and Tracking No -->
+		<?php if(isset($_SESSION['submit'])) : ?>
+		<div id="divSubmitMessage">
+	 	  <p>Your tracking number is: <b><?php echo  $_SESSION['trackno']; ?></b> </p>
+		</div>
+		
+		<?php 
+			unset($_SESSION['submit']);
+			unset($_SESSION['trackno']);
+			endif
+		?>
+	</fieldset>
 	</div>
-	<?php endif ?>
 
 </body>
 </html>

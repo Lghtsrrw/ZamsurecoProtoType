@@ -18,7 +18,7 @@
     <title>Login Page</title>
     <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="stylesheets/webStyle.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/signin.js">
     </script>
@@ -29,12 +29,15 @@
 
 <!-- buttons declaration -->
 <div class ="btnContainer">
-<fieldset style="width:80%; margin:10% auto; ">
-<h2>Zamsureco Login Form</h2>
-    <button id = "btnLogin" style="width:auto">Login</button>
-    <button id = "btnRegister" style="width:auto">Register</button>
-    <button id = "btnTrack" style="width:auto">Track your complaint</button>
-    <button id = "btnGuest" style="width:auto">Enter as Guest</button>
+  <fieldset style="width:80%; margin:10% auto; ">
+  <div class="logoimg">
+  <img src="img/logo.png" id="logotitle">
+  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
+  </div>
+  <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
+  <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
+  <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
+  <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
 </fieldset>
 </div>
 <!-- buttons declaration end-->
@@ -47,22 +50,22 @@
     <div class="imgcontainer">
 
       <span class="close" title="Close Modal">&times;</span>
-      <img src="img/userprofile.jpg" alt="Avatar" class="avatar">
+      <img src="img/userprofile.png" alt="Avatar" class="avatar">
     </div>
     <div class="container"> <!-- Check -->
-      <label for="uname"><b>Username</b></label>
+      <label for="uname">Username</label>
       <input type="text" placeholder="Enter Username" name="username">
 
-      <label for="psw"><b>Password</b></label>
+      <label for="psw">Password</label>
       <input type="password" placeholder="Enter Password" name="password">
 
-      <button type="submit" class="btn" name = "login_btn">Login</button>
+      <button type="submit" class="mainBtn" name = "login_btn">Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
     </div>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" class="cancelbtn" onclick="document.getElementById('id01').style.display='none'">Cancel</button>
       <span class="psw"><a href="#">Forgot password?</a></span>
     </div>
   </form>
@@ -71,7 +74,6 @@
 <!-- modal for Register -->
 <div id="id02" class="modal">
   <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
     </div>
@@ -110,10 +112,10 @@
           <input type="text" id="address" name="address" placeholder="Your Billing Address"><br>
 
           <label for="contact"><b>Contact</b></label><br>
-          <input type="text" id="contact" name="contact" placeholder="Your Contact Number"><br>
+          <input type="text" id="contact" onkeypress="validate(event)" maxlength="11" name="contact" placeholder="Your Contact Number"><br>
 
           <label for="regAcctNo"><b>Account Number</b></label><br>
-          <input type="text" id="regAcctNo" name="regAcctNo" placeholder="Your Account Number"><br>
+          <input type="text" onkeypress="validate(event)" id="regAcctNo" name="regAcctNo" placeholder="Your Account Number"><br>
 
         </fieldset><br>
       </div>
@@ -125,12 +127,11 @@
         <input type="text" id="gEmail" name="gEmail" ><br><br>
 
         <label for="gContact">Contact Number</label><br>
-        <input type="text" id="gContact" name="gContact" ><br>
+        <input type="text" onkeypress="validate(event)" maxlength="11" id="gContact" name="gContact" ><br>
 
         <label for="gAddress">Address</label><br>
         <input type="text" id="gAddress" name="gAddress" > <br>
       </div>
-
       <hr>
       <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
@@ -168,29 +169,30 @@
   <form class="modal-content animate" action="signin.php" method="post">
     <div class="imgcontainer">
       <span class="close" title="Close Modal">&times;</span>
+      <img src="img/userprofile.png" alt="Avatar" class="avatar">
     </div>
     <div class="container">
       <label for="username"><b>Guest Name</b></label><br>
-      <input type="text" id="guestname" name="guestname" placeholder="Enter Name" ><br>
+      <input type="text" id="mguestname" name="guestname" placeholder="Enter Name" ><br>
 
       <label for="gEmail"><b>Email</b></label><br>
-      <input type="text" placeholder="Enter EMAIL" id="gEmail" name="gEmail" ><br><br>
+      <input type="text" placeholder="Enter EMAIL" id="mgEmail" name="gEmail" ><br><br>
 
       <label for="gContact"><b>Contact Number</b></label><br>
-      <input type="text" id="gContact" placeholder="Enter Contact No" name="gContact" ><br>
+      <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter Contact No" name="gContact" ><br>
 
       <label for="gAddress"><b>Address</b></label><br>
-      <input type="text" id="gAddress" placeholder="Enter Adrress" name="gAddress" > <br>
+      <input type="text" id="mgAddress" placeholder="Enter Adrress" name="gAddress" > <br>
 
-      <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn">Enter as Guest</button>
+      <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn">Enter as Guest</button>
     </div>
-    <div class="container" style="background-color:#f1f1f1">
+    <!-- <div class="container" style="background-color:#f1f1f1">
       <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>
-    </div>
+    </div> -->
 
   </form>
 </div>
-<!-- Modals declaration end-->
+<!-- Modals declaration end -->
 
 </body>
 </html>

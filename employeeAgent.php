@@ -28,7 +28,11 @@ if (isLoggedIn()) {
       <div style="width:100%; text-align:right; padding:10px">
       	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
       </div>
-      <h1>Employee Agent</h1>
+
+      <div class="logoimg">
+      <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
+      <h3>ZAMSURECO AGENT</h3>
+      </div>
 
       <!-- Show current user -->
       <?php if (isset($_SESSION['success'])) : ?>
@@ -36,11 +40,13 @@ if (isLoggedIn()) {
     				Logged in as:
     				<?php
     				echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
-    				echo "ID: " . $_SESSION['user']['UserID'] . "<br>";
             echo "User Type: " . $_SESSION['user']['IDType'] . "<br>";
     				?>
     			</h5>
-    	<?php endif ?>
+      <?php 
+      unset($_SESSION['success']);
+      endif
+       ?>
 
       <!-- Button declaration -->
       <button id = "btnComplaints" class="mainBtn">Complaint List</button>
@@ -51,13 +57,14 @@ if (isLoggedIn()) {
     </div>
 
     <!-- Display process success of failure -->
-    <?php if(isset($_GET['submit'])) : ?>
+
+    <?php if(isset($_SESSION['savesupp'])) : ?>
     <div id="divSubmitMessage" style="margin-top: 20px">
       <h4>COMPLAINT RECEIVER UPDATED</h4>
-      <p>For Complaint No.: <b><?php  echo $_GET['CompRec']; ?></b></p>
-      <p>Area Coverage No.: <b><?php  echo $_GET['areaCovno']; ?></b></p>
+      <!-- <p>For Complaint No.: <b><?php  echo $_GET['CompRec']; ?></b></p>
+      <p>Area Coverage No.: <b><?php  echo $_GET['areaCovno']; ?></b></p> -->
     </div>
-    <?php endif ?>
+  <?php endif ?>
 
     <!-- modal section -->
     <!-- List of Active Complaint -->
@@ -166,7 +173,7 @@ if (isLoggedIn()) {
                 <option value="TSD">
             </datalist>
           </fieldset>
-
+          
           <!-- Employee Details -->
           <fieldset>
             <legend><b>Employee ID</b></legend>

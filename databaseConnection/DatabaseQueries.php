@@ -75,10 +75,10 @@
 			 checkUsername($username);
 		}
 		if(empty(trim($_POST["regAcctNo"]))){
-        array_push($errors, "Please enter your Account Number.");
+      array_push($errors, "Please enter your Account Number.");
     }
     elseif(strlen(trim($_POST["regAcctNo"])) != 10) {
-        array_push($errors, "Please check your Account Number.");
+      array_push($errors, "Please check your Account Number.");
     }
 		if (empty($email)) {
 			array_push($errors, "Email is required");
@@ -375,18 +375,19 @@
 			$addressID = mysqli_insert_id($db);
 
 			$trackno = generateTicketID();
-			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint) values ('$trackno', '$description', '$addressID', '$complaint')";
+			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint, Area_Landmark) values ('$trackno', '$description', '$addressID', '$complaint','$purok')";
 			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
 
 			$user = (isset($_SESSION['user']['UserID']))? $_SESSION['user']['UserID'] : "Empty";
-			$queryComplaint = "INSERT INTO user_complaint (complaintID, ComplaintNo, Date_Time_Complaint) values ('$user', '$trackno', now())";
-			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
+			$queryUserComplaint = "INSERT INTO user_complaint (complaintID, ComplaintNo, Date_Time_Complaint) values ('$user', '$trackno', now())";
+			$results = mysqli_query($db,$queryUserComplaint) or die(mysqli_error());
 
-			$_SESSION['success'] = 'Success';
+			$_SESSION['submit'] = "1";
+			$_SESSION['trackno'] = $trackno;
 			if($_SESSION['user']['IDType'] === 'Guest'){
-				header('location: guestHomepage.php' . "?submit=1&trackno=". $trackno ."");
+				header('location: guestHomepage.php');
 			}elseif ($_SESSION['user']['IDType'] === "User") {
-				header('location: index.php' . "?submit=1&trackno=". $trackno ."");
+				header('location: index.php');
 			}
 		}
 	}
@@ -478,7 +479,7 @@
 			array_push($errors, "Insert your LastName");
 		}
 		if(empty($_POST['txtArea'])){
-			array_push($errors, "Fill in Area Location ");
+			array_push($errors, "Fill in Area Location");
 		}
 		if(empty($_POST['txtDept'])){
 			array_push($errors, "Insert your Department");
@@ -487,7 +488,8 @@
 		if(count($errors) == 0){
 			$query = "INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')";
 			$results = mysqli_query($db,$query) or die(mysqli_error());
-			echo "<script> alert('Save Suceessfully'); </script>";
+			$_SESSION['savedsupp'] = $empid;
+			header('location: employeeAgent.php');
 		}
 	}
 
@@ -717,33 +719,26 @@
 
 	function ifBillExist($val){
 		global $db;
-		$returnVal = false;
 		$queryAddress = "SELECT * from bill
 										WHERE AccountNo = '$val'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
-		if(mysqli_num_rows($results) > 0)
+		if(mysqli_num_rows($results) == 0)
 		{
-			$returnVal = true;
+			$val = false;
+		}else {
+				$val = true;
 		}
-		return $returnVal;
+		return $val;
 	}
 
 	function displayBill($val){
 		global $db;
 		$queryAddress = "SELECT distinct * FROM bill
-										WHERE accountNo like %'$val'%";
+										WHERE AccountNo like '$val'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{
-			echo "<table id='tblBill'>";
-			echo "<tr>";
-			echo "<th>Period Cover</th>";
-			echo "<th>Kwh Used</th>";
-			echo "<th>On Due</th>";
-			echo "<th>Before Due</th>";
-			echo "<th>After Due</th>";
-			echo "<th>Due Date</th>";
-			echo "</tr>";
+
 			while ($row = mysqli_fetch_assoc($results))
 			{
 				echo "<tr>";
@@ -755,7 +750,6 @@
 				echo "<td>" . $row['DueDate'] . "</td>";
 				echo "</tr>";
 			}
-			echo "</table>";
 		}
 	}
 ?>
