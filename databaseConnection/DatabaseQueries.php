@@ -39,10 +39,6 @@
 		header("location: signin.php");
 	}
 
-	if(isset($_POST['nTicketbtn'])){
-		submitTicket();
-	}
-
 	// Check if the username is already in the system.
 	function checkUsername($_username){
 			global $db, $errors;
@@ -413,14 +409,15 @@
 
 	function fillSearchTable($id){
 		global $db;
-		$queryAddress = "SELECT * FROM complaints c INNER JOIN address a ON c.location = a.addressNo
-											WHERE c.complaintNo LIKE '%" . $id . "%'
-											OR description LIKE '%" . $id . "%'
-											OR cregion LIKE '%" . $id . "%'
-											OR cprovince LIKE '%" . $id . "%'
-											OR cCityMun LIKE '%". $id . "%'
-											OR cBrgy LIKE '%" . $id . "%'
-											OR Nature_of_Complaint LIKE '%". $id ."%'";
+		$queryAddress = "SELECT * FROM complaints c
+						INNER JOIN address a ON c.location = a.addressNo
+						WHERE c.complaintNo LIKE '%" . $id . "%'
+						OR description LIKE '%" . $id . "%'
+						OR cregion LIKE '%" . $id . "%'
+						OR cprovince LIKE '%" . $id . "%'
+						OR cCityMun LIKE '%". $id . "%'
+						OR cBrgy LIKE '%" . $id . "%'
+						OR Nature_of_Complaint LIKE '%". $id ."%'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
@@ -495,13 +492,13 @@
 
 	function retrieveEmployeeList(){
 		global $db;
-		$queryAddress = "SELECT * FROM employee";
+		$queryAddress = "SELECT *, concat(fname, ' ',mname,' ',lname)as 'name' FROM employee";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
 			{
-				echo "<option value=".$row['EmpID'].">";
+				echo "<option value=".$row['EmpID'].">" . $row['name'] . "</option>";
 			}
 		}
 	}

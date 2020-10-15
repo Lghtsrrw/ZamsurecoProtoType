@@ -20,9 +20,10 @@ $(document).keypress(
 });
 
 $(document).ready(function(){
+
 var arrEmpLocCov = {};
 arrEmpLocCov['Area'] = [];
-
+arrEmpLocCov['municipalcode'] = [];
   // insert City/Municipal on divMngCmplntDispt Modal location autocomplete
   try {
     const regURL = 'json/refcitymun.json';
@@ -30,7 +31,7 @@ arrEmpLocCov['Area'] = [];
       $.each(data, function(i, item){
         $.each(item, function(j, desc){
           if(desc.provCode == "0973" && desc.citymunDesc != "KUMALARANG" && desc.citymunDesc != "BAYOG" && desc.citymunDesc != "LAKEWOOD"){
-            $('#empLocaCover').append($("<option>").text(desc.citymunDesc));
+            $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
         });
       });
@@ -44,15 +45,18 @@ arrEmpLocCov['Area'] = [];
     var _tblLoc = document.getElementById('tblLocaCover').getElementsByTagName('tbody')[0];
     var _tblRow = _tblLoc.insertRow();
     var _tblCell = _tblRow.insertCell(0);
-    var employeeLocation = $('#idEmpLocat').val();
-    var _tblValue = document.createTextNode(employeeLocation);
-    _tblCell.appendChild(_tblValue);
+    var _tblCell2 = _tblRow.insertCell(1);
+    var MuniCov = $('#idEmpLocat').val()
+    var MuniCov2 = retrieveMunicipalID(MuniCov)
+    var _tblValue = document.createTextNode(MuniCov);
+    var _tblValue2 = document.createTextNode(MuniCov2);
+    _tblCell.appendChild(_tblValue); 
+    _tblCell2.appendChild(_tblValue2);
 
-    arrEmpLocCov['Area'].push(employeeLocation);
+    arrEmpLocCov['Area'].push(MuniCov);
     console.log(arrEmpLocCov);
 
     $('#idEmpLocat').val("");
-    // $('#countthis').html($('#tblLocaCover tr').length - 1);
     $('#countthis').val($('#tblLocaCover tr').length - 1);
   })
 
@@ -86,11 +90,12 @@ arrEmpLocCov['Area'] = [];
   });
 
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
+    alert(retrieveMunicipalID($('#idEmpLocat').text()))
     if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
       // remove selected row from the dsptmng modal
       $(this).closest('tr').remove();
       $('#countthis').html($('#tblLocaCover tr').length - 1);
-
+      // remove selected index from the array
       for(var i = 0; i < arrEmpLocCov['Area'].length; i++){
         if(i == arrEmpLocCov['Area'].indexOf($(this).text())){
           arrEmpLocCov['Area'].splice(i,1);
@@ -126,6 +131,14 @@ arrEmpLocCov['Area'] = [];
     })
   })
 
+  $('#idEmpOffice').change(function(){
+    if($('#idEmpOffice').val() == "TSD"){
+      $('#idBrgyCov').css("display","block");
+    }else{
+      $('#idBrgyCov').css("display","none");
+    }
+  })
+
   $('#btnSubmitDsptMng').on("click", function(){
     $.ajax({
       type: "POST",
@@ -159,6 +172,8 @@ arrEmpLocCov['Area'] = [];
       cityval: $('#selectedRow').val()
     });
   });
+
+
 });
 
 function hideModals(){
@@ -183,5 +198,44 @@ function validate(evt) {
   if( !regex.test(key)){
     theEvent.returnValue = false;
     if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+
+function retrieveMunicipalID(_value){
+  var muncode;
+  try {
+    const regURL = 'json/refcitymun.json';
+    $.getJSON(regURL, function(data){
+      $.each(data, function(i, item){
+        $.each(item, function(j, desc){
+          if(desc.citymunDesc == _value){
+            muncode = desc.citymunCode;
+          }else{
+            console.log(muncode);
+          }
+        });
+      });
+    });
+  } catch (e) {
+    alert(e);
+  }
+  return muncode;
+}
+
+function appendBrgy(_value){
+  // insert brgy on divMngCmplntDispt Modal location autocomplete
+  try {
+    const regURL = 'json/refbrgy.json';
+    $.getJSON(regURL, function(data){
+      $.each(data, function(i, item){
+        $.each(item, function(j, desc){
+          if(desc.provCode == "0973" && desc.citymunDesc != "KUMALARANG" && desc.citymunDesc != "BAYOG" && desc.citymunDesc != "LAKEWOOD"){
+            $('#empLocaCover').append($("<option>").text(desc.citymunDesc));
+          }
+        });
+      });
+    });
+  } catch (e) {
+    alert(e);
   }
 }

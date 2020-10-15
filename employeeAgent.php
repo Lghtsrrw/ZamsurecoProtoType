@@ -15,6 +15,7 @@ if (isLoggedIn()) {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
     <link rel="stylesheet" type ="text/css"href="stylesheets/allStyle.css">
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/employeeAgent.js"></script>
@@ -164,7 +165,7 @@ if (isLoggedIn()) {
           <!-- Office -->
           <fieldset>
             <legend><b>Office</b></legend>
-            <input type="Text" name="inputEmpOffice" list="officeList" id="idEmpOffice" value="" autocomplete="off">
+            <input type="Text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Select Office" name="inputEmpOffice" list="officeList" id="idEmpOffice" value="" autocomplete="off">
             <datalist id="officeList">
                 <option value="DLS">
                 <option value="MSD">
@@ -177,7 +178,7 @@ if (isLoggedIn()) {
           <!-- Employee Details -->
           <fieldset>
             <legend><b>Employee ID</b></legend>
-            <input type="text" list ='empIDList' placeholder="Select Employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
+            <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;"  list ='empIDList' placeholder="Search or select employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
             <datalist id="empIDList">
               <?php retrieveEmployeeList(); ?>
             </datalist>
@@ -186,19 +187,37 @@ if (isLoggedIn()) {
 
           <!-- Area Coverage -->
           <fieldset>
-            <legend><b>Area Coverage</b></legend>
-            <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
-            <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
-            <input type="hidden" name="hidAreaCovNo" value="<?php generateAreaCoverageNo(); ?>">
-            <datalist id="empLocaCover"></datalist>
-            <table id="tblLocaCover">
-              <th>Locations</th>
-            </table>
-            <div class="" style="text-align:right;">
-              <input type="hidden" name="rowAreaCov" id="countthis" value="">
-            </div>
-            <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
+            <!-- Municipal/City Coverage -->
+            <fieldset>
+              <legend><b>Municipal/City Coverage</b></legend>
+              <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
+              <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
+              <input type="hidden" name="hidAreaCovNo" value="<?php generateAreaCoverageNo(); ?>">
+              <datalist id="empLocaCover"></datalist>
+              <table id="tblLocaCover">
+                <th>Locations</th>
+                <th>Code</th>
+              </table>
+              <div class="" style="text-align:right;">
+                <input type="hidden" name="rowAreaCov" id="countthis" value="">
+              </div>
+              <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
+            </fieldset>
+
+            <!-- Barangay Coverage -->
+            <fieldset id="idBrgyCov" style="display:none">
+              <legend><b>Barangay Coverage</b></legend>
+              <input type="hidden" id = "BrgyCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
+              <input type="text" list ='empBrgyCover' id="idEmpBrgy" value="" autocomplete="off">
+              <input type="hidden" name="hidABrgyCovNo" value="<?php generateAreaCoverageNo(); ?>">
+              <datalist id="empBrgyCover"></datalist>
+              <table id="tblBrgyCover">
+                <th>Locations</th>
+              </table>
+              <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
+            </fieldset>
           </fieldset>
+          
 
           <!-- Contacts Field -->
           <fieldset>
