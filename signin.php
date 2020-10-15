@@ -29,6 +29,7 @@
 
 <!-- buttons declaration -->
 <div class ="btnContainer">
+<<<<<<< HEAD
   <fieldset style="width:80%; margin:10% auto; ">
   <div class="logoimg">
   <img src="img/logo.png" id="logotitle">
@@ -38,6 +39,17 @@
   <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
   <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
   <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
+=======
+<fieldset style="width:80%; margin:10% auto; ">
+<div class="logoimg">
+<img src="img/logo.png" id="logotitle">
+<h3>ZAMSURECO-I MOBILE APPLICATION</h3>
+</div>
+    <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
+    <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
+    <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
+    <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
+>>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
 </fieldset>
 </div>
 <!-- buttons declaration end-->
@@ -184,7 +196,11 @@
       <label for="gAddress"><b>Address</b></label><br>
       <input type="text" id="mgAddress" placeholder="Enter Adrress" name="gAddress" > <br>
 
+<<<<<<< HEAD
       <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn">Enter as Guest</button>
+=======
+      <button type="submit" class="mainBtn" name="guestbtn" id="guestbtn">Enter as Guest</button>
+>>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
     </div>
     <!-- <div class="container" style="background-color:#f1f1f1">
       <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>

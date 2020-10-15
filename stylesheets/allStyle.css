@@ -59,7 +59,11 @@ th, td {
 tr:nth-child(even){background-color: #e8e8e8}
 
 .divBtn{
+<<<<<<< HEAD
   width: 100%;
+=======
+  width: 80%;
+>>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
   text-align: center ;
   display: block;
 }
@@ -151,6 +155,18 @@ button{
   border: none;
   cursor: pointer;
   width: 100%;
+<<<<<<< HEAD
+=======
+} */
+.logoimg{
+  width:100%;
+  clear:both;
+  text-align: center;
+}
+#logotitle{
+  width: 100px;
+  height: 100px;
+>>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
 }
 .mainBtn{
   background-color: #4c80f1;
