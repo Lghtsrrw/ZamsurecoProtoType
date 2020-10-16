@@ -29,28 +29,16 @@
 
 <!-- buttons declaration -->
 <div class ="btnContainer">
-<<<<<<< HEAD
   <fieldset style="width:80%; margin:10% auto; ">
-  <div class="logoimg">
-  <img src="img/logo.png" id="logotitle">
-  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
-  </div>
-  <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
-  <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
-  <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
-  <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
-=======
-<fieldset style="width:80%; margin:10% auto; ">
-<div class="logoimg">
-<img src="img/logo.png" id="logotitle">
-<h3>ZAMSURECO-I MOBILE APPLICATION</h3>
-</div>
+    <div class="logoimg">
+      <img src="img/logo.png" id="logotitle">
+      <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
+    </div>
     <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
     <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
     <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
     <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
->>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
-</fieldset>
+  </fieldset>
 </div>
 <!-- buttons declaration end-->
 

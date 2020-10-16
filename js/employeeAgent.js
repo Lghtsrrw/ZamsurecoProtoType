@@ -1,3 +1,6 @@
+var arrEmpLocCov = {};
+arrEmpLocCov['Area'] = [];
+arrEmpLocCov['municipalcode'] = [];
 
 $(document).keypress(
   function(event){
@@ -20,10 +23,6 @@ $(document).keypress(
 });
 
 $(document).ready(function(){
-
-var arrEmpLocCov = {};
-arrEmpLocCov['Area'] = [];
-arrEmpLocCov['municipalcode'] = [];
   // insert City/Municipal on divMngCmplntDispt Modal location autocomplete
   try {
     const regURL = 'json/refcitymun.json';
@@ -36,7 +35,7 @@ arrEmpLocCov['municipalcode'] = [];
         });
       });
     });
-  } catch (e) {
+  }catch(e){
     alert(e);
   }
 
@@ -45,19 +44,16 @@ arrEmpLocCov['municipalcode'] = [];
     var _tblLoc = document.getElementById('tblLocaCover').getElementsByTagName('tbody')[0];
     var _tblRow = _tblLoc.insertRow();
     var _tblCell = _tblRow.insertCell(0);
-    var _tblCell2 = _tblRow.insertCell(1);
     var MuniCov = $('#idEmpLocat').val()
-    var MuniCov2 = retrieveMunicipalID(MuniCov)
     var _tblValue = document.createTextNode(MuniCov);
-    var _tblValue2 = document.createTextNode(MuniCov2);
-    _tblCell.appendChild(_tblValue); 
-    _tblCell2.appendChild(_tblValue2);
+    _tblCell.appendChild(_tblValue);
+
+    appendBrgy(retrieveMunicipalID(MuniCov));
 
     arrEmpLocCov['Area'].push(MuniCov);
     console.log(arrEmpLocCov);
 
-    $('#idEmpLocat').val("");
-    $('#countthis').val($('#tblLocaCover tr').length - 1);
+    // $("#_municode").val($("#empLocaCover option[value='" + $("#idEmpLocat").val() + "']").attr("label"));
   })
 
   $('#btnComplaints').click(function(){
@@ -90,7 +86,6 @@ arrEmpLocCov['municipalcode'] = [];
   });
 
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
-    alert(retrieveMunicipalID($('#idEmpLocat').text()))
     if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
       // remove selected row from the dsptmng modal
       $(this).closest('tr').remove();
@@ -202,24 +197,25 @@ function validate(evt) {
 }
 
 function retrieveMunicipalID(_value){
-  var muncode;
+  // insert City/Municipal on divMngCmplntDispt Modal location autocomplete\
+  var toreturn;
   try {
     const regURL = 'json/refcitymun.json';
     $.getJSON(regURL, function(data){
       $.each(data, function(i, item){
         $.each(item, function(j, desc){
-          if(desc.citymunDesc == _value){
-            muncode = desc.citymunCode;
-          }else{
-            console.log(muncode);
+          if(desc.citymunDesc == _value && desc.provCode == "0973"){
+            arrEmpLocCov['municipalcode'].push(desc.citymunCode);
+            $('#_municode').val(desc.citymunCode)
+            toreturn = desc.citymunCode;
           }
         });
       });
     });
-  } catch (e) {
+  }catch(e){
     alert(e);
   }
-  return muncode;
+  return toreturn;
 }
 
 function appendBrgy(_value){
@@ -229,8 +225,27 @@ function appendBrgy(_value){
     $.getJSON(regURL, function(data){
       $.each(data, function(i, item){
         $.each(item, function(j, desc){
-          if(desc.provCode == "0973" && desc.citymunDesc != "KUMALARANG" && desc.citymunDesc != "BAYOG" && desc.citymunDesc != "LAKEWOOD"){
-            $('#empLocaCover').append($("<option>").text(desc.citymunDesc));
+          if(desc.citymunCode == _value){
+            // $('#empBrgyCover').append($("<option>").text(desc.brgyDesc));
+            console.log(desc.brgyDesc);
+          }
+        });
+      });
+    });
+  }catch (e) {
+    alert(e);
+  }
+}
+
+function removeappendedBrgy(_value){
+  // insert brgy on divMngCmplntDispt Modal location autocomplete
+  try {
+    const regURL = 'json/refbrgy.json';
+    $.getJSON(regURL, function(data){
+      $.each(data, function(i, item){
+        $.each(item, function(j, desc){
+          if(desc.citymunCode == _value){
+            $('#empBrgyCover').append($("<option>").text(desc.brgyDesc));
           }
         });
       });

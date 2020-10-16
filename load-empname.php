@@ -1,5 +1,4 @@
 <?php
-
   include 'databaseConnection/DatabaseQueries.php';
 
   if(!empty($_GET['valempid']) && isset($_GET['valempid'])){

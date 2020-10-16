@@ -44,7 +44,7 @@ if (isLoggedIn()) {
             echo "User Type: " . $_SESSION['user']['IDType'] . "<br>";
     				?>
     			</h5>
-      <?php 
+      <?php
       unset($_SESSION['success']);
       endif
        ?>
@@ -174,7 +174,7 @@ if (isLoggedIn()) {
                 <option value="TSD">
             </datalist>
           </fieldset>
-          
+
           <!-- Employee Details -->
           <fieldset>
             <legend><b>Employee ID</b></legend>
@@ -187,28 +187,26 @@ if (isLoggedIn()) {
 
           <!-- Area Coverage -->
           <fieldset>
+              <legend><b>Area Coverage</b></legend>
             <!-- Municipal/City Coverage -->
             <fieldset>
-              <legend><b>Municipal/City Coverage</b></legend>
+              <legend>Municipal/City Coverage</legend>
               <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
-              <input type="text" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
+              <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
               <input type="hidden" name="hidAreaCovNo" value="<?php generateAreaCoverageNo(); ?>">
               <datalist id="empLocaCover"></datalist>
               <table id="tblLocaCover">
                 <th>Locations</th>
-                <th>Code</th>
               </table>
-              <div class="" style="text-align:right;">
-                <input type="hidden" name="rowAreaCov" id="countthis" value="">
-              </div>
+              <input type="text" id="_municode" value="">
               <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
             </fieldset>
 
             <!-- Barangay Coverage -->
             <fieldset id="idBrgyCov" style="display:none">
-              <legend><b>Barangay Coverage</b></legend>
+              <legend>Barangay Coverage</legend>
               <input type="hidden" id = "BrgyCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
-              <input type="text" list ='empBrgyCover' id="idEmpBrgy" value="" autocomplete="off">
+              <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='hidABrgyCovNo' name="inputComplaint" id="idEmpBrgy" value="" autocomplete="off">
               <input type="hidden" name="hidABrgyCovNo" value="<?php generateAreaCoverageNo(); ?>">
               <datalist id="empBrgyCover"></datalist>
               <table id="tblBrgyCover">
@@ -217,7 +215,7 @@ if (isLoggedIn()) {
               <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
             </fieldset>
           </fieldset>
-          
+
 
           <!-- Contacts Field -->
           <fieldset>

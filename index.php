@@ -40,35 +40,21 @@ if (isGuest()) {
 		<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
 	</div>
 	<?php endif ?>
-
-<<<<<<< HEAD
+	
 	<div class="btnContainer">
 		<fieldset style="width:80%; margin:1% auto; ">
 	  <div class="logoimg">
 	  <img src="img/logo.png" id="logotitle">
 	  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
 	  </div>
-=======
 	<div class="divBtn">
->>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
 		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->
 		<button id = "btnPayBills" class="mainBtn">Pay Bills</button>
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
-
-<<<<<<< HEAD
 		<!-- Display Bills  -->
 		<div id="divBillList" style="width: 100%; text-align: left">
-=======
-	<!-- Display Bills  -->
-	<?php if (isset($_SESSION['user']['AcctNo'])) : ?>
-		<div id="divBillList">
-			<p><b>Bills</b></p>
-			<?php displayBill($_SESSION['user']['AcctNo']); ?>
-		</div>
-	<?php endif ?>
->>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
 
 			<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
 
@@ -96,8 +82,8 @@ if (isGuest()) {
 		<div id="divSubmitMessage">
 	 	  <p>Your tracking number is: <b><?php echo  $_SESSION['trackno']; ?></b> </p>
 		</div>
-		
-		<?php 
+
+		<?php
 			unset($_SESSION['submit']);
 			unset($_SESSION['trackno']);
 			endif

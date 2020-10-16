@@ -59,11 +59,7 @@ th, td {
 tr:nth-child(even){background-color: #e8e8e8}
 
 .divBtn{
-<<<<<<< HEAD
   width: 100%;
-=======
-  width: 80%;
->>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
   text-align: center ;
   display: block;
 }
