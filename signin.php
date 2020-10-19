@@ -48,7 +48,6 @@
   <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
     <div class="imgcontainer">
-
       <span class="close" title="Close Modal">&times;</span>
       <img src="img/userprofile.png" alt="Avatar" class="avatar">
     </div>
@@ -184,11 +183,7 @@
       <label for="gAddress"><b>Address</b></label><br>
       <input type="text" id="mgAddress" placeholder="Enter Adrress" name="gAddress" > <br>
 
-<<<<<<< HEAD
       <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn">Enter as Guest</button>
-=======
-      <button type="submit" class="mainBtn" name="guestbtn" id="guestbtn">Enter as Guest</button>
->>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
     </div>
     <!-- <div class="container" style="background-color:#f1f1f1">
       <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>

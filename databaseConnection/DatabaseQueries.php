@@ -343,6 +343,10 @@
 		return 'E' . $ticketno;
 	}
 
+	if (isset($_POST['nTicketbtn'])) {
+		submitTicket();
+	}
+
 	function submitTicket(){
 		global $db, $errors;
 
@@ -745,6 +749,45 @@
 				echo "<td>" . $row['beforeDue'] . "</td>";
 				echo "<td>" . $row['afterDue'] . "</td>";
 				echo "<td>" . $row['DueDate'] . "</td>";
+				echo "</tr>";
+			}
+		}
+	}
+
+	function userComplaintTable($val){
+		global $db;
+
+		echo "<tr>";
+			echo "<th>Complaint No</th>";
+			echo "<th>Description</th>";
+			echo "<th>Nature of complaint</th>";
+			echo "<th>Location</th>";
+			echo "<th>Date created</th>";
+			echo "<th>STATUS</th>";
+		echo "</tr>";
+
+		$queryAddress = "SELECT c.ComplaintNo as 'No',
+														Description,
+														Nature_of_Complaint,
+														CONCAT(cregion, ' ',cprovince,' ',ccitymun,' ',cbrgy) AS 'Location',
+														Date_Time_Complaint
+										FROM complaints c
+										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo
+										INNER JOIN address a ON a.addressno = c.location
+										INNER JOIN user u ON u.userID = uc.complaintID
+										WHERE uc.complaintID = '$val'";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo "<tr>";
+				echo "<td>". $row['No'] ."</td>";
+				echo "<td>". $row['Description'] ."</td>";
+				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
+				echo "<td>". $row['Location'] ."</td>";
+				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
+				echo "<td></td>";
 				echo "</tr>";
 			}
 		}

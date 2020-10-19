@@ -18,13 +18,7 @@ if (isGuest()) {
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
 	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
 	<script src="js/jquery-3.5.1.min.js"></script>
-	<script type="text/javascript">
-    $(document).ready(function(){
-      $("#btnComplaints").click(function(){
-        window.location.href = "complaintTicket.php";
-      });
-    });
-  </script>
+	<script src="js/index.js"></script>
 	<title>Zamzureco-1</title>
 </head>
 
@@ -40,7 +34,7 @@ if (isGuest()) {
 		<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
 	</div>
 	<?php endif ?>
-	
+
 	<div class="btnContainer">
 		<fieldset style="width:80%; margin:1% auto; ">
 	  <div class="logoimg">
@@ -80,7 +74,8 @@ if (isGuest()) {
 		<!-- show submit Ticket and Tracking No -->
 		<?php if(isset($_SESSION['submit'])) : ?>
 		<div id="divSubmitMessage">
-	 	  <p>Your tracking number is: <b><?php echo  $_SESSION['trackno']; ?></b> </p>
+	 	  <p>Ticket successfully submitted.</p>
+			<p style="font-size: 10px;">Tracking No: <b><?php echo $_SESSION['trackno']; ?></b></p>
 		</div>
 
 		<?php
@@ -89,6 +84,21 @@ if (isGuest()) {
 			endif
 		?>
 	</fieldset>
+	</div>
+
+	<div id="complaintModal" class="modal">
+		<div class="modal-content animate">
+			<div class="imgcontainer">
+				<span class="close" title="Close Modal">&times;</span>
+			</div>
+			<div class="" style="padding: 20px">
+				<h1>Complaint Record</h1>
+				<button type="button" class="mainBtn" id="btnCreateComplaint">Create ticket</button>
+				<table>
+					<?php userComplaintTable($_SESSION['user']['username']); ?>
+				</table>
+			</div>
+		</div>
 	</div>
 
 </body>
