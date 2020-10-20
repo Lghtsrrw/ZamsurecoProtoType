@@ -20,9 +20,9 @@
 	// variable declaration
 	$errors = array();
 
-	// call the register() function if register_btn is clicked
+	// call the userRegister() function if register_btn is clicked
 	if (isset($_POST['register_btn'])) {
-		register();
+		userRegister();
 	}
 
 	if(isset($_POST['guestbtn'])){
@@ -49,7 +49,7 @@
 	}
 
 	// REGISTER USER
-	function register(){
+	function userRegister(){
 		global $db, $errors;
 
 		$username = $_POST['username'];
@@ -103,7 +103,7 @@
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
 
-			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password')")) {
+			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$username')")) {
 			  echo "New id_verification created successfully";
 			}else {
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -121,7 +121,7 @@
 	// return user array from their id
 	function getUserById($id){
 		global $db;
-		$results = mysqli_query($db, "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join user u on u.userID = sa.username WHERE sa.Username='$id' LIMIT 1 ");
+		$results = mysqli_query($db, "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.userid = iv.userID inner join user u on u.userID = sa.userid WHERE sa.username='$id' LIMIT 1 ");
 		if (mysqli_num_rows($results) == 1) {
 			$user = mysqli_fetch_assoc($results);
 		}
@@ -154,7 +154,7 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join user u on u.userID = sa.username WHERE sa.Username='$username' AND Password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.userid = iv.userID inner join user u on u.userID = sa.userid WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -170,7 +170,6 @@
 			}
 		}
 	}
-
 
 	if (isset($_POST['btnEmpLogin'])) {
 		empLogin();
@@ -195,16 +194,15 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join employee emp on emp.empID = sa.username WHERE sa.Username='$username' AND Password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.userid = iv.userID inner join employee emp on emp.empID = sa.username WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
-				// check if user is admin or user
 				$logged_in_user = mysqli_fetch_assoc($results);
-
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success']  = "You are now logged in";
 				header('location: index.php');
+
 
 			}else {
 				array_push($errors, "Wrong username/password combination ");
@@ -286,6 +284,14 @@
 
 	function isAgent(){
 		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Agent' ) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function isSupport(){
+		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Support' ) {
 			return true;
 		}else{
 			return false;
@@ -470,6 +476,10 @@
 		$area = $_POST['txtArea'];
 		$dept = $_POST['txtDept'];
 
+		$username = $_POST['txtEmpUsername'];
+		$psw = $_POST['txtEmpPass'];
+		$password = md5($psw);
+
 		if(empty($_POST['txtFname'])){
 			array_push($errors, "Insert your FirstName");
 		}
@@ -489,6 +499,13 @@
 		if(count($errors) == 0){
 			$query = "INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')";
 			$results = mysqli_query($db,$query) or die(mysqli_error());
+
+			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
+			  echo "New support created";
+			}else {
+			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
 			$_SESSION['savedsupp'] = $empid;
 			header('location: employeeAgent.php');
 		}
@@ -510,7 +527,7 @@
 	function generateAreaCoverageNo(){
 		global $db;
 		$ticketno = 0;
-		$results = mysqli_query($db, "SELECT date_format(curdate(), '%d%m%y') as datenow, lpad(count(*) + 1,2,'0') as areacount from complaint_receiver limit 1") or die (mysqli_error());
+		$results = mysqli_query($db, "SELECT date_format(curdate(), '%d%m%y') as 'datenow', lpad(count(*) + 1,2,'0') as 'areacount' from complaint_receiver limit 1") or die (mysqli_error());
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
 			$ticketno = str_pad($result['datenow'] . $result['areacount'],8,"0");
@@ -715,7 +732,7 @@
 	}
 
 	if (isset($_POST['_acctNo'])) {
-		echo getBillExistence($_POST['_acctNo']);
+		echo ifBillExist($_POST['_acctNo']);
 	}
 
 	function ifBillExist($val){
@@ -769,7 +786,7 @@
 		$queryAddress = "SELECT c.ComplaintNo as 'No',
 														Description,
 														Nature_of_Complaint,
-														CONCAT(cregion, ' ',cprovince,' ',ccitymun,' ',cbrgy) AS 'Location',
+														CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy) AS 'Location',
 														Date_Time_Complaint
 										FROM complaints c
 										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo

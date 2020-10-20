@@ -5,6 +5,8 @@ if (isGuest()) {
 	header('location: guestHomepage.php');
 }elseif (isAgent()) {
 	header('location: employeeAgent.php');
+}elseif (isSupport()) {
+  header('location: dispatch.php');
 }elseif(empty(isset($_SESSION['user']))){
 	header('location: signin.php');
 }
@@ -41,7 +43,9 @@ if (isGuest()) {
 	  <img src="img/logo.png" id="logotitle">
 	  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
 	  </div>
-	<div class="divBtn">
+
+
+		<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
 		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->
 		<button id = "btnPayBills" class="mainBtn">Pay Bills</button>
@@ -51,7 +55,6 @@ if (isGuest()) {
 		<div id="divBillList" style="width: 100%; text-align: left">
 
 			<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
-
 			<p><b>Bills</b></p>
 			<table id='tblBill'>
 			<tr>
@@ -62,39 +65,43 @@ if (isGuest()) {
 			<th>After Due</th>
 			<th>Due Date</th>
 			</tr>
+			<!-- bill -->
 			<?php displayBill($_SESSION['user']['AcctNo']); ?>
 			</table>
-
-		<?php else : ?>
-			<p><b>Bills</b></p>
-			<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
-		<?php endif ?>
+			<?php else : ?>
+				<p><b>Bills</b></p>
+				<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
+			<?php endif ?>
 		</div>
 
-		<!-- show submit Ticket and Tracking No -->
-		<?php if(isset($_SESSION['submit'])) : ?>
-		<div id="divSubmitMessage">
-	 	  <p>Ticket successfully submitted.</p>
-			<p style="font-size: 10px;">Tracking No: <b><?php echo $_SESSION['trackno']; ?></b></p>
-		</div>
+			<!-- show submit Ticket and Tracking No -->
+			<?php if(isset($_SESSION['submit'])) : ?>
+			<div id="divSubmitMessage">
+		 	  <p>Ticket successfully submitted.</p>
+				<p style="font-size: 10px;">Tracking No: <b><?php echo $_SESSION['trackno']; ?></b></p>
+			</div>
 
-		<?php
-			unset($_SESSION['submit']);
-			unset($_SESSION['trackno']);
-			endif
-		?>
+			<?php
+				unset($_SESSION['submit']);
+				unset($_SESSION['trackno']);
+				endif
+			?>
+		</div>
 	</fieldset>
-	</div>
 
+<!-- begin modal -->
 	<div id="complaintModal" class="modal">
 		<div class="modal-content animate">
-			<div class="imgcontainer">
+			<div class="clscontainer">
 				<span class="close" title="Close Modal">&times;</span>
 			</div>
-			<div class="" style="padding: 20px">
-				<h1>Complaint Record</h1>
+			<div class="container" style="overflow-x:auto; padding: 20px">
+				<div class="titleHeader">
+		      <span class="headerText"><img src="img/logo.png" id="logotitle" style="float:left; height: 50px; width: 50px"></span>
+		      <span class="headerText"><h1>Complaint List</h1></span>
+		    </div>
 				<button type="button" class="mainBtn" id="btnCreateComplaint">Create ticket</button>
-				<table>
+				<table >
 					<?php userComplaintTable($_SESSION['user']['username']); ?>
 				</table>
 			</div>

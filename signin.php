@@ -8,6 +8,8 @@
       header('location: guestHomepage.php');
     }elseif (isAgent()) {
       header('location: employeeAgent.php');
+    }elseif (isSupport()) {
+      header('location: dispatch.php');
     }
   }
  ?>
@@ -25,8 +27,6 @@
   </head>
 
 <body>
-<?php echo display_error(); ?>
-
 <!-- buttons declaration -->
 <div class ="btnContainer">
   <fieldset style="width:80%; margin:10% auto; ">
@@ -39,6 +39,9 @@
     <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
     <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
   </fieldset>
+
+
+  <?php echo display_error(); ?>
 </div>
 <!-- buttons declaration end-->
 
@@ -46,9 +49,8 @@
 <!-- modal for LoginPage -->
 <div id="id01" class="modal">
   <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-
+    <span class="close" title="Close Modal">&times;</span>
     <div class="imgcontainer">
-      <span class="close" title="Close Modal">&times;</span>
       <img src="img/userprofile.png" alt="Avatar" class="avatar">
     </div>
     <div class="container"> <!-- Check -->
@@ -73,7 +75,7 @@
 <!-- modal for Register -->
 <div id="id02" class="modal">
   <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <div class="imgcontainer">
+    <div class="clscontainer">
       <span class="close" title="Close Modal">&times;</span>
     </div>
     <div class="container">
@@ -148,7 +150,7 @@
 <!-- modal for complaint-tracking -->
 <div id="id03" class="modal">
   <form class="modal-content animate" action="/action_page.php" method="post">
-    <div class="imgcontainer">
+    <div class="clscontainer">
       <span class="close" title="Close Modal">&times;</span>
     </div>
     <div class="container">
@@ -166,8 +168,10 @@
 <!-- modal for guest -->
 <div id="id04" class="modal">
   <form class="modal-content animate" action="signin.php" method="post">
-    <div class="imgcontainer">
+    <div class="clscontainer">
       <span class="close" title="Close Modal">&times;</span>
+    </div>
+    <div class="imgcontainer">
       <img src="img/userprofile.png" alt="Avatar" class="avatar">
     </div>
     <div class="container">

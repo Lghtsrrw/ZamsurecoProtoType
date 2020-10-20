@@ -5,6 +5,8 @@
       header('location: index.php');
   }elseif (isAgent()) {
     header('location: employeeAgent.php');
+  }elseif (isSupport()) {
+    header('location: dispatch.php');
   } elseif(empty(isset($_SESSION['user']))){
     header('location: signin.php');
   }
@@ -45,7 +47,7 @@
           <?php echo "User Type: " . $_SESSION['user']['IDType']; ?>
         </h5>
       </div>
-      
+
   	<?php unset($_SESSION['success']); ?>
   	<?php endif ?>
 

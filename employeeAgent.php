@@ -5,6 +5,8 @@ if (isLoggedIn()) {
     header('location: index.php');
 }elseif (isGuest()) {
   header('location: guestHomepage.php');
+}elseif (isSupport()) {
+  header('location: dispatch.php');
 } elseif(empty(isset($_SESSION['user']))){
   header('location: empLogin.php');
 }
@@ -65,17 +67,19 @@ if (isLoggedIn()) {
       <!-- <p>For Complaint No.: <b><?php  echo $_GET['CompRec']; ?></b></p>
       <p>Area Coverage No.: <b><?php  echo $_GET['areaCovno']; ?></b></p> -->
     </div>
-  <?php endif ?>
+    <?php endif ?>
 
     <!-- modal section -->
     <!-- List of Active Complaint -->
     <div class="modal" id="divTbl" >
-      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <a id="btnBack" href="" style="float:right;">BACK</a>
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px">
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
         <h3>Active Complaint</h3>
           <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
           <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
-          <button type="button" name="btnSearch" id="btnDispatch" class="mainBtn" style="height:42px; float:right;" disabled>Dispatch</button>
+          <button type="button" id="btnDispatch" class="mainBtn" style="height:42px; right:0; position:relative" disabled>Dispatch</button>
 
         <div id="tblAllData">
           <table border="1" id="tblData">
@@ -97,14 +101,13 @@ if (isLoggedIn()) {
     <!-- Support Registration Modal  -->
     <div class="modal" id="divRegSupp">
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <a id="btnBack" href="" style="float:right;">Back</a>
-
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
         <h1>Employee Registration Form</h1>
-
         <button id = "btnEmpList" class="mainBtn">Employee List</button>
-
         <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-          <h5>Employee ID: <?php echo generateEmployeeID(); ?></h5>
+          <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
           <b><label for="">First Name</label></b><br>
           <input type="text" name="txtFname" onkeyup="this.value = this.value.toUpperCase();"><br>
           <b><label for="">Middle Name</label></b><br>
@@ -121,9 +124,7 @@ if (isLoggedIn()) {
               <b><label for="">Username</label></b>
               <input type="text" name="txtEmpUsername" value="">
               <b><label for="">Password</label></b>
-              <input type="password" name="txtEmpPass" value="">
-              <b><label for="">Confirm Password</label></b>
-              <input type="password" name="txtEmpConPass" value="">
+              <input type="password" name="txtEmpPass" value="1234" disabled>
             </fieldset>
           <button type="submit" name="btnSaveEmpSupp" class="mainBtn" style="width:100%">SAVE</button>
           </div>
@@ -131,10 +132,12 @@ if (isLoggedIn()) {
       </div>
     </div>
 
-    <!-- List of Registered Support Modal-->
+    <!-- List of Registered-Support Modal-->
     <div class="modal" id="divEmpList">
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <a id="btnBack" href="" style="float:right;">BACK</a>
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
         <h2>Employee List</h2>
         <table id="tblEmpList">
           <tr>
@@ -151,7 +154,9 @@ if (isLoggedIn()) {
     <!-- Dispatch Mananagement Dispatch modal -->
     <div class="modal" id="divMngCmplntDispt">
       <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <a id="btnBack" href="" style="float:right;">BACK</a>
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
         <h2>Dispatch Management</h2>
         <form class="frmDsptMng" id="dsptMngForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
@@ -193,12 +198,11 @@ if (isLoggedIn()) {
               <legend>Municipal/City Coverage</legend>
               <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
               <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
-              <input type="hidden" name="hidAreaCovNo" value="<?php generateAreaCoverageNo(); ?>">
               <datalist id="empLocaCover"></datalist>
               <table id="tblLocaCover">
                 <th>Locations</th>
               </table>
-              <input type="text" id="_municode" value="">
+              <input type="hidden" id="_municode" value="">
               <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
             </fieldset>
 
@@ -232,7 +236,9 @@ if (isLoggedIn()) {
     <!-- Complaint Handlr Modal -->
     <div class="modal" id="divCmplntHndlr">
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <a id="btnBack" href="" style="float:right;">BACK</a>
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
         <div class="">
           <h2>Complaint Handler</h2>
             <div class="locationFloatLeft" style="width:50%; float: left;">

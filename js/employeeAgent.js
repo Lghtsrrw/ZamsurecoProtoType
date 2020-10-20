@@ -55,6 +55,10 @@ $(document).ready(function(){
 
     // $("#_municode").val($("#empLocaCover option[value='" + $("#idEmpLocat").val() + "']").attr("label"));
   })
+  
+  $(".close").click(function(){
+    $(".modal").css("display","none");
+  });
 
   $('#btnComplaints').click(function(){
     $('#divTbl').css("display","block");

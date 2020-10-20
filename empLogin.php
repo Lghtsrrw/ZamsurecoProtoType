@@ -8,6 +8,8 @@
       header('location: guestHomepage.php');
     }elseif (isAgent()) {
       header('location: employeeAgent.php');
+    }elseif (isSupport()) {
+      header('location: dispatch.php');
     }
   }
  ?>
