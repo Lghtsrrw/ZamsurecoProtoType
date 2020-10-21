@@ -26,19 +26,19 @@
   <div id = "divTicket">
     <div class="titleHeader" style="">
       <span class="headerText"><img src="img/logo.png" id="logotitle" style="float:left; height: 80px; width: 80px"></span>
-      <span class="headerText"><b><label style="font-size:25px">COMPLAINT LIST</label></b></span>
+      <span class="headerText"><b><label style="font-size:25px">Create ticket</label></b></span>
     </div>
       <?php display_error(); ?>
-        <p style="color:#383838"><b>Ticket No: <?php echo generateTicketID(); ?></b></p>
+        <p style="color:#383838">Ticket No: <b><?php echo generateTicketID(); ?></b></p>
         <hr>
-          <div class="divComplainantInfo" style="border:1px solid #d6b385;margin: 1%  ;">
-            <h4 style="text-align:center; color: #3c393c">Update from this ticket will be sent to: </h4>
-              <p style="text-align:center; color: #3c393c">
+          <div class="divComplainantInfo" style="border:2px dashed #d6b385;padding: 2%">
+            <p style="color: #3c393c">Update from this ticket will be sent to: </p>
+              <p style="color: #3c393c">
                 <?php
-                $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"Empty";
-                $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"Empty";
-                  echo "Contact No: <i>" . $_contact . "</i><br>";
-                  echo "Email: <i>" . $_email . "</i><br>";
+                $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"No Record";
+                $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"No Record";
+                  echo "Contact No: <i><b>" . $_contact . "</b></i><br>";
+                  echo "Email Address: <i><b>" . $_email . "</b></i><br>";
                 ?>
               </p>
           </div>

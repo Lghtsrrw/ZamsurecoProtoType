@@ -100,7 +100,10 @@ if (isGuest()) {
 		      <span class="headerText"><img src="img/logo.png" id="logotitle" style="float:left; height: 50px; width: 50px"></span>
 		      <span class="headerText"><h1>Complaint List</h1></span>
 		    </div>
+				<div class="" style="width:100%">
 				<button type="button" class="mainBtn" id="btnCreateComplaint">Create ticket</button>
+					<button type="button" class="mainBtn" id="btnTrackComplaint">Track a Complaint</button>
+				</div>
 				<table >
 					<?php userComplaintTable($_SESSION['user']['username']); ?>
 				</table>

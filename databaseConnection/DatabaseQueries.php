@@ -194,7 +194,7 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.userid = iv.userID inner join employee emp on emp.empID = sa.username WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join employee emp on emp.empID = sa.userid WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -775,11 +775,10 @@
 		global $db;
 
 		echo "<tr>";
-			echo "<th>Complaint No</th>";
+		echo "<th>Date created</th>";
 			echo "<th>Description</th>";
 			echo "<th>Nature of complaint</th>";
 			echo "<th>Location</th>";
-			echo "<th>Date created</th>";
 			echo "<th>STATUS</th>";
 		echo "</tr>";
 
@@ -799,11 +798,10 @@
 			while ($row = mysqli_fetch_assoc($results))
 			{
 				echo "<tr>";
-				echo "<td>". $row['No'] ."</td>";
+				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td>". $row['Description'] ."</td>";
 				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
 				echo "<td>". $row['Location'] ."</td>";
-				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td></td>";
 				echo "</tr>";
 			}
