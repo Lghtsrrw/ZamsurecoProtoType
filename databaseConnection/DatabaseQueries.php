@@ -29,14 +29,9 @@
 		guest();
 	}
 
-	if(isset($_POST['logout'])){
-		logout();
-	}
-
 	if (isset($_GET['logout'])) {
-		session_destroy();
 		unset($_SESSION['user']);
-		header("location: signin.php");
+		session_destroy();
 	}
 
 	// Check if the username is already in the system.
@@ -308,12 +303,6 @@
 				}
 			echo '</div>';
 		}
-	}
-
-	function logout(){
-		session_destroy();
-		unset($_SESSION['user']);
-		header("location: signin.php");
 	}
 
 	function fillNatureOfComplaint(){
@@ -805,6 +794,40 @@
 				echo "<td></td>";
 				echo "</tr>";
 			}
+		}
+	}
+
+	function fillAssignedComplaint($val){
+		global $db;
+		$queryAddress = "SELECT c.complaintno,
+														description,
+														Nature_of_Complaint,
+														concat(cRegion,', ',cProvince,', ', cCityMun,', ',cBrgy)
+												AS 'location',
+														Area_landmark,
+														datetime_assigned,
+														empid_agent
+										FROM complaints c
+										INNER JOIN address a
+										ON a.addressno = c.location
+										INNER JOIN complaint_assign ca
+										ON c.complaintno = ca.complaintno
+										WHERE ca.empid_support = '$val'";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0){
+			while ($row = mysqli_fetch_assoc($results)) {
+				echo "<tr>";
+				echo "<td>" . $row['ComplaintNo'] . "</td>";
+				echo "<td>" . $row['description'] . "</td>";
+				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
+				echo "<td>" . $row['location'] . "</td>";
+				echo "<td>" . $row['Area_landmark'] . "</td>";
+				echo "<td>" . $row['datetime_assigned'] . "</td>";
+				echo "<td>" . $row['emp_agent'] . "</td>";
+				echo "</tr>";
+			}
+		}else {
+			// code...
 		}
 	}
 ?>

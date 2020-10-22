@@ -20,24 +20,50 @@ if (isLoggedIn()) {
     <meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
-  	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type ="text/css" href="stylesheets/allStyle.css">
   	<script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/dispatch.js"></script>
 
     <title>Dispatch</title>
     <div style="width:100%; padding:10px">
-      <a href="index.php?logout='1'" style='color:red; float:right;'>Logout</a>
-    </div>
-    <div class="titleHeader">
-      <span class="headerText"><img src="img/logo.png" id="logotitle" style="float:left; height: 100px; width: 100px"></span>
-      <span class="headerText"><h1>DISPATCH</h1></span>
     </div>
   </head>
 
   <body style="background-color: #fcffe8">
 
     <!-- Support Information -->
-    <div class="btnContainer">
-
+    <div id="divTicket">
+      <!-- logout Button -->
+      <div class="clscontainer">
+          <button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red;">Log-out</button>
+      </div>
+      <!-- title -->
+      <div class="logoimg">
+      <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
+      <h3>ZAMSURECO-I SUPPORT</h3>
+      </div>
+      <br>
+      <div class="" style="text-align: right; width:100%">
+        <label>User ID: <b><?php echo $_SESSION['user']['EmpID']; ?></b></label><br>
+        <label>Support Name: <b><?php echo $_SESSION['user']['Fname'] . ' '. $_SESSION['user']['Lname']; ?></b></label>
+      </div>
+      <hr>
+      <h3>Assigned Complaint</h3>
+      <!-- List of Active Complaint -->
+      <div id="tblAllData" style="overflow:auto">
+        <table border="1" id="tblData">
+          <tr>
+            <th>Complaint No</th>
+            <th>Description</th>
+            <th>Nature of Complain</th>
+            <th>Location</th>
+            <th>Area Landmark</th>
+            <th>Date Assigned</th>
+            <th>Assignee</th>
+          </tr>
+          <?php fillAssignedComplaint($_SESSION['user']['EmpID']); ?>
+        </table>
+      </div>
     </div>
   </body>
 </html>

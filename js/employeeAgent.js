@@ -39,6 +39,13 @@ $(document).ready(function(){
     alert(e);
   }
 
+  // Logout Button
+  $('#btnLogout').on("click",function(){
+    if (confirm("Are you sure you want to Log-out?") == true) {
+        window.location.href = "empLogin.php?logout='1'";
+    }
+  });
+
   // Adding rows and Value to TBl in Dispatch Manage Modal
   $('#idEmpLocat').change(function(){
     var _tblLoc = document.getElementById('tblLocaCover').getElementsByTagName('tbody')[0];
@@ -55,7 +62,7 @@ $(document).ready(function(){
 
     // $("#_municode").val($("#empLocaCover option[value='" + $("#idEmpLocat").val() + "']").attr("label"));
   })
-  
+
   $(".close").click(function(){
     $(".modal").css("display","none");
   });

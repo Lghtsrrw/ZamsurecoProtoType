@@ -28,8 +28,9 @@ if (isLoggedIn()) {
     <?php display_error(); ?>
 
     <div id="divTicket">
-      <div style="width:100%; text-align:right; padding:10px">
-      	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
+      <!-- logout Button -->
+      <div class="clscontainer">
+          <button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red;">Log-out</button>
       </div>
 
       <div class="logoimg">
@@ -64,8 +65,6 @@ if (isLoggedIn()) {
     <?php if(isset($_SESSION['savesupp'])) : ?>
     <div id="divSubmitMessage" style="margin-top: 20px">
       <h4>COMPLAINT RECEIVER UPDATED</h4>
-      <!-- <p>For Complaint No.: <b><?php  echo $_GET['CompRec']; ?></b></p>
-      <p>Area Coverage No.: <b><?php  echo $_GET['areaCovno']; ?></b></p> -->
     </div>
     <?php endif ?>
 
@@ -81,7 +80,7 @@ if (isLoggedIn()) {
           <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
           <button type="button" id="btnDispatch" class="mainBtn" style="height:42px; right:0; position:relative" disabled>Dispatch</button>
 
-        <div id="tblAllData">
+        <div id="tblAllData" style="overflow:auto">
           <table border="1" id="tblData">
             <tr>
               <th>Complaint No</th>
@@ -153,7 +152,7 @@ if (isLoggedIn()) {
 
     <!-- Dispatch Mananagement Dispatch modal -->
     <div class="modal" id="divMngCmplntDispt">
-      <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+      <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px">
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
         </div>

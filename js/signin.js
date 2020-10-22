@@ -20,6 +20,11 @@ $(document).ready(function(){
   })
 
   //this opens the Login Modal when btnLogin is clicked
+
+  $("#btnEmpLogin").click(function(){
+    window.location.href = "emplogin.php";
+   });
+
   $("#btnLogin").click(function(){
      $("#id01").css("display","block");
    });

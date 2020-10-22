@@ -16,7 +16,7 @@
     <title>Create a Ticket</title>
 </head>
 
-<body style="background-color: #edf8ff">
+<body style="background-color: #fcffe8">
   <div id="divLogout" style="width:100%">
     <h5>
       <a id="btnBack" href="#">BACK</a>

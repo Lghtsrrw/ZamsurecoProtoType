@@ -25,18 +25,18 @@
         $("#btnComplaint").click(function(){
           window.location.href = "complaintTicket.php";
         });
+        $('#btnLogout').on("click",function(){
+          if (confirm("Are you sure you want to Log-out?") == true) {
+              window.location.href = "index.php?logout='1'";
+          }
+        });
       });
     </script>
     <title>Welcome Guest</title>
   </head>
 
-  <body>
-    <div id="divLogout"style="text-align:right; clear:none;">
-      <a id="btnLogout" href="index.php?logout='1'" style='color:red;'>Logout</a>
-    </div>
+  <body style="background-color: #fcffe8">
 
-
-    <h1>Welcome Guest!</h1>
     <?php if (isset($_SESSION['success'])) : ?>
       <div class="success" >
         <h3><?php echo $_SESSION['success']; ?>  <br></h3>
@@ -47,13 +47,26 @@
           <?php echo "User Type: " . $_SESSION['user']['IDType']; ?>
         </h5>
       </div>
+  	<?php
+      unset($_SESSION['success']);
+      endif
+    ?>
 
-  	<?php unset($_SESSION['success']); ?>
-  	<?php endif ?>
+    <!-- Main Body -->
+    <div id="divTicket">
+      <!-- logo and title -->
+      <div class="logoimg">
+      <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
+      <h3>ZAMSURECO-I GUEST</h3>
+      </div>
 
-    <div class="divBtn">
-      <button id = "btnComplaint" style="width:auto;">Create a complaint Ticket</button>
+      <!-- Main Buttons -->
+      <div class="divBtn">
+        <button id = "btnComplaint" class="mainBtn" style="width:auto;">Create a complaint Ticket</button>
+        <button id = "btnLogout" class="mainBtn" style="width:auto; background-color: red;">Log-out</button>
+      </div>
     </div>
+
 
     <?php if(isset($_GET['submit'])) : ?>
     <div id="divSubmitMessage">

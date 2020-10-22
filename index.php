@@ -26,10 +26,6 @@ if (isGuest()) {
 
 <body>
 
-  <div style="width:100%; text-align:right;">
-  	<a href="index.php?logout='1'" style='color:red;'>Logout</a>
-  </div>
-
 	<?php if (isset($_SESSION['success'])) : ?>
 	<div class="success" >
 		<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
@@ -39,6 +35,12 @@ if (isGuest()) {
 
 	<div class="btnContainer">
 		<fieldset style="width:80%; margin:1% auto; ">
+
+		<!-- logout Button -->
+		<div class="clscontainer">
+				<button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red;">Log-out</button>
+		</div>
+
 	  <div class="logoimg">
 	  <img src="img/logo.png" id="logotitle">
 	  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
