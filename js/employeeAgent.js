@@ -60,7 +60,7 @@ $(document).ready(function(){
     arrEmpLocCov['Area'].push(MuniCov);
     console.log(arrEmpLocCov);
 
-    // $("#_municode").val($("#empLocaCover option[value='" + $("#idEmpLocat").val() + "']").attr("label"));
+    $('#countthis').val($('#tblLocaCover tr').length - 1);
   })
 
   $(".close").click(function(){
@@ -107,6 +107,7 @@ $(document).ready(function(){
           arrEmpLocCov['Area'].splice(i,1);
         }
       }
+      $('#countthis').val($('#tblLocaCover tr').length - 1);
       console.log(arrEmpLocCov);
     }
   });
@@ -123,6 +124,7 @@ $(document).ready(function(){
     $('#tblAllData').load("search-complaint.php", {
       complaintNo_tobesearch: $('#inSearch').val()
     });
+    // console.log("HelloWorld");
   });
 
   $('#idEmpName').change(function(e){

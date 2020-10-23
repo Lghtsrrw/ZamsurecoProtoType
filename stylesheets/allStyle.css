@@ -20,6 +20,16 @@ input[type=text]:disabled, input[type=password]:disabled{
   background-color: #eee;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.div4Table{
+  overflow: auto;
+}
 fieldset{
   margin-bottom: 20px;
 }

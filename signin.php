@@ -51,7 +51,9 @@
     <!-- modal for LoginPage -->
     <div id="id01" class="modal">
       <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <span class="close" title="Close Modal">&times;</span>
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
         <div class="imgcontainer">
           <img src="img/userprofile.png" alt="Avatar" class="avatar">
         </div>
@@ -63,14 +65,18 @@
           <input type="password" placeholder="Enter Password" name="password">
 
           <button type="submit" class="mainBtn" name = "login_btn">Login</button>
+          <!--
           <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
+           -->
         </div>
+        <!--
         <div class="container" style="background-color:#f1f1f1">
           <button type="button" class="cancelbtn" onclick="document.getElementById('id01').style.display='none'">Cancel</button>
           <span class="psw"><a href="#">Forgot password?</a></span>
         </div>
+        -->
       </form>
     </div>
 

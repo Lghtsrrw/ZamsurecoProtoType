@@ -3,6 +3,7 @@
 
   if(!empty($_POST['complaintNo_tobesearch']) && isset($_POST['complaintNo_tobesearch'])){
     $searchValue = $_POST['complaintNo_tobesearch'];
+    echo "<div class='div4Table'>";
     echo "<table border='1' id='tblData'>";
     echo "<tr>";
     echo "<th>Complaint No</th>";
@@ -15,7 +16,9 @@
     echo "</tr>";
     fillSearchTable($searchValue);
     echo "</table>";
+    echo "</div>";
   }else{
+    echo "<div style='div4Table'>";
     echo "<table border='1' id='tblData'>";
     echo "<tr>";
     echo "<th>Complaint No</th>";
@@ -28,5 +31,6 @@
     echo "</tr>";
     fillComplaintTable();
     echo "</table>";
+    echo "</div>";
   }
  ?>

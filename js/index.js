@@ -12,13 +12,15 @@ $(document).ready(function() {
     window.location.href = "complaintTicket.php";
   });
 
+  $("#btnTrackComplaint").click(function(){
+    $(".modal").css("display","none");
+    $("#trackModal").css("display","block");
+  });
+
+
   $('#btnLogout').on("click",function(){
     if (confirm("Are you sure you want to Log-out?") == true) {
         window.location.href = "index.php?logout='1'";
     }
   });
 });
-
-function closeModal(){
-
-}

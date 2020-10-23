@@ -53,9 +53,9 @@ if (isGuest()) {
 		<button id = "btnPayBills" class="mainBtn">Pay Bills</button>
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
+
 		<!-- Display Bills  -->
 		<div id="divBillList" style="width: 100%; text-align: left">
-
 			<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
 			<p><b>Bills</b></p>
 			<table id='tblBill'>
@@ -76,7 +76,7 @@ if (isGuest()) {
 			<?php endif ?>
 		</div>
 
-			<!-- show submit Ticket and Tracking No -->
+			<!-- condtional: submit Ticket and Tracking No -->
 			<?php if(isset($_SESSION['submit'])) : ?>
 			<div id="divSubmitMessage">
 		 	  <p>Ticket successfully submitted.</p>
@@ -92,12 +92,13 @@ if (isGuest()) {
 	</fieldset>
 
 <!-- begin modal -->
+	<!-- Complaint Modal -->
 	<div id="complaintModal" class="modal">
 		<div class="modal-content animate">
 			<div class="clscontainer">
 				<span class="close" title="Close Modal">&times;</span>
 			</div>
-			<div class="container" style="overflow-x:auto; padding: 20px">
+			<div class="container" style="padding: 20px">
 				<div class="titleHeader">
 		      <span class="headerText"><img src="img/logo.png" id="logotitle" style="float:left; height: 50px; width: 50px"></span>
 		      <span class="headerText"><h1>Complaint List</h1></span>
@@ -106,12 +107,32 @@ if (isGuest()) {
 				<button type="button" class="mainBtn" id="btnCreateComplaint">Create ticket</button>
 					<button type="button" class="mainBtn" id="btnTrackComplaint">Track a Complaint</button>
 				</div>
-				<table >
-					<?php userComplaintTable($_SESSION['user']['username']); ?>
-				</table>
+				<div class="div4Table">
+					<table>
+						<?php userComplaintTable($_SESSION['user']['username']); ?>
+					</table>
+				</div>
+
 			</div>
 		</div>
 	</div>
 
+	<!-- Track Modal -->
+	<div id="trackModal" class="modal">
+		<div class="modal-content animate">
+			<div class="clscontainer">
+				<span class="close" title="Close Modal">&times;</span>
+			</div>
+			<div class="container" style="overflow-x:auto; padding: 20px">
+				<div class="titleHeader">
+		      <span class="headerText"><h2>Tracking</h3></span>
+		    </div>
+				<hr>
+				<div class="center">
+					<p>Hello World</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

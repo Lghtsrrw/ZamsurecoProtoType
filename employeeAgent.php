@@ -35,7 +35,7 @@ if (isLoggedIn()) {
 
       <div class="logoimg">
       <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
-      <h3>ZAMSURECO AGENT</h3>
+      <h3>ZAMSURECO-I  AGENT</h3>
       </div>
 
       <!-- Show current user -->
@@ -80,19 +80,21 @@ if (isLoggedIn()) {
           <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
           <button type="button" id="btnDispatch" class="mainBtn" style="height:42px; right:0; position:relative" disabled>Dispatch</button>
 
-        <div id="tblAllData" style="overflow:auto">
-          <table border="1" id="tblData">
-            <tr>
-              <th>Complaint No</th>
-              <th>Nature of Complaint</th>
-              <th>Description</th>
-              <th>Region</th>
-              <th>Province</th>
-              <th>City/Mun</th>
-              <th>Barangay</th>
-            </tr>
-            <?php fillComplaintTable(); ?>
-          </table>
+        <div class="tblAllData">
+          <div id="div4Table">
+            <table border="1" id="tblData">
+              <tr>
+                <th>Complaint No</th>
+                <th>Nature of Complaint</th>
+                <th>Description</th>
+                <th>Region</th>
+                <th>Province</th>
+                <th>City/Mun</th>
+                <th>Barangay</th>
+              </tr>
+              <?php fillComplaintTable(); ?>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -138,15 +140,17 @@ if (isLoggedIn()) {
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <h2>Employee List</h2>
-        <table id="tblEmpList">
-          <tr>
-            <th>Employee ID</th>
-            <th>Name</th>
-            <th>Area</th>
-            <th>Department</th>
-          </tr>
-          <?php fillEmpListTable(); ?>
-        </table>
+        <div class="div4Table">
+          <table id="tblEmpList">
+            <tr>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Area</th>
+              <th>Department</th>
+            </tr>
+            <?php fillEmpListTable(); ?>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -202,6 +206,7 @@ if (isLoggedIn()) {
                 <th>Locations</th>
               </table>
               <input type="hidden" id="_municode" value="">
+              <input type="hidden" name="rowAreaCov" id="countthis" value="0">
               <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
             </fieldset>
 
@@ -241,16 +246,13 @@ if (isLoggedIn()) {
         <div class="">
           <h2>Complaint Handler</h2>
             <div class="locationFloatLeft" style="width:50%; float: left;">
-              <fieldset>
+              <fieldset style="height:250px;overflow-x:auto;">
                 <legend>Location</legend>
-                <table id="tblLocation">
-                  <tr>
-                    <th>City/Municipal</th>
-                  </tr>
+                <div class="div4Table">
                   <?php fillCmplntHndlrLocation(); ?>
-                </table>
-                <input type="hidden" id="selectedRow" value="">
-                <input type="hidden" id="selectedOffice" value="">
+                </div>
+                  <input type="hidden" id="selectedRow" value="">
+                  <input type="hidden" id="selectedOffice" value="">
               </fieldset>
             </div>
             <div class="locationFloatRight" style="width:50%; float: right;">

@@ -628,12 +628,19 @@
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{
+			echo "<table id='tblLocation'>
+						<tr>
+							<th>City/Municipal</th>
+						</tr>";
 			while ($row = mysqli_fetch_assoc($results))
 			{
 				echo "<tr>";
 				echo "<td>" . $row['city_mun'] . "</td>";
 				echo "</tr>";
 			}
+			echo "</table>";
+		}else {
+			echo "<div style='width:100%; text-align:center'><h5 style='color:red;'>No available data</h5></div>";
 		}
 	}
 
@@ -654,7 +661,9 @@
 			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 			if(mysqli_num_rows($results) > 0)
 			{
-				echo "<h3>Offices</h3>";
+				echo "<fieldset style='height:250px; overflow:auto'>";
+				echo "<legend>Office</legend>";
+				echo "<div class='div4Table'>";
 				echo "<table id='tblOffices'>";
 				echo "<tr>";
 				echo "<th>Office</th>";
@@ -668,6 +677,8 @@
 					echo "</tr>";
 				}
 				echo "</table>";
+				echo "</div>";
+				echo "</fieldset>";
 			}
 			return true;
 		}else {
@@ -694,6 +705,7 @@
 			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 			if(mysqli_num_rows($results) > 0)
 			{
+				echo "<div class='div4Table'>";
 				echo "<table id='tblempDetails'>";
 				echo "<tr>";
 				echo "<th>Employee ID</th>";
@@ -713,6 +725,7 @@
 					echo "</tr>";
 				}
 				echo "</table>";
+				echo "</div>";
 			}
 			return true;
 		}else {
@@ -764,6 +777,7 @@
 		global $db;
 
 		echo "<tr>";
+		echo "<th>Complaint No</th>";
 		echo "<th>Date created</th>";
 			echo "<th>Description</th>";
 			echo "<th>Nature of complaint</th>";
@@ -780,13 +794,15 @@
 										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo
 										INNER JOIN address a ON a.addressno = c.location
 										INNER JOIN user u ON u.userID = uc.complaintID
-										WHERE uc.complaintID = '$val'";
+										WHERE uc.complaintID = '$val'
+										ORDER BY c.ComplaintNo desc";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
 			{
 				echo "<tr>";
+				echo "<td>". $row['No'] ."</td>";
 				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td>". $row['Description'] ."</td>";
 				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
@@ -815,6 +831,17 @@
 										WHERE ca.empid_support = '$val'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
+			echo "<table border='1' id='tblData'>";
+			echo "<tr>";
+			echo "<th>Complaint No</th>";
+			echo "<th>Description</th>";
+			echo "<th>Nature of Complain</th>";
+			echo "<th>Location</th>";
+			echo "<th>Area Landmark</th>";
+			echo "<th>Date Assigned</th>";
+			echo "<th>Assignee</th>";
+			echo "</tr>";
+
 			while ($row = mysqli_fetch_assoc($results)) {
 				echo "<tr>";
 				echo "<td>" . $row['ComplaintNo'] . "</td>";
@@ -826,8 +853,9 @@
 				echo "<td>" . $row['emp_agent'] . "</td>";
 				echo "</tr>";
 			}
+			echo "</table>";
 		}else {
-			// code...
+			echo "<p style='color:red; float:'>No assigned complaint yet</p>";
 		}
 	}
 ?>

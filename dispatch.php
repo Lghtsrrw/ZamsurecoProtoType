@@ -50,19 +50,8 @@ if (isLoggedIn()) {
       <hr>
       <h3>Assigned Complaint</h3>
       <!-- List of Active Complaint -->
-      <div id="tblAllData" style="overflow:auto">
-        <table border="1" id="tblData">
-          <tr>
-            <th>Complaint No</th>
-            <th>Description</th>
-            <th>Nature of Complain</th>
-            <th>Location</th>
-            <th>Area Landmark</th>
-            <th>Date Assigned</th>
-            <th>Assignee</th>
-          </tr>
-          <?php fillAssignedComplaint($_SESSION['user']['EmpID']); ?>
-        </table>
+      <div id="tblAllData" style="overflow:auto; text-align: center">
+        <?php fillAssignedComplaint($_SESSION['user']['EmpID']); ?>
       </div>
     </div>
   </body>
