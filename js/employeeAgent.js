@@ -1,7 +1,6 @@
 var arrEmpLocCov = {};
 arrEmpLocCov['Area'] = [];
 arrEmpLocCov['municipalcode'] = [];
-
 $(document).keypress(
   function(event){
     if (event.which == '13') {
@@ -69,19 +68,21 @@ $(document).ready(function(){
 
   // Load dispatch modal on click 'Dispatch' on Complaint Modal
   $('#btnDispatch').click(function(){
-    $('.modal').css("display","none")
-    $('#divDispatchModal').css("display", "block")
+      $('.modal').css("display","none")
+      $('#divDispatchModal').css("display", "block")
 
-    $('#cdNUM').html("Complaint No: <em>" + $('#inSearch').val() + "</em>")
+      $('#cdNUM').html("Complaint No: <em>" + $('#inSearch').val() + "</em>")
 
-    var value=$(".selected").find('td:nth-child(2)').html();
-    $('#cdNOC').html("Nature of Complaint: <em>" + value + "</em>")
+      var value=$(".selected").find('td:nth-child(2)').html();
+      $('#cdNOC').html("Nature of Complaint: <em>" + value + "</em>")
 
-    var location = $(".selected").find('td:nth-child(6)').html();
-    $('#cdLOC').html("City|Municipal: <em>" + location + "</em>")
+      var location = $(".selected").find('td:nth-child(6)').html();
+      $('#cdLOC').html("City|Municipal: <em>" + location + "</em>")
 
-    var brgy = $(".selected").find('td:nth-child(7)').html();
-    $('#cdbrgy').html("Barangay: <em>" + brgy + "</em>")
+      var brgy = $(".selected").find('td:nth-child(7)').html();
+      $('#cdbrgy').html("Barangay: <em>" + brgy + "</em>")
+
+      $('#btnDispatch').prop("disabled", true);
   });
 
   $('#btnComplaints').click(function(){
@@ -113,6 +114,10 @@ $(document).ready(function(){
     $('#inSearch').val(value);
   });
 
+  $('#divTbl').on("click",function(){
+    $('#tblData tr').removeClass('selected')
+    // alert("Hello");
+  })
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
     if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
       // remove selected row from the dsptmng modal

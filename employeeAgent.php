@@ -79,9 +79,8 @@ if (isLoggedIn()) {
         <div class="" style="width:100%; clear: none">
           <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
           <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
-          <button type="button" id="btnDispatch" class="mainBtn" style="height:42px; margin:10px; position:relative;float:right">Dispatch</button>
+          <button type="button" id="btnDispatch" class="mainBtn" style="height:42px;" disabled>Dispatch</button>
         </div>
-
 
         <div class="tblAllData" style="overflow:auto">
           <div id="div4Table" >
@@ -277,15 +276,15 @@ if (isLoggedIn()) {
           <h2>Dispatch</h2>
           <div id="complaintDetails" style="border:1px solid #AAA; padding: 2%; margin: 1%">
             <p><b>DETAILS</b></p>
-            <label id="cdNUM">--</label><br>
-            <label id="cdNOC">--</label><br>
-            <label id="cdLOC">--</label><br>
-            <label id="cdbrgy">--</label>
+            <label class="detailsLabels" id="cdNUM">--</label><br>
+            <label class="detailsLabels" id="cdNOC">--</label><br>
+            <label class="detailsLabels" id="cdLOC">--</label><br>
+            <label class="detailsLabels" id="cdbrgy">--</label>
           </div>
           <div id="complaintReceiver" style="border:1px solid #AAA; padding: 2%; margin: 1%">
             <p><b>COMPLAINT RECEIVER</b></p>
             <div class="divTblComplaineReceiver">
-              
+
             </div>
           </div>
 

@@ -20,6 +20,9 @@ input[type=text]:disabled, input[type=password]:disabled{
   background-color: #eee;
 }
 
+.detailsLabels{
+  font-size: 12px;
+}
 .center {
   display: flex;
   justify-content: center;

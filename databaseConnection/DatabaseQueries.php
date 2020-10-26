@@ -431,6 +431,8 @@
 				echo "<td>" . $row['cBrgy'] . "</td>";
 				echo "</tr>";
 			}
+		}else {
+			echo "<h3 style='color:red'>No Result</h3>";
 		}
 	}
 
