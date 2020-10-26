@@ -155,15 +155,14 @@ li{
 
 button{
   background-color: #4c80f1;
+  border-color: #0E2F44;
   color: rgb(228, 255, 108);
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 100%;
-<<<<<<< HEAD
-=======
-} */
+}
 .logoimg{
   width:100%;
   clear:both;
@@ -172,10 +171,10 @@ button{
 #logotitle{
   width: 100px;
   height: 100px;
->>>>>>> be74b31793ec6aa7c28a1f08fc51f1fc2962997d
 }
 .mainBtn{
   background-color: #4c80f1;
+  border: 1px solid #0E2F44;
   color: rgb(228, 255, 108);
   padding: 14px 20px;
   margin: 8px 0;
@@ -184,6 +183,7 @@ button{
   width: auto;
 }
 .mainBtn:disabled{
+  border-color: #0E2F44;
   opacity: 0.8;
   color: rgb(228, 255, 108);
   padding: 14px 20px;

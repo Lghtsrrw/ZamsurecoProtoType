@@ -389,7 +389,8 @@
 
 	function fillComplaintTable(){
 		global $db;
-		$queryAddress = "SELECT * FROM complaints c inner join address a on c.location = a.addressNo";
+		$queryAddress = "SELECT * FROM complaints c
+										INNER JOIN address a ON c.location = a.addressNo";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
@@ -621,8 +622,7 @@
 		}
 	}
 
-	function fillCmplntHndlrLocation()
-	{
+	function fillCmplntHndlrLocation(){
 		global $db;
 		$queryAddress = "SELECT DISTINCT city_mun from receiver_area_coverage";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
@@ -649,8 +649,7 @@
 		fillCmplntHndlrOffice($_POST['locationvalue']);
 	}
 
-	function fillCmplntHndlrOffice($cityMun)
-	{
+	function fillCmplntHndlrOffice($cityMun){
 		if(!empty($cityMun)){
 			global $db;
 			$queryAddress = "SELECT DISTINCT office, rac.area_coverage_no as 'Area'
@@ -736,7 +735,6 @@
 	if (isset($_POST['_acctNo'])) {
 		echo ifBillExist($_POST['_acctNo']);
 	}
-
 	function ifBillExist($val){
 		global $db;
 		$queryAddress = "SELECT * from bill
@@ -857,5 +855,9 @@
 		}else {
 			echo "<p style='color:red; float:'>No assigned complaint yet</p>";
 		}
+	}
+
+	function displayPossibleComplaintReceiver(){
+
 	}
 ?>

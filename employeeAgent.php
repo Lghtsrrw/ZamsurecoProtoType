@@ -76,12 +76,15 @@ if (isLoggedIn()) {
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <h3>Active Complaint</h3>
+        <div class="" style="width:100%; clear: none">
           <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
           <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
-          <button type="button" id="btnDispatch" class="mainBtn" style="height:42px; right:0; position:relative" disabled>Dispatch</button>
+          <button type="button" id="btnDispatch" class="mainBtn" style="height:42px; margin:10px; position:relative;float:right">Dispatch</button>
+        </div>
 
-        <div class="tblAllData">
-          <div id="div4Table">
+
+        <div class="tblAllData" style="overflow:auto">
+          <div id="div4Table" >
             <table border="1" id="tblData">
               <tr>
                 <th>Complaint No</th>
@@ -190,7 +193,7 @@ if (isLoggedIn()) {
             <datalist id="empIDList">
               <?php retrieveEmployeeList(); ?>
             </datalist>
-            <input type="text" name="txtEmpName" id="empname" value=""  disabled><br><br>
+            <input type="text" name="txtEmpName" id="empname" value="" disabled><br><br>
           </fieldset>
 
           <!-- Area Coverage -->
@@ -223,7 +226,6 @@ if (isLoggedIn()) {
               <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
             </fieldset>
           </fieldset>
-
 
           <!-- Contacts Field -->
           <fieldset>
@@ -265,5 +267,30 @@ if (isLoggedIn()) {
       </div>
     </div>
 
+    <!-- Dispatch Modal -->
+    <div class="modal" id="divDispatchModal">
+      <div class="modal-content animate" id="divIdTblComplaint" style="padding:10px;">
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
+        <div class=""style="overflow-x:auto; ">
+          <h2>Dispatch</h2>
+          <div id="complaintDetails" style="border:1px solid #AAA; padding: 2%; margin: 1%">
+            <p><b>DETAILS</b></p>
+            <label id="cdNUM">--</label><br>
+            <label id="cdNOC">--</label><br>
+            <label id="cdLOC">--</label><br>
+            <label id="cdbrgy">--</label>
+          </div>
+          <div id="complaintReceiver" style="border:1px solid #AAA; padding: 2%; margin: 1%">
+            <p><b>COMPLAINT RECEIVER</b></p>
+            <div class="divTblComplaineReceiver">
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </body>
 </html>

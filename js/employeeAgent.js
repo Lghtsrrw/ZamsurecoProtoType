@@ -67,6 +67,23 @@ $(document).ready(function(){
     $(".modal").css("display","none");
   });
 
+  // Load dispatch modal on click 'Dispatch' on Complaint Modal
+  $('#btnDispatch').click(function(){
+    $('.modal').css("display","none")
+    $('#divDispatchModal').css("display", "block")
+
+    $('#cdNUM').html("Complaint No: <em>" + $('#inSearch').val() + "</em>")
+
+    var value=$(".selected").find('td:nth-child(2)').html();
+    $('#cdNOC').html("Nature of Complaint: <em>" + value + "</em>")
+
+    var location = $(".selected").find('td:nth-child(6)').html();
+    $('#cdLOC').html("City|Municipal: <em>" + location + "</em>")
+
+    var brgy = $(".selected").find('td:nth-child(7)').html();
+    $('#cdbrgy').html("Barangay: <em>" + brgy + "</em>")
+  });
+
   $('#btnComplaints').click(function(){
     $('#divTbl').css("display","block");
   });
@@ -112,6 +129,7 @@ $(document).ready(function(){
     }
   });
 
+  // DOuble-click on selected active complaint
   $('body').on("dblclick",'#tblData tr', function(){
     $('#btnDispatch').prop("disabled", false);
   });
@@ -121,7 +139,7 @@ $(document).ready(function(){
   });
 
   $('#btnIDSearch').click(function(){
-    $('#tblAllData').load("search-complaint.php", {
+    $('.tblAllData').load("search-complaint.php", {
       complaintNo_tobesearch: $('#inSearch').val()
     });
     // console.log("HelloWorld");
