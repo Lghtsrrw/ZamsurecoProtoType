@@ -85,27 +85,22 @@
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
 			$password = md5($password1);//encrypt the password before saving in the database
-
 			if (mysqli_query($db, "INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo, email) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo','$email')")) {
 			  echo "New user created successfully";
 			} else {
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
-
 			if (mysqli_query($db, "INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
 			  echo "New id_verification created successfully";
 			} else {
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
-
 			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$username')")) {
 			  echo "New id_verification created successfully";
 			}else {
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
-
 			$_user = getUserById($username);
-
 			echo "<script> alert('". implode($_user) ."'); </script>";
 			$_SESSION['user'] = $_user;
 			$_SESSION['success']  = "You are now logged in";
@@ -855,11 +850,59 @@
 			}
 			echo "</table>";
 		}else {
-			echo "<p style='color:red; float:'>No assigned complaint yet</p>";
+			echo "<p style='color:red; float:center'>No assigned complaint yet</p>";
 		}
 	}
 
-	function displayPossibleComplaintReceiver(){
+	if (isset($_POST['natureofcomplaint']) && isset($_POST['citymunicipal'])) {
+		// displayPossibleComplaintReceiver($_POST['natureofcomplaint'], $_POST['citymunicipal']);
+		echo $_POST['natureofcomplaint'] . ' '. $_POST['citymunicipal'];
+	}
+	function displayPossibleComplaintReceiver($nature, $citymun){
+		global $db;
 
+		$queryAddress = "SELECT DISTINCT	e.empid 'employee',
+																			fname,
+																			lname,
+																			c.Nature_of_Complaint 'noc',
+																			city_mun,
+																			brgy
+										FROM complaint_receiver cr
+										INNER JOIN complaints c
+											ON cr.complaintID = c.Nature_of_Complaint
+										INNER JOIN receiver_area_coverage rac
+											ON cr.area_coverage_no = rac.area_coverage_no
+										INNER JOIN employee e
+											ON cr.empid = e.EmpID
+										WHERE c.Nature_of_Complaint = '$nature'
+										AND city_mun = '$citymun'";
+
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0){
+
+			echo "<table border='1' id='tblData'>";
+			echo "<tr>";
+			echo "<th>Employee ID</th>";
+			echo "<th>First Name</th>";
+			echo "<th>Last Name</th>";
+			echo "<th>Nature of Complaint</th>";
+			echo "<th>City/Municipal</th>";
+			echo "<th>Barangay</th>";
+			echo "</tr>";
+
+			while ($row = mysqli_fetch_assoc($results)) {
+				echo "<tr>";
+				echo "<td>" . $row['employee'] . "</td>";
+				echo "<td>" . $row['fname'] . "</td>";
+				echo "<td>" . $row['lname'] . "</td>";
+				echo "<td>" . $row['noc'] . "</td>";
+				echo "<td>" . $row['city_mun'] . "</td>";
+				echo "<td>" . $row['brgy'] . "</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+		}else {
+				echo "<p style='color:red; float:center'>No possible receiver</p>";
+		}
 	}
 ?>

@@ -83,6 +83,11 @@ $(document).ready(function(){
       $('#cdbrgy').html("Barangay: <em>" + brgy + "</em>")
 
       $('#btnDispatch').prop("disabled", true);
+
+      $('#divTblComplaineReceiver').load("databaseConnection/DatabaseQueries.php", {
+        natureofcomplaint: $('#cdNOC').html(),
+        citymunicipal: $('#cdLOC').html()
+      });
   });
 
   $('#btnComplaints').click(function(){

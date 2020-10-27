@@ -272,22 +272,25 @@ if (isLoggedIn()) {
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
         </div>
-        <div class=""style="overflow-x:auto; ">
-          <h2>Dispatch</h2>
+        <div class=""style="overflow-x:auto;">
+          <h2>DISPATCH</h2>
           <div id="complaintDetails" style="border:1px solid #AAA; padding: 2%; margin: 1%">
             <p><b>DETAILS</b></p>
             <label class="detailsLabels" id="cdNUM">--</label><br>
+            <input type="text" name="" value="">
             <label class="detailsLabels" id="cdNOC">--</label><br>
+            <input type="text" name="" value="">
             <label class="detailsLabels" id="cdLOC">--</label><br>
+            <input type="text" name="" value="">
             <label class="detailsLabels" id="cdbrgy">--</label>
+            <input type="text" name="" value="">
           </div>
           <div id="complaintReceiver" style="border:1px solid #AAA; padding: 2%; margin: 1%">
             <p><b>COMPLAINT RECEIVER</b></p>
-            <div class="divTblComplaineReceiver">
+            <div id="divTblComplaineReceiver">
 
             </div>
           </div>
-
         </div>
       </div>
     </div>
