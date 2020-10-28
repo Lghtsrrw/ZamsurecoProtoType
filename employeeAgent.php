@@ -259,7 +259,7 @@ if (isLoggedIn()) {
             <div class="locationFloatRight" style="width:50%; float: right;">
               <!-- Automated Entry in js file using AJAX -->
             </div>
-            <div class="divEmpDetails" style="width:100%; float: bottom;">
+            <div class="divEmpDetails" style="width:100%; overflow: auto;height:auto;;float: bottom;">
               <!-- Automated Entry in js file using AJAX -->
             </div>
         </div>
@@ -274,18 +274,18 @@ if (isLoggedIn()) {
         </div>
         <div class=""style="overflow-x:auto;">
           <h2>DISPATCH</h2>
-          <div id="complaintDetails" style="border:1px solid #AAA; padding: 2%; margin: 1%">
+          <div id="complaintDetails" class="divDispatchModalStyle" style="float:left" >
             <p><b>DETAILS</b></p>
-            <label class="detailsLabels" id="cdNUM">--</label><br>
-            <input type="text" name="" value="">
-            <label class="detailsLabels" id="cdNOC">--</label><br>
-            <input type="text" name="" value="">
-            <label class="detailsLabels" id="cdLOC">--</label><br>
-            <input type="text" name="" value="">
-            <label class="detailsLabels" id="cdbrgy">--</label>
-            <input type="text" name="" value="">
+            <label class="detailsLabels" >COMPLAINT NO</label><br>
+            <input type="text" name="" id="cdNUM"  value="" disabled>
+            <label class="detailsLabels" >NATURE OF COMPLAINT</label><br>
+            <input type="text" name="" id="cdNOC"value="" disabled>
+            <label class="detailsLabels" >CITY/MUNICIPAL</label><br>
+            <input type="text" name="" id="cdLOC" value="" disabled>
+            <label class="detailsLabels" >BARANGAY</label>
+            <input type="text" name="" id="cdbrgy" value="" disabled>
           </div>
-          <div id="complaintReceiver" style="border:1px solid #AAA; padding: 2%; margin: 1%">
+          <div id="complaintReceiver" class="divDispatchModalStyle" style="float:right">
             <p><b>COMPLAINT RECEIVER</b></p>
             <div id="divTblComplaineReceiver">
 

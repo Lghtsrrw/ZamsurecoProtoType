@@ -71,22 +71,24 @@ $(document).ready(function(){
       $('.modal').css("display","none")
       $('#divDispatchModal').css("display", "block")
 
-      $('#cdNUM').html("Complaint No: <em>" + $('#inSearch').val() + "</em>")
+
+      var comno=$(".selected").find('td:nth-child(1)').html();
+      $('#cdNUM').val(comno)
 
       var value=$(".selected").find('td:nth-child(2)').html();
-      $('#cdNOC').html("Nature of Complaint: <em>" + value + "</em>")
+      $('#cdNOC').val(value)
 
       var location = $(".selected").find('td:nth-child(6)').html();
-      $('#cdLOC').html("City|Municipal: <em>" + location + "</em>")
+      $('#cdLOC').val( location )
 
       var brgy = $(".selected").find('td:nth-child(7)').html();
-      $('#cdbrgy').html("Barangay: <em>" + brgy + "</em>")
+      $('#cdbrgy').val( brgy )
 
       $('#btnDispatch').prop("disabled", true);
 
       $('#divTblComplaineReceiver').load("databaseConnection/DatabaseQueries.php", {
-        natureofcomplaint: $('#cdNOC').html(),
-        citymunicipal: $('#cdLOC').html()
+        natureofcomplaint: $('#cdNOC').val(),
+        citymunicipal: $('#cdLOC').val()
       });
   });
 
@@ -195,9 +197,9 @@ $(document).ready(function(){
     $('.locationFloatRight').load("databaseConnection/DatabaseQueries.php", {
       locationvalue: $('#selectedRow').val()
     });
-    console.log("No error");
   });
 
+  // #tblOffices is declared in DatabaseQueries.php fillCmplntHndlrOffice()
   $('body').on("click",'#tblOffices tr', function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     var value=$(this).find('td:first').html();
@@ -208,8 +210,6 @@ $(document).ready(function(){
       cityval: $('#selectedRow').val()
     });
   });
-
-
 });
 
 function hideModals(){

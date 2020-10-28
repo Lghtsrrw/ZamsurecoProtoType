@@ -685,13 +685,17 @@
 	// Check if the emp support details value passed from the client side
 	if(isset($_POST['officeval']) && isset($_POST['cityval'])){
 		fillCmplntHndlrEmp($_POST['cityval'],$_POST['officeval']);
+		// echo $_POST['officeval']. ' '. $_POST['cityval'];
 	}
 
 	function fillCmplntHndlrEmp($city, $val){
 		if(!empty($val) && !empty($city)){
 			global $db;
 
-			$queryAddress = "SELECT e.empid, concat(fname,' ',lname)as'fullname', office, contact, complaintid as 'Complaint Handling'
+			$queryAddress = "SELECT e.empid,
+															concat(fname,' ',lname)as'fullname',
+															office, contact,
+															complaintid as 'complainthandling'
 											FROM complaint_receiver cr
 											INNER JOIN receiver_area_coverage rac
 											ON cr.area_coverage_no = rac.area_coverage_no
@@ -701,7 +705,8 @@
 			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 			if(mysqli_num_rows($results) > 0)
 			{
-				echo "<div class='div4Table'>";
+
+				echo "<div style='display:block'>";
 				echo "<table id='tblempDetails'>";
 				echo "<tr>";
 				echo "<th>Employee ID</th>";
@@ -717,15 +722,17 @@
 					echo "<td>" . $row['fullname'] . "</td>";
 					echo "<td>" . $row['office'] . "</td>";
 					echo "<td>" . $row['contact'] . "</td>";
-					echo "<td>" . $row['Complaint Handling'] . "</td>";
+					echo "<td>" . $row['complainthandling'] . "</td>";
 					echo "</tr>";
 				}
 				echo "</table>";
 				echo "</div>";
+			}else {
+				echo "<p style='color:red; float:center'>No assigned complaint yet</p>";
 			}
 			return true;
 		}else {
-			return false;
+			echo "Entry Empty";
 		}
 	}
 
@@ -855,8 +862,8 @@
 	}
 
 	if (isset($_POST['natureofcomplaint']) && isset($_POST['citymunicipal'])) {
-		// displayPossibleComplaintReceiver($_POST['natureofcomplaint'], $_POST['citymunicipal']);
-		echo $_POST['natureofcomplaint'] . ' '. $_POST['citymunicipal'];
+		displayPossibleComplaintReceiver($_POST['natureofcomplaint'], $_POST['citymunicipal']);
+		// echo $_POST['natureofcomplaint'] . ' '. $_POST['citymunicipal'];
 	}
 	function displayPossibleComplaintReceiver($nature, $citymun){
 		global $db;
