@@ -102,6 +102,7 @@ $(document).ready(function(){
           });
         });
       });
+      $('#lblLoadingBgrgy').css('display','none');
     }
   });
 

@@ -484,13 +484,17 @@
 		}
 
 		if(count($errors) == 0){
-			$query = "INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')";
+			$query = ;
 			$results = mysqli_query($db,$query) or die(mysqli_error());
-
-			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
-			  echo "New support created";
+			if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
+				echo "New support created";
 			}else {
-			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
+				echo "New support account created";
+			}else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
 
 			$_SESSION['savedsupp'] = $empid;
