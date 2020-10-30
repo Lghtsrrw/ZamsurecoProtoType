@@ -128,7 +128,7 @@ $(document).ready(function(){
     }
   });
   $('#btnSelectedEmp').click(function(){
-    if(confirm("You sure you want to select this?")){
+    if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
       $.ajax({
         type: "POST",
         url: 'databaseConnection/DatabaseQueries.php',
@@ -136,11 +136,26 @@ $(document).ready(function(){
                 'empidsupp': $('.selected').find('td:first').html()},
         success: function(result){
           console.log(result);
+          alert(result);
           window.location.href = 'employeeAgent.php';
         }
       })
-    }else {
+    }
+  })
 
+  $('#btnAssignEmployeeSupport').click(function(){
+    if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
+      $.ajax({
+        type: "POST",
+        url: 'databaseConnection/DatabaseQueries.php',
+        data: { 'complaintno': $('#cdNUM').val(),
+                'empidsupp': $('#empSupp').val()},
+        success: function(result){
+          console.log(result);
+          alert(result);
+          window.location.href = 'employeeAgent.php';
+        }
+      })
     }
   })
 
@@ -233,6 +248,19 @@ $(document).ready(function(){
   $('#btnSet').click(function(){
     $('#setEmpSupp').css("display", "block");
   })
+
+  $('#setEmpID').change(function(){
+    $.ajax({
+      type: "POST",
+      url: 'databaseConnection/DatabaseQueries.php',
+      data: { 'suppempid': $('#setEmpID').val()},
+      success: function(result){
+        $('#setEmpName').val(result);
+      }
+    })
+    $('#empSupp').val($('#setEmpID').val());
+  })
+
 });
 
 function hideModals(){

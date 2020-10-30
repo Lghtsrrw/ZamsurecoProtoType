@@ -386,7 +386,8 @@
 		global $db;
 		$queryAddress = "SELECT * FROM complaints c
 										INNER JOIN address a ON c.location = a.addressNo
-										RIGHT JOIN complaint_assign ca on c.ComplaintNO <> ca.complaintno";
+										RIGHT JOIN complaint_assign ca on c.ComplaintNO <> ca.complaintno
+										ORDER BY c.ComplaintNo DESC";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
@@ -963,28 +964,40 @@
 
 	if(isset($_POST['complaintno']) && isset($_POST['empidsupp'])){
 		assignEmployeeSupport($_POST['complaintno'], $_POST['empidsupp']);
+		// echo $_POST['complaintno']. ' ' . $_POST['empidsupp'];
 	}
 	function assignEmployeeSupport($val1, $val2){
 		global $db;
+
 		$agentid = $_SESSION['user']['EmpID'];
-		$query = "INSERT INTO complaint_assign values ('$val1', '$agentid','$val2', now())";
-		if(mysqli_query($db, $query) or die (mysqli_error())){
-		echo "Success";
-		}else{
-			echo "something's wrong";
-		}
+
+		$queryAssignComplaint = "INSERT INTO complaint_assign (complaintno, empid_agent, empid_support, datetime_assigned) values ('$val1', '$agentid','$val2', now())";
+		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db));
+		echo "Successfully Assigned";
 	}
 
 	function fillEmpSupportList(){
 		global $db;
 
-		$queryAddress = "SELECT  * FROM id_verification WHERE IDType = 'Support' ";
+		$queryAddress = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv ON sa.username = iv.UserID WHERE IDType = 'Support' ";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
 			{
-				echo "<option value = '".   ."'>";
+				echo "<option value = '". $row['userid'] ."'>";
+			}
+		}
+	}
+
+	if (isset($_POST['suppempid'])) {
+		$queryAddress = "SELECT * FROM employee WHERE EmpID = '" . $_POST['suppempid'] . "'";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo $row['Fname'] .' '. $row['Lname'];
 			}
 		}
 	}

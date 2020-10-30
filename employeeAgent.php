@@ -292,7 +292,7 @@ if (isLoggedIn()) {
             </div>
             <input type="hidden" id="empSupp" value="">
             <!-- hidden Div -->
-            <div id="setEmpSupp" style="display:block">
+            <div id="setEmpSupp" style="display:none;padding-top:10px;">
               <div class="clscontainer">
                 <span  onclick="$('#setEmpSupp').css('display','none')" title="Close Modal" style="position: absolute;right: 1%;top: auto;color: #000;font-size: 35px;font-weight: bold;">&times;</span>
               </div>
@@ -307,12 +307,12 @@ if (isLoggedIn()) {
                 <label for="">Employee Name</label>
                 <input type="text" id="setEmpName" value="" disabled>
 
-                <button type="button" id="btnSettingEmployeeSupport" class="mainBtn">Set Support</button>
+                <button type="button" id="btnAssignEmployeeSupport" class="mainBtn">Set Support</button>
               </fieldset>
             </div>
-            <div style="position: relative; bottom:3px; left:2%;">
-              <button type="button" id="btnSelectedEmp" class="mainBtn" disabled>Select</button>
-              <button type="button" id="btnSet" class="mainBtn" >Set...</button>
+            <div style="position: relative;">
+              <button type="button" id="btnSelectedEmp" class="mainBtn" disabled>Select Support</button>
+              <button type="button" id="btnSet" class="mainBtn" >Find Support...</button>
             </div>
           </div>
         </div>
