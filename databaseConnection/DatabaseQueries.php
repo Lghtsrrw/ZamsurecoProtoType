@@ -484,8 +484,8 @@
 		}
 
 		if(count($errors) == 0){
-			$query = ;
-			$results = mysqli_query($db,$query) or die(mysqli_error());
+			// $query = ;
+			// $results = mysqli_query($db,$query) or die(mysqli_error());
 			if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
 				echo "New support created";
 			}else {
@@ -915,5 +915,9 @@
 		}else {
 				echo "<p style='color:red; float:center'>No possible receiver</p>";
 		}
+	}
+
+	if (isset($_POST['btnTrackComplaint'])) {
+		
 	}
 ?>

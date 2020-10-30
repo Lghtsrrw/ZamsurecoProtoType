@@ -162,11 +162,11 @@
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <div class="container">
-        <label for="uname"><b>Tracking No.:</b></label>
-        <input type="text" placeholder="Enter Tracking No" name="uname" required>
+          <label for="uname"><b>Tracking No.:</b></label>
+          <input type="text" placeholder="Enter Tracking No" name="uname" required>
 
-        <button type="submit">Track</button>
-      </div>
+          <button type="submit">Track</button>
+        </div>
       <div class="container" style="background-color:#f1f1f1">
         <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
       </div>

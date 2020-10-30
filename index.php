@@ -124,13 +124,13 @@ if (isGuest()) {
 				<span class="close" title="Close Modal">&times;</span>
 			</div>
 			<div class="container" style="overflow-x:auto; padding: 20px">
-				<div class="titleHeader">
-		      <span class="headerText"><h2>Tracking</h3></span>
-		    </div>
-				<hr>
-				<div class="center">
-					<p>Hello World</p>
-				</div>
+          <label for="uname"><b>Tracking No.:</b></label>
+          <input type="text" placeholder="Enter Tracking No" id="inComplaintNo" name="uname" required>
+          <button class="mainBtn" id="btntrack">Track</button>
+			</div>
+			<hr>
+			<div class="divTrackRecords">
+
 			</div>
 		</div>
 	</div>
