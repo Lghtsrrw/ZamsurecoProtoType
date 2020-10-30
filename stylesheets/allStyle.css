@@ -15,6 +15,7 @@ input[type=text], input[type=password],input[type=number] option{
   width:49%;
   height: 400px;
   overflow: auto;
+  position:relative
 }
 input[type=text]:disabled, input[type=password]:disabled{
   width: 100%;
@@ -321,7 +322,7 @@ span.psw {
 /* The Close Button (x) */
 .close {
   position: absolute;
-  right: 30px;
+  right: 1%;
   top: auto;
   color: #000;
   font-size: 35px;
