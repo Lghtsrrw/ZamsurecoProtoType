@@ -972,7 +972,7 @@
 		$agentid = $_SESSION['user']['EmpID'];
 
 		$queryAssignComplaint = "INSERT INTO complaint_assign (complaintno, empid_agent, empid_support, datetime_assigned) values ('$val1', '$agentid','$val2', now())";
-		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db));
+		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db ));
 		echo "Successfully Assigned";
 	}
 
