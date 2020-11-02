@@ -44,13 +44,61 @@ if (isLoggedIn()) {
       <br>
       <div class="" style="text-align: right; width:100%">
         <label>User ID: <b><?php echo $_SESSION['user']['EmpID']; ?></b></label><br>
-        <label>Support Name: <b><?php echo $_SESSION['user']['Fname'] . ' '. $_SESSION['user']['Lname']; ?></b></label>
+        <label>Support Name: <b><?php echo $_SESSION['user']['Fname'] . ' '. $_SESSION['user']['Lname']; ?></b></label><br>
+        <button type="button" class="mainBtn2" id="btnChangePass" style="padding:10px; background-color:green">Change Password</button>
       </div>
       <hr>
       <h3>Assigned Complaint</h3>
+
       <!-- List of Active Complaint -->
       <div id="tblAllData" style="overflow:auto; text-align: center">
         <?php fillAssignedComplaint($_SESSION['user']['EmpID']); ?>
+      </div>
+
+      <div style="text-align: right;">
+        <button type="button" id="btnStatus" class="mainBtn2" name="button" disabled>Update Status</button>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Update-Status modal -->
+    <div class="modal" id="divUpdateStatus">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <!-- close this modal -->
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
+        <!-- modal title -->
+        <h1>Status</h1>
+        <div class="" style="overflow:auto">
+          <label for="">Complanint No: </label>
+          <input type="text" id="lblComplaintno"name="" value="" disabled>
+          <label for="">Status: </label>
+          <input type="text" id="lblStatus" name="" value="" disabled>
+          <label for="">Remarks: </label>
+          <textarea  maxlength="200" rows="8" style="width:100%; resize:none"></textarea><br><br>
+          <div class="" style="width:100%">
+            <button id = "btnUpdateStatus" class="mainBtn">Update Status</button>
+            <button id = "btnResolve" style="color:white; background-color:red; float:right" class="mainBtn">Resolve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="divChangePass">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <!-- close this modal -->
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
+        <!-- modal title -->
+        <h1>Change password</h1>
+        <hr>
+        <input type="password" name="" placeholder="Old-Password" value="">
+        <input type="password" name="" placeholder="New-Password" value="">
+        <input type="password" name="" placeholder="Repeat-Password" value="">
+        <button id = "btnUpdateAPass" class="mainBtn">Save Password</button>
       </div>
     </div>
   </body>

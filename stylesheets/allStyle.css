@@ -7,6 +7,7 @@ input[type=text], input[type=password],input[type=number] option{
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  border-radius: 1em;
   box-sizing: border-box;
 }
 .divDispatchModalStyle{
@@ -23,6 +24,7 @@ input[type=text]:disabled, input[type=password]:disabled{
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  border-radius: 1em;
   box-sizing: border-box;
   background-color: #eee;
 }
@@ -184,18 +186,41 @@ button{
 }
 .mainBtn{
   background-color: #4c80f1;
-  border: 1px solid #0E2F44;
-  color: rgb(228, 255, 108);
+  border: 1px solid #00008c;
+  border-radius: 1em;
+  color: #00008c;
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;
+  cursor: pointer;
+  width: auto;
+}
+.mainBtn2{
+  background-color: black;
+  border: 1px solid #0E2F44;
+  border-radius: 1em;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: auto;
+}
+.mainBtn2:disabled{
+  opacity: 0.8;
+  border-radius: 1em;
+  background-color: black;
+  border: 1px solid #0E2F44;
+  color: white);
+  padding: 14px 20px;
+  margin: 8px 0;
   cursor: pointer;
   width: auto;
 }
 .mainBtn:disabled{
   border-color: #0E2F44;
   opacity: 0.8;
-  color: rgb(228, 255, 108);
+  border: 1px solid #00008c;
+  border-radius: 1em;
+  color: #00008c;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -373,6 +398,7 @@ span.psw {
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
+  border-radius: 1em;
 }
 
 /* Overwrite default styles of hr */

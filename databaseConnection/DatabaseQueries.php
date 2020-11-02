@@ -144,7 +144,12 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.userid = iv.userID inner join user u on u.userID = sa.userid WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa
+								INNER JOIN id_verification iv
+								ON sa.userid = iv.userID
+								INNER JOIN user u
+								ON u.userID = sa.userid
+								WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -184,7 +189,13 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join employee emp on emp.empID = sa.userid WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa
+								INNER JOIN id_verification iv
+								ON sa.username = iv.userID
+								INNER JOIN employee emp
+								ON emp.empID = sa.userid
+								WHERE sa.username='$username'
+								AND sa.password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -500,7 +511,7 @@
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
 			// save to ID Verification Table
-			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$empid', now(), 'Support')")) {
+			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), 'Support')")) {
 				echo "New support account created";
 			}else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -859,13 +870,13 @@
 
 			while ($row = mysqli_fetch_assoc($results)) {
 				echo "<tr>";
-				echo "<td>" . $row['ComplaintNo'] . "</td>";
+				echo "<td>" . $row['complaintno'] . "</td>";
 				echo "<td>" . $row['description'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
 				echo "<td>" . $row['location'] . "</td>";
 				echo "<td>" . $row['Area_landmark'] . "</td>";
 				echo "<td>" . $row['datetime_assigned'] . "</td>";
-				echo "<td>" . $row['emp_agent'] . "</td>";
+				echo "<td>" . $row['empid_agent'] . "</td>";
 				echo "</tr>";
 			}
 			echo "</table>";
