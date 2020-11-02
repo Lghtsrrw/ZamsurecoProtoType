@@ -385,9 +385,10 @@
 	function fillComplaintTable(){
 		global $db;
 		$queryAddress = "SELECT * FROM complaints c
-										INNER JOIN address a ON c.location = a.addressNo
-										RIGHT JOIN complaint_assign ca on c.ComplaintNO <> ca.complaintno
-										ORDER BY c.ComplaintNo DESC";
+                    INNER JOIN address a ON c.location = a.addressNo
+                    LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
+                    WHERE ca.complaintno is null
+                    ORDER BY c.ComplaintNo DESC";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
