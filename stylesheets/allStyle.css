@@ -10,6 +10,14 @@ input[type=text], input[type=password],input[type=number] option{
   border-radius: 1em;
   box-sizing: border-box;
 }
+.divDispatchModalStyle{
+  border:1px solid #AAA;
+  padding: 2%;
+  width:49%;
+  height: 400px;
+  overflow: auto;
+  position:relative
+}
 input[type=text]:disabled, input[type=password]:disabled{
   width: 100%;
   padding: 12px 20px;
