@@ -144,7 +144,12 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.userid = iv.userID inner join user u on u.userID = sa.userid WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa
+								INNER JOIN id_verification iv
+								ON sa.userid = iv.userID
+								INNER JOIN user u
+								ON u.userID = sa.userid
+								WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -184,7 +189,13 @@
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv on sa.username = iv.userID inner join employee emp on emp.empID = sa.userid WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
+			$query = "SELECT * FROM syst_acct sa
+								INNER JOIN id_verification iv
+								ON sa.username = iv.userID
+								INNER JOIN employee emp
+								ON emp.empID = sa.userid
+								WHERE sa.username='$username'
+								AND sa.password='$password1' LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -385,7 +396,10 @@
 	function fillComplaintTable(){
 		global $db;
 		$queryAddress = "SELECT * FROM complaints c
-										INNER JOIN address a ON c.location = a.addressNo";
+                    INNER JOIN address a ON c.location = a.addressNo
+                    LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
+                    WHERE ca.complaintno is null
+                    ORDER BY c.ComplaintNo DESC";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
@@ -405,14 +419,16 @@
 	function fillSearchTable($id){
 		global $db;
 		$queryAddress = "SELECT * FROM complaints c
-						INNER JOIN address a ON c.location = a.addressNo
-						WHERE c.complaintNo LIKE '%" . $id . "%'
-						OR description LIKE '%" . $id . "%'
-						OR cregion LIKE '%" . $id . "%'
-						OR cprovince LIKE '%" . $id . "%'
-						OR cCityMun LIKE '%". $id . "%'
-						OR cBrgy LIKE '%" . $id . "%'
-						OR Nature_of_Complaint LIKE '%". $id ."%'";
+										INNER JOIN address a ON c.location = a.addressNo
+										LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
+										WHERE (ca.complaintno is null)
+										AND (c.complaintNo LIKE '%" . $id . "%'
+										OR description LIKE '%" . $id . "%'
+										OR cregion LIKE '%" . $id . "%'
+										OR cprovince LIKE '%" . $id . "%'
+										OR cCityMun LIKE '%". $id . "%'
+										OR cBrgy LIKE '%" . $id . "%'
+										OR Nature_of_Complaint LIKE '%". $id ."%')";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
@@ -465,6 +481,7 @@
 
 		$username = $_POST['txtEmpUsername'];
 		$psw = $_POST['txtEmpPass'];
+		echo $psw;
 		$password = md5($psw);
 
 		if(empty($_POST['txtFname'])){
@@ -484,13 +501,23 @@
 		}
 
 		if(count($errors) == 0){
-			$query = "INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')";
-			$results = mysqli_query($db,$query) or die(mysqli_error());
-
-			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
-			  echo "New support created";
+			// save to Employee Table
+			if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
+				echo "New support created";
 			}else {
-			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+			// save to System Account Table
+			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
+				echo "New support account created";
+			}else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+			// save to ID Verification Table
+			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), 'Support')")) {
+				echo "New support account created";
+			}else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
 
 			$_SESSION['savedsupp'] = $empid;
@@ -611,8 +638,8 @@
 								'$empoffice'
 							)";
 			if (mysqli_query($db, $query)){
-				$_SESSION['success'] = 'Success';
-				header('location: employeeAgent.php' . "?submit=1&CompRec=" . $compRecNo . "&areaCovno=" . $areacovNo ."");
+				$_SESSION['savesupp'] = 'Success';
+				header('location: employeeAgent.php');
 			} else {
 				echo "Error: <br>" . mysqli_error($db);
 			}
@@ -685,13 +712,17 @@
 	// Check if the emp support details value passed from the client side
 	if(isset($_POST['officeval']) && isset($_POST['cityval'])){
 		fillCmplntHndlrEmp($_POST['cityval'],$_POST['officeval']);
+		// echo $_POST['officeval']. ' '. $_POST['cityval'];
 	}
 
 	function fillCmplntHndlrEmp($city, $val){
 		if(!empty($val) && !empty($city)){
 			global $db;
 
-			$queryAddress = "SELECT e.empid, concat(fname,' ',lname)as'fullname', office, contact, complaintid as 'Complaint Handling'
+			$queryAddress = "SELECT e.empid,
+															concat(fname,' ',lname)as'fullname',
+															office, contact,
+															complaintid as 'complainthandling'
 											FROM complaint_receiver cr
 											INNER JOIN receiver_area_coverage rac
 											ON cr.area_coverage_no = rac.area_coverage_no
@@ -701,7 +732,8 @@
 			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 			if(mysqli_num_rows($results) > 0)
 			{
-				echo "<div class='div4Table'>";
+
+				echo "<div style='display:block'>";
 				echo "<table id='tblempDetails'>";
 				echo "<tr>";
 				echo "<th>Employee ID</th>";
@@ -717,15 +749,17 @@
 					echo "<td>" . $row['fullname'] . "</td>";
 					echo "<td>" . $row['office'] . "</td>";
 					echo "<td>" . $row['contact'] . "</td>";
-					echo "<td>" . $row['Complaint Handling'] . "</td>";
+					echo "<td>" . $row['complainthandling'] . "</td>";
 					echo "</tr>";
 				}
 				echo "</table>";
 				echo "</div>";
+			}else {
+				echo "<p style='color:red; float:center'>No assigned complaint yet</p>";
 			}
 			return true;
 		}else {
-			return false;
+			echo "Entry Empty";
 		}
 	}
 
@@ -839,13 +873,13 @@
 
 			while ($row = mysqli_fetch_assoc($results)) {
 				echo "<tr>";
-				echo "<td>" . $row['ComplaintNo'] . "</td>";
+				echo "<td>" . $row['complaintno'] . "</td>";
 				echo "<td>" . $row['description'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
 				echo "<td>" . $row['location'] . "</td>";
 				echo "<td>" . $row['Area_landmark'] . "</td>";
 				echo "<td>" . $row['datetime_assigned'] . "</td>";
-				echo "<td>" . $row['emp_agent'] . "</td>";
+				echo "<td>" . $row['empid_agent'] . "</td>";
 				echo "</tr>";
 			}
 			echo "</table>";
@@ -855,15 +889,14 @@
 	}
 
 	if (isset($_POST['natureofcomplaint']) && isset($_POST['citymunicipal'])) {
-		// displayPossibleComplaintReceiver($_POST['natureofcomplaint'], $_POST['citymunicipal']);
-		echo $_POST['natureofcomplaint'] . ' '. $_POST['citymunicipal'];
+		displayPossibleComplaintReceiver($_POST['natureofcomplaint'], $_POST['citymunicipal']);
+		// echo $_POST['natureofcomplaint'] . ' '. $_POST['citymunicipal'];
 	}
 	function displayPossibleComplaintReceiver($nature, $citymun){
 		global $db;
 
 		$queryAddress = "SELECT DISTINCT	e.empid 'employee',
-																			fname,
-																			lname,
+																			concat(fname, ' ', lname) as 'name',
 																			c.Nature_of_Complaint 'noc',
 																			city_mun,
 																			brgy
@@ -880,11 +913,10 @@
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0){
 
-			echo "<table border='1' id='tblData'>";
+			echo "<table border='1' id='compHandler'>";
 			echo "<tr>";
 			echo "<th>Employee ID</th>";
-			echo "<th>First Name</th>";
-			echo "<th>Last Name</th>";
+			echo "<th>Employee Name</th>";
 			echo "<th>Nature of Complaint</th>";
 			echo "<th>City/Municipal</th>";
 			echo "<th>Barangay</th>";
@@ -893,8 +925,7 @@
 			while ($row = mysqli_fetch_assoc($results)) {
 				echo "<tr>";
 				echo "<td>" . $row['employee'] . "</td>";
-				echo "<td>" . $row['fname'] . "</td>";
-				echo "<td>" . $row['lname'] . "</td>";
+				echo "<td>" . $row['name'] . "</td>";
 				echo "<td>" . $row['noc'] . "</td>";
 				echo "<td>" . $row['city_mun'] . "</td>";
 				echo "<td>" . $row['brgy'] . "</td>";
@@ -903,6 +934,86 @@
 			echo "</table>";
 		}else {
 				echo "<p style='color:red; float:center'>No possible receiver</p>";
+		}
+	}
+
+	if (isset($_POST['btnTrackComplaint'])) {
+		fillTrackRecord($_POST['btnTrackComplaint']);
+	}
+	function fillTrackRecord($val){
+		global $db;
+
+		$queryAddress = "SELECT Status,
+														remarks,
+														status_datetime,
+														CONCAT(e.fname,' ', e.lname) as 'handler'
+										FROM complaint_status cs
+										INNER JOIN employee e
+										ON cs.empid = e.EmpID
+										WHERE complaintno = '$val'";
+
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0){
+
+			echo "<table border='1' id='tblData'>";
+			echo "<tr>";
+			echo "<th>Status</th>";
+			echo "<th>Remarks</th>";
+			echo "<th>DateTime Updated</th>";
+			echo "<th>Employee ID Handler</th>";
+			echo "</tr>";
+
+			while ($row = mysqli_fetch_assoc($results)) {
+				echo "<tr>";
+				echo "<td>" . $row['Status'] . "</td>";
+				echo "<td>" . $row['remarks'] . "</td>";
+				echo "<td>" . $row['status_datetime'] . "</td>";
+				echo "<td>" . $row['handler'] . "</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+		}else {
+				echo "<p style='color:red; float:center'>No action taken yet.</p>";
+		}
+	}
+
+	if(isset($_POST['complaintno']) && isset($_POST['empidsupp'])){
+		assignEmployeeSupport($_POST['complaintno'], $_POST['empidsupp']);
+		// echo $_POST['complaintno']. ' ' . $_POST['empidsupp'];
+	}
+	function assignEmployeeSupport($val1, $val2){
+		global $db;
+
+		$agentid = $_SESSION['user']['EmpID'];
+
+		$queryAssignComplaint = "INSERT INTO complaint_assign (complaintno, empid_agent, empid_support, datetime_assigned) values ('$val1', '$agentid','$val2', now())";
+		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db ));
+		echo "Successfully Assigned";
+	}
+
+	function fillEmpSupportList(){
+		global $db;
+
+		$queryAddress = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv ON sa.username = iv.UserID WHERE IDType = 'Support' ";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo "<option value = '". $row['userid'] ."'>";
+			}
+		}
+	}
+
+	if (isset($_POST['suppempid'])) {
+		$queryAddress = "SELECT * FROM employee WHERE EmpID = '" . $_POST['suppempid'] . "'";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		if(mysqli_num_rows($results) > 0)
+		{
+			while ($row = mysqli_fetch_assoc($results))
+			{
+				echo $row['Fname'] .' '. $row['Lname'];
+			}
 		}
 	}
 ?>

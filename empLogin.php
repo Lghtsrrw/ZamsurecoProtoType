@@ -24,22 +24,20 @@
     <title>Employee Login</title>
   </head>
   <body>
-    <?php display_error(); ?>
     <div class="divLogin">
       <!-- Image and Title -->
       <div class="logoimg">
         <img src="img/logo.png" id="logotitle">
         <h3>ZAMSURECO-I EMPLOYEE</h3>
       </div>
+        <?php display_error(); ?>
       <form class="formEmpLogin" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" name="username">
+        <input type="text" placeholder="Username"name="username">
         <br>
-        <label for="psw"><b>Password</b></label>
-        <input type="password" name="password">
+        <input type="password" placeholder="Password" name="password">
         <br>
         <div class="divBtn" style="text-align: left;">
-          <button type="submit" name="btnEmpLogin" class="mainBtn" style="width:100%">LOGIN</button>
+        <button type="submit" name="btnEmpLogin" class="mainBtn" style="width:100%">LOGIN</button>
           <!-- <button type="button" name="btnEmpForgotPass" class="mainBtn" style="float:right">Forgot Password</button> -->
         </div>
       </form>

@@ -68,26 +68,7 @@ $(document).ready(function(){
 
   // Load dispatch modal on click 'Dispatch' on Complaint Modal
   $('#btnDispatch').click(function(){
-      $('.modal').css("display","none")
-      $('#divDispatchModal').css("display", "block")
-
-      $('#cdNUM').html("Complaint No: <em>" + $('#inSearch').val() + "</em>")
-
-      var value=$(".selected").find('td:nth-child(2)').html();
-      $('#cdNOC').html("Nature of Complaint: <em>" + value + "</em>")
-
-      var location = $(".selected").find('td:nth-child(6)').html();
-      $('#cdLOC').html("City|Municipal: <em>" + location + "</em>")
-
-      var brgy = $(".selected").find('td:nth-child(7)').html();
-      $('#cdbrgy').html("Barangay: <em>" + brgy + "</em>")
-
-      $('#btnDispatch').prop("disabled", true);
-
-      $('#divTblComplaineReceiver').load("databaseConnection/DatabaseQueries.php", {
-        natureofcomplaint: $('#cdNOC').html(),
-        citymunicipal: $('#cdLOC').html()
-      });
+      performDispatch();
   });
 
   $('#btnComplaints').click(function(){
@@ -117,12 +98,74 @@ $(document).ready(function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     var value=$(this).find('td:first').html();
     $('#inSearch').val(value);
-  });
 
+    $('#btnDispatch').prop("disabled", false);
+  });
   $('#divTbl').on("click",function(){
     $('#tblData tr').removeClass('selected')
-    // alert("Hello");
+
+    $('#btnDispatch').prop("disabled", true);
   })
+
+  // compplaint Handler Table
+  $('body').on("click",'#compHandler tr', function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
+    $('#empSupp').val($(this).find('td:first').html());
+
+    $('#btnSelectedEmp').prop('disabled',false)
+
+
+  });
+
+  $('#complaintReceiver').click(function(){
+
+    $('#btnSelectedEmp').prop('disabled',true)
+  })
+
+  $('#complaintReceiver').click(function(){
+    $('#compHandler tr').removeClass('selected');
+  })
+
+  // when doubleclicking complaint Handler table
+  $('body').on("dblclick",'#compHandler tr', function(){
+    if(confirm("You sure you want to select this?")){
+      console.log('Hello World');
+    }
+  });
+  $('#btnSelectedEmp').click(function(){
+    if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
+      $.ajax({
+        type: "POST",
+        url: 'databaseConnection/DatabaseQueries.php',
+        data: { 'complaintno': $('#cdNUM').val(),
+                'empidsupp': $('.selected').find('td:first').html()},
+        success: function(result){
+          console.log(result);
+          alert(result);
+          window.location.href = 'employeeAgent.php';
+        }
+      })
+      $('#complainthandlerBtn').css('display','none')
+    }
+  })
+
+  $('#btnAssignEmployeeSupport').click(function(){
+    if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
+      $.ajax({
+        type: "POST",
+        url: 'databaseConnection/DatabaseQueries.php',
+        data: { 'complaintno': $('#cdNUM').val(),
+                'empidsupp': $('#empSupp').val()},
+        success: function(result){
+          console.log(result);
+          alert(result);
+          window.location.href = 'employeeAgent.php';
+        }
+      })
+    }
+  })
+
+
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
     if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
       // remove selected row from the dsptmng modal
@@ -141,7 +184,7 @@ $(document).ready(function(){
 
   // DOuble-click on selected active complaint
   $('body').on("dblclick",'#tblData tr', function(){
-    $('#btnDispatch').prop("disabled", false);
+    performDispatch();
   });
 
   $("#btnBack").click(function(){
@@ -152,7 +195,6 @@ $(document).ready(function(){
     $('.tblAllData').load("search-complaint.php", {
       complaintNo_tobesearch: $('#inSearch').val()
     });
-    // console.log("HelloWorld");
   });
 
   $('#idEmpName').change(function(e){
@@ -195,9 +237,9 @@ $(document).ready(function(){
     $('.locationFloatRight').load("databaseConnection/DatabaseQueries.php", {
       locationvalue: $('#selectedRow').val()
     });
-    console.log("No error");
   });
 
+  // #tblOffices is declared in DatabaseQueries.php fillCmplntHndlrOffice()
   $('body').on("click",'#tblOffices tr', function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     var value=$(this).find('td:first').html();
@@ -209,9 +251,29 @@ $(document).ready(function(){
     });
   });
 
+  $('#btnSet').click(function(){
+    $('#setEmpSupp').css("display", "block");
+    $('#complainthandlerBtn').css("display","none")
+    $('#divTblComplaineReceiver').css("display","none")
+  })
+
+  $('#setEmpID').change(function(){
+    $.ajax({
+      type: "POST",
+      url: 'databaseConnection/DatabaseQueries.php',
+      data: { 'suppempid': $('#setEmpID').val()},
+      success: function(result){
+        $('#setEmpName').val(result);
+      }
+    })
+    $('#empSupp').val($('#setEmpID').val());
+  })
 
 });
+function complainthandlerDefault(){
+  $('#setEmpSupp').css('display','none')
 
+}
 function hideModals(){
   $('#divTbl').css("display","none");
   $('#divRegSupp').css("display","none");
@@ -294,4 +356,29 @@ function removeappendedBrgy(_value){
   } catch (e) {
     alert(e);
   }
+}
+
+function performDispatch(){
+  $('.modal').css("display","none")
+  $('#divDispatchModal').css("display", "block")
+
+
+  var comno=$(".selected").find('td:nth-child(1)').html();
+  $('#cdNUM').val(comno)
+
+  var value=$(".selected").find('td:nth-child(2)').html();
+  $('#cdNOC').val(value)
+
+  var location = $(".selected").find('td:nth-child(6)').html();
+  $('#cdLOC').val( location )
+
+  var brgy = $(".selected").find('td:nth-child(7)').html();
+  $('#cdbrgy').val( brgy )
+
+  $('#btnDispatch').prop("disabled", true);
+
+  $('#divTblComplaineReceiver').load("databaseConnection/DatabaseQueries.php", {
+    natureofcomplaint: $('#cdNOC').val(),
+    citymunicipal: $('#cdLOC').val()
+  });
 }

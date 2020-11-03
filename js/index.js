@@ -16,7 +16,11 @@ $(document).ready(function() {
     $(".modal").css("display","none");
     $("#trackModal").css("display","block");
   });
-
+$('#btntrack').click(function(){
+  $('.divTrackRecords').load("databaseConnection/DatabaseQueries.php",{
+    btnTrackComplaint: $('#inComplaintNo').val()
+  })
+})
 
   $('#btnLogout').on("click",function(){
     if (confirm("Are you sure you want to Log-out?") == true) {

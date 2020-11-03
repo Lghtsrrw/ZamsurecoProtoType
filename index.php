@@ -26,13 +26,6 @@ if (isGuest()) {
 
 <body>
 
-	<?php if (isset($_SESSION['success'])) : ?>
-	<div class="success" >
-		<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
-		<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
-	</div>
-	<?php endif ?>
-
 	<div class="btnContainer">
 		<fieldset style="width:80%; margin:1% auto; ">
 
@@ -46,7 +39,13 @@ if (isGuest()) {
 	  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
 	  </div>
 
-
+		<?php if (isset($_SESSION['success'])) : ?>
+		<div class="success" >
+			<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
+			<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
+		</div>
+		<?php endif ?>
+		
 		<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
 		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->
@@ -124,13 +123,13 @@ if (isGuest()) {
 				<span class="close" title="Close Modal">&times;</span>
 			</div>
 			<div class="container" style="overflow-x:auto; padding: 20px">
-				<div class="titleHeader">
-		      <span class="headerText"><h2>Tracking</h3></span>
-		    </div>
-				<hr>
-				<div class="center">
-					<p>Hello World</p>
-				</div>
+          <label for="uname"><b>Tracking No.:</b></label>
+          <input type="text" placeholder="Enter Tracking No" id="inComplaintNo" name="uname" required>
+          <button class="mainBtn" id="btntrack">Track</button>
+			</div>
+			<hr>
+			<div class="divTrackRecords">
+
 			</div>
 		</div>
 	</div>

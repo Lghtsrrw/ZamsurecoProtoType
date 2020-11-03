@@ -58,11 +58,8 @@
           <img src="img/userprofile.png" alt="Avatar" class="avatar">
         </div>
         <div class="container"> <!-- Check -->
-          <label for="uname">Username</label>
-          <input type="text" placeholder="Enter Username" name="username">
-
-          <label for="psw">Password</label>
-          <input type="password" placeholder="Enter Password" name="password">
+          <input type="text" placeholder="Username" name="username">
+          <input type="password" placeholder="Password" name="password">
 
           <button type="submit" class="mainBtn" name = "login_btn">Login</button>
           <!--
@@ -113,9 +110,9 @@
               <legend><b>User's Information</b></legend>
               <br>
               <label for="fullname"><b>Fullname</b></label><br>
-              <input type="text" id="fname" name="fname" placeholder="Enter First Name">
-              <input type="text" id="mname" name="mname" placeholder="Enter Middle Name">
-              <input type="text" id="lname" name="lname" placeholder="Enter Last Name"><br>
+              <input type="text" id="fname" name="fname" placeholder="First name">
+              <input type="text" id="mname" name="mname" placeholder="Middle name">
+              <input type="text" id="lname" name="lname" placeholder="Last name"><br>
 
               <label for="Address"><b>Address</b></label><br>
               <input type="text" id="address" name="address" placeholder="Your Billing Address"><br>
@@ -162,11 +159,11 @@
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <div class="container">
-        <label for="uname"><b>Tracking No.:</b></label>
-        <input type="text" placeholder="Enter Tracking No" name="uname" required>
+          <label for="uname"><b>Tracking No.:</b></label>
+          <input type="text" placeholder="Enter Tracking No" name="uname" required>
 
-        <button type="submit">Track</button>
-      </div>
+          <button type="submit">Track</button>
+        </div>
       <div class="container" style="background-color:#f1f1f1">
         <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
       </div>

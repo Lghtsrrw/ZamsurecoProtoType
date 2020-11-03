@@ -7,18 +7,48 @@ input[type=text], input[type=password],input[type=number] option{
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  border-radius: 1em;
   box-sizing: border-box;
 }
-
 input[type=text]:disabled, input[type=password]:disabled{
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  border-radius: 1em;
   box-sizing: border-box;
   background-color: #eee;
 }
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+  border-radius: 1em;
+}
+.textfield{
+  width: auto;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+  box-sizing: border-box;
+}
+.textfield:disabled{opacity: .8;
+}
+
+a {
+  cursor: pointer;
+}
+.divDispatchModalStyle{
+  border:1px solid #AAA;
+  padding: 2%;
+  width:49%;
+  height: 400px;
+  overflow: auto;
+  position:relative
+}
+
 
 .detailsLabels{
   font-size: 12px;
@@ -99,7 +129,7 @@ tr:nth-child(even){background-color: #e8e8e8}
 }
 
 #divSubmitMessage{
-  width:100%;
+  width:80%;
   text-align:center ;
   padding:10px;
   margin: 0% auto;
@@ -177,18 +207,41 @@ button{
 }
 .mainBtn{
   background-color: #4c80f1;
-  border: 1px solid #0E2F44;
-  color: rgb(228, 255, 108);
+  border: 1px solid #00008c;
+  border-radius: 1em;
+  color: white;
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;
+  cursor: pointer;
+  width: auto;
+}
+.mainBtn2{
+  background-color: black;
+  border: 1px solid #0E2F44;
+  border-radius: 1em;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: auto;
+}
+.mainBtn2:disabled{
+  opacity: 0.8;
+  border-radius: 1em;
+  background-color: black;
+  border: 1px solid #0E2F44;
+  color: white);
+  padding: 14px 20px;
+  margin: 8px 0;
   cursor: pointer;
   width: auto;
 }
 .mainBtn:disabled{
   border-color: #0E2F44;
   opacity: 0.8;
-  color: rgb(228, 255, 108);
+  border: 1px solid #00008c;
+  border-radius: 1em;
+  color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -211,7 +264,7 @@ button:hover {
 }
 
 .success{
-	width:80%;
+	width:100%;
   margin: 0px auto;
   padding: 5px;
   border: 1px solid #42a979;
@@ -315,7 +368,7 @@ span.psw {
 /* The Close Button (x) */
 .close {
   position: absolute;
-  right: 30px;
+  right: 1%;
   top: auto;
   color: #000;
   font-size: 35px;
@@ -363,10 +416,6 @@ span.psw {
   text-align: left;
 }
 
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
 
 /* Overwrite default styles of hr */
 hr {

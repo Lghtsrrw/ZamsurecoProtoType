@@ -74,7 +74,7 @@
                 <input type="hidden" name="inputCityMun" id="idCityMun" value="" />
             </div><br>
             <div id = "divBrgy" style = "display:none">
-                <label for="lblBrgy"><b>Barangay</b></label><br>
+                <label for="lblBrgy"><b>Barangay</b></label> <label for="lblBrgy" id="lblLoadingBgrgy" style="color:red"> Loading...</label> <br>
                 <select name="brgy" id="ddBrgy" onchange="document.getElementById('idBrgy').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
                   <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
             </div><br>
