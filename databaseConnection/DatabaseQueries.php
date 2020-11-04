@@ -864,7 +864,7 @@
 			echo "<tr>";
 			echo "<th>Complaint No</th>";
 			echo "<th>Description</th>";
-			echo "<th>Nature of Complain</th>";
+			echo "<th>Nature of Complaint</th>";
 			echo "<th>Location</th>";
 			echo "<th>Area Landmark</th>";
 			echo "<th>Date Assigned</th>";
@@ -1014,6 +1014,22 @@
 			{
 				echo $row['Fname'] .' '. $row['Lname'];
 			}
+		}
+	}
+
+	if(isset($_POST['_oldpassword']) && isset($_POST['_newpassword'])){
+		updateSupportPassword($_POST['_oldpassword'], $_POST['_newpassword']);
+	}
+
+	function updateSupportPassword($val1, $val2){
+		global $db;
+
+		if(md5($val1) != $_SESSION['user']['password']){
+				echo "InvalidPreviousPassword";
+		}elseif(md5($val1) == $val2) {
+			echo "invalidOldAndNew";
+		}else {
+			echo "Hell World";
 		}
 	}
 ?>

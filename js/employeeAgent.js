@@ -14,11 +14,10 @@ $(document).keypress(
 
     if(event.which == "27") {
         event.preventDefault();
-        $('#divTbl').css("display","none");
-        $('#divRegSupp').css("display","none");
-        $('#divEmpList').css("display","none");
-        $('#divMngCmplntDispt').css("display","none")
+        $('.modal').css('display','none')
     }
+
+
 });
 
 $(document).ready(function(){
@@ -140,7 +139,6 @@ $(document).ready(function(){
         data: { 'complaintno': $('#cdNUM').val(),
                 'empidsupp': $('.selected').find('td:first').html()},
         success: function(result){
-          console.log(result);
           alert(result);
           window.location.href = 'employeeAgent.php';
         }

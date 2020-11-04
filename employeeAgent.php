@@ -306,7 +306,7 @@ if (isLoggedIn()) {
               <fieldset>
                 <legend><b>Assign Support</b></legend>
                 <br>
-                <input type="text" placeholder="Employee ID" list="setEmpIDList" id="setEmpID" value="">
+                <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Employee ID" list="setEmpIDList" id="setEmpID" value="">
                 <datalist id="setEmpIDList">
                   <?php fillEmpSupportList(); ?>
                 </datalist>

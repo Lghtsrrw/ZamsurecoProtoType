@@ -71,12 +71,14 @@ if (isLoggedIn()) {
         <!-- modal title -->
         <h1>Status</h1>
         <div class="" style="overflow:auto">
-          <label for="">Complanint No: </label>
-          <input type="text" id="lblComplaintno"name="" value="" disabled>
-          <label for="">Status: </label>
-          <input type="text" id="lblStatus" name="" value="" disabled>
-          <label for="">Remarks: </label>
-          <textarea  maxlength="200" rows="8" style="width:100%; resize:none"></textarea><br><br>
+          <label for="">Complanint No: </label><br>
+          <input type="text" id="lblComplaintno"name="" value="" style="width:auto;" readonly>
+          <br><br>
+          <label for="">Status: </label><br>
+          <input type="text" id="lblStatus" name="" value="" style="width:auto;" readonly>
+          <br><br>
+          <label for="" style="display:inline-block;float:left;clear:left">Remarks: </label>
+          <textarea  maxlength="200" rows="8"></textarea><br><br>
           <div class="" style="width:100%">
             <button id = "btnUpdateStatus" class="mainBtn">Update Status</button>
             <button id = "btnResolve" style="color:white; background-color:red; float:right" class="mainBtn">Resolve</button>
@@ -93,12 +95,16 @@ if (isLoggedIn()) {
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <!-- modal title -->
-        <h1>Change password</h1>
-        <hr>
-        <input type="password" name="" placeholder="Old-Password" value="">
-        <input type="password" name="" placeholder="New-Password" value="">
-        <input type="password" name="" placeholder="Repeat-Password" value="">
-        <button id = "btnUpdateAPass" class="mainBtn">Save Password</button>
+        <div class="">
+          <h1>Change password</h1>
+          <hr>
+          <input type="password" id="newpassword" name="newpassword" placeholder="New-Password">
+          <input type="password" id="newrepeatedpassword" name="newrepeatedpassword" placeholder="Repeat-Password" value="">
+          <input type="password" id="oldpassword" name="oldpassword" placeholder="Old-Password">
+          <hr>
+          <label for="" id='notif' style="color:red"></label>
+          <button type="button" id="btnUpdateAPass" name="UpdateSuppPassword" class="mainBtn">Save Password</button>
+        </div>
       </div>
     </div>
   </body>

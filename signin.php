@@ -141,13 +141,8 @@
           <hr>
           <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
-          <button type="submit" class="registerbtn" name="register_btn" id="registerbtn">Register</button>
-          <button type="submit" class="guestbtn" name="guestbtn" id="guestbtn" style="display:none">Enter as Guest</button>
-
-          <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-            <span class="psw"><p>Already have an account? <a href = "#">Sign in</a>.</p></span>
-          </div>
+          <button type="submit" class="mainBtn" name="register_btn" id="registerbtn" style="width:100%;">Register</button>
+          <button type="submit" class="mainBtn" name="guestbtn" id="guestbtn" style="display:none; width:100%">Enter as Guest</button>
         </div>
       </form>
     </div>
@@ -181,22 +176,20 @@
         </div>
         <div class="container">
           <label for="username"><b>Guest Name</b></label><br>
-          <input type="text" id="mguestname" name="guestname" placeholder="Enter Name" ><br>
+          <input type="text" id="mguestname" name="guestname" placeholder="Enter name" ><br>
 
           <label for="gEmail"><b>Email</b></label><br>
-          <input type="text" placeholder="Enter EMAIL" id="mgEmail" name="gEmail" ><br><br>
+          <input type="text" placeholder="Enter email" id="mgEmail" name="gEmail" ><br><br>
 
           <label for="gContact"><b>Contact Number</b></label><br>
-          <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter Contact No" name="gContact" ><br>
+          <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter contact no" name="gContact" ><br>
 
           <label for="gAddress"><b>Address</b></label><br>
-          <input type="text" id="mgAddress" placeholder="Enter Adrress" name="gAddress" > <br>
-
-          <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn">Enter as Guest</button>
+          <input type="text" id="mgAddress" placeholder="Enter adrress" name="gAddress" > <br>
+          <hr>
+          <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+          <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn"style="width:100%;">Enter as Guest</button>
         </div>
-        <!-- <div class="container" style="background-color:#f1f1f1">
-          <button  class="cancelbtn" type="button" onclick="document.getElementById('id04').style.display='none'">Cancel</button>
-        </div> -->
       </form>
     </div>
     <!-- Modals declaration end -->

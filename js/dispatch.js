@@ -25,4 +25,59 @@ $(document).ready(function() {
   $('#btnChangePass').click(function(){
     $('#divChangePass').css('display','block')
   })
+
+  $('#btnUpdateAPass').click(function(){
+    if(checkPasswordValidity()){
+      $.ajax({
+        type: "POST",
+        url: "databaseConnection/DatabaseQueries.php",
+        data:{
+          '_oldpassword': $('#oldpassword').val(),
+          '_newpassword': $('#newpassword').val()
+        },
+        success: function(result){
+          if(result == 'InvalidPreviousPassword'){
+            invalidOldPassword();
+          }else if (result == 'invalidOldAndNew') {
+            invalidOldAndNew();
+          }else {
+            console.log(result);
+          }
+        }
+      })
+    }
+  })
 });
+
+function checkPasswordValidity(){
+  var returnVal = true;
+  var message = '';
+  if($('#newpassword').val() == ''){
+      $('#newpassword').css('border','1px solid red');
+      message = 'Entry cannot be empty';
+      returnVal = false;
+  }else if ($('#newrepeatedpassword').val() == '') {
+    $('#newrepeatedpassword').css('border','1px solid red')
+    message = 'Entry cannot be empty';
+    returnVal = false;
+  }else {
+    if($('#newpassword').val() != $('#newrepeatedpassword').val()){
+        $('#newpassword').css('border','1px solid red')
+        $('#newrepeatedpassword').css('border','1px solid red')
+        message += 'Password does not match';
+        returnVal = false;
+    }
+  }
+  $('#notif').text(message);
+  return returnVal
+}
+
+function invalidOldPassword(){
+  $('#oldpassword').css('border','1px solid red');
+  $('#notif').text("Invalid previous previous.");
+}
+function invalidOldAndNew(){
+  $('#oldpassword').css('border','1px solid red');
+  $('#newpassword').css('border','1px solid red');
+  $('#notif').text("New-password must not be the same as the previous-password.");
+}
