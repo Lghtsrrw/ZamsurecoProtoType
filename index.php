@@ -44,8 +44,8 @@ if (isGuest()) {
 			<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
 			<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
 		</div>
-		<?php endif ?>
-		
+		<?php unset($_SESSION['success']); endif; ?>
+
 		<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
 		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->

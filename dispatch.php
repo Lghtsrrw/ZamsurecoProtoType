@@ -36,6 +36,17 @@ if (isLoggedIn()) {
       <div class="clscontainer">
           <button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red;">Log-out</button>
       </div>
+
+
+      <!-- display operation success and fail -->
+      <?php if(isset($_SESSION['success'])): ?>
+      <div id="divSubmitMessage">
+        <h3><?php echo $_SESSION['success']; ?></h3>
+      </div>
+      <?php
+      unset($_SESSION['success']);
+      endif;
+      ?>
       <!-- title -->
       <div class="logoimg">
       <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
@@ -98,12 +109,12 @@ if (isLoggedIn()) {
         <div class="">
           <h1>Change password</h1>
           <hr>
-          <input type="password" id="newpassword" name="newpassword" placeholder="New-Password">
-          <input type="password" id="newrepeatedpassword" name="newrepeatedpassword" placeholder="Repeat-Password" value="">
-          <input type="password" id="oldpassword" name="oldpassword" placeholder="Old-Password">
-          <hr>
-          <label for="" id='notif' style="color:red"></label>
-          <button type="button" id="btnUpdateAPass" name="UpdateSuppPassword" class="mainBtn">Save Password</button>
+            <input type="password" id="newpassword" name="newpassword" placeholder="New-Password">
+            <input type="password" id="newrepeatedpassword" name="newrepeatedpassword" placeholder="Repeat-Password" value="">
+            <input type="password" id="oldpassword" name="oldpassword" placeholder="Old-Password">
+            <hr>
+            <label for="" id='notif' style="color:red;"></label>
+            <button type="button" id="btnUpdateAPass" name="UpdateSuppPassword" class="mainBtn" style="clear:left; display:inline-block">Save Password</button>
         </div>
       </div>
     </div>

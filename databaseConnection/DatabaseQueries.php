@@ -85,23 +85,22 @@
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
 			$password = md5($password1);//encrypt the password before saving in the database
-			if (mysqli_query($db, "INSERT INTO user (UserID, fname, mname, lname, address, contact, acctNo, email) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo','$email')")) {
+			if (mysqli_query($db, "INSERT INTO user (UserID, Fname, Mname, Lname, Address, Contact, AcctNo, email) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo','$email')")) {
 			  echo "New user created successfully";
 			} else {
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
-			if (mysqli_query($db, "INSERT INTO id_verification (userID, IdType, date_created) VALUES('$username', 'User', now())")) {
+			if (mysqli_query($db, "INSERT INTO id_verification (UserID, IDType, Date_created) VALUES('$username', 'User', now())")) {
 			  echo "New id_verification created successfully";
 			} else {
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
-			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$username')")) {
+			if (mysqli_query($db, "INSERT INTO syst_acct (username, password, userid) VALUES ('$username', '$password', '$username')")) {
 			  echo "New id_verification created successfully";
 			}else {
 			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
 			$_user = getUserById($username);
-			echo "<script> alert('". implode($_user) ."'); </script>";
 			$_SESSION['user'] = $_user;
 			$_SESSION['success']  = "You are now logged in";
 			header('location: index.php');
@@ -116,7 +115,6 @@
 			$user = mysqli_fetch_assoc($results);
 		}
 		return $user;
-		$mysqli -> close();
 	}
 
 	// call the login() function if register_btn is clicked
@@ -1019,17 +1017,25 @@
 
 	if(isset($_POST['_oldpassword']) && isset($_POST['_newpassword'])){
 		updateSupportPassword($_POST['_oldpassword'], $_POST['_newpassword']);
+		// echo "<script> alert('Oh No');</script>";
 	}
 
 	function updateSupportPassword($val1, $val2){
 		global $db;
-
 		if(md5($val1) != $_SESSION['user']['password']){
 				echo "InvalidPreviousPassword";
-		}elseif(md5($val1) == $val2) {
+		}else if($val1 == $val2) {
 			echo "invalidOldAndNew";
 		}else {
-			echo "Hell World";
+			$encryptedPassword = md5($val2);
+			$query = "UPDATE syst_acct
+								SET password = '$encryptedPassword'
+								WHERE username = '".$_SESSION['user']['username']."'";
+			$results = mysqli_query($db, $query) or die(mysqli_error());
+			 $_SESSION['user']['password'] = $encryptedPassword;
+			 echo "Updated Successfully";
+			$_SESSION['success'] = "Password updated successfully";
+			header('location: ../	../dispatch.php');
 		}
 	}
 ?>

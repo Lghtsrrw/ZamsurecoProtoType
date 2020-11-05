@@ -27,6 +27,22 @@
   </head>
 
   <body>
+    <!-- Trigger Sign Up/ Register modal -->
+    <?php if (isset($_GET['register'])): ?>
+      <script type="text/javascript">
+      $(document).ready(function() {
+        $('#btnRegister').click();
+      });
+      </script>
+    <?php endif; ?>
+    <!-- Trigger Login modal -->
+    <?php if (isset($_GET['login'])): ?>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('#btnLogin').click();
+        });
+      </script>
+    <?php endif; ?>
     <!-- buttons declaration -->
     <div class ="btnContainer">
       <fieldset style="width:80%; margin:10% auto; ">
@@ -56,24 +72,20 @@
         </div>
         <div class="imgcontainer">
           <img src="img/userprofile.png" alt="Avatar" class="avatar">
+          <h1>MCO's Sign-in Page</h1>
         </div>
         <div class="container"> <!-- Check -->
           <input type="text" placeholder="Username" name="username">
           <input type="password" placeholder="Password" name="password">
-
+          <hr>
           <button type="submit" class="mainBtn" name = "login_btn">Login</button>
+          <p>Don't have an account? <a href="?register=1">Sign-up Here!</a> </p>
           <!--
           <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
            -->
         </div>
-        <!--
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn" onclick="document.getElementById('id01').style.display='none'">Cancel</button>
-          <span class="psw"><a href="#">Forgot password?</a></span>
-        </div>
-        -->
       </form>
     </div>
 
@@ -139,7 +151,7 @@
             <input type="text" id="gAddress" name="gAddress" > <br>
           </div>
           <hr>
-          <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+          <p>Already have an account? <a href="?login=1">Sign-in here!</a>.</p>
 
           <button type="submit" class="mainBtn" name="register_btn" id="registerbtn" style="width:100%;">Register</button>
           <button type="submit" class="mainBtn" name="guestbtn" id="guestbtn" style="display:none; width:100%">Enter as Guest</button>
