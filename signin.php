@@ -49,17 +49,21 @@
         <div class="clscontainer">
             <button id = "btnEmpLogin" class="mainBtn" style="width:auto; float:right; background-color: green;">Log-in as Support</button>
         </div>
+        <!-- title -->
         <div class="logoimg">
           <img src="img/logo.png" id="logotitle">
           <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
         </div>
+
+        <!-- displays errors -->
+        <?php echo display_error(); ?>
+
+        <!-- buttons -->
         <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
         <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
         <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
         <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
       </fieldset>
-
-      <?php echo display_error(); ?>
     </div>
     <!-- buttons declaration end-->
 
@@ -110,30 +114,30 @@
             <input type="text" id="username" placeholder="Enter username" name="username"><br>
 
             <label for="email"><b>Email:</b></label><br>
-            <input type="text" id="email" placeholder="Enter email" name="email"><br><br>
+            <input type="text" id="email" placeholder="Email" name="email"><br><br>
 
             <label for="password"><b>Password:</b></label><br>
-            <input type="password" id="password" placeholder="Enter password" name="password"><br>
+            <input type="password" id="password" maxlength="16" placeholder="Password" name="password" required><br>
 
             <label for="confirmpassword"><b>Confirm Password:</b></label><br>
-            <input type="password" id="confirmPass" placeholder="Re-enter password" name="confirmPass"> <br><br>
+            <input type="password" id="confirmPass" maxlength="16" placeholder="Re-enter password" name="confirmPass" required> <br><br>
 
             <fieldset style="width:80%;">
               <legend><b>User's Information</b></legend>
               <br>
               <label for="fullname"><b>Fullname</b></label><br>
-              <input type="text" id="fname" name="fname" placeholder="First name">
-              <input type="text" id="mname" name="mname" placeholder="Middle name">
-              <input type="text" id="lname" name="lname" placeholder="Last name"><br>
+              <input type="text" id="fname" name="fname" onkeyup="this.value = this.value.toUpperCase();" placeholder="First name">
+              <input type="text" id="mname" name="mname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Middle name">
+              <input type="text" id="lname" name="lname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Last name"><br>
 
               <label for="Address"><b>Address</b></label><br>
-              <input type="text" id="address" name="address" placeholder="Your Billing Address"><br>
+              <input type="text" id="address" name="address" placeholder="Your billing address"><br>
 
               <label for="contact"><b>Contact</b></label><br>
-              <input type="text" id="contact" onkeypress="validate(event)" maxlength="11" name="contact" placeholder="Your Contact Number"><br>
+              <input type="text" id="contact" onkeypress="validate(event)" maxlength="11" name="contact" placeholder="Your contact-number"><br>
 
               <label for="regAcctNo"><b>Account Number</b></label><br>
-              <input type="text" onkeypress="validate(event)" id="regAcctNo" name="regAcctNo" placeholder="Your Account Number"><br>
+              <input type="text" onkeypress="validate(event)" id="regAcctNo" maxlength="10" name="regAcctNo" placeholder="Your account-number"><br>
 
             </fieldset><br>
           </div>

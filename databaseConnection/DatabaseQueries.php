@@ -69,18 +69,27 @@
       array_push($errors, "Please enter your Account Number.");
     }
     elseif(strlen(trim($_POST["regAcctNo"])) != 10) {
-      array_push($errors, "Please check your Account Number.");
+      array_push($errors, "Please check your Account Number. Account number must be 10-digit");
     }
 		if (empty($email)) {
 			array_push($errors, "Email is required");
-		} elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		}else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
-    	}
-		if (empty($password1)) {
-			array_push($errors, "Password is required");
+  	}
+		if (empty($password1) || strlen(trim($password1)) < 8){
+			array_push($errors, "Password must be atleast 8 characters and maximum of 16 characters.");
 		}
 		if ($password1 != $password2) {
 			array_push($errors, "The two passwords do not match");
+		}
+		if(empty($fname) || empty($lname)){
+			array_push($errors,"Fill-up your First name and Last name");
+		}
+		if(empty($address)){
+			array_push($errors, "Fill-up your address");
+		}
+		if(strlen(trim($_POST["contact"])) != 11 || empty($_POST['concat'])){
+				array_push($errors, "Properly fill-up your contact-number");
 		}
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
@@ -717,14 +726,14 @@
 		if(!empty($val) && !empty($city)){
 			global $db;
 
-			$queryAddress = "SELECT e.empid,
+			$queryAddress = "SELECT e.EmpID,
 															concat(fname,' ',lname)as'fullname',
 															office, contact,
 															complaintid as 'complainthandling'
 											FROM complaint_receiver cr
 											INNER JOIN receiver_area_coverage rac
 											ON cr.area_coverage_no = rac.area_coverage_no
-											INNER JOIN EMPLOYEE E
+											INNER JOIN employee e
 											ON e.EmpID = cr.empid
 											WHERE rac.city_mun = '$city' and cr.office = '$val'";
 			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
@@ -743,7 +752,7 @@
 				while ($row = mysqli_fetch_assoc($results))
 				{
 					echo "<tr>";
-					echo "<td>" . $row['empid'] . "</td>";
+					echo "<td>" . $row['EmpID'] . "</td>";
 					echo "<td>" . $row['fullname'] . "</td>";
 					echo "<td>" . $row['office'] . "</td>";
 					echo "<td>" . $row['contact'] . "</td>";

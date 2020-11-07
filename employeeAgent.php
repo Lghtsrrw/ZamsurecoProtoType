@@ -48,7 +48,6 @@ if (isLoggedIn()) {
     				?>
     			</h5>
       <?php
-      unset($_SESSION['success']);
       endif
        ?>
 
@@ -111,7 +110,7 @@ if (isLoggedIn()) {
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <h1>Employee Registration Form</h1>
-        <button id = "btnEmpList" class="mainBtn">Employee List</button>
+        <button id = "btnEmpList" class="mainBtn2">Employee List</button>
         <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
           <b><label for="">First Name</label></b><br>

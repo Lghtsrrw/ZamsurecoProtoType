@@ -271,7 +271,7 @@ button:hover {
 }
 
 .error {
-	width: 92%;
+	width: 90%;
   margin: 10px auto;
   padding: 16px;
   border: 1px solid #a94442;
@@ -279,6 +279,7 @@ button:hover {
   background: #f2dede;
   border-radius: 5px;
   text-align: left;
+  padding-left: 5%;
 }
 
 .success{
