@@ -37,21 +37,6 @@
 
   <body style="background-color: #fcffe8">
 
-    <?php if (isset($_SESSION['success'])) : ?>
-      <div class="success" >
-        <h3><?php echo $_SESSION['success']; ?>  <br></h3>
-        <h5>
-          <?php echo 'Email: ' . $_SESSION['user']['email']; ?> <br>
-          <?php echo 'Contact: ' . $_SESSION['user']['Contact']; ?> <br>
-          <?php echo 'ID: ' . $_SESSION['user']['UserID']; ?> <br>
-          <?php echo "User Type: " . $_SESSION['user']['IDType']; ?>
-        </h5>
-      </div>
-  	<?php
-      unset($_SESSION['success']);
-      endif
-    ?>
-
     <!-- Main Body -->
     <div id="divTicket">
       <!-- logo and title -->
@@ -59,7 +44,21 @@
       <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
       <h3>ZAMSURECO-I GUEST</h3>
       </div>
-
+      <?php if (isset($_SESSION['success'])) : ?>
+        <div class="success" >
+          <h3><?php echo $_SESSION['success']; ?>  <br></h3>
+          <h5>
+            <?php echo 'Email: ' . $_SESSION['user']['email']; ?> <br>
+            <?php echo 'Contact: ' . $_SESSION['user']['Contact']; ?> <br>
+            <?php echo 'ID no: ' . $_SESSION['user']['UserID']; ?> <br>
+            <?php echo "User Type: " . $_SESSION['user']['IDType']; ?>
+            <p>Session end in 30min</p>
+          </h5>
+        </div>
+    	<?php
+        unset($_SESSION['success']);
+        endif
+      ?>
       <!-- Main Buttons -->
       <div class="divBtn">
         <button id = "btnComplaint" class="mainBtn" style="width:auto;">Create a complaint Ticket</button>

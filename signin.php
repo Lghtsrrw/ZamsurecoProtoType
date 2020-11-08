@@ -127,7 +127,7 @@
               <br>
               <label for="fullname"><b>Fullname</b></label><br>
               <input type="text" id="fname" name="fname" onkeyup="this.value = this.value.toUpperCase();" placeholder="First name">
-              <input type="text" id="mname" name="mname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Middle name">
+              <input type="text" id="mname" name="mname" onkeyup="this.value = this.value.toUpperCase();" maxlength="1" placeholder="Middle initial">
               <input type="text" id="lname" name="lname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Last name"><br>
 
               <label for="Address"><b>Address</b></label><br>
@@ -145,7 +145,7 @@
             <label for="username">Guest Name</label><br>
             <input type="text" id="guestname" name="guestname" ><br>
 
-            <label for="gEmail">Email</label><br>
+            <label for="gEmail" style="float:left">Email</label><label style="color:#A9A9A9" >  (optional)</label><br>
             <input type="text" id="gEmail" name="gEmail" ><br><br>
 
             <label for="gContact">Contact Number</label><br>
@@ -201,7 +201,7 @@
           <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter contact no" name="gContact" ><br>
 
           <label for="gAddress"><b>Address</b></label><br>
-          <input type="text" id="mgAddress" placeholder="Enter adrress" name="gAddress" > <br>
+          <input type="text" id="mgAddress" placeholder="Enter address" name="gAddress" > <br>
           <hr>
           <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
           <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn"style="width:100%;">Enter as Guest</button>

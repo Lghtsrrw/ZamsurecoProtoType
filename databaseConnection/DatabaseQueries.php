@@ -12,6 +12,19 @@
 	$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 	$db = $mysqli;
 
+	// session timeout
+	$time = $_SERVER['REQUEST_TIME'];
+	$timeout_duration = 1800;
+
+	if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
+		echo "<script type='text/javascript'> alert('Session timed- out please relogin'); </script>";
+    session_unset();
+    session_destroy();
+		session_start();
+	}
+	$_SESSION['LAST_ACTIVITY'] = $time;
+	// end of session time
+
 	// Check connection
 	if($mysqli === false){
 	    die("ERROR: Could not connect. " . $mysqli->connect_error);
@@ -208,10 +221,9 @@
 			if (mysqli_num_rows($results) == 1) { // user found
 				$logged_in_user = mysqli_fetch_assoc($results);
 				$_SESSION['user'] = $logged_in_user;
-				$_SESSION['success']  = "You are now logged in";
+				// $_SESSION['success']  = "You are now logged in";
+				$_SESSION['LAST_ACTIVITY'] = $time;
 				header('location: index.php');
-
-
 			}else {
 				array_push($errors, "Wrong username/password combination ");
 			}
@@ -230,11 +242,14 @@
 		if (empty($guestname)) {
 			array_push($errors, "Guest Name is required");
 		}
+
 		if (empty($guestMail)) {
 			array_push($errors, "Your email is required");
+			// $guestMail='';
 		}elseif(!filter_var($guestMail, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
   	}
+
 		if (empty($gcontact)) {
 			array_push($errors, "Your contact is required");
 		}
@@ -246,14 +261,14 @@
 		if (count($errors) == 0) {
 
 			$query = "INSERT INTO guest (name, address, contact, email)
-			VALUES('$guestname', '$gaddress', '$gcontact', '$guestMail')";
-			$results = mysqli_query($db, $query);
+								VALUES('$guestname', '$gaddress', '$gcontact', '$guestMail')";
+			$results = mysqli_query($db, $query)  or die(mysqli_error($db));
 
 			$logged_in_user_id = mysqli_insert_id($db);
 
 			$query = "INSERT INTO id_verification (userID, IdType, date_created)
-			VALUES('$logged_in_user_id', 'Guest', now())";
-			$results = mysqli_query($db, $query) or die(mysqli_error());
+								VALUES('$logged_in_user_id', 'Guest', now())";
+			$results = mysqli_query($db, $query) or die(mysqli_error($db));
 
 			$_SESSION['user'] =  getGuestById($logged_in_user_id); // put logged in user in session
 			$_SESSION['success']  = "You are now logged in as Guest";
