@@ -103,18 +103,13 @@
           <h1 id = "dynamicRegister">Register</h1>
           <p id = "dynamicInstruct">Please fill in this form to create an account.</p>
           <hr>
-          <label for="IDType"><b>Select ID Type:</b></label>
-          <select name="userType" id="userType">
-            <option value="User">User</option>
-            <option value="Guest">Guest</option>
-          </select><br><br>
 
           <div class="userfieldClass" id="userField"> <!-- User form -->
             <label for="username"><b>Username:</b></label><br>
-            <input type="text" id="username" placeholder="Enter username" name="username"><br>
+            <input type="text" id="username" placeholder="Enter username" name="username" required><br>
 
             <label for="email"><b>Email:</b></label><br>
-            <input type="text" id="email" placeholder="Email" name="email"><br><br>
+            <input type="text" id="email" placeholder="Email" name="email" required><br><br>
 
             <label for="password"><b>Password:</b></label><br>
             <input type="password" id="password" maxlength="16" placeholder="Password" name="password" required><br>
@@ -126,39 +121,24 @@
               <legend><b>User's Information</b></legend>
               <br>
               <label for="fullname"><b>Fullname</b></label><br>
-              <input type="text" id="fname" name="fname" onkeyup="this.value = this.value.toUpperCase();" placeholder="First name">
+              <input type="text" id="fname" name="fname" onkeyup="this.value = this.value.toUpperCase();" placeholder="First name" required>
               <input type="text" id="mname" name="mname" onkeyup="this.value = this.value.toUpperCase();" maxlength="1" placeholder="Middle initial">
-              <input type="text" id="lname" name="lname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Last name"><br>
+              <input type="text" id="lname" name="lname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Last name" required><br>
 
               <label for="Address"><b>Address</b></label><br>
-              <input type="text" id="address" name="address" placeholder="Your billing address"><br>
+              <input type="text" id="address" name="address" placeholder="Your billing address" required><br>
 
               <label for="contact"><b>Contact</b></label><br>
-              <input type="text" id="contact" onkeypress="validate(event)" maxlength="11" name="contact" placeholder="Your contact-number"><br>
+              <input type="text" id="contact" onkeypress="validate(event)" maxlength="11" name="contact" placeholder="Your contact-number" required><br>
 
               <label for="regAcctNo"><b>Account Number</b></label><br>
-              <input type="text" onkeypress="validate(event)" id="regAcctNo" maxlength="10" name="regAcctNo" placeholder="Your account-number"><br>
+              <input type="text" onkeypress="validate(event)" id="regAcctNo" maxlength="10" name="regAcctNo" placeholder="Your account-number" required><br>
 
             </fieldset><br>
           </div>
-          <div class="guestfieldClass" id = "guestField" style="display:none"><!-- Guest form -->
-            <label for="username">Guest Name</label><br>
-            <input type="text" id="guestname" name="guestname" ><br>
-
-            <label for="gEmail" style="float:left">Email</label><label style="color:#A9A9A9" >  (optional)</label><br>
-            <input type="text" id="gEmail" name="gEmail" ><br><br>
-
-            <label for="gContact">Contact Number</label><br>
-            <input type="text" onkeypress="validate(event)" maxlength="11" id="gContact" name="gContact" ><br>
-
-            <label for="gAddress">Address</label><br>
-            <input type="text" id="gAddress" name="gAddress" > <br>
-          </div>
           <hr>
           <p>Already have an account? <a href="?login=1">Sign-in here!</a>.</p>
-
           <button type="submit" class="mainBtn" name="register_btn" id="registerbtn" style="width:100%;">Register</button>
-          <button type="submit" class="mainBtn" name="guestbtn" id="guestbtn" style="display:none; width:100%">Enter as Guest</button>
         </div>
       </form>
     </div>
@@ -192,13 +172,13 @@
         </div>
         <div class="container">
           <label for="username"><b>Guest Name</b></label><br>
-          <input type="text" id="mguestname" name="guestname" placeholder="Enter name" ><br>
+          <input type="text" id="mguestname" name="guestname" placeholder="Enter name" ><br><br>
 
-          <label for="gEmail"><b>Email</b></label><br>
+          <label for="gEmail"><b>Email</b></label><label style="color:#A9A9A9;" >  (optional)</label><br>
           <input type="text" placeholder="Enter email" id="mgEmail" name="gEmail" ><br><br>
 
           <label for="gContact"><b>Contact Number</b></label><br>
-          <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter contact no" name="gContact" ><br>
+          <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter contact no" name="gContact" ><br><br>
 
           <label for="gAddress"><b>Address</b></label><br>
           <input type="text" id="mgAddress" placeholder="Enter address" name="gAddress" > <br>

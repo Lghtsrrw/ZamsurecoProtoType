@@ -56,7 +56,6 @@
           </h5>
         </div>
     	<?php
-        unset($_SESSION['success']);
         endif
       ?>
       <!-- Main Buttons -->

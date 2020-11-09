@@ -1,29 +1,23 @@
 <?php
 	session_start();
 
-	/* Database credentials. Assuming you are running MySQL
-	server with default setting (user 'root' with no password) */
-	define('DB_SERVER', 'localhost');
-	define('DB_USERNAME', 'root');
-	define('DB_PASSWORD', '');
-	define('DB_NAME', 'protozmsrc1');
+	require('DatabaseConnection/databaseConnectivity.php');
 
-	/* Attempt to connect to MySQL database */
-	$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-	$db = $mysqli;
+	if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Guest') {
+		// session timeout
+		$time = $_SERVER['REQUEST_TIME'];
 
-	// session timeout
-	$time = $_SERVER['REQUEST_TIME'];
-	$timeout_duration = 1800;
+		$timeout_duration = 1800;
 
-	if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
-		echo "<script type='text/javascript'> alert('Session timed- out please relogin'); </script>";
-    session_unset();
-    session_destroy();
-		session_start();
+		if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
+	    session_unset();
+	    session_destroy();
+			session_start();
+		}
+		$_SESSION['LAST_ACTIVITY'] = $time;
+		// end of session time
 	}
-	$_SESSION['LAST_ACTIVITY'] = $time;
-	// end of session time
+
 
 	// Check connection
 	if($mysqli === false){
@@ -221,8 +215,7 @@
 			if (mysqli_num_rows($results) == 1) { // user found
 				$logged_in_user = mysqli_fetch_assoc($results);
 				$_SESSION['user'] = $logged_in_user;
-				// $_SESSION['success']  = "You are now logged in";
-				$_SESSION['LAST_ACTIVITY'] = $time;
+				$_SESSION['success']  = "You are now logged in";
 				header('location: index.php');
 			}else {
 				array_push($errors, "Wrong username/password combination ");
@@ -244,8 +237,8 @@
 		}
 
 		if (empty($guestMail)) {
-			array_push($errors, "Your email is required");
-			// $guestMail='';
+			// array_push($errors, "Your email is required");
+			$guestMail='';
 		}elseif(!filter_var($guestMail, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
   	}
@@ -271,8 +264,9 @@
 			$results = mysqli_query($db, $query) or die(mysqli_error($db));
 
 			$_SESSION['user'] =  getGuestById($logged_in_user_id); // put logged in user in session
-			$_SESSION['success']  = "You are now logged in as Guest";
 
+			$_SESSION['success']  = "You are now logged in as Guest";
+			$_SESSION['LAST_ACTIVITY'] = $time;
 			header('location: guestHomepage.php');
 			$mysqli -> close();
 		}
