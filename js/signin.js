@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  
+
   //this opens the Login Modal when btnLogin is clicked
   $("#btnEmpLogin").click(function(){
     window.location.href = "emplogin.php";
@@ -30,7 +30,16 @@ $(document).ready(function(){
   $(".close").click(function(){
     $(".modal").css("display","none");
   });
+
+  $('#btnTrackNow').click(function(){
+    openInNewTab('tracking-complaint.php?TrackNo=' + $('#inputTrackingNo').val());
+  })
 });
+
+function openInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
 
 function validate(evt) {
   var theEvent = evt || window.event;

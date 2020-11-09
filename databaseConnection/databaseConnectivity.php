@@ -10,4 +10,9 @@ define('DB_NAME', 'protozmsrc1');
 /* Attempt to connect to MySQL database */
 $mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $db = $mysqli;
+
+// Check connection
+if($mysqli === false){
+    die("ERROR: Could not connect. " . $mysqli->connect_error);
+}
 ?>

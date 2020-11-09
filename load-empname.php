@@ -1,5 +1,6 @@
 <?php
-  include 'databaseConnection/DatabaseQueries.php';
+require('databaseConnection/databaseConnectivity.php');
+require('databaseConnection/DatabaseQueries.php');
 
   if(!empty($_GET['valempid']) && isset($_GET['valempid'])){
     echo loadEmployee();
@@ -10,7 +11,7 @@
 
     $the_value = $_GET['valempid'];
     $returnValue = "";
-    $queryAddress = "SELECT concat(fname,' ',mname,' ',lname)as'Name' FROM Employee where empid = '".$_GET['valempid']."' limit 1";
+    $queryAddress = "SELECT concat(fname,' ',mname,' ',lname)as'Name' FROM employee where empid = '".$_GET['valempid']."' limit 1";
     $results = mysqli_query($db,$queryAddress) or die(mysqli_error());
     if(mysqli_num_rows($results) > 0)
     {

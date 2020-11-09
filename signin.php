@@ -1,5 +1,6 @@
 <?php
-  include('databaseConnection/DatabaseQueries.php');
+require('databaseConnection/databaseConnectivity.php');
+require('databaseConnection/DatabaseQueries.php');
 
   if (isset($_SESSION['user'])) {
     if(isLoggedIn()){
@@ -22,8 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/signin.js">
-    </script>
+    <script src="js/signin.js"></script>
   </head>
 
   <body>
@@ -59,10 +59,10 @@
         <?php echo display_error(); ?>
 
         <!-- buttons -->
-        <button id = "btnLogin" class="mainBtn" style="width:auto">Login</button>
-        <button id = "btnRegister" class="mainBtn" style="width:auto">Register</button>
-        <button id = "btnTrack" class="mainBtn" style="width:auto">Track your complaint</button>
-        <button id = "btnGuest" class="mainBtn" style="width:auto">Enter as guest</button>
+        <button id = "btnLogin" class="mainBtn" style="width:auto">LOGIN</button>
+        <button id = "btnRegister" class="mainBtn" style="width:auto">REGISTER</button>
+        <button id = "btnTrack" class="mainBtn" style="width:auto">TRACK COMPLAINT</button>
+        <button id = "btnGuest" class="mainBtn" style="width:auto; background-color:#f1964c; ">LOGIN AS GUEST</button>
       </fieldset>
     </div>
     <!-- buttons declaration end-->
@@ -149,15 +149,11 @@
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
         </div>
-        <div class="container">
-          <label for="uname"><b>Tracking No.:</b></label>
-          <input type="text" placeholder="Enter Tracking No" name="uname" required>
-
-          <button type="submit">Track</button>
+        <div class="container" style="padding-top:2%">
+        <h2>TRACKING COMPLAINT</h2>
+          <input type="text" placeholder="Enter tracking no." id="inputTrackingNo" name="uname" autocomplete="off" required>
+          <button type="button" id="btnTrackNow" class="mainBtn" style="width:100%">Track</button>
         </div>
-      <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
-      </div>
       </form>
     </div>
 
@@ -172,16 +168,16 @@
         </div>
         <div class="container">
           <label for="username"><b>Guest Name</b></label><br>
-          <input type="text" id="mguestname" name="guestname" placeholder="Enter name" ><br><br>
+          <input type="text" id="mguestname" name="guestname" placeholder="Enter name" required><br><br>
 
           <label for="gEmail"><b>Email</b></label><label style="color:#A9A9A9;" >  (optional)</label><br>
           <input type="text" placeholder="Enter email" id="mgEmail" name="gEmail" ><br><br>
 
           <label for="gContact"><b>Contact Number</b></label><br>
-          <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter contact no" name="gContact" ><br><br>
+          <input type="text" id="mgContact" onkeypress="validate(event)" maxlength="11" placeholder="Enter contact no" name="gContact" required><br><br>
 
           <label for="gAddress"><b>Address</b></label><br>
-          <input type="text" id="mgAddress" placeholder="Enter address" name="gAddress" > <br>
+          <input type="text" id="mgAddress" placeholder="Enter address" name="gAddress" required> <br>
           <hr>
           <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
           <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn"style="width:100%;">Enter as Guest</button>

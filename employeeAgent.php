@@ -1,5 +1,6 @@
 <?php
-include('databaseConnection/DatabaseQueries.php');
+require('databaseConnection/databaseConnectivity.php');
+require('databaseConnection/DatabaseQueries.php');
 
 if (isLoggedIn()) {
     header('location: index.php');
@@ -194,7 +195,7 @@ if (isLoggedIn()) {
             <datalist id="empIDList">
               <?php retrieveEmployeeList(); ?>
             </datalist>
-            <input type="text" name="txtEmpName" id="empname" value="" disabled><br><br>
+            <input type="text" name="txtEmpName" id="empname" value="" placeholder="Employee name" readonly><br><br>
           </fieldset>
 
           <!-- Area Coverage -->

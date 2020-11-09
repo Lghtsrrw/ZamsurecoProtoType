@@ -1,5 +1,6 @@
 <?php
-    include("databaseConnection/DatabaseQueries.php");
+require('databaseConnection/databaseConnectivity.php');
+require('databaseConnection/DatabaseQueries.php');
     if(empty(isset($_SESSION['user']))){
         header('location: signin.php');
     }
@@ -46,11 +47,11 @@
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
-          <select class="_noc" id="_noc" name="ncomplaint"onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
+          <select class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
             <option value="" selected="selected" disabled>-- Complaint --</option>
             <?php fillNatureOfComplaint(); ?>
           </select><br><br>
-          <input type="hidden" name="inputComplaint" id="idComplaint" value="" />
+          <input type="text" name="inputComplaint" id="idComplaint" value="" />
 
           <div id="divDescription" style="display:none">
             <label for="description"><b>Remarks</b></label><br>

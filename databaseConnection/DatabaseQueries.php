@@ -1,8 +1,6 @@
 <?php
 	session_start();
 
-	require('DatabaseConnection/databaseConnectivity.php');
-
 	if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Guest') {
 		// session timeout
 		$time = $_SERVER['REQUEST_TIME'];
@@ -18,11 +16,6 @@
 		// end of session time
 	}
 
-
-	// Check connection
-	if($mysqli === false){
-	    die("ERROR: Could not connect. " . $mysqli->connect_error);
-	}
 
 	// variable declaration
 	$errors = array();
@@ -95,7 +88,7 @@
 		if(empty($address)){
 			array_push($errors, "Fill-up your address");
 		}
-		if(strlen(trim($_POST["contact"])) != 11 || empty($_POST['concat'])){
+		if(strlen($_POST["contact"]) != 11 || empty($_POST['contact'])){
 				array_push($errors, "Properly fill-up your contact-number");
 		}
 		// register user if there are no errors in the form
@@ -233,21 +226,21 @@
 		$gaddress = $_POST['gAddress'];
 		// make sure form is filled properly
 		if (empty($guestname)) {
-			array_push($errors, "Guest Name is required");
+			array_push($errors, "<b>GUEST: </b>Guest-name is required");
 		}
 
 		if (empty($guestMail)) {
 			// array_push($errors, "Your email is required");
 			$guestMail='';
 		}elseif(!filter_var($guestMail, FILTER_VALIDATE_EMAIL)) {
-			array_push($errors, "Invalid Email address");
+			array_push($errors, "<b>GUEST: </b>Invalid Email address");
   	}
 
-		if (empty($gcontact)) {
-			array_push($errors, "Your contact is required");
+		if (empty($gcontact) || strlen($gcontact) < 11) {
+			array_push($errors, "<b>GUEST: </b>Your contact-number is either missing or invalid. Please properly fill up your contact.");
 		}
 		if (empty($gaddress)) {
-			array_push($errors, "Your Address is required");
+			array_push($errors, "<b>GUEST: </b>Your Address is required");
 		}
 
 		// attempt login if no errors on form
@@ -1034,8 +1027,8 @@
 	}
 
 	if(isset($_POST['_oldpassword']) && isset($_POST['_newpassword'])){
-		updateSupportPassword($_POST['_oldpassword'], $_POST['_newpassword']);
-		// echo "<script> alert('Oh No');</script>";
+		// updateSupportPassword($_POST['_oldpassword'], $_POST['_newpassword']);
+		echo "Oh No";
 	}
 
 	function updateSupportPassword($val1, $val2){

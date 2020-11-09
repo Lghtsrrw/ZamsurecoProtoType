@@ -1,5 +1,6 @@
 <?php
-  include('databaseConnection/DatabaseQueries.php');
+require('databaseConnection/databaseConnectivity.php');
+require('databaseConnection/DatabaseQueries.php');
 
   if (isset($_SESSION['user'])) {
     if(isLoggedIn()){

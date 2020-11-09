@@ -1,5 +1,6 @@
 <?php
-  include('databaseConnection/DatabaseQueries.php');
+require('databaseConnection/databaseConnectivity.php');
+require('databaseConnection/DatabaseQueries.php');
 
   if (isLoggedIn()) {
       header('location: index.php');
