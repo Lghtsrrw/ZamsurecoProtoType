@@ -494,19 +494,19 @@
 		$password = md5($psw);
 
 		if(empty($_POST['txtFname'])){
-			array_push($errors, "Insert your FirstName");
+			array_push($errors, "Insert your First-name");
 		}
 		if(empty($_POST['txtMname'])){
-			array_push($errors, "Insert your Middle Initial");
+			$mname = '';
 		}
 		if(empty($_POST['txtLname'])){
-			array_push($errors, "Insert your LastName");
+			array_push($errors, "Insert your Last-name");
 		}
 		if(empty($_POST['txtArea'])){
-			array_push($errors, "Fill in Area Location");
+			array_push($errors, "Fill in Area-location");
 		}
 		if(empty($_POST['txtDept'])){
-			array_push($errors, "Insert your Department");
+			array_push($errors, "Insert your department");
 		}
 
 		if(count($errors) == 0){
@@ -685,12 +685,12 @@
 	function fillCmplntHndlrOffice($cityMun){
 		if(!empty($cityMun)){
 			global $db;
-			$queryAddress = "SELECT DISTINCT office, rac.area_coverage_no as 'Area'
+			$queryAddress = "SELECT DISTINCT office, rac.area_coverage_no as 'area'
 											FROM complaint_receiver cr
 											INNER JOIN receiver_area_coverage rac
 											ON cr.area_coverage_no = rac.area_coverage_no
 											WHERE rac.city_mun = '$cityMun'";
-			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+			$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 			if(mysqli_num_rows($results) > 0)
 			{
 				echo "<fieldset style='height:250px; overflow:auto'>";
@@ -705,7 +705,7 @@
 				{
 					echo "<tr>";
 					echo "<td>" . $row['office'] . "</td>";
-					echo "<td>" . $row['Area'] . "</td>";
+					echo "<td>" . $row['area'] . "</td>";
 					echo "</tr>";
 				}
 				echo "</table>";

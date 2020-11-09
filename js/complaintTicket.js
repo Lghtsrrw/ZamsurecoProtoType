@@ -37,9 +37,7 @@ $(document).ready(function(){
     if($('#_noc').val() !== "-- Complaint --"){
       $('#divDescription').show();
       $('#divRegion').show();
-      // $('#ddRegion').val('REGION IX (ZAMBOANGA PENINSULA)');
-      // $('#idComplaint').val('09')
-      // $('#divProvince').show();
+      $('#ddRegion').val('REGION IX (ZAMBOANGA PENINSULA)');
     }
   });
 

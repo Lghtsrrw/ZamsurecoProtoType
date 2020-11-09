@@ -114,21 +114,19 @@ if (isLoggedIn()) {
         <button id = "btnEmpList" class="mainBtn2">Employee List</button>
         <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
-          <b><label for="">First Name</label></b><br>
-          <input type="text" name="txtFname" onkeyup="this.value = this.value.toUpperCase();"><br>
-          <b><label for="">Middle Name</label></b><br>
-          <input type="text" name="txtMname" onkeyup="this.value = this.value.toUpperCase();" maxlength="1"><br>
-          <b><label for="">Last Name</label></b><br>
-          <input type="text" name="txtLname" onkeyup="this.value = this.value.toUpperCase();">
+          <b><label for="">Full name</label></b><br>
+          <input type="text" placeholder="First-name" name="txtFname" onkeyup="this.value = this.value.toUpperCase();" required><br>
+          <input type="text" placeholder="Middile-initial" name="txtMname" onkeyup="this.value = this.value.toUpperCase();" maxlength="1"><br>
+          <input type="text" placeholder="Last-name"name="txtLname" onkeyup="this.value = this.value.toUpperCase();" required>
           <b><label for="">Area</label></b><br>
-          <input type="text" name="txtArea" onkeyup="this.value = this.value.toUpperCase();">
+          <input type="text" name="txtArea" onkeyup="this.value = this.value.toUpperCase();" required>
           <b><label for="">Department</label></b><br>
-          <input type="text" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" >
+          <input type="text" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" required>
           <div class="divBtn" style="text-align: left;">
             <fieldset>
               <legend>Account</legend>
               <b><label for="">Username</label></b>
-              <input type="text" name="txtEmpUsername" value="">
+              <input type="text" name="txtEmpUsername" value="" required>
               <b><label for="">Password</label></b>
               <input type="password" name="txtEmpPass" value="1234" readonly>
             </fieldset>
@@ -190,7 +188,7 @@ if (isLoggedIn()) {
 
           <!-- Employee Details -->
           <fieldset>
-            <legend><b>Employee ID</b></legend>
+            <legend><b>Employee</b></legend>
             <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;"  list ='empIDList' placeholder="Search or select employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
             <datalist id="empIDList">
               <?php retrieveEmployeeList(); ?>
