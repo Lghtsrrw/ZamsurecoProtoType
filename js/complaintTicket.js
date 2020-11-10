@@ -27,69 +27,67 @@ $(document).ready(function(){
   $.getJSON(regURL, function(data){
     $.each(data, function(i, item){
       $.each(item, function(j, desc){
-        ddRegion.append($('<option value = '+desc.regCode+'></option>').text(desc.regDesc));
+        ddRegion.append($('<option></option>').text(desc.regDesc));
       });
     });
   });
 
-  // Show 'description' input if the 'complaint' is selected
-  $('#idComplaint').change(function(){
-    // if($('#idComplaint').val() !== ""){
-    //   $('#divDescription').show();
-    //   $('#divRegion').show();
-    //   $('#ddRegion').val('REGION IX (ZAMBOANGA PENINSULA)');
-    // }
-    alert('helloworld');
-  });
+  // Show 'description' input if the 'nature of complaint' is selected
 
   $('#idComplaint').on('change',function(){
-    alert('helloworld');
-    console.log('HelloWorld');
+    if($('#idComplaint').val() !== ""){
+      $('#divDescription').show();
+      $('#divRegion').show();
+
+      $('#divProvince').show();
+      $('#ddProvince').val('ZAMBOANGA DEL SUR');
+
+      $('#divMunicipal').show();
+      if($('#idProvince').val() !== ""){
+        $('#divMunicipal').show();
+
+        let ddMunicipal = $('#ddMunicipal');
+        const muniURL = 'json/refcitymun.json';
+        ddMunicipal.empty();
+        ddMunicipal.append('<option selected ="true" disabled>-- Choose City/Municipal --</option>');
+        ddMunicipal.prop('selectedIndex', 0);
+
+        $.getJSON(muniURL, function(data){
+          $.each(data, function(i, item){
+            $.each(item, function(j, desc){
+              if(desc.provCode === '0973')
+              ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
+            });
+          });
+        });
+      }
+
+      }
+
   })
 
-  //Populate Province
-  $('#ddRegion').change(function(){
-    if($('#ddRegion').val() !== "-- Choose Region --"){
-      $('#divProvince').show();
-
-      const provURL = 'json/refprovince.json';
-      let ddProvince = $('#ddProvince');
-      ddProvince.empty();
-      ddProvince.append('<option selected = "true" disabled>-- Choose Province --</option>');
-      ddProvince.prop('selectedIndex', 0);
-
-      $.getJSON(provURL, function(data){
-        $.each(data, function(i, item){
-          $.each(item, function(j, desc){
-            if(desc.regCode === ddRegion.val())
-            ddProvince.append($('<option value = '+desc.provCode+'></option>').text(desc.provDesc));
-          });
-        });
-      });
-    }
-  });
-
   //Populate City/Municipal
-  $('#ddProvince').change(function(){
-    if($('#ddProvince').text() !== "-- Choose Province --"){
-      $('#divMunicipal').show();
+  // $('#ddProvince').change(function(){
+  //   if($('#idProvince').val() !== "-- Choose Province --"){
+  //     $('#divMunicipal').show();
+  //
+  //     let ddMunicipal = $('#ddMunicipal');
+  //     const muniURL = 'json/refcitymun.json';
+  //     ddMunicipal.empty();
+  //     ddMunicipal.append('<option selected ="true" disabled>-- Choose City/Municipal --</option>');
+  //     ddMunicipal.prop('selectedIndex', 0);
+  //
+  //     $.getJSON(muniURL, function(data){
+  //       $.each(data, function(i, item){
+  //         $.each(item, function(j, desc){
+  //           if(desc.provCode === $('#idProvince').val())
+  //           ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
+  //         });
+  //       });
+  //     });
+  //   }
+  // });
 
-      let ddMunicipal = $('#ddMunicipal');
-      const muniURL = 'json/refcitymun.json';
-      ddMunicipal.empty();
-      ddMunicipal.append('<option selected ="true" disabled>-- Choose City/Municipal --</option>');
-      ddMunicipal.prop('selectedIndex', 0);
-
-      $.getJSON(muniURL, function(data){
-        $.each(data, function(i, item){
-          $.each(item, function(j, desc){
-            if(desc.provCode === $('#ddProvince').val())
-            ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
-          });
-        });
-      });
-    }
-  });
   //Populate Brgy
   $('#ddMunicipal').change(function(){
     if($('#ddMunicipal').text() !== "-- Choose City/Municipal --"){

@@ -47,15 +47,20 @@ require('databaseConnection/DatabaseQueries.php');
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
 
-          <input type="text" name="inputComplaint" id="idComplaint" list="_noclist" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Choose complaints" value="">
+          <input
+            type="text"
+            name="inputComplaint"
+            id="idComplaint"
+            list="_noclist"
+            onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;"
+            placeholder="Choose complaints"
+            value=""
+            autocomplete="off"
+          />
           <datalist id="_noclist">
             <?php fillNatureOfComplaint(); ?>
           </datalist>
 
-
-
-
-  
           <div id="divDescription" style="display:none">
             <label for="description"><b>Remarks</b></label><br>
             <textarea id="descID" name="ndesc" maxlength="200" class="classDescription"></textarea><br><br>
@@ -64,13 +69,35 @@ require('databaseConnection/DatabaseQueries.php');
           <div class="divAddressSelect">
             <div id = "divRegion" style="display:none">
               <label for="lblRegion"><b>Region</b></label><br>
-              <select id = "ddRegion" name="nameregion" class="classregion" onchange="document.getElementById('idRegion').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
-              <input type="hidden" name="inputRegion" id="idRegion" value="" />
+              <input
+                type="text"
+                name="inputRegion"
+                id="idRegion"
+                list="ddRegion"
+                placeholder="Region"
+                value="REGION IX (ZAMBOANGA PENINSULA)"
+                autocomplete="off"
+                readonly
+              />
+              <datalist id="ddRegion">
+                <!-- input here is automated in complaintTicket.js -->
+              </datalist>
             </div><br>
             <div id = "divProvince" style = "display: none">
                 <label for="lblProvince"><b>Province</b></label><br>
-                <select name="province" id="ddProvince" onchange="document.getElementById('idProvince').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
-                <input type="hidden" name="inputProvince" id="idProvince" value="" />
+                <!-- <select name="province" id="ddProvince" onchange="document.getElementById('idProvince').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select> -->
+                <input
+                  type="text"
+                  name="inputProvince"
+                  id="idProvince"
+                  list="ddProvince"
+                  placeholder="Enter province"
+                  value="ZAMBOANGA DEL SUR"
+                  autocomplete="off"
+                  readonly
+                />
+                <datalist id="ddProvince"></datalist>
+
             </div><br>
             <div id = "divMunicipal" style = "display:none">
                 <label for="lblMunicipal"><b>City/Municipal</b></label><br>
@@ -80,16 +107,14 @@ require('databaseConnection/DatabaseQueries.php');
             <div id = "divBrgy" style = "display:none">
                 <label for="lblBrgy"><b>Barangay</b></label> <label for="lblBrgy" id="lblLoadingBgrgy" style="color:red"> Loading...</label> <br>
                 <select name="brgy" id="ddBrgy" onchange="document.getElementById('idBrgy').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
-                  <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
+                <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
             </div><br>
             <div id = "divPurok" style = "display:none">
                 <label for="area_landmark" required><b>Purok or Area Landmarks</b></label><br>
                 <input type="text" id="ddPurok" name="purokname">
             </div><br>
           </div>
-
           <button type="submit" name="nTicketbtn" class="mainBtn" id="ticketBtnId" style="display:none">Submit Ticket</button>
-
       </form>
   </div>
 

@@ -188,7 +188,7 @@ if (isLoggedIn()) {
           <!-- Employee Details -->
           <fieldset>
             <legend><b>Employee</b></legend>
-            <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;"  list ='empIDList' placeholder="Search or select employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
+            <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;"  list ='empIDList' placeholder="Search an Employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
             <datalist id="empIDList">
               <?php retrieveEmployeeList(); ?>
             </datalist>
