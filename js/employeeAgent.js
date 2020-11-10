@@ -256,17 +256,17 @@ $(document).ready(function(){
   })
 
   $('#setEmpID').change(function(){
-    $.ajax({
-      type: "POST",
-      url: 'databaseConnection/DatabaseQueries.php',
-      data: { 'suppempid': $('#setEmpID').val()},
-      success: function(result){
-        $('#setEmpName').val(result);
-      }
-    })
-    $('#empSupp').val($('#setEmpID').val());
+      $('#btnAssignEmployeeSupport').prop('disabled',false);
+      $.ajax({
+        type: "POST",
+        url: 'databaseConnection/DatabaseQueries.php',
+        data: { 'suppempid': $('#setEmpID').val()},
+        success: function(result){
+          $('#setEmpName').val(result);
+        }
+      })
+      $('#empSupp').val($('#setEmpID').val());
   })
-
 });
 function complainthandlerDefault(){
   $('#setEmpSupp').css('display','none')

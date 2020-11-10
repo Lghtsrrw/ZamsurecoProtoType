@@ -1,21 +1,20 @@
 <?php
+session_start();
+  /* Database credentials. Assuming you are running MySQL
+  server with default setting (user 'root' with no password) */
+  define('DB_SERVER', 'localhost');
+  define('DB_USERNAME', 'root');
+  define('DB_PASSWORD', '');
+  define('DB_NAME', 'protozmsrc1');
 
-	session_start();
-	/* Database credentials. Assuming you are running MySQL
-	server with default setting (user 'root' with no password) */
-	define('DB_SERVER', 'localhost');
-	define('DB_USERNAME', 'root');
-	define('DB_PASSWORD', '');
-	define('DB_NAME', 'protozmsrc1');
+  /* Attempt to connect to MySQL database */
+  $mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+  $db = $mysqli;
 
-	/* Attempt to connect to MySQL database */
-	$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-	$db = $mysqli;
-
-	// Check connection
-	if($mysqli === false){
-	    die("ERROR: Could not connect. " . $mysqli->connect_error);
-	}
+  // Check connection
+  if($mysqli === false){
+      die("ERROR: Could not connect. " . $mysqli->connect_error);
+  }
 
 	if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Guest') {
 		// session timeout
@@ -342,7 +341,7 @@
 			$sql = mysqli_query($db,"SELECT * from complaint_list") or die (mysqli_error());
 
 			while ($row = mysqli_fetch_assoc($sql)) {
-				echo "<option value=" . $row['complaintID'] . ">". $row['Detail'] ."</option>";
+				echo "<option value=" . $row['Detail'] . "></option>";
 			}
 	}
 
@@ -701,7 +700,8 @@
 	function fillCmplntHndlrOffice($cityMun){
 		if(!empty($cityMun)){
 			global $db;
-			$queryAddress = "SELECT DISTINCT office, rac.area_coverage_no as 'area'
+			$queryAddress = "SELECT DISTINCT office
+			-- , rac.area_coverage_no as 'area'
 											FROM complaint_receiver cr
 											INNER JOIN receiver_area_coverage rac
 											ON cr.area_coverage_no = rac.area_coverage_no
@@ -715,13 +715,13 @@
 				echo "<table id='tblOffices'>";
 				echo "<tr>";
 				echo "<th>Office</th>";
-				echo "<th>Code</th>";
+				// echo "<th>Code</th>";
 				echo "</tr>";
 				while ($row = mysqli_fetch_assoc($results))
 				{
 					echo "<tr>";
 					echo "<td>" . $row['office'] . "</td>";
-					echo "<td>" . $row['area'] . "</td>";
+					// echo "<td>" . $row['area'] . "</td>";
 					echo "</tr>";
 				}
 				echo "</table>";

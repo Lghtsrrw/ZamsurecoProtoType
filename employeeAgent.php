@@ -293,7 +293,7 @@ if (isLoggedIn()) {
             <input type="hidden" id="empSupp" value="">
             <div id="complainthandlerBtn" style="position: relative;">
               <button type="button" id="btnSelectedEmp" class="mainBtn" disabled>Select Support</button>
-              <button type="button" id="btnSet" class="mainBtn" >Find Support...</button>
+              <button type="button" id="btnSet" class="mainBtn" >Manually assign receiver</button>
             </div>
             <!-- hidden Div -->
             <div id="setEmpSupp" style="display:none;padding-top:10px;">
@@ -301,14 +301,14 @@ if (isLoggedIn()) {
                 <span  onclick="$('#setEmpSupp').css('display','none'); $('#complainthandlerBtn').css('display','block'); $('#divTblComplaineReceiver').css('display','block')" title="Close Modal" style="position: absolute;right: 1%;top: auto;color: #000;font-size: 35px;font-weight: bold;"><a>&times;</a></span>
               </div>
               <fieldset>
-                <legend><b>Assign Support</b></legend>
+                <legend><b>Assign Receiver</b></legend>
                 <br>
                 <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Employee ID" list="setEmpIDList" id="setEmpID" value="">
                 <datalist id="setEmpIDList">
                   <?php fillEmpSupportList(); ?>
                 </datalist>
                 <input type="text" placeholder="Employee Name" id="setEmpName" value="" readonly>
-                <button type="button" id="btnAssignEmployeeSupport" class="mainBtn">Set Support</button>
+                <button type="button" id="btnAssignEmployeeSupport" class="mainBtn" disabled>Set Support</button>
               </fieldset>
             </div>
           </div>
