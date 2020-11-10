@@ -1,5 +1,21 @@
 <?php
+
 	session_start();
+	/* Database credentials. Assuming you are running MySQL
+	server with default setting (user 'root' with no password) */
+	define('DB_SERVER', 'localhost');
+	define('DB_USERNAME', 'root');
+	define('DB_PASSWORD', '');
+	define('DB_NAME', 'protozmsrc1');
+
+	/* Attempt to connect to MySQL database */
+	$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+	$db = $mysqli;
+
+	// Check connection
+	if($mysqli === false){
+	    die("ERROR: Could not connect. " . $mysqli->connect_error);
+	}
 
 	if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Guest') {
 		// session timeout
@@ -779,7 +795,7 @@
 		global $db;
 		$queryAddress = "SELECT * from bill
 										WHERE AccountNo = '$val'";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) == 0)
 		{
 			$val = false;
@@ -793,7 +809,7 @@
 		global $db;
 		$queryAddress = "SELECT distinct * FROM bill
 										WHERE AccountNo like '$val'";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 
@@ -917,9 +933,9 @@
 										INNER JOIN employee e
 											ON cr.empid = e.EmpID
 										WHERE c.Nature_of_Complaint = '$nature'
-										AND city_mun = '$citymun'";
+											AND city_mun = '$citymun'";
 
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 
 			echo "<table border='1' id='compHandler'>";
@@ -1003,20 +1019,25 @@
 	function fillEmpSupportList(){
 		global $db;
 
-		$queryAddress = "SELECT * FROM syst_acct sa INNER JOIN id_verification iv ON sa.username = iv.UserID WHERE IDType = 'Support' ";
+		$queryAddress =	"SELECT * FROM syst_acct sa
+										INNER JOIN id_verification iv
+										ON sa.username = iv.UserID
+										INNER JOIN employee e
+										ON sa.userid = e.EmpID
+										WHERE IDType = 'Support' ";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
 			{
-				echo "<option value = '". $row['userid'] ."'>";
+				echo "<option value = '". $row['userid'] ."'>". $row['Fname'].' '. $row['Lname'] ."</option>";
 			}
 		}
 	}
 
 	if (isset($_POST['suppempid'])) {
 		$queryAddress = "SELECT * FROM employee WHERE EmpID = '" . $_POST['suppempid'] . "'";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))

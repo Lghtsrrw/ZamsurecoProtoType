@@ -1,5 +1,4 @@
 <?php
-require('databaseConnection/databaseConnectivity.php');
 require('databaseConnection/DatabaseQueries.php');
 
   if (isset($_SESSION['user'])) {

@@ -1,5 +1,4 @@
 <?php
-require('databaseConnection/databaseConnectivity.php');
 require('databaseConnection/DatabaseQueries.php');
 
 if (isGuest()) {
@@ -105,7 +104,7 @@ if (isGuest()) {
 		    </div>
 				<div class="" style="width:100%">
 				<button type="button" class="mainBtn" id="btnCreateComplaint">Create ticket</button>
-					<button type="button" class="mainBtn" id="btnTrackComplaint">Track a Complaint</button>
+					<button type="button" class="mainBtn" id="btnTrackComplaint">Track complaint</button>
 				</div>
 				<div class="div4Table">
 					<table>

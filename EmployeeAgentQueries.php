@@ -1,6 +1,5 @@
 <?php
 if(isset($_POST['dsptMngBtn'])){
-	// echo "<script>alert('HelloWorld');</script>";
 }
 
 if(isset($_POST['areaCovNo']) && isset($_POST['paramName'])){

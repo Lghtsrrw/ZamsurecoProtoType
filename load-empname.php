@@ -1,5 +1,4 @@
 <?php
-require('databaseConnection/databaseConnectivity.php');
 require('databaseConnection/DatabaseQueries.php');
 
   if(!empty($_GET['valempid']) && isset($_GET['valempid'])){
