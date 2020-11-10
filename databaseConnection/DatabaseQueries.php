@@ -341,7 +341,7 @@ session_start();
 			$sql = mysqli_query($db,"SELECT * from complaint_list") or die (mysqli_error());
 
 			while ($row = mysqli_fetch_assoc($sql)) {
-				echo "<option value=" . $row['Detail'] . "></option>";
+				echo "<option >". $row['Detail'] ."</option>";
 			}
 	}
 

@@ -16,8 +16,6 @@ $(document).keypress(
         event.preventDefault();
         $('.modal').css('display','none')
     }
-
-
 });
 
 $(document).ready(function(){

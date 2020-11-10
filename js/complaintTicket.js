@@ -33,13 +33,19 @@ $(document).ready(function(){
   });
 
   // Show 'description' input if the 'complaint' is selected
-  $('#_noc').change(function(){
-    if($('#_noc').val() !== "-- Complaint --"){
-      $('#divDescription').show();
-      $('#divRegion').show();
-      $('#ddRegion').val('REGION IX (ZAMBOANGA PENINSULA)');
-    }
+  $('#idComplaint').change(function(){
+    // if($('#idComplaint').val() !== ""){
+    //   $('#divDescription').show();
+    //   $('#divRegion').show();
+    //   $('#ddRegion').val('REGION IX (ZAMBOANGA PENINSULA)');
+    // }
+    alert('helloworld');
   });
+
+  $('#idComplaint').on('change',function(){
+    alert('helloworld');
+    console.log('HelloWorld');
+  })
 
   //Populate Province
   $('#ddRegion').change(function(){

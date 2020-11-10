@@ -46,20 +46,16 @@ require('databaseConnection/DatabaseQueries.php');
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
-          <!-- <select class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('idComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
 
-            <option value="" selected="selected" disabled>-- Complaint --</option>
-            <?php fillNatureOfComplaint(); ?>
-          </select><br><br> -->
-
-          <input type="text" id="_natureofcomplaint" list="_noclist" value="">
+          <input type="text" name="inputComplaint" id="idComplaint" list="_noclist" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Choose complaints" value="">
           <datalist id="_noclist">
             <?php fillNatureOfComplaint(); ?>
           </datalist>
 
 
-          <input type="text" name="inputComplaint" id="idComplaint" value="" readonly/>
 
+
+  
           <div id="divDescription" style="display:none">
             <label for="description"><b>Remarks</b></label><br>
             <textarea id="descID" name="ndesc" maxlength="200" class="classDescription"></textarea><br><br>
