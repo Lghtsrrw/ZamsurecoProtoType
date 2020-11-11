@@ -383,6 +383,8 @@ session_start();
 		$brgy = $_POST['inputBrgy'];
 		$purok  = $_POST['purokname'];
 
+    $empname = $_POST['inputempname'];
+
 		if($complaint === "-- Complaint --"){
 			array_push($errors, "Choose your complaint");
 		}
@@ -394,33 +396,39 @@ session_start();
 		}
 
 		if(count($errors) == 0){
-			$queryAddress = "INSERT INTO address (cRegion, cProvince, cCityMun, cBrgy, cPurok) values ('$region', '$province', '$citymun', '$brgy', '$purok')";
-			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
 
-			$addressID = mysqli_insert_id($db);
+      if ($complaint !== 'Attitude of Employee') {
+        $queryAddress = "INSERT INTO address (cRegion, cProvince, cCityMun, cBrgy, cPurok) values ('$region', '$province', '$citymun', '$brgy', '$purok')";
+  			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+  			$addressID = mysqli_insert_id($db);
+  			$trackno = generateTicketID();
+  			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint, Area_Landmark) values ('$trackno', '$description', '$addressID', '$complaint','$purok')";
+  			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
+      }else {
+        $trackno = generateTicketID();
+  			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint, Area_Landmark)
+                          VALUES ('$trackno', '$description', '$empname', '$complaint','$purok')";
+  			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
+      }
 
-			$trackno = generateTicketID();
-			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint, Area_Landmark) values ('$trackno', '$description', '$addressID', '$complaint','$purok')";
-			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
+      $user = (isset($_SESSION['user']['UserID']))? $_SESSION['user']['UserID'] : "Empty";
+      $queryUserComplaint = "INSERT INTO user_complaint (complaintID, ComplaintNo, Date_Time_Complaint) values ('$user', '$trackno', now())";
+      $results = mysqli_query($db,$queryUserComplaint) or die(mysqli_error());
 
-			$user = (isset($_SESSION['user']['UserID']))? $_SESSION['user']['UserID'] : "Empty";
-			$queryUserComplaint = "INSERT INTO user_complaint (complaintID, ComplaintNo, Date_Time_Complaint) values ('$user', '$trackno', now())";
-			$results = mysqli_query($db,$queryUserComplaint) or die(mysqli_error());
-
-			$_SESSION['submit'] = "1";
-			$_SESSION['trackno'] = $trackno;
-			if($_SESSION['user']['IDType'] === 'Guest'){
-				header('location: guestHomepage.php');
-			}elseif ($_SESSION['user']['IDType'] === "User") {
-				header('location: index.php');
-			}
+      $_SESSION['submit'] = "1";
+      $_SESSION['trackno'] = $trackno;
+      if($_SESSION['user']['IDType'] === 'Guest'){
+        header('location: guestHomepage.php');
+      }elseif ($_SESSION['user']['IDType'] === "User") {
+        header('location: index.php');
+      }
 		}
 	}
 
 	function fillComplaintTable(){
 		global $db;
-		$queryAddress = "SELECT * FROM complaints c
-                    INNER JOIN address a ON c.location = a.addressNo
+		$queryAddress = "SELECT *,c.location as 'loca' FROM complaints c
+                    LEFT OUTER JOIN address a ON c.location = a.addressNo
                     LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
                     WHERE ca.complaintno is null
                     ORDER BY c.ComplaintNo DESC";
@@ -431,10 +439,12 @@ session_start();
 				echo "<td>" . $row['ComplaintNo'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
 				echo "<td>" . $row['Description'] . "</td>";
+				echo "<td>" . $row['loca'] . "</td>";
 				echo "<td>" . $row['cRegion'] . "</td>";
 				echo "<td>" . $row['cProvince'] . "</td>";
 				echo "<td>" . $row['cCityMun'] . "</td>";
 				echo "<td>" . $row['cBrgy'] . "</td>";
+				echo "<td>" . $row['Area_Landmark'] . "</td>";
 				echo "</tr>";
 			}
 		}
@@ -442,8 +452,8 @@ session_start();
 
 	function fillSearchTable($id){
 		global $db;
-		$queryAddress = "SELECT * FROM complaints c
-										INNER JOIN address a ON c.location = a.addressNo
+		$queryAddress = "SELECT *,c.location as 'loca' FROM complaints c
+										LEFT OUTER JOIN address a ON c.location = a.addressNo
 										LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
 										WHERE (ca.complaintno is null)
 										AND (c.complaintNo LIKE '%" . $id . "%'
@@ -460,10 +470,12 @@ session_start();
 				echo "<td>" . $row['ComplaintNo'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
 				echo "<td>" . $row['Description'] . "</td>";
+				echo "<td>" . $row['loca'] . "</td>";
 				echo "<td>" . $row['cRegion'] . "</td>";
 				echo "<td>" . $row['cProvince'] . "</td>";
 				echo "<td>" . $row['cCityMun'] . "</td>";
 				echo "<td>" . $row['cBrgy'] . "</td>";
+        echo "<td>" . $row['Area_Landmark'] . "</td>";
 				echo "</tr>";
 			}
 		}else {
@@ -842,11 +854,12 @@ session_start();
 		$queryAddress = "SELECT c.ComplaintNo as 'No',
 														Description,
 														Nature_of_Complaint,
-														CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy) AS 'Location',
+														-- CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy) AS 'Location',
+                           c.location,
 														Date_Time_Complaint
 										FROM complaints c
 										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo
-										INNER JOIN address a ON a.addressno = c.location
+										LEFT OUTER JOIN address a ON a.addressno = c.location
 										INNER JOIN user u ON u.userID = uc.complaintID
 										WHERE uc.complaintID = '$val'
 										ORDER BY c.ComplaintNo desc";
@@ -860,7 +873,7 @@ session_start();
 				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td>". $row['Description'] ."</td>";
 				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
-				echo "<td>". $row['Location'] ."</td>";
+				echo "<td>". $row['location'] ."</td>";
 				echo "<td></td>";
 				echo "</tr>";
 			}

@@ -66,9 +66,8 @@ require('databaseConnection/DatabaseQueries.php');
             <textarea id="descID" name="ndesc" maxlength="200" class="classDescription"></textarea><br><br>
           </div>
 
-          <div class="divAddressSelect">
-            <div id = "divRegion" style="display:none">
-              <label for="lblRegion"><b>Region</b></label><br>
+          <div id="divAddressSelect" style="display:none">
+            <div id = "divRegion">
               <input
                 type="text"
                 name="inputRegion"
@@ -79,13 +78,9 @@ require('databaseConnection/DatabaseQueries.php');
                 autocomplete="off"
                 readonly
               />
-              <datalist id="ddRegion">
-                <!-- input here is automated in complaintTicket.js -->
-              </datalist>
-            </div><br>
-            <div id = "divProvince" style = "display: none">
-                <label for="lblProvince"><b>Province</b></label><br>
-                <!-- <select name="province" id="ddProvince" onchange="document.getElementById('idProvince').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select> -->
+              <datalist id="ddRegion"></datalist>
+            </div>
+            <div id = "divProvince" >
                 <input
                   type="text"
                   name="inputProvince"
@@ -99,8 +94,8 @@ require('databaseConnection/DatabaseQueries.php');
                 <datalist id="ddProvince"></datalist>
 
             </div><br>
-            <div id = "divMunicipal" style = "display:none">
-                <label for="lblMunicipal"><b>City/Municipal</b></label><br>
+            <div id = "divMunicipal">
+                <label for="lblMunicipal"><b>City / Municipal</b></label><br>
                 <select name="municipal" id="ddMunicipal" onchange="document.getElementById('idCityMun').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
                 <input type="hidden" name="inputCityMun" id="idCityMun" value="" />
             </div><br>
@@ -109,11 +104,18 @@ require('databaseConnection/DatabaseQueries.php');
                 <select name="brgy" id="ddBrgy" onchange="document.getElementById('idBrgy').value=this.options[this.selectedIndex].text" style="width:100%; height:30px; text-align:left;"></select>
                 <input type="hidden" name="inputBrgy" id="idBrgy" value="" />
             </div><br>
-            <div id = "divPurok" style = "display:none">
-                <label for="area_landmark" required><b>Purok or Area Landmarks</b></label><br>
-                <input type="text" id="ddPurok" name="purokname">
-            </div><br>
+
           </div>
+          <div id="divEmployeeSelect" style="display:none">
+            <fieldset>
+              <legend>Employee Detail</legend>
+              <input type="text" id="inempname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Employee Name" name="inputempname" value="" required>
+            </fieldset>
+          </div>
+          <div id="divPurok" style = "display:none">
+              <label for="area_landmark" id="lblPurok" required><b>Purok or Area Landmarks</b></label>
+              <input type="text" id="ddPurok" name="purokname">
+          </div><br>
           <button type="submit" name="nTicketbtn" class="mainBtn" id="ticketBtnId" style="display:none">Submit Ticket</button>
       </form>
   </div>

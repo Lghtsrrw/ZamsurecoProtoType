@@ -18,6 +18,8 @@ require('databaseConnection/DatabaseQueries.php');
       {
         $returnValue = $row['Name'];
       }
+    }else {
+      $returnValue = "";
     }
     return $returnValue;
   }

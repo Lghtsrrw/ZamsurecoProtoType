@@ -91,10 +91,12 @@ if (isLoggedIn()) {
                 <th>Complaint No</th>
                 <th>Nature of Complaint</th>
                 <th>Description</th>
+                <th>ID</th>
                 <th>Region</th>
                 <th>Province</th>
                 <th>City/Mun</th>
                 <th>Barangay</th>
+                <th>Arealandmark / Office</th>
               </tr>
               <?php fillComplaintTable(); ?>
             </table>
@@ -280,9 +282,9 @@ if (isLoggedIn()) {
             <input type="text" name="" id="cdNUM"  value="" readonly>
             <label class="detailsLabels" >NATURE OF COMPLAINT</label><br>
             <input type="text" name="" id="cdNOC"value="" readonly>
-            <label class="detailsLabels" >CITY/MUNICIPAL</label><br>
+            <label class="detailsLabels" id='dispatchCity' >CITY/MUNICIPAL</label><br>
             <input type="text" name="" id="cdLOC" value="" readonly>
-            <label class="detailsLabels" >BARANGAY</label>
+            <label class="detailsLabels" id="dispatchBrgy">BARANGAY</label>
             <input type="text" name="" id="cdbrgy" value="" readonly>
           </div>
           <div id="complaintReceiver" class="divDispatchModalStyle" style="float:right;">

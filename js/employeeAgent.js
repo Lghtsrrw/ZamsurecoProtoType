@@ -358,7 +358,6 @@ function performDispatch(){
   $('.modal').css("display","none")
   $('#divDispatchModal').css("display", "block")
 
-
   var comno=$(".selected").find('td:nth-child(1)').html();
   $('#cdNUM').val(comno)
 

@@ -35,14 +35,25 @@ $(document).ready(function(){
   // Show 'description' input if the 'nature of complaint' is selected
 
   $('#idComplaint').on('change',function(){
-    if($('#idComplaint').val() !== ""){
+    if($('#idComplaint').val() !== "" && $('#idComplaint').val() === "Attitude of Employee"){
       $('#divDescription').show();
-      $('#divRegion').show();
 
-      $('#divProvince').show();
-      $('#ddProvince').val('ZAMBOANGA DEL SUR');
+      $('#divAddressSelect').hide();
+      $('#divEmployeeSelect').show();
 
-      $('#divMunicipal').show();
+      $('#lblPurok').text('Employee Office');
+      $('#ddPurok').prop('placeholder','Employee Office')
+      $('#ddPurok').attr("autofocus", true);
+    }
+    else {
+      $('#divDescription').show();
+
+      $('#divAddressSelect').show();
+      $('#divEmployeeSelect').hide();
+
+      $('#lblPurok').text('Purok or Area Landmarks');
+      $('#ddPurok').prop('placeholder','')
+
       if($('#idProvince').val() !== ""){
         $('#divMunicipal').show();
 
@@ -61,32 +72,9 @@ $(document).ready(function(){
           });
         });
       }
-
-      }
+    }
 
   })
-
-  //Populate City/Municipal
-  // $('#ddProvince').change(function(){
-  //   if($('#idProvince').val() !== "-- Choose Province --"){
-  //     $('#divMunicipal').show();
-  //
-  //     let ddMunicipal = $('#ddMunicipal');
-  //     const muniURL = 'json/refcitymun.json';
-  //     ddMunicipal.empty();
-  //     ddMunicipal.append('<option selected ="true" disabled>-- Choose City/Municipal --</option>');
-  //     ddMunicipal.prop('selectedIndex', 0);
-  //
-  //     $.getJSON(muniURL, function(data){
-  //       $.each(data, function(i, item){
-  //         $.each(item, function(j, desc){
-  //           if(desc.provCode === $('#idProvince').val())
-  //           ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
-  //         });
-  //       });
-  //     });
-  //   }
-  // });
 
   //Populate Brgy
   $('#ddMunicipal').change(function(){
@@ -127,8 +115,23 @@ $(document).ready(function(){
     }
   });
 
-});
+  $('#inempname').blur(function() {
+    if($('#inempname').val() !== ""){
+      $('#divPurok').show();
+    }else{
+      $('#divPurok').hide();
+    }
+  });
+  $('#inempname').change(function(){
 
+    if($('#inempname').val() !== ""){
+      $('#divPurok').show();
+    }else {
+      $('#divPurok').hide();
+    }
+  })
+});
+// Functions declaration area
 function showSubmitMessage(){
     $('#divTicket').hide();
     $('#divSubmitMessage').show();
