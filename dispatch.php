@@ -82,18 +82,26 @@ if (isLoggedIn()) {
         <!-- modal title -->
         <h1>Status</h1>
         <div class="" style="overflow:auto">
-          <label for="">Complanint No: </label><br>
-          <input type="text" id="lblComplaintno"name="" value="" style="width:auto;" readonly>
-          <br><br>
-          <label for="">Status: </label><br>
-          <input type="text" id="lblStatus" name="" value="" style="width:auto;" readonly>
-          <br><br>
-          <label for="" style="display:inline-block;float:left;clear:left">Remarks: </label>
-          <textarea  maxlength="200" rows="8"></textarea><br><br>
-          <div class="" style="width:100%">
-            <button id = "btnUpdateStatus" class="mainBtn">Update Status</button>
-            <button id = "btnResolve" style="color:white; background-color:red; float:right" class="mainBtn">Resolve</button>
-          </div>
+          <form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <label for="">Complanint No: </label><br>
+            <input type="text" id="lblComplaintno" name="inSupportComplaintNo" value="" style="width:auto;" readonly>
+            <input type="text" id="lblNatureofComplaint" value="" style="width:auto;" readonly>
+            <br><br>
+            <label for="">Status: </label><br>
+            <input type="text" list="listStatus" onclick="javascript: $(this).val('');" id="lblStatus" name="inSupportStatus" value="" style="width:auto;" required>
+            <datalist id="listStatus">
+              <option value="" style="background-color: orange" value="Pending"></option>
+              <option value="" style="background-color: orange" value="Scheduled"></option>
+              <option value="" style="background-color: green" value="Resolved"></option>
+            </datalist>
+            <br><br>
+            <label for="" style="display:inline-block;float:left;clear:left">Remarks: </label>
+            <textarea  name="inSupportRemarks" maxlength="200" rows="8" required></textarea><br><br>
+            <div class="" style="width:100%">
+              <button type="submit" id = "btnUpdateStatus" name="btnUpdateStatus" class="mainBtn">Update Status</button>
+              <!-- <button id = "btnResolve" style="color:white; background-color:red; float:right" class="mainBtn">Resolve</button> -->
+            </div>
+          </form>
         </div>
       </div>
     </div>

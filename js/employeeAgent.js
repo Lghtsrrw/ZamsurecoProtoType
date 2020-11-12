@@ -154,7 +154,6 @@ $(document).ready(function(){
                 'empidsupp': $('#empSupp').val()},
         success: function(result){
           console.log(result);
-          alert(result);
           window.location.href = 'employeeAgent.php';
         }
       })
@@ -368,7 +367,7 @@ function performDispatch(){
   $('#cdLOC').val( location )
 
   var brgy = $(".selected").find('td:nth-child(7)').html();
-  $('#cdbrgy').val( brgy )
+  $('#cdbrgy').val(brgy)
 
   $('#btnDispatch').prop("disabled", true);
 

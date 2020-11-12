@@ -109,7 +109,7 @@ require('databaseConnection/DatabaseQueries.php');
           <div id="divEmployeeSelect" style="display:none">
             <fieldset>
               <legend>Employee Detail</legend>
-              <input type="text" id="inempname" onkeyup="this.value = this.value.toUpperCase();" placeholder="Employee Name" name="inputempname" value="" required>
+              <input type="text" id="inempname" name="inputemployeename" onkeyup="this.value = this.value.toUpperCase();" placeholder="Employee Name"  value="">
             </fieldset>
           </div>
           <div id="divPurok" style = "display:none">

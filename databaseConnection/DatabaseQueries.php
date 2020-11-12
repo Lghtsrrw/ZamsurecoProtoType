@@ -91,7 +91,7 @@ session_start();
 		}else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Invalid Email address");
   	}
-		if (empty($password1) || strlen(trim($password1)) < 8){
+		if (empty($password1) || strlen(trim($password1)) < 4){
 			array_push($errors, "Password must be atleast 8 characters and maximum of 16 characters.");
 		}
 		if ($password1 != $password2) {
@@ -107,22 +107,22 @@ session_start();
 				array_push($errors, "Properly fill-up your contact-number");
 		}
 		// register user if there are no errors in the form
-		if (count($errors) == 0) {
+    if (count($errors) == 0) {
 			$password = md5($password1);//encrypt the password before saving in the database
 			if (mysqli_query($db, "INSERT INTO user (UserID, Fname, Mname, Lname, Address, Contact, AcctNo, email) VALUES('$username','$fname','$mname','$lname','$address','$contact','$regAcctNo','$email')")) {
-			  echo "New user created successfully";
+        console_log("New user created successfully");
 			} else {
-			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			  echo "Error:<br>" . mysqli_error($db);
 			}
 			if (mysqli_query($db, "INSERT INTO id_verification (UserID, IDType, Date_created) VALUES('$username', 'User', now())")) {
-			  echo "New id_verification created successfully";
+        console_log( "New id_verification created successfully");
 			} else {
-			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			  echo "Error:<br>" . mysqli_error($db);
 			}
 			if (mysqli_query($db, "INSERT INTO syst_acct (username, password, userid) VALUES ('$username', '$password', '$username')")) {
-			  echo "New id_verification created successfully";
+			  console_log( "New id_verification created successfully");
 			}else {
-			  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			  echo "Error:<br>" . mysqli_error($db);
 			}
 			$_user = getUserById($username);
 			$_SESSION['user'] = $_user;
@@ -382,8 +382,9 @@ session_start();
 		$citymun = $_POST['inputCityMun'];
 		$brgy = $_POST['inputBrgy'];
 		$purok  = $_POST['purokname'];
+    $trackno = generateTicketID();
 
-    $empname = $_POST['inputempname'];
+    $empname = $_POST['inputemployeename'];
 
 		if($complaint === "-- Complaint --"){
 			array_push($errors, "Choose your complaint");
@@ -399,29 +400,27 @@ session_start();
 
       if ($complaint !== 'Attitude of Employee') {
         $queryAddress = "INSERT INTO address (cRegion, cProvince, cCityMun, cBrgy, cPurok) values ('$region', '$province', '$citymun', '$brgy', '$purok')";
-  			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+  			$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
   			$addressID = mysqli_insert_id($db);
-  			$trackno = generateTicketID();
+
   			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint, Area_Landmark) values ('$trackno', '$description', '$addressID', '$complaint','$purok')";
-  			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
+  			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error($db));
       }else {
-        $trackno = generateTicketID();
   			$queryComplaint = "INSERT INTO complaints (complaintNo, description, location, Nature_of_Complaint, Area_Landmark)
                           VALUES ('$trackno', '$description', '$empname', '$complaint','$purok')";
-  			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error());
+  			$results = mysqli_query($db,$queryComplaint) or die(mysqli_error($db));
       }
 
       $user = (isset($_SESSION['user']['UserID']))? $_SESSION['user']['UserID'] : "Empty";
       $queryUserComplaint = "INSERT INTO user_complaint (complaintID, ComplaintNo, Date_Time_Complaint) values ('$user', '$trackno', now())";
-      $results = mysqli_query($db,$queryUserComplaint) or die(mysqli_error());
+      $results = mysqli_query($db,$queryUserComplaint) or die(mysqli_error($db));
+
+      // initiating status for this complaint ticket.
+      savetoComplaintStatus($user, 'Waiting for verificaton from Agent', $trackno, 'Ticket has been submitted and is subject for review.');
 
       $_SESSION['submit'] = "1";
       $_SESSION['trackno'] = $trackno;
-      if($_SESSION['user']['IDType'] === 'Guest'){
-        header('location: guestHomepage.php');
-      }elseif ($_SESSION['user']['IDType'] === "User") {
-        header('location: index.php');
-      }
+      header('location: index.php');
 		}
 	}
 
@@ -847,7 +846,7 @@ session_start();
 		echo "<th>Date created</th>";
 			echo "<th>Description</th>";
 			echo "<th>Nature of complaint</th>";
-			echo "<th>Location</th>";
+			echo "<th>Location / name of Employee</th>";
 			echo "<th>STATUS</th>";
 		echo "</tr>";
 
@@ -856,14 +855,16 @@ session_start();
 														Nature_of_Complaint,
 														-- CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy) AS 'Location',
                            c.location,
-														Date_Time_Complaint
+														Date_Time_Complaint,
+                            Status
 										FROM complaints c
 										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo
 										LEFT OUTER JOIN address a ON a.addressno = c.location
 										INNER JOIN user u ON u.userID = uc.complaintID
+                    LEFT OUTER JOIN complaint_status cs on c.ComplaintNo = cs.complaintno
 										WHERE uc.complaintID = '$val'
 										ORDER BY c.ComplaintNo desc";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
@@ -874,6 +875,7 @@ session_start();
 				echo "<td>". $row['Description'] ."</td>";
 				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
 				echo "<td>". $row['location'] ."</td>";
+				echo "<td>". $row['Status'] ."</td>";
 				echo "<td></td>";
 				echo "</tr>";
 			}
@@ -891,7 +893,7 @@ session_start();
 														datetime_assigned,
 														empid_agent
 										FROM complaints c
-										INNER JOIN address a
+										LEFT OUTER JOIN address a
 										ON a.addressno = c.location
 										INNER JOIN complaint_assign ca
 										ON c.complaintno = ca.complaintno
@@ -1017,7 +1019,6 @@ session_start();
 
 	if(isset($_POST['complaintno']) && isset($_POST['empidsupp'])){
 		assignEmployeeSupport($_POST['complaintno'], $_POST['empidsupp']);
-		// echo $_POST['complaintno']. ' ' . $_POST['empidsupp'];
 	}
 	function assignEmployeeSupport($val1, $val2){
 		global $db;
@@ -1026,6 +1027,8 @@ session_start();
 
 		$queryAssignComplaint = "INSERT INTO complaint_assign (complaintno, empid_agent, empid_support, datetime_assigned) values ('$val1', '$agentid','$val2', now())";
 		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db ));
+
+    savetoComplaintStatus($agentid, 'Dispatched to personnel-in-charged', $val1, 'Complaint has been dispatched to the appropriate personnel for immediate action.');
 		echo "Successfully Assigned";
 	}
 
@@ -1061,8 +1064,7 @@ session_start();
 	}
 
 	if(isset($_POST['_oldpassword']) && isset($_POST['_newpassword'])){
-		// updateSupportPassword($_POST['_oldpassword'], $_POST['_newpassword']);
-		echo "Oh No";
+		updateSupportPassword($_POST['_oldpassword'], $_POST['_newpassword']);
 	}
 
 	function updateSupportPassword($val1, $val2){
@@ -1080,7 +1082,28 @@ session_start();
 			 $_SESSION['user']['password'] = $encryptedPassword;
 			 echo "Updated Successfully";
 			$_SESSION['success'] = "Password updated successfully";
-			header('location: ../	../dispatch.php');
+			header('location: index.php');
 		}
 	}
+
+  function savetoComplaintStatus($empid,$status,$complaintno,$remarks){
+    global $db;
+
+    $sqlQuery = "INSERT INTO complaint_status
+                VALUES ('$empid',now(),'$status','$complaintno','$remarks') ";
+    if (mysqli_query($db, $sqlQuery)) {
+      console_log("Status has been updated successfully");
+    } else {
+      echo "Error:<br>" . mysqli_error($db);
+    }
+  }
+  if(isset($_POST['btnUpdateStatus'])){
+    savetoComplaintStatus($_SESSION['user']['EmpID'], $_POST['inSupportStatus'], $_POST['inSupportComplaintNo'], $_POST['inSupportRemarks']);
+  }
+
+  function console_log($data){
+    echo '<script>';
+    echo 'console.log('. json_encode( $data ) .')';
+    echo '</script>';
+  }
 ?>
