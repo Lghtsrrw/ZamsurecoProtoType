@@ -109,13 +109,10 @@ $(document).ready(function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     $('#empSupp').val($(this).find('td:first').html());
 
-    $('#btnSelectedEmp').prop('disabled',false)
-
-
+    $('#btnSelectedEmp').prop('disabled',false);
   });
 
   $('#complaintReceiver').click(function(){
-
     $('#btnSelectedEmp').prop('disabled',true)
   })
 
@@ -137,7 +134,7 @@ $(document).ready(function(){
         data: { 'complaintno': $('#cdNUM').val(),
                 'empidsupp': $('.selected').find('td:first').html()},
         success: function(result){
-          alert(result);
+          console.log(result);
           window.location.href = 'employeeAgent.php';
         }
       })
@@ -363,10 +360,10 @@ function performDispatch(){
   var value=$(".selected").find('td:nth-child(2)').html();
   $('#cdNOC').val(value)
 
-  var location = $(".selected").find('td:nth-child(6)').html();
+  var location = $(".selected").find('td:nth-child(7)').html();
   $('#cdLOC').val( location )
 
-  var brgy = $(".selected").find('td:nth-child(7)').html();
+  var brgy = $(".selected").find('td:nth-child(8)').html();
   $('#cdbrgy').val(brgy)
 
   $('#btnDispatch').prop("disabled", true);

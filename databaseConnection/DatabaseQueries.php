@@ -338,7 +338,7 @@ session_start();
 	function fillNatureOfComplaint(){
 			global $db;
 
-			$sql = mysqli_query($db,"SELECT * from complaint_list") or die (mysqli_error());
+			$sql = mysqli_query($db,"SELECT * from complaint_list") or die (mysqli_error($db));
 
 			while ($row = mysqli_fetch_assoc($sql)) {
 				echo "<option >". $row['Detail'] ."</option>";
@@ -349,7 +349,7 @@ session_start();
 		global $db;
 
 		$ticketno = 0;
-		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as complaintcount from complaints limit 1") or die (mysqli_error());
+		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as complaintcount from complaints limit 1") or die (mysqli_error($db));
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
 			$ticketno = str_pad($result['datenow'] . $result['complaintcount'],9,"0");
@@ -360,7 +360,7 @@ session_start();
 	function generateEmployeeID(){
 		global $db;
 		$ticketno = 0;
-		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as employeecount from employee limit 1") or die (mysqli_error());
+		$results = mysqli_query($db, "SELECT date_format(curdate(), '%y%m%d') as datenow, lpad(count(*) + 1,3,'0') as employeecount from employee limit 1") or die (mysqli_error($db));
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
 			$ticketno = str_pad($result['datenow'] . $result['employeecount'],8,"0");
@@ -431,7 +431,7 @@ session_start();
                     LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
                     WHERE ca.complaintno is null
                     ORDER BY c.ComplaintNo DESC";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
 				echo "<tr>";
@@ -462,7 +462,7 @@ session_start();
 										OR cCityMun LIKE '%". $id . "%'
 										OR cBrgy LIKE '%" . $id . "%'
 										OR Nature_of_Complaint LIKE '%". $id ."%')";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
 				echo "<tr>";
@@ -485,7 +485,7 @@ session_start();
 	function fillEmpListTable(){
 		global $db;
 		$queryAddress = "SELECT EmpID, concat(fname, ' ', mname,' ',lname)as'Name', Area, Dept  FROM employee";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
@@ -540,19 +540,19 @@ session_start();
 			if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
 				echo "New support created";
 			}else {
-			 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			 echo "Error:<br>" . mysqli_error($db);
 			}
 			// save to System Account Table
 			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
 				echo "New support account created";
 			}else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				echo "Error:<br>" . mysqli_error($db);
 			}
 			// save to ID Verification Table
 			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), 'Support')")) {
 				echo "New support account created";
 			}else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				echo "Error:<br>" . mysqli_error($db);
 			}
 
 			$_SESSION['savedsupp'] = $empid;
@@ -563,7 +563,7 @@ session_start();
 	function retrieveEmployeeList(){
 		global $db;
 		$queryAddress = "SELECT *, concat(fname, ' ',mname,' ',lname)as 'name' FROM employee";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
@@ -576,7 +576,7 @@ session_start();
 	function generateAreaCoverageNo(){
 		global $db;
 		$ticketno = 0;
-		$results = mysqli_query($db, "SELECT date_format(curdate(), '%d%m%y') as 'datenow', lpad(count(*) + 1,2,'0') as 'areacount' from complaint_receiver limit 1") or die (mysqli_error());
+		$results = mysqli_query($db, "SELECT date_format(curdate(), '%d%m%y') as 'datenow', lpad(count(*) + 1,2,'0') as 'areacount' from complaint_receiver limit 1") or die (mysqli_error($db));
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
 			$ticketno = str_pad($result['datenow'] . $result['areacount'],8,"0");
@@ -588,7 +588,7 @@ session_start();
 	function generateComplaintReceiverNo(){
 		global $db;
 		$ticketno = 0;
-		$results = mysqli_query($db, "SELECT lpad(count(*) + 1,4,'0') as areacount from complaint_receiver limit 1") or die (mysqli_error());
+		$results = mysqli_query($db, "SELECT lpad(count(*) + 1,4,'0') as areacount from complaint_receiver limit 1") or die (mysqli_error($db));
 		$result = mysqli_fetch_assoc($results);
 		if (mysqli_num_rows($results) == 1) {
 			$ticketno = str_pad($result['areacount'],4,"0");
@@ -684,7 +684,7 @@ session_start();
 	function fillCmplntHndlrLocation(){
 		global $db;
 		$queryAddress = "SELECT DISTINCT city_mun from receiver_area_coverage";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 			echo "<table id='tblLocation'>
@@ -765,7 +765,7 @@ session_start();
 											INNER JOIN employee e
 											ON e.EmpID = cr.empid
 											WHERE rac.city_mun = '$city' and cr.office = '$val'";
-			$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+			$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 			if(mysqli_num_rows($results) > 0)
 			{
 
@@ -888,7 +888,9 @@ session_start();
 														description,
 														Nature_of_Complaint,
 														concat(cRegion,', ',cProvince,', ', cCityMun,', ',cBrgy)
-												AS 'location',
+												AS 'loca',
+                            c.location
+                        AS 'locaII',
 														Area_landmark,
 														datetime_assigned,
 														empid_agent
@@ -898,14 +900,14 @@ session_start();
 										INNER JOIN complaint_assign ca
 										ON c.complaintno = ca.complaintno
 										WHERE ca.empid_support = '$val'";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 			echo "<table border='1' id='tblData'>";
 			echo "<tr>";
 			echo "<th>Complaint No</th>";
 			echo "<th>Description</th>";
 			echo "<th>Nature of Complaint</th>";
-			echo "<th>Location</th>";
+			echo "<th>Location / Complainee</th>";
 			echo "<th>Area Landmark</th>";
 			echo "<th>Date Assigned</th>";
 			echo "<th>Assignee</th>";
@@ -916,7 +918,7 @@ session_start();
 				echo "<td>" . $row['complaintno'] . "</td>";
 				echo "<td>" . $row['description'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
-				echo "<td>" . $row['location'] . "</td>";
+				echo "<td>" . $row['loca'] . ': '. $row['locaII'] . "</td>";
 				echo "<td>" . $row['Area_landmark'] . "</td>";
 				echo "<td>" . $row['datetime_assigned'] . "</td>";
 				echo "<td>" . $row['empid_agent'] . "</td>";
@@ -992,7 +994,7 @@ session_start();
 										ON cs.empid = e.EmpID
 										WHERE complaintno = '$val'";
 
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 
 			echo "<table border='1' id='tblData'>";
@@ -1041,7 +1043,7 @@ session_start();
 										INNER JOIN employee e
 										ON sa.userid = e.EmpID
 										WHERE IDType = 'Support' ";
-		$results = mysqli_query($db,$queryAddress) or die(mysqli_error());
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
@@ -1078,7 +1080,7 @@ session_start();
 			$query = "UPDATE syst_acct
 								SET password = '$encryptedPassword'
 								WHERE username = '".$_SESSION['user']['username']."'";
-			$results = mysqli_query($db, $query) or die(mysqli_error());
+			$results = mysqli_query($db, $query) or die(mysqli_error($db));
 			 $_SESSION['user']['password'] = $encryptedPassword;
 			 echo "Updated Successfully";
 			$_SESSION['success'] = "Password updated successfully";

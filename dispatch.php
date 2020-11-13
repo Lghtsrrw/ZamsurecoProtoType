@@ -40,7 +40,7 @@ if (isLoggedIn()) {
 
       <!-- display operation success and fail -->
       <?php if(isset($_SESSION['success'])): ?>
-      <div id="divSubmitMessage">
+      <div id="divSubmitMessage">btnSelectedEmpbtnSelectedEmp
         <h3><?php echo $_SESSION['success']; ?></h3>
       </div>
       <?php
@@ -88,11 +88,11 @@ if (isLoggedIn()) {
             <input type="text" id="lblNatureofComplaint" value="" style="width:auto;" readonly>
             <br><br>
             <label for="">Status: </label><br>
-            <input type="text" list="listStatus" onclick="javascript: $(this).val('');" id="lblStatus" name="inSupportStatus" value="" style="width:auto;" required>
+            <input type="text" list="listStatus" onclick="javascript: $(this).val('');" id="lblStatus" name="inSupportStatus" value="" style="width:auto; background-color: orange" required>
             <datalist id="listStatus">
-              <option value="" style="background-color: orange" value="Pending"></option>
-              <option value="" style="background-color: orange" value="Scheduled"></option>
-              <option value="" style="background-color: green" value="Resolved"></option>
+              <!-- <option value="Scheduled"></option>
+              <option value="Resolved"></option>
+              <option value="Pending"></option> -->
             </datalist>
             <br><br>
             <label for="" style="display:inline-block;float:left;clear:left">Remarks: </label>
