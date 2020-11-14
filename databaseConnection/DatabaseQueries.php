@@ -27,6 +27,7 @@ session_start();
 	    session_destroy();
 			session_start();
 		}
+
 		$_SESSION['LAST_ACTIVITY'] = $time;
 		// end of session time
 	}
@@ -846,7 +847,7 @@ session_start();
 		echo "<th>Date created</th>";
 			echo "<th>Description</th>";
 			echo "<th>Nature of complaint</th>";
-			echo "<th>Location / name of Employee</th>";
+			echo "<th>Location ID / Complainee</th>";
 			echo "<th>STATUS</th>";
 		echo "</tr>";
 
@@ -856,12 +857,11 @@ session_start();
 														-- CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy) AS 'Location',
                            c.location,
 														Date_Time_Complaint,
-                            Status
+                            (select Status from complaint_status where complaintno = c.ComplaintNo order by status_datetime desc limit 1)as _Status
 										FROM complaints c
 										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo
 										LEFT OUTER JOIN address a ON a.addressno = c.location
 										INNER JOIN user u ON u.userID = uc.complaintID
-                    LEFT OUTER JOIN complaint_status cs on c.ComplaintNo = cs.complaintno
 										WHERE uc.complaintID = '$val'
 										ORDER BY c.ComplaintNo desc";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
@@ -875,7 +875,7 @@ session_start();
 				echo "<td>". $row['Description'] ."</td>";
 				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
 				echo "<td>". $row['location'] ."</td>";
-				echo "<td>". $row['Status'] ."</td>";
+				echo "<td>". $row['_Status'] ."</td>";
 				echo "<td></td>";
 				echo "</tr>";
 			}

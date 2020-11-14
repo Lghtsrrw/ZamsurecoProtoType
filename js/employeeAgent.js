@@ -50,8 +50,9 @@ $(document).ready(function(){
     var MuniCov = $('#idEmpLocat').val()
     var _tblValue = document.createTextNode(MuniCov);
     _tblCell.appendChild(_tblValue);
+    retrieveMunicipalID(MuniCov);
 
-    appendBrgy(retrieveMunicipalID(MuniCov));
+    appendBrgy();
 
     arrEmpLocCov['Area'].push(MuniCov);
     console.log(arrEmpLocCov);
@@ -292,8 +293,7 @@ function validate(evt) {
 }
 
 function retrieveMunicipalID(_value){
-  // insert City/Municipal on divMngCmplntDispt Modal location autocomplete\
-  var toreturn;
+  // insert City/Municipal code to Array
   try {
     const regURL = 'json/refcitymun.json';
     $.getJSON(regURL, function(data){
@@ -302,7 +302,6 @@ function retrieveMunicipalID(_value){
           if(desc.citymunDesc == _value && desc.provCode == "0973"){
             arrEmpLocCov['municipalcode'].push(desc.citymunCode);
             $('#_municode').val(desc.citymunCode)
-            toreturn = desc.citymunCode;
           }
         });
       });
@@ -310,25 +309,27 @@ function retrieveMunicipalID(_value){
   }catch(e){
     alert(e);
   }
-  return toreturn;
 }
 
-function appendBrgy(_value){
+function appendBrgy(){
   // insert brgy on divMngCmplntDispt Modal location autocomplete
-  try {
-    const regURL = 'json/refbrgy.json';
-    $.getJSON(regURL, function(data){
-      $.each(data, function(i, item){
-        $.each(item, function(j, desc){
-          if(desc.citymunCode == _value){
-            // $('#empBrgyCover').append($("<option>").text(desc.brgyDesc));
-            console.log(desc.brgyDesc);
-          }
+  if($('#idEmpOffice').val() === "TSD"){
+    try {
+      const regURL = 'json/refbrgy.json';
+      $.getJSON(regURL, function(data){
+        $.each(data, function(i, item){
+          $.each(item, function(j, desc){
+            for (var i = 0; i < arrEmpLocCov['municipalcode']; i++) {
+              if (desc.citymunCode == arrEmpLocCov['municipalcode'][i]) {
+                  $('#empBrgyCover').append($("<option>").val(desc.brgyDesc));
+              }
+            }
+          });
         });
       });
-    });
-  }catch (e) {
-    alert(e);
+    }catch(e){
+      alert(e);
+    }
   }
 }
 

@@ -209,7 +209,7 @@ if (isLoggedIn()) {
               <table id="tblLocaCover">
                 <th>Locations</th>
               </table>
-              <input type="hidden" id="_municode" value="">
+              <input type="text" id="_municode" value="">
               <input type="hidden" name="rowAreaCov" id="countthis" value="0">
               <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
             </fieldset>
