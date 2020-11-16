@@ -28,14 +28,15 @@ if (isLoggedIn()) {
     <?php display_error(); ?>
 
     <div id="divTicket">
+
       <!-- logout Button -->
       <div class="clscontainer">
-          <button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red;">Log-out</button>
+        <button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red;">Log-out</button>
       </div>
 
       <div class="logoimg">
-      <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
-      <h3>ZAMSURECO-I  AGENT</h3>
+        <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
+        <h3>ZAMSURECO-I  AGENT</h3>
       </div>
 
       <!-- Show current user -->
@@ -49,7 +50,7 @@ if (isLoggedIn()) {
     			</h5>
       <?php
       endif
-       ?>
+      ?>
 
       <!-- Button declaration -->
       <button id = "btnComplaints" class="mainBtn">Complaint List</button>
@@ -60,7 +61,6 @@ if (isLoggedIn()) {
     </div>
 
     <!-- Display process success of failure -->
-
     <?php if(isset($_SESSION['savesupp'])) : ?>
     <div id="divSubmitMessage" style="margin-top: 20px">
       <h4>COMPLAINT RECEIVER UPDATED</h4>
@@ -199,7 +199,7 @@ if (isLoggedIn()) {
 
           <!-- Area Coverage -->
           <fieldset>
-              <legend><b>Area Coverage</b></legend>
+            <legend><b>Area Coverage</b></legend>
             <!-- Municipal/City Coverage -->
             <fieldset>
               <legend>Municipal/City Coverage</legend>
@@ -213,13 +213,10 @@ if (isLoggedIn()) {
               <input type="hidden" name="rowAreaCov" id="countthis" value="0">
               <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
             </fieldset>
-
             <!-- Barangay Coverage -->
             <fieldset id="idBrgyCov" style="display:none">
               <legend>Barangay Coverage</legend>
-              <input type="hidden" id = "BrgyCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
               <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='hidABrgyCovNo' name="inputComplaint" id="idEmpBrgy" value="" autocomplete="off">
-              <input type="hidden" name="hidABrgyCovNo" value="<?php generateAreaCoverageNo(); ?>">
               <datalist id="empBrgyCover"></datalist>
               <table id="tblBrgyCover">
                 <th>Locations</th>

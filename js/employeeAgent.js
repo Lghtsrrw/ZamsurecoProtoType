@@ -25,9 +25,22 @@ $(document).ready(function(){
     $.getJSON(regURL, function(data){
       $.each(data, function(i, item){
         $.each(item, function(j, desc){
-          if(desc.provCode == "0973" && desc.citymunDesc != "KUMALARANG" && desc.citymunDesc != "BAYOG" && desc.citymunDesc != "LAKEWOOD"){
+
+          if(desc.provCode == "0973" &&
+            desc.citymunDesc != "KUMALARANG" &&
+            desc.citymunDesc != "BAYOG" &&
+            desc.citymunDesc != "LAKEWOOD" &&
+            desc.citymunDesc != "ZAMBOANGA CITY"
+            ){
             $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
+
+          if (desc.provCode == "1042" &&
+              desc.citymunDesc == "DON VICTORIANO CHIONGBIAN  (DON MARIANO MARCOS)"
+          ){
+            $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
+          }
+
         });
       });
     });
@@ -50,10 +63,10 @@ $(document).ready(function(){
     var MuniCov = $('#idEmpLocat').val()
     var _tblValue = document.createTextNode(MuniCov);
     _tblCell.appendChild(_tblValue);
+
     retrieveMunicipalID(MuniCov);
 
-    appendBrgy();
-
+    appendBrgy($('#_municode').val()); //Populate empBrgyCover datalist
     arrEmpLocCov['Area'].push(MuniCov);
     console.log(arrEmpLocCov);
 
@@ -168,6 +181,7 @@ $(document).ready(function(){
       for(var i = 0; i < arrEmpLocCov['Area'].length; i++){
         if(i == arrEmpLocCov['Area'].indexOf($(this).text())){
           arrEmpLocCov['Area'].splice(i,1);
+          arrEmpLocCov['municipalcode'].splice(i,1);
         }
       }
       $('#countthis').val($('#tblLocaCover tr').length - 1);
@@ -311,46 +325,6 @@ function retrieveMunicipalID(_value){
   }
 }
 
-function appendBrgy(){
-  // insert brgy on divMngCmplntDispt Modal location autocomplete
-  if($('#idEmpOffice').val() === "TSD"){
-    try {
-      const regURL = 'json/refbrgy.json';
-      $.getJSON(regURL, function(data){
-        $.each(data, function(i, item){
-          $.each(item, function(j, desc){
-            for (var i = 0; i < arrEmpLocCov['municipalcode']; i++) {
-              if (desc.citymunCode == arrEmpLocCov['municipalcode'][i]) {
-                  $('#empBrgyCover').append($("<option>").val(desc.brgyDesc));
-              }
-            }
-          });
-        });
-      });
-    }catch(e){
-      alert(e);
-    }
-  }
-}
-
-function removeappendedBrgy(_value){
-  // insert brgy on divMngCmplntDispt Modal location autocomplete
-  try {
-    const regURL = 'json/refbrgy.json';
-    $.getJSON(regURL, function(data){
-      $.each(data, function(i, item){
-        $.each(item, function(j, desc){
-          if(desc.citymunCode == _value){
-            $('#empBrgyCover').append($("<option>").text(desc.brgyDesc));
-          }
-        });
-      });
-    });
-  } catch (e) {
-    alert(e);
-  }
-}
-
 function performDispatch(){
   $('.modal').css("display","none")
   $('#divDispatchModal').css("display", "block")
@@ -373,4 +347,24 @@ function performDispatch(){
     natureofcomplaint: $('#cdNOC').val(),
     citymunicipal: $('#cdLOC').val()
   });
+}
+
+function appendBrgy(muni){
+  if($('#idEmpOffice').val() == "TSD")
+  {
+    // $.ajax({
+    //   type: "POST",
+    //   url: 'databaseConnection/DatabaseQueries.php',
+    //   data: { 'queryBrgy': muni },
+    //   success: function(result){
+    //       $('#empLocaCover').append($("<option>").val(result));
+    //     // window.location.href = 'employeeAgent.php';
+    //     console.log(result);
+    //   }
+    // })
+    // $('#complainthandlerBtn').css('display','none')
+    $('#empBrgyCover').load("databaseConnection/DatabaseQueries.php", {
+      queryBrgy: muni
+    });
+  }
 }

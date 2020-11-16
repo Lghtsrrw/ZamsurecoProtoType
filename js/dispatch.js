@@ -21,10 +21,14 @@ $(document).ready(function() {
     $('#divUpdateStatus').css('display','block')
     $('#lblComplaintno').val($('.selected').find('td:first').html())
     $('#lblNatureofComplaint').val($('.selected').find('td:nth-child(3)').html())
-    $('#listStatus').append($("<option>").val('Resolved'));
+
+    $('#listStatus').empty();
+
     if ($('#lblNatureofComplaint').val() === 'Busted fuse link') {
+    $('#listStatus').append($("<option>").val('Resolved'));
       $('#listStatus').append($("<option>").val('Pending'));
     }else if ($('#lblNatureofComplaint').val() === 'Leaning pole' || $('#lblNatureofComplaint').val() === 'Rotten wood pole' ||$('#lblNatureofComplaint').val() === 'Stuck up meter') {
+      $('#listStatus').append($("<option>").val('Resolved'));
       $('#listStatus').append($("<option>").val('Scheduled'));
     }
 

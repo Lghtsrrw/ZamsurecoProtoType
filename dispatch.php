@@ -40,7 +40,7 @@ if (isLoggedIn()) {
 
       <!-- display operation success and fail -->
       <?php if(isset($_SESSION['success'])): ?>
-      <div id="divSubmitMessage">btnSelectedEmpbtnSelectedEmp
+      <div id="divSubmitMessage">
         <h3><?php echo $_SESSION['success']; ?></h3>
       </div>
       <?php
@@ -90,16 +90,13 @@ if (isLoggedIn()) {
             <label for="">Status: </label><br>
             <input type="text" list="listStatus" onclick="javascript: $(this).val('');" id="lblStatus" name="inSupportStatus" value="" style="width:auto; background-color: orange" required>
             <datalist id="listStatus">
-              <!-- <option value="Scheduled"></option>
-              <option value="Resolved"></option>
-              <option value="Pending"></option> -->
+              <!-- Option here is auto populated in js/dispatch.js -->
             </datalist>
             <br><br>
             <label for="" style="display:inline-block;float:left;clear:left">Remarks: </label>
             <textarea  name="inSupportRemarks" maxlength="200" rows="8" required></textarea><br><br>
             <div class="" style="width:100%">
               <button type="submit" id = "btnUpdateStatus" name="btnUpdateStatus" class="mainBtn">Update Status</button>
-              <!-- <button id = "btnResolve" style="color:white; background-color:red; float:right" class="mainBtn">Resolve</button> -->
             </div>
           </form>
         </div>

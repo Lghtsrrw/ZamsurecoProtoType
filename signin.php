@@ -15,7 +15,7 @@ require('databaseConnection/DatabaseQueries.php');
  ?>
 
 <!DOCTYPE html>
-<html>
+<html >
   <head>
     <title>Login Page</title>
     <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
@@ -25,7 +25,13 @@ require('databaseConnection/DatabaseQueries.php');
     <script src="js/signin.js"></script>
   </head>
 
-  <body>
+  <body style="
+  background: url('img/payment.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;">
+
     <!-- Trigger Sign Up/ Register modal -->
     <?php if (isset($_GET['register'])): ?>
       <script type="text/javascript">
@@ -44,7 +50,7 @@ require('databaseConnection/DatabaseQueries.php');
     <?php endif; ?>
     <!-- buttons declaration -->
     <div class ="btnContainer">
-      <fieldset style="width:80%; margin:10% auto; ">
+      <fieldset style="width:80%; margin:10% auto; background-color:white; opacity: .9">
         <div class="clscontainer">
             <button id = "btnEmpLogin" class="mainBtn" style="width:auto; float:right; background-color: green;">Log-in as Support</button>
         </div>

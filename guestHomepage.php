@@ -22,14 +22,17 @@ require('databaseConnection/DatabaseQueries.php');
     <script src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
+
         $("#btnComplaint").click(function(){
           window.location.href = "complaintTicket.php";
         });
+
         $('#btnLogout').on("click",function(){
           if (confirm("Are you sure you want to Log-out?") == true) {
               window.location.href = "index.php?logout='1'";
           }
         });
+
       });
     </script>
     <title>Welcome Guest</title>

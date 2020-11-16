@@ -31,8 +31,6 @@ session_start();
 		$_SESSION['LAST_ACTIVITY'] = $time;
 		// end of session time
 	}
-
-
 	// variable declaration
 	$errors = array();
 
@@ -884,7 +882,8 @@ session_start();
 
 	function fillAssignedComplaint($val){
 		global $db;
-		$queryAddress = "SELECT c.complaintno,
+		$queryAddress = "SELECT DISTINCT
+                            c.complaintno,
 														description,
 														Nature_of_Complaint,
 														concat(cRegion,', ',cProvince,', ', cCityMun,', ',cBrgy)
@@ -893,7 +892,8 @@ session_start();
                         AS 'locaII',
 														Area_landmark,
 														datetime_assigned,
-														empid_agent
+														empid_agent,
+                            (SELECT Status FROM complaint_status cs where cs.complaintno = c.complaintno ORDER BY cs.status_datetime DESC limit 1) as 'Status'
 										FROM complaints c
 										LEFT OUTER JOIN address a
 										ON a.addressno = c.location
@@ -914,15 +914,17 @@ session_start();
 			echo "</tr>";
 
 			while ($row = mysqli_fetch_assoc($results)) {
-				echo "<tr>";
-				echo "<td>" . $row['complaintno'] . "</td>";
-				echo "<td>" . $row['description'] . "</td>";
-				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
-				echo "<td>" . $row['loca'] . ': '. $row['locaII'] . "</td>";
-				echo "<td>" . $row['Area_landmark'] . "</td>";
-				echo "<td>" . $row['datetime_assigned'] . "</td>";
-				echo "<td>" . $row['empid_agent'] . "</td>";
-				echo "</tr>";
+          if ($row['Status'] !== 'Resolved') {
+            echo "<tr>";
+    				echo "<td>" . $row['complaintno'] . "</td>";
+    				echo "<td>" . $row['description'] . "</td>";
+    				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
+    				echo "<td>" . $row['loca'] . ': '. $row['locaII'] . "</td>";
+    				echo "<td>" . $row['Area_landmark'] . "</td>";
+    				echo "<td>" . $row['datetime_assigned'] . "</td>";
+    				echo "<td>" . $row['empid_agent'] . "</td>";
+    				echo "</tr>";
+          }
 			}
 			echo "</table>";
 		}else {
@@ -1099,13 +1101,33 @@ session_start();
       echo "Error:<br>" . mysqli_error($db);
     }
   }
+
   if(isset($_POST['btnUpdateStatus'])){
     savetoComplaintStatus($_SESSION['user']['EmpID'], $_POST['inSupportStatus'], $_POST['inSupportComplaintNo'], $_POST['inSupportRemarks']);
+    unset($_POST['btnUpdateStatus']);
   }
 
   function console_log($data){
     echo '<script>';
     echo 'console.log('. json_encode( $data ) .')';
     echo '</script>';
+  }
+
+  if(isset($_POST['queryBrgy'])){
+     retrieveRefBrgy($_POST['queryBrgy']);
+     // console_log('Hello World');
+
+  }
+
+  function retrieveRefBrgy($val){
+    global $db;
+
+    $sql = mysqli_query($db,"SELECT * from refbrgy where citymunCode = '$val'") or die (mysqli_error($db));
+
+    while ($row = mysqli_fetch_assoc($sql)) {
+      // echo $row['brgyDesc'] ;
+    	echo "<option >". $row['brgyDesc'] ."</option>";
+      console_log($row['brgyDesc']);
+    }
   }
 ?>

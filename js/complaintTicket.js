@@ -66,8 +66,22 @@ $(document).ready(function(){
         $.getJSON(muniURL, function(data){
           $.each(data, function(i, item){
             $.each(item, function(j, desc){
-              if(desc.provCode === '0973')
-              ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
+              if(desc.provCode == "0973" &&
+                desc.citymunDesc != "KUMALARANG" &&
+                desc.citymunDesc != "BAYOG" &&
+                desc.citymunDesc != "LAKEWOOD" &&
+                desc.citymunDesc != "ZAMBOANGA CITY"
+                ){
+                ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
+                console.log(desc.citymunCode);
+              }
+
+              if (desc.provCode == "1042" &&
+                  desc.citymunDesc == "DON VICTORIANO CHIONGBIAN  (DON MARIANO MARCOS)"
+              ){
+                ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
+                console.log(desc.citymunCode);
+              }
             });
           });
         });
