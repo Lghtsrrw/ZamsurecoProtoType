@@ -50,7 +50,7 @@ require('databaseConnection/DatabaseQueries.php');
     <?php endif; ?>
     <!-- buttons declaration -->
     <div class ="btnContainer">
-      <fieldset style="width:80%; margin:10% auto; background-color:white; opacity: .9">
+      <fieldset style="width:80%; margin: 10% auto; background-color:white; opacity: .9">
         <div class="clscontainer">
             <button id = "btnEmpLogin" class="mainBtn" style="width:auto; float:right; background-color: green;">Log-in as Support</button>
         </div>
