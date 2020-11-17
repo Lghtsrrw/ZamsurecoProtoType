@@ -175,64 +175,76 @@ if (isLoggedIn()) {
           <input type="hidden" name="hidComplaintNo" id="hididComplaint" value="">
 
           <!-- Office -->
-          <fieldset>
-            <legend><b>Office</b></legend>
-            <input type="Text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Select Office" name="inputEmpOffice" list="officeList" id="idEmpOffice" value="" autocomplete="off">
-            <datalist id="officeList">
-                <option value="DLS">
-                <option value="MSD">
-                <option value="HR">
-                <option value="CAD">
-                <option value="TSD">
-            </datalist>
-          </fieldset>
+          <div id="divoffice" style="display:none">
+            <fieldset>
+              <legend><b>Office</b></legend>
+              <input type="Text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Select Office" name="inputEmpOffice" list="officeList" id="idEmpOffice" value="" autocomplete="off">
+              <datalist id="officeList">
+                  <option value="DLS">
+                  <option value="MSD">
+                  <option value="HR">
+                  <option value="CAD">
+                  <option value="TSD">
+              </datalist>
+            </fieldset>
+          </div>
 
           <!-- Employee Details -->
-          <fieldset>
-            <legend><b>Employee</b></legend>
-            <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;"  list ='empIDList' placeholder="Search an Employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
-            <datalist id="empIDList">
-              <?php retrieveEmployeeList(); ?>
-            </datalist>
-            <input type="text" name="txtEmpName" id="empname" value="" placeholder="Employee name" readonly><br><br>
-          </fieldset>
+          <div id="divempdetails" style="display:none">
+            <fieldset>
+              <legend><b>Employee</b></legend>
+              <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;"  list ='empIDList' placeholder="Search an Employee ID" name="txtEmpID" id="idEmpName" value="" autocomplete="off">
+              <datalist id="empIDList">
+                <?php retrieveEmployeeList(); ?>
+              </datalist>
+              <input type="text" name="txtEmpName" id="empname" value="" placeholder="Employee name" readonly><br><br>
+            </fieldset>
+          </div>
 
           <!-- Area Coverage -->
-          <fieldset>
-            <legend><b>Area Coverage</b></legend>
-            <!-- Municipal/City Coverage -->
+          <div id="divareacov" style="display:none">
             <fieldset>
-              <legend>Municipal/City Coverage</legend>
-              <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
-              <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
-              <datalist id="empLocaCover"></datalist>
-              <table id="tblLocaCover">
-                <th>Locations</th>
-              </table>
-              <input type="text" id="_municode" value="">
-              <input type="hidden" name="rowAreaCov" id="countthis" value="0">
-              <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
+              <legend><b>Area Coverage</b></legend>
+              <!-- Municipal/City Coverage -->
+              <fieldset>
+                <legend>Municipal/City Coverage</legend>
+                <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
+                <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
+                <datalist id="empLocaCover"></datalist>
+                <table id="tblLocaCover">
+                  <th>Locations</th>
+                </table>
+                <input type="text" id="_municode" value="">
+                <input type="hidden" name="rowAreaCov" id="countthis" value="0">
+                <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
+              </fieldset>
+              <!-- Barangay Coverage -->
+              <fieldset id="idBrgyCov" style="display:none">
+                <legend>Barangay Coverage</legend>
+                <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='empBrgyCover' name="inputComplaint" id="idEmpBrgy" autocomplete="off">
+
+                <datalist id='empBrgyCover'></datalist>
+
+                <table id="tblBrgyCover">
+                  <th>Locations</th>
+                </table>
+                <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
+              </fieldset>
             </fieldset>
-            <!-- Barangay Coverage -->
-            <fieldset id="idBrgyCov" style="display:none">
-              <legend>Barangay Coverage</legend>
-              <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='hidABrgyCovNo' name="inputComplaint" id="idEmpBrgy" value="" autocomplete="off">
-              <datalist id="empBrgyCover"></datalist>
-              <table id="tblBrgyCover">
-                <th>Locations</th>
-              </table>
-              <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
-            </fieldset>
-          </fieldset>
+          </div>
 
           <!-- Contacts Field -->
-          <fieldset>
-            <legend><b>Contact</b></legend>
-            <input type="text" onkeypress="validate(event);" maxlength="11" name="inputEmpContact" id="idEmpContact" value="" autocomplete="off">
-          </fieldset>
+          <div id="divcontact" style="display:none">
+            <fieldset>
+              <legend><b>Contact</b></legend>
+              <input type="text" onkeypress="validate(event);" maxlength="11" name="inputEmpContact" id="idEmpContact" value="" autocomplete="off">
+            </fieldset>
+          </div>
 
-          <button type="submit" id="btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
-          <button type="button" id="btnShowComplaintRec" class="mainBtn" >Complaint Handlers</button>
+          <div id="divdsptchmngBtn" style="display:none">
+            <button type="submit" id="btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
+            <button type="button" id="btnShowComplaintRec" class="mainBtn" >Complaint Handlers</button>
+          </div>
         </form>
       </div>
     </div>

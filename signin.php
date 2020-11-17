@@ -51,9 +51,11 @@ require('databaseConnection/DatabaseQueries.php');
     <!-- buttons declaration -->
     <div class ="btnContainer">
       <fieldset style="width:80%; margin: 10% auto; background-color:white; opacity: .9">
-        <div class="clscontainer">
+
+        <!-- <div class="clscontainer">
             <button id = "btnEmpLogin" class="mainBtn" style="width:auto; float:right; background-color: green;">Log-in as Support</button>
-        </div>
+        </div> -->
+
         <!-- title -->
         <div class="logoimg">
           <img src="img/logo.png" id="logotitle">

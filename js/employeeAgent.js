@@ -34,7 +34,6 @@ $(document).ready(function(){
             ){
             $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
-
           if (desc.provCode == "1042" &&
               desc.citymunDesc == "DON VICTORIANO CHIONGBIAN  (DON MARIANO MARCOS)"
           ){
@@ -57,6 +56,9 @@ $(document).ready(function(){
 
   // Adding rows and Value to TBl in Dispatch Manage Modal
   $('#idEmpLocat').change(function(){
+    if ($('#idEmpLocat').val() != "") {
+      $('#divcontact').css('display', 'block')
+    }
     var _tblLoc = document.getElementById('tblLocaCover').getElementsByTagName('tbody')[0];
     var _tblRow = _tblLoc.insertRow();
     var _tblCell = _tblRow.insertCell(0);
@@ -67,6 +69,7 @@ $(document).ready(function(){
     retrieveMunicipalID(MuniCov);
 
     appendBrgy($('#_municode').val()); //Populate empBrgyCover datalist
+
     arrEmpLocCov['Area'].push(MuniCov);
     console.log(arrEmpLocCov);
 
@@ -206,6 +209,11 @@ $(document).ready(function(){
 
   $('#idEmpName').change(function(e){
     e.preventDefault();
+
+    if ( $('#idEmpName').val() != "") {
+      $('#divareacov').css('display','block')
+    }
+
     var val = $('#idEmpName').val();
     $.ajax({
       url: 'load-empname.php',
@@ -217,6 +225,10 @@ $(document).ready(function(){
   })
 
   $('#idEmpOffice').change(function(){
+    if ($('#idEmpOffice').val() != "") {
+      $('#divempdetails').css('display','block');
+    }
+
     if($('#idEmpOffice').val() == "TSD"){
       $('#idBrgyCov').css("display","block");
     }else{
@@ -276,7 +288,22 @@ $(document).ready(function(){
       })
       $('#empSupp').val($('#setEmpID').val());
   })
+
+  $('#_noc').change(function(){
+    if($('#_noc').val() != "-- complaint --"){
+      $('#divoffice').css('display','block');
+    }
+  })
+
+  $('#idEmpContact').keyup(function(){
+    if($('#idEmpContact').val() != "" && $('#idEmpContact').val().length == 11){
+      $('#divdsptchmngBtn').css('display', 'block')
+    }else {
+      $('#divdsptchmngBtn').css('display', 'none')
+    }
+  })
 });
+
 function complainthandlerDefault(){
   $('#setEmpSupp').css('display','none')
 
@@ -352,19 +379,23 @@ function performDispatch(){
 function appendBrgy(muni){
   if($('#idEmpOffice').val() == "TSD")
   {
-    // $.ajax({
-    //   type: "POST",
-    //   url: 'databaseConnection/DatabaseQueries.php',
-    //   data: { 'queryBrgy': muni },
-    //   success: function(result){
-    //       $('#empLocaCover').append($("<option>").val(result));
-    //     // window.location.href = 'employeeAgent.php';
-    //     console.log(result);
-    //   }
-    // })
+    $.ajax({
+      type: "POST",
+      url: 'databaseConnection/DatabaseQueries.php',
+      data: { 'queryBrgy': muni },
+      success: function(result){
+    //  $('#empBrgyCover').append($("<option>").val(result));
+        console.log(result);
+        var arrjsBrgy = jQuery.parseJSON(result);
+        for (var i = 0; i < result.length; i++) {
+          $('#empBrgyCover').append($("<option>").val(arrjsBrgy[i]));
+        }
+
+      }
+    })
     // $('#complainthandlerBtn').css('display','none')
-    $('#empBrgyCover').load("databaseConnection/DatabaseQueries.php", {
-      queryBrgy: muni
-    });
+    // $('#divbrgylist').load("databaseConnection/DatabaseQueries.php", {
+    //   queryBrgy: muni
+    // });
   }
 }

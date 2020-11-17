@@ -1121,13 +1121,14 @@ session_start();
 
   function retrieveRefBrgy($val){
     global $db;
-
+    $arrBrgy = array();
     $sql = mysqli_query($db,"SELECT * from refbrgy where citymunCode = '$val'") or die (mysqli_error($db));
-
     while ($row = mysqli_fetch_assoc($sql)) {
       // echo $row['brgyDesc'] ;
-    	echo "<option >". $row['brgyDesc'] ."</option>";
-      console_log($row['brgyDesc']);
+      array_push($arrBrgy, $row['brgyDesc']);
+    	// echo "<option value='". $row[  'brgyDesc'] ."'>";
+      // console_log($row['brgyDesc']);
     }
+    echo json_encode($arrBrgy);
   }
 ?>
