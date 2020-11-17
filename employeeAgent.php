@@ -164,11 +164,11 @@ if (isLoggedIn()) {
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
         </div>
+        <button type="button" id="btnShowComplaintRec" class="mainBtn" >View complaint-handlers</button>
         <h2>Dispatch Management</h2>
         <form class="frmDsptMng" id="dsptMngForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-
           <b><label for="">Complaint</label></b>
-          <select value ="" class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('hididComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:30px;font-size:15px; text-align: center">
+          <select value ="" class="_noc" id="_noc" name="ncomplaint" onchange="document.getElementById('hididComplaint').value=this.options[this.selectedIndex].text" style="width:100%; height:35px;font-size:15px; text-align: center">
             <option value = "-- complaint --" selected="selected" disabled>-- Complaint --</option>
             <?php fillNatureOfComplaint(); ?>
           </select><br><br>
@@ -215,13 +215,13 @@ if (isLoggedIn()) {
                   <th>Locations</th>
                 </table>
                 <input type="text" id="_municode" value="">
-                <input type="hidden" name="rowAreaCov" id="countthis" value="0">
+                <input type="text" name="rowAreaCov" id="countthis" value="0">
                 <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
               </fieldset>
               <!-- Barangay Coverage -->
               <fieldset id="idBrgyCov" style="display:none">
                 <legend>Barangay Coverage</legend>
-                <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='empBrgyCover' name="inputComplaint" id="idEmpBrgy" autocomplete="off">
+                <input type="text" list ='empBrgyCover' name="inputComplaint" id="idEmpBrgy" autocomplete="off">
 
                 <datalist id='empBrgyCover'></datalist>
 
@@ -243,7 +243,6 @@ if (isLoggedIn()) {
 
           <div id="divdsptchmngBtn" style="display:none">
             <button type="submit" id="btnSubmitDsptMng" name="dsptMngBtn" class="mainBtn" >Update</button>
-            <button type="button" id="btnShowComplaintRec" class="mainBtn" >Complaint Handlers</button>
           </div>
         </form>
       </div>

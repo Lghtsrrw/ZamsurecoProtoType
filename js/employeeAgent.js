@@ -56,21 +56,23 @@ $(document).ready(function(){
 
   // Adding rows and Value to TBl in Dispatch Manage Modal
   $('#idEmpLocat').change(function(){
+
     if ($('#idEmpLocat').val() != "") {
       $('#divcontact').css('display', 'block')
+    }else {
+      $('#divcontact').css('display', 'none')
     }
+    // #region insert value in table
     var _tblLoc = document.getElementById('tblLocaCover').getElementsByTagName('tbody')[0];
     var _tblRow = _tblLoc.insertRow();
     var _tblCell = _tblRow.insertCell(0);
-    var MuniCov = $('#idEmpLocat').val()
-    var _tblValue = document.createTextNode(MuniCov);
+    var citycoverage = $('#idEmpLocat').val();
+    retrieveMunicipalID(citycoverage);
+    var _tblValue = document.createTextNode(citycoverage);
     _tblCell.appendChild(_tblValue);
 
-    retrieveMunicipalID(MuniCov);
-
-    appendBrgy($('#_municode').val()); //Populate empBrgyCover datalist
-
-    arrEmpLocCov['Area'].push(MuniCov);
+    arrEmpLocCov['Area'].push(citycoverage);
+    // appendBrgy($('#_municode').val()); //Populate empBrgyCover datalist
     console.log(arrEmpLocCov);
 
     $('#countthis').val($('#tblLocaCover tr').length - 1);
@@ -174,7 +176,7 @@ $(document).ready(function(){
     }
   })
 
-
+  // removing rows in table remove value
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
     if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
       // remove selected row from the dsptmng modal
@@ -302,6 +304,11 @@ $(document).ready(function(){
       $('#divdsptchmngBtn').css('display', 'none')
     }
   })
+
+  $('#idEmpBrgy').click(function(){
+    if($(this).val() !== '') {$(this).val('');}
+    return false;
+  })
 });
 
 function complainthandlerDefault(){
@@ -334,16 +341,24 @@ function validate(evt) {
 }
 
 function retrieveMunicipalID(_value){
-  // insert City/Municipal code to Array
+  // insert City/Municipal code to array
   try {
     const regURL = 'json/refcitymun.json';
     $.getJSON(regURL, function(data){
       $.each(data, function(i, item){
         $.each(item, function(j, desc){
           if(desc.citymunDesc == _value && desc.provCode == "0973"){
+            // arrEmpLocCov['municipalcode'].push(desc.citymunCode);
+            $('#_municode').val(desc.citymunCode);
             arrEmpLocCov['municipalcode'].push(desc.citymunCode);
-            $('#_municode').val(desc.citymunCode)
+            appendBrgy(desc.citymunCode);
+          }else if(desc.citymunDesc == _value && desc.provCode == "1042"){
+            $('#_municode').val(desc.citymunCode);
+            arrEmpLocCov['municipalcode'].push(desc.citymunCode);
+            appendBrgy(desc.citymunCode);
           }
+
+
         });
       });
     });
@@ -393,7 +408,6 @@ function appendBrgy(muni){
 
       }
     })
-    // $('#complainthandlerBtn').css('display','none')
     // $('#divbrgylist').load("databaseConnection/DatabaseQueries.php", {
     //   queryBrgy: muni
     // });

@@ -1032,7 +1032,7 @@ session_start();
 		$queryAssignComplaint = "INSERT INTO complaint_assign (complaintno, empid_agent, empid_support, datetime_assigned) values ('$val1', '$agentid','$val2', now())";
 		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db ));
 
-    savetoComplaintStatus($agentid, 'Dispatched to personnel-in-charged', $val1, 'Complaint has been dispatched to the appropriate personnel for immediate action.');
+    savetoComplaintStatus($agentid, 'Dispatched to personnel-in-charge', $val1, 'Complaint has been dispatched to the appropriate personnel for immediate action.');
 		echo "Successfully Assigned";
 	}
 
