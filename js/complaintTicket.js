@@ -121,14 +121,6 @@ $(document).ready(function(){
     }
   });
 
-  $('#ddPurok').blur(function() {
-    if($('#ddPurok').val() !== ""){
-    $('#ticketBtnId').show();
-    }else{
-      $('#ticketBtnId').hide();
-    }
-  });
-
   $('#inempname').blur(function() {
     if($('#inempname').val() !== ""){
       $('#divPurok').show();
@@ -142,6 +134,14 @@ $(document).ready(function(){
       $('#divPurok').show();
     }else {
       $('#divPurok').hide();
+    }
+  })
+
+  $('#ddPurok').keyup(function(){
+    if($('#ddPurok').val() !== ""){
+    $('#ticketBtnId').show();
+    }else{
+      $('#ticketBtnId').hide();
     }
   })
 });

@@ -210,26 +210,30 @@ if (isLoggedIn()) {
                 <legend>Municipal/City Coverage</legend>
                 <input type="hidden" id = "AreaCovID" name="hidAreaCovNo" value="<?php echo generateAreaCoverageNo(); ?>">
                 <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" list ='empLocaCover' name="inputComplaint" id="idEmpLocat" value="" autocomplete="off">
-                <datalist id="empLocaCover"></datalist>
+                <datalist id="empLocaCover">
+                  <!-- option-list here are automatically populated in empAgent.js file  -->
+                </datalist>
                 <table id="tblLocaCover">
                   <th>Locations</th>
                 </table>
-                <input type="text" id="_municode" value="">
-                <input type="text" name="rowAreaCov" id="countthis" value="0">
+                <input type="hidden" id="_municode" value="">
+                <input type="hidden" name="rowAreaCov" id="countthis" value="0">
                 <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
               </fieldset>
               <!-- Barangay Coverage -->
-              <fieldset id="idBrgyCov" style="display:none">
-                <legend>Barangay Coverage</legend>
-                <input type="text" list ='empBrgyCover' name="inputComplaint" id="idEmpBrgy" autocomplete="off">
+              <div id="divBrgyCov">
+                <fieldset id="idBrgyCov" style="display:none">
+                  <legend>Barangay Coverage</legend>
+                  <input type="text" list ='empBrgyCover' name="inputComplaint" id="idEmpBrgy" autocomplete="off">
 
-                <datalist id='empBrgyCover'></datalist>
+                  <datalist id='empBrgyCover'></datalist>
 
-                <table id="tblBrgyCover">
-                  <th>Locations</th>
-                </table>
-                <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
-              </fieldset>
+                  <table id="tblBrgyCover">
+                    <th>Locations</th>
+                  </table>
+                  <p style="font-size: 10px; color:#999;">Click on the rows to remove entry.</p>
+                </fieldset>
+              </div>
             </fieldset>
           </div>
 

@@ -90,7 +90,7 @@ if (isLoggedIn()) {
             <label for="">Status: </label><br>
             <input type="text" list="listStatus" onclick="javascript: $(this).val('');" id="lblStatus" name="inSupportStatus" value="" style="width:auto; background-color: orange" required>
             <datalist id="listStatus">
-              <!-- Option here is auto populated in js/dispatch.js -->
+            <!-- Option here is auto populated in js/dispatch.js -->
             </datalist>
             <br><br>
             <label for="" style="display:inline-block;float:left;clear:left">Remarks: </label>

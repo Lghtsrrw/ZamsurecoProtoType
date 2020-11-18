@@ -1,5 +1,6 @@
 var arrEmpLocCov = {};
 arrEmpLocCov['Area'] = [];
+arrEmpLocCov['Brgy'] = [];
 arrEmpLocCov['municipalcode'] = [];
 $(document).keypress(
   function(event){
@@ -57,24 +58,23 @@ $(document).ready(function(){
   // Adding rows and Value to TBl in Dispatch Manage Modal
   $('#idEmpLocat').change(function(){
 
+    displayBrgyCov();
+
     if ($('#idEmpLocat').val() != "") {
       $('#divcontact').css('display', 'block')
     }else {
       $('#divcontact').css('display', 'none')
     }
+
     // #region insert value in table
     var _tblLoc = document.getElementById('tblLocaCover').getElementsByTagName('tbody')[0];
     var _tblRow = _tblLoc.insertRow();
     var _tblCell = _tblRow.insertCell(0);
     var citycoverage = $('#idEmpLocat').val();
-    retrieveMunicipalID(citycoverage);
     var _tblValue = document.createTextNode(citycoverage);
-    _tblCell.appendChild(_tblValue);
-
-    arrEmpLocCov['Area'].push(citycoverage);
-    // appendBrgy($('#_municode').val()); //Populate empBrgyCover datalist
-    console.log(arrEmpLocCov);
-
+    _tblCell.appendChild(_tblValue);            //appending value to Table
+    arrEmpLocCov['Area'].push(citycoverage);  //pushing value in object array
+    retrieveMunicipalID(citycoverage);        //Insert municipalslist in the data list
     $('#countthis').val($('#tblLocaCover tr').length - 1);
   })
 
@@ -179,6 +179,7 @@ $(document).ready(function(){
   // removing rows in table remove value
   $('body').on("click",'#tblLocaCover tr:has(td)', function(){
     if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
+
       // remove selected row from the dsptmng modal
       $(this).closest('tr').remove();
       $('#countthis').html($('#tblLocaCover tr').length - 1);
@@ -190,6 +191,29 @@ $(document).ready(function(){
         }
       }
       $('#countthis').val($('#tblLocaCover tr').length - 1);
+      console.log(arrEmpLocCov);
+
+      $('#divBrgyCov').load(window.location.href + " #divBrgyCov");
+      $('#idBrgyCov').css('display','block');
+      // change brgycov
+      displayBrgyCov();
+
+      for (var i = 0; i < arrEmpLocCov['municipalcode'].length; i++) {
+        retrieveMunicipalID(arrEmpLocCov['municipalcode'][i]);
+      }
+    }
+  });
+
+  $('body').on("click",'#tblBrgyCover tr:has(td)', function(){
+    if (confirm("Are you sure you want to remove '"+ $(this).text() +"'?") == true) {
+      // remove selected row from the dsptmng modal
+      $(this).closest('tr').remove();
+      // remove selected index from the array
+      for(var i = 0; i < arrEmpLocCov['Brgy'].length; i++){
+        if(i == arrEmpLocCov['Brgy'].indexOf($(this).text())){
+          arrEmpLocCov['Brgy'].splice(i,1);
+        }
+      }
       console.log(arrEmpLocCov);
     }
   });
@@ -231,14 +255,13 @@ $(document).ready(function(){
       $('#divempdetails').css('display','block');
     }
 
-    if($('#idEmpOffice').val() == "TSD"){
-      $('#idBrgyCov').css("display","block");
-    }else{
-      $('#idBrgyCov').css("display","none");
-    }
+    // change brgycov
+    displayBrgyCov();
+
   })
 
   $('#btnSubmitDsptMng').on("click", function(){
+    console.log(JSON.stringify(arrEmpLocCov));
     $.ajax({
       type: "POST",
       url: 'databaseConnection/DatabaseQueries.php',
@@ -309,12 +332,18 @@ $(document).ready(function(){
     if($(this).val() !== '') {$(this).val('');}
     return false;
   })
+
+  $('#idEmpBrgy').change(function(){
+
+    var _tblLoc = document.getElementById('tblBrgyCover').getElementsByTagName('tbody')[0];
+    var _tblRow = _tblLoc.insertRow();
+    var _tblCell = _tblRow.insertCell(0);
+    var brgycover = $('#idEmpBrgy').val();
+    var _tblValue = document.createTextNode(brgycover);
+    _tblCell.appendChild(_tblValue);
+    arrEmpLocCov['Brgy'].push(brgycover);
+  })
 });
-
-function complainthandlerDefault(){
-  $('#setEmpSupp').css('display','none')
-
-}
 function hideModals(){
   $('#divTbl').css("display","none");
   $('#divRegSupp').css("display","none");
@@ -357,8 +386,6 @@ function retrieveMunicipalID(_value){
             arrEmpLocCov['municipalcode'].push(desc.citymunCode);
             appendBrgy(desc.citymunCode);
           }
-
-
         });
       });
     });
@@ -399,7 +426,6 @@ function appendBrgy(muni){
       url: 'databaseConnection/DatabaseQueries.php',
       data: { 'queryBrgy': muni },
       success: function(result){
-    //  $('#empBrgyCover').append($("<option>").val(result));
         console.log(result);
         var arrjsBrgy = jQuery.parseJSON(result);
         for (var i = 0; i < result.length; i++) {
@@ -408,8 +434,13 @@ function appendBrgy(muni){
 
       }
     })
-    // $('#divbrgylist').load("databaseConnection/DatabaseQueries.php", {
-    //   queryBrgy: muni
-    // });
+  }
+}
+
+function displayBrgyCov(){
+  if($('#idEmpOffice').val() == "TSD"){
+    $('#idBrgyCov').css("display","block");
+  }else {
+    $('#idBrgyCov').css("display","none");
   }
 }

@@ -599,24 +599,32 @@ session_start();
 	// saving 'Area Coverage Array' on manageDispatch Modal, when pressing  "Save"
 	if(isset($_POST['paramName']) && isset($_POST['areaCovNo'])){
 			$newArraythis = json_decode($_POST['paramName'], true);
-			var_dump($newArraythis);
-			printf($_POST['areaCovNo']);
 			$areacovthis = $_POST['areaCovNo'];
-			saveAreaCoverage( $newArraythis['Area'], $areacovthis);
+			saveAreaCoverage($newArraythis, $areacovthis);
 			print_r('lol');
 	}
+
 
 	// saving Form on manageDispatch Modal, when pressing  "Save"
 	if(isset($_POST['dsptMngBtn'])){
 			saveComplaintReceiver();
 	}
+
 	function saveAreaCoverage($objName, $areacovNo){
 		global $db;
 
-		for($i = 0; $i < count($objName); $i++){
-			$city = $objName[$i];
+		for($i = 0; $i < count($objName['Area']); $i++){
+			$city = $objName['Area'][$i];
 			if(mysqli_query($db, "INSERT INTO receiver_area_coverage (area_coverage_no, city_mun) VALUES ( '$areacovNo', '$city')")){
-				printf( "Success Saving:"  . $city);
+				console_log('successfully saved: ' . $city);
+			} else {
+				echo "Error: <br>" . mysqli_error($db);
+			}
+		}
+    for($i = 0; $i < count($objName['Brgy']); $i++){
+			$brgy = $objName['Brgy'][$i];
+			if(mysqli_query($db, "INSERT INTO receiver_brgy_coverage (area_coverage_no, barangay) VALUES ( '$areacovNo', '$brgy')")){
+				console_log('successfully saved: ' . $brgy);
 			} else {
 				echo "Error: <br>" . mysqli_error($db);
 			}
@@ -846,19 +854,20 @@ session_start();
 			echo "<th>Description</th>";
 			echo "<th>Nature of complaint</th>";
 			echo "<th>Location ID / Complainee</th>";
+			echo "<th>Created at</th>";
 			echo "<th>STATUS</th>";
 		echo "</tr>";
 
 		$queryAddress = "SELECT c.ComplaintNo as 'No',
 														Description,
 														Nature_of_Complaint,
-														-- CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy) AS 'Location',
-                           c.location,
+														CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy,': ', c.Location) AS 'Location',
+                           -- c.location,
 														Date_Time_Complaint,
                             (select Status from complaint_status where complaintno = c.ComplaintNo order by status_datetime desc limit 1)as _Status
 										FROM complaints c
 										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo
-										LEFT OUTER JOIN address a ON a.addressno = c.location
+										LEFT JOIN address a ON a.addressno = c.location
 										INNER JOIN user u ON u.userID = uc.complaintID
 										WHERE uc.complaintID = '$val'
 										ORDER BY c.ComplaintNo desc";
@@ -872,9 +881,9 @@ session_start();
 				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td>". $row['Description'] ."</td>";
 				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
-				echo "<td>". $row['location'] ."</td>";
+				echo "<td>". $row['Location'] ."</td>";
+				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td>". $row['_Status'] ."</td>";
-				echo "<td></td>";
 				echo "</tr>";
 			}
 		}
@@ -943,16 +952,18 @@ session_start();
 																			concat(fname, ' ', lname) as 'name',
 																			c.Nature_of_Complaint 'noc',
 																			city_mun,
-																			brgy
+                                      barangay
 										FROM complaint_receiver cr
 										INNER JOIN complaints c
 											ON cr.complaintID = c.Nature_of_Complaint
 										INNER JOIN receiver_area_coverage rac
 											ON cr.area_coverage_no = rac.area_coverage_no
+                    LEFT OUTER JOIN receiver_brgy_coverage rbc
+                      ON cr.area_coverage_no = rbc.area_coverage_no
 										INNER JOIN employee e
 											ON cr.empid = e.EmpID
 										WHERE c.Nature_of_Complaint = '$nature'
-											AND city_mun = '$citymun'";
+											AND (city_mun = '$citymun' OR barangay = '$citymun')";
 
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
@@ -1124,10 +1135,7 @@ session_start();
     $arrBrgy = array();
     $sql = mysqli_query($db,"SELECT * from refbrgy where citymunCode = '$val'") or die (mysqli_error($db));
     while ($row = mysqli_fetch_assoc($sql)) {
-      // echo $row['brgyDesc'] ;
       array_push($arrBrgy, $row['brgyDesc']);
-    	// echo "<option value='". $row[  'brgyDesc'] ."'>";
-      // console_log($row['brgyDesc']);
     }
     echo json_encode($arrBrgy);
   }
