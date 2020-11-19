@@ -10,28 +10,27 @@ $(document).ready(function() {
     $('.modal').css('display','none')
   })
   $('body').on("click",'#tblData tr', function(){
-    $(this).addClass('selected').siblings().removeClass('selected');
-    var value=$(this).find('td:first').html();
-    $('#lblComplaintno').val(value);
-    $('#btnStatus').prop("disabled", false);
+    $(this).addClass('selected').siblings().removeClass('selected')
+
+    $('#lblComplaintno').val($('.selected').find('td:first').html())
+    $('#lblNatureofComplaint').val($('.selected').find('td:nth-child(3)').html())
+
+    $('#btnStatus').prop("disabled", false)
   });
 
   $('#btnStatus').click(function(){
 
     $('#divUpdateStatus').css('display','block')
-    $('#lblComplaintno').val($('.selected').find('td:first').html())
-    $('#lblNatureofComplaint').val($('.selected').find('td:nth-child(3)').html())
-
-    $('#listStatus').empty();
-
+    $('#listStatus').empty()
     if ($('#lblNatureofComplaint').val() === 'Busted fuse link') {
-    $('#listStatus').append($("<option>").val('Resolved'));
-      $('#listStatus').append($("<option>").val('Pending'));
+      $('#listStatus').append($("<option>").val('Resolved'))
+      $('#listStatus').append($("<option>").val('Pending'))
     }else if ($('#lblNatureofComplaint').val() === 'Leaning pole' || $('#lblNatureofComplaint').val() === 'Rotten wood pole' ||$('#lblNatureofComplaint').val() === 'Stuck up meter') {
-      $('#listStatus').append($("<option>").val('Resolved'));
-      $('#listStatus').append($("<option>").val('Scheduled'));
+      $('#listStatus').append($("<option>").val('Resolved'))
+      $('#listStatus').append($("<option>").val('Scheduled'))
+    }else {
+      $('#listStatus').append($("<option>").val('Resolved'))
     }
-
   })
 
 

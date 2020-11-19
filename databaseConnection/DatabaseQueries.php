@@ -299,7 +299,7 @@ session_start();
 	}
 
 	function isGuest(){
-		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'guest' ) {
+		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Guest' ) {
 			return true;
 		}else{
 			return false;
@@ -416,6 +416,19 @@ session_start();
 
       // initiating status for this complaint ticket.
       savetoComplaintStatus($user, 'Waiting for verificaton from Agent', $trackno, 'Ticket has been submitted and is subject for review.');
+
+      // perform SMS Message
+      $result = itexmo($_SESSION['user']['Contact'],"ZAMSURECO-1 MOBILE APP SMS TEST","TR-SYEDR840609_B51Q5", 'ch$e3k9)3d');
+      if ($result == ""){
+      echo "iTexMo: No response from server!!!
+      Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.
+      Please CONTACT US for help. ";
+      }else if ($result == 0){
+      echo "Message Sent!";
+      }
+      else{
+      echo "Error Num ". $result . " was encountered!";
+      }
 
       $_SESSION['submit'] = "1";
       $_SESSION['trackno'] = $trackno;
@@ -537,19 +550,19 @@ session_start();
 		if(count($errors) == 0){
 			// save to Employee Table
 			if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
-				echo "New support created";
+        console_log('support created');
 			}else {
 			 echo "Error:<br>" . mysqli_error($db);
 			}
 			// save to System Account Table
 			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
-				echo "New support account created";
+        console_log("SAVE SUPPORT ");
 			}else {
 				echo "Error:<br>" . mysqli_error($db);
 			}
 			// save to ID Verification Table
 			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), 'Support')")) {
-				echo "New support account created";
+				console_log(' SAVED ID VER');
 			}else {
 				echo "Error:<br>" . mysqli_error($db);
 			}
@@ -1164,6 +1177,7 @@ session_start();
 			}
 		}else {
 				echo "<p style='color:red; float:center'>No action taken yet.</p>";
+        header('location: index.php');
 		}
   }
 
@@ -1198,4 +1212,18 @@ session_start();
 		}
     echo json_encode($complainantInfo);
   }
+
+  function itexmo($number,$message,$apicode,$passwd){
+		$url = 'https://www.itexmo.com/php_api/api.php';
+		$itexmo = array('1' => $number, '2' => $message, '3' => $apicode, 'passwd' => $passwd);
+		$param = array(
+			'http' => array(
+				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+				'method'  => 'POST',
+				'content' => http_build_query($itexmo),
+			),
+		);
+		$context  = stream_context_create($param);
+		return file_get_contents($url, false, $context);
+}
 ?>

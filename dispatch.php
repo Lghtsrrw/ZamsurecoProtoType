@@ -88,7 +88,7 @@ if (isLoggedIn()) {
             <input type="text" id="lblNatureofComplaint" value="" style="width:auto;" readonly>
             <br><br>
             <label for="">Status: </label><br>
-            <input type="text" list="listStatus" onclick="javascript: $(this).val('');" id="lblStatus" name="inSupportStatus" value="" style="width:auto; background-color: orange" required>
+            <input type="text" list="listStatus" onclick="javascript: $(this).val('');" id="lblStatus" name="inSupportStatus" value="" style="width:auto; background-color: orange" autocomplete="off" required>
             <datalist id="listStatus">
             <!-- Option here is auto populated in js/dispatch.js -->
             </datalist>

@@ -13,17 +13,17 @@ require('databaseConnection/DatabaseQueries.php');
     <script src="js/track-complaint.js"></script>
   </head>
   <body style="background-color: #fffbd9">
+
     <div id="divLogout" style="width:100%">
       <h5>
         <a id="btnBack" href="#">BACK</a>
-        <a id="btnLogout" href="index.php?logout='1'" style='color:red; float:right'>LOGOUT</a>
       </h5>
     </div>
-    <div id="container">
 
+    <div id="container">
       <div class="imgcontainer">
         <img src="img/userprofile.png" alt="Avatar" class="avatar">
-          <h3 style="color:navy; animate:">ZAMSURECO-I COMPLAINT TRACKER</h3>
+        <h3 style="color:navy; animate:">ZAMSURECO-I COMPLAINT TRACKER</h3>
       </div>
 
       <?php if(isset($_GET['TN'])) :?>
