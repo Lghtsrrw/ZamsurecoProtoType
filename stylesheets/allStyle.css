@@ -21,7 +21,12 @@ input[type=text], input[type=password],input[type=number] option{
   -o-background-size: cover;
   background-size: cover;
 }
-
+#container{
+  border: 1px solid black;
+  text-align: center;
+  padding: 16px;
+  background-color: whitesmoke;
+}
 .inputInvalid{
   border: 1px solid red;
   display: block;
@@ -403,8 +408,9 @@ span.psw {
 }
 
 .btnContainer{
-  text-align: center;
-  padding: .5%;
+  text-align: left;
+  padding: 20px;
+  padding-left: 50px
   margin: 0px auto;
 }
 

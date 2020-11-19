@@ -32,7 +32,7 @@ $(document).ready(function(){
   });
 
   $('#btnTrackNow').click(function(){
-    openInNewTab('tracking-complaint.php?TrackNo=' + $('#inputTrackingNo').val());
+    openInNewTab('tracking-complaint.php?TN=' + $('#inputTrackingNo').val());
   })
 });
 

@@ -104,31 +104,14 @@ if (isGuest()) {
 		    </div>
 				<div class="" style="width:100%">
 				<button type="button" class="mainBtn" id="btnCreateComplaint">Create ticket</button>
-					<button type="button" class="mainBtn" id="btnTrackComplaint">Track complaint</button>
+				<button type="button" class="mainBtn" id="btnTrackComplaint" disabled>Track complaint</button>
+				<input type="hidden" placeholder="Enter Tracking No" id="inComplaintNo" name="uname" required>
 				</div>
 				<div class="div4Table">
-					<table>
+					<table id="tblComplaintList">
 						<?php userComplaintTable($_SESSION['user']['username']); ?>
 					</table>
 				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<!-- Track Modal -->
-	<div id="trackModal" class="modal">
-		<div class="modal-content animate">
-			<div class="clscontainer">
-				<span class="close" title="Close Modal">&times;</span>
-			</div>
-			<div class="container" style="overflow-x:auto; padding: 20px">
-          <label for="uname"><b>Tracking No.:</b></label>
-          <input type="text" placeholder="Enter Tracking No" id="inComplaintNo" name="uname" required>
-          <button class="mainBtn" id="btntrack">Track</button>
-			</div>
-			<hr>
-			<div class="divTrackRecords">
 
 			</div>
 		</div>

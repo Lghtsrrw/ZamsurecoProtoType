@@ -853,7 +853,7 @@ session_start();
 		echo "<th>Date created</th>";
 			echo "<th>Description</th>";
 			echo "<th>Nature of complaint</th>";
-			echo "<th>Location ID / Complainee</th>";
+			echo "<th>Location / Complainee</th>";
 			echo "<th>Created at</th>";
 			echo "<th>STATUS</th>";
 		echo "</tr>";
@@ -861,8 +861,7 @@ session_start();
 		$queryAddress = "SELECT c.ComplaintNo as 'No',
 														Description,
 														Nature_of_Complaint,
-														CONCAT(cregion, ', ',cprovince,', ',ccitymun,', ',cbrgy,': ', c.Location) AS 'Location',
-                           -- c.location,
+														CONCAT(coalesce(cregion,''),' ',coalesce(cprovince,''),' ',coalesce(ccitymun,''),' ',coalesce(cbrgy,''),' ', c.location) AS 'Location',
 														Date_Time_Complaint,
                             (select Status from complaint_status where complaintno = c.ComplaintNo order by status_datetime desc limit 1)as _Status
 										FROM complaints c
@@ -1138,5 +1137,65 @@ session_start();
       array_push($arrBrgy, $row['brgyDesc']);
     }
     echo json_encode($arrBrgy);
+  }
+
+  function displayStatusfromTracking($val){
+    global $db;
+
+		$queryAddress = "SELECT *
+                    FROM complaint_status
+                    WHERE  complaintno = '$val'
+                    ORDER BY status_datetime DESC";
+
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
+		if(mysqli_num_rows($results) > 0){
+
+      echo "<tr>";
+			echo "<th>Status</th>";
+			echo "<th>Remarks</th>";
+			echo "<th>Date & time updated</th>";
+			echo "</tr>";
+			while ($row = mysqli_fetch_assoc($results)) {
+				echo "<tr>";
+				echo "<td style='background-color: #2d8c8c; border-left: 1px solid black; color: whitesmoke'><b>" . $row['Status'] . "</b></td>";
+				echo "<td>" . $row['remarks'] . "</td>";
+				echo "<td>" . $row['status_datetime'] . "</td>";
+				echo "</tr>";
+			}
+		}else {
+				echo "<p style='color:red; float:center'>No action taken yet.</p>";
+		}
+  }
+
+  if (isset($_POST['complainantInfo'])) {
+    displayComplainantInfo($_POST['complainantInfo']);
+  }
+
+  function displayComplainantInfo($val){
+    global $db;
+    $complainantInfo = array();
+		$queryAddress = "SELECT distinct *,
+                    (SELECT concat(Fname,' ',Lname) FROM employee WHERE EmpID = ca.empid_agent) AS empagent,
+                    (SELECT concat(fname,' ',lname) FROM employee WHERE EmpID = ca.empid_support) AS empsupport
+                    FROM complaint_status cs
+                    INNER JOIN user_complaint uc ON cs.complaintno = uc.ComplaintNo
+                    INNER JOIN user u on u.UserID = uc.ComplaintID
+                    LEFT JOIN complaint_assign ca ON cs.complaintno = ca.complaintno
+                    WHERE  cs.complaintno = '$val'
+                    ORDER BY status_datetime DESC
+                    LIMIT 1";
+		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
+
+		if(mysqli_num_rows($results) > 0){
+			while ($row = mysqli_fetch_assoc($results)) {
+        array_push($complainantInfo ,
+                  $row['Fname'] . ' '. $row['Lname'],
+                  $row['empagent'],
+                  $row['empsupport'],
+                  $row['Contact'],
+                  $row['email']);
+			}
+		}
+    echo json_encode($complainantInfo);
   }
 ?>

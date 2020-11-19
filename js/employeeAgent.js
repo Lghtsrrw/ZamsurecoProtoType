@@ -431,7 +431,6 @@ function appendBrgy(muni){
         for (var i = 0; i < result.length; i++) {
           $('#empBrgyCover').append($("<option>").val(arrjsBrgy[i]));
         }
-
       }
     })
   }

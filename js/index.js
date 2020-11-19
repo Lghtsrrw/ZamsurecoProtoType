@@ -13,18 +13,25 @@ $(document).ready(function() {
   });
 
   $("#btnTrackComplaint").click(function(){
-    $(".modal").css("display","none");
-    $("#trackModal").css("display","block");
+    window.location.href = 'tracking-complaint.php?TN=' + $('#inComplaintNo').val();
   });
-$('#btntrack').click(function(){
-  $('.divTrackRecords').load("databaseConnection/DatabaseQueries.php",{
-    btnTrackComplaint: $('#inComplaintNo').val()
-  })
-})
 
   $('#btnLogout').on("click",function(){
     if (confirm("Are you sure you want to Log-out?") == true) {
         window.location.href = "index.php?logout='1'";
     }
   });
+
+  $('body').on("click","#tblComplaintList tr", function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
+    var value=$(this).find('td:first').html();
+    $('#inComplaintNo').val(value);
+
+    $('#btnTrackComplaint').prop('disabled',false);
+  })
+
+  $('.container').on('click', function() {
+    $('#tblComplaintList tr').removeClass('selected');
+    $('#btnTrackComplaint').prop('disabled',true);
+  })
 });
