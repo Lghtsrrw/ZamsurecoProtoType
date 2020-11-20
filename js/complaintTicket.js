@@ -144,7 +144,7 @@ $(document).ready(function(){
   })
 
   $('#ticketBtnId').click(function(){
-    sendmessage($('#lblcontact').text(), "Complaint Ticket: " . $('#trackingno').text() . " has been submitted and is subject for review.");
+    sendmessage($('#lblcontact').text(), "Complaint Ticket: " + $('#trackingno').html() + " has been submitted and is subject for review.");
   })
 });
 // Functions declaration area

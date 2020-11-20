@@ -62,8 +62,8 @@ require('databaseConnection/DatabaseQueries.php');
           </datalist>
 
           <div id="divDescription" style="display:none">
-            <label for="description"><b>Remarks</b></label><br>
-            <textarea id="descID" name="ndesc" maxlength="200" class="classDescription"></textarea><br><br>
+            <label for="description"><b>Message</b></label><br>
+            <textarea id="descID" name="ndesc" maxlength="100" class="classDescription"></textarea><br><br>
           </div>
 
           <div id="divAddressSelect" style="display:none">

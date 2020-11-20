@@ -174,11 +174,13 @@ $(document).ready(function(){
                 'empidsupp': $('#empSupp').val()},
         success: function(result){
           console.log(result);
+
+          var complainantNo = retrieveComplainantContact($('#cdNUM').val());
+          sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+          
           window.location.href = 'employeeAgent.php';
         }
       })
-      var complainantNo = retrieveComplainantContact($('#cdNUM').val());
-      sendmessage(complainantNo, "Your complaint ticket witn TN: " + complainantNo +" has been dispatched to the appropriate personnel for immediate action.");
     }
   })
 
