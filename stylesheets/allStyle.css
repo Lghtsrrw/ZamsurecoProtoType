@@ -408,7 +408,7 @@ span.psw {
 }
 
 .btnContainer{
-  text-align: left;
+  text-align: center;
   padding: 20px;
   padding-left: 50px
   margin: 0px auto;
@@ -432,6 +432,19 @@ span.psw {
   font-weight: bold;
 }
 .close:hover, .close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+.refresh{
+  position: absolute;
+  right: 1%;
+  top: auto;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+.refresh:hover, .refresh:focus {
   color: red;
   cursor: pointer;
 }

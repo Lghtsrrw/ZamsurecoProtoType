@@ -73,14 +73,12 @@ $(document).ready(function(){
                 desc.citymunDesc != "ZAMBOANGA CITY"
                 ){
                 ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
-                console.log(desc.citymunCode);
               }
 
               if (desc.provCode == "1042" &&
                   desc.citymunDesc == "DON VICTORIANO CHIONGBIAN  (DON MARIANO MARCOS)"
               ){
                 ddMunicipal.append($('<option value = '+desc.citymunCode+'></option>').text(desc.citymunDesc));
-                console.log(desc.citymunCode);
               }
             });
           });
@@ -144,9 +142,27 @@ $(document).ready(function(){
       $('#ticketBtnId').hide();
     }
   })
+
+  $('#ticketBtnId').click(function(){
+    sendmessage($('#lblcontact').text(), "Complaint Ticket: " . $('#trackingno').text() . " has been submitted and is subject for review.");
+  })
 });
 // Functions declaration area
 function showSubmitMessage(){
     $('#divTicket').hide();
     $('#divSubmitMessage').show();
+}
+
+function sendmessage(cp, txtmessage){
+  $.ajax({
+    type: "POST",
+    url: "smsapi/sms.php",
+    data:{
+      'phonenumber': cp,
+      'message': txtmessage
+    },
+    success: function(result){
+      console.log(result);
+    }
+  })
 }

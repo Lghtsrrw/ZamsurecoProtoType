@@ -91,10 +91,8 @@ if (isLoggedIn()) {
                 <th>Complaint No</th>
                 <th>Nature of Complaint</th>
                 <th>Description</th>
-                <th>ID</th>
-                <th>Region</th>
-                <th>Province</th>
-                <th>City/Mun</th>
+                <th>Location : Complainee</th>
+                <th>City | Municipal</th>
                 <th>Barangay</th>
                 <th>Arealandmark / Office</th>
               </tr>
@@ -284,7 +282,7 @@ if (isLoggedIn()) {
     <div class="modal" id="divDispatchModal">
       <div class="modal-content animate" id="divIdTblComplaint" style="padding:10px;">
         <div class="clscontainer">
-          <span class="close" title="Close Modal">&times;</span>
+          <span class="refresh" title="Close Modal">&times;</span>
         </div>
         <div class=""style="overflow-x:auto;">
           <h2>DISPATCH</h2>
@@ -294,10 +292,17 @@ if (isLoggedIn()) {
             <input type="text" name="" id="cdNUM"  value="" readonly>
             <label class="detailsLabels" >NATURE OF COMPLAINT</label><br>
             <input type="text" name="" id="cdNOC"value="" readonly>
-            <label class="detailsLabels" id='dispatchCity' >CITY/MUNICIPAL</label><br>
-            <input type="text" name="" id="cdLOC" value="" readonly>
-            <label class="detailsLabels" id="dispatchBrgy">BARANGAY</label>
-            <input type="text" name="" id="cdbrgy" value="" readonly>
+            <div id="nonAttitude">
+              <label class="detailsLabels" id='dispatchCity' >CITY/MUNICIPAL</label><br>
+              <input type="text" name="" id="cdLOC" value="" readonly>
+              <label class="detailsLabels" id="dispatchBrgy">BARANGAY</label>
+              <input type="text" name="" id="cdbrgy" value="" readonly>
+            </div>
+            <div id="attitude" style="display: none">
+              <label class="detailsLabels" id='dispatchComplainee' >COMPLAINEE</label><br>
+              <input type="text" name="" id="cdcomplainee" value="" readonly>
+            </div>
+
           </div>
           <div id="complaintReceiver" class="divDispatchModalStyle" style="float:right;">
             <p><b>COMPLAINT RECEIVER</b></p>

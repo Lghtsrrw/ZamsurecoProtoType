@@ -29,7 +29,7 @@ require('databaseConnection/DatabaseQueries.php');
       <span class="headerText"><b><label style="font-size:25px">Create ticket</label></b></span>
     </div>
       <?php display_error(); ?>
-        <p style="color:#383838">Ticket No: <b><?php echo generateTicketID(); ?></b></p>
+        <p style="color:#383838">Ticket No: <b id="trackingno"><?php echo generateTicketID(); ?></b></p>
         <hr>
           <div class="divComplainantInfo" style="border:2px dashed #d6b385;padding: 2%">
             <p style="color: #3c393c">Update from this ticket will be sent to: </p>
@@ -37,7 +37,7 @@ require('databaseConnection/DatabaseQueries.php');
                 <?php
                 $_contact = (isset($_SESSION['user']['Contact']))? $_SESSION['user']['Contact']:"No Record";
                 $_email  = (isset($_SESSION['user']['email']))? $_SESSION['user']['email']:"No Record";
-                  echo "Contact No: <i><b>" . $_contact . "</b></i><br>";
+                  echo "Contact No: <i><b id='lblcontact'>" . $_contact . "</b></i><br>";
                   echo "Email Address: <i><b>" . $_email . "</b></i><br>";
                 ?>
               </p>

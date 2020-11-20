@@ -417,25 +417,13 @@ session_start();
       // initiating status for this complaint ticket.
       savetoComplaintStatus($user, 'Waiting for verificaton from Agent', $trackno, 'Ticket has been submitted and is subject for review.');
 
-      // perform SMS Message
-      $result = itexmo($_SESSION['user']['Contact'],"ZAMSURECO-1 MOBILE APP SMS TEST","TR-SYEDR840609_B51Q5", 'ch$e3k9)3d');
-      if ($result == ""){
-      echo "iTexMo: No response from server!!!
-      Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.
-      Please CONTACT US for help. ";
-      }else if ($result == 0){
-      echo "Message Sent!";
-      }
-      else{
-      echo "Error Num ". $result . " was encountered!";
-      }
-
       $_SESSION['submit'] = "1";
       $_SESSION['trackno'] = $trackno;
       header('location: index.php');
 		}
 	}
 
+  // active complaint list dispatch modal
 	function fillComplaintTable(){
 		global $db;
 		$queryAddress = "SELECT *,c.location as 'loca' FROM complaints c
@@ -446,13 +434,12 @@ session_start();
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
+        $locationcomplainee = (!empty($row['cRegion']) && !empty($row['cProvince'])) ? $row['cRegion'].' '. $row['cProvince'] : $row['loca'];
 				echo "<tr>";
 				echo "<td>" . $row['ComplaintNo'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
 				echo "<td>" . $row['Description'] . "</td>";
-				echo "<td>" . $row['loca'] . "</td>";
-				echo "<td>" . $row['cRegion'] . "</td>";
-				echo "<td>" . $row['cProvince'] . "</td>";
+				echo "<td>" . $locationcomplainee . "</td>";
 				echo "<td>" . $row['cCityMun'] . "</td>";
 				echo "<td>" . $row['cBrgy'] . "</td>";
 				echo "<td>" . $row['Area_Landmark'] . "</td>";
@@ -953,18 +940,19 @@ session_start();
 		}
 	}
 
-	if (isset($_POST['natureofcomplaint']) && isset($_POST['citymunicipal'])) {
-		displayPossibleComplaintReceiver($_POST['natureofcomplaint'], $_POST['citymunicipal']);
+	if (isset($_POST['natureofcomplaint']) && isset($_POST['citymunicipal']) && isset($_POST['crbrgy']) && isset($_POST['complainee'])) {
+		displayPossibleComplaintReceiver($_POST['natureofcomplaint'], $_POST['citymunicipal'], $_POST['crbrgy'],$_POST['complainee']);
 		// echo $_POST['natureofcomplaint'] . ' '. $_POST['citymunicipal'];
 	}
-	function displayPossibleComplaintReceiver($nature, $citymun){
+	function displayPossibleComplaintReceiver($nature, $citymun,$_brgy,$complainee){
 		global $db;
 
-		$queryAddress = "SELECT DISTINCT	e.empid 'employee',
-																			concat(fname, ' ', lname) as 'name',
-																			c.Nature_of_Complaint 'noc',
-																			city_mun,
-                                      barangay
+		$queryAddress = "SELECT DISTINCT e.empid 'employee',
+														concat(fname, ' ', lname) as 'name',
+														c.Nature_of_Complaint 'noc',
+														city_mun,
+                            cr.area_coverage_no,
+                            (Select barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no) as barangay
 										FROM complaint_receiver cr
 										INNER JOIN complaints c
 											ON cr.complaintID = c.Nature_of_Complaint
@@ -973,9 +961,49 @@ session_start();
                     LEFT OUTER JOIN receiver_brgy_coverage rbc
                       ON cr.area_coverage_no = rbc.area_coverage_no
 										INNER JOIN employee e
-											ON cr.empid = e.EmpID
-										WHERE c.Nature_of_Complaint = '$nature'
-											AND (city_mun = '$citymun' OR barangay = '$citymun')";
+											ON cr.empid = e.EmpID ";
+
+    $queryAddress = "";
+
+    if ($nature != 'Attitude of Employee') {
+      $queryAddress = "SELECT DISTINCT e.empid 'employee',
+  														concat(fname, ' ', lname) as 'name',
+  														c.Nature_of_Complaint 'noc',
+  														city_mun,
+                              cr.area_coverage_no,
+                              (Select barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no) as barangay
+  										FROM complaint_receiver cr
+  										INNER JOIN complaints c
+  											ON cr.complaintID = c.Nature_of_Complaint
+  										INNER JOIN receiver_area_coverage rac
+  											ON cr.area_coverage_no = rac.area_coverage_no
+                      LEFT OUTER JOIN receiver_brgy_coverage rbc
+                        ON cr.area_coverage_no = rbc.area_coverage_no
+  										INNER JOIN employee e
+  											ON cr.empid = e.EmpID
+                      WHERE c.Nature_of_Complaint = '". $nature . "'
+                      AND city_mun = '". $citymun ."'
+                      OR barangay = '". $_brgy ."'
+                      ORDER BY cr.area_coverage_no DESC";
+    }elseif ($nature == 'Attitude of Employee') {
+      $queryAddress = "SELECT DISTINCT e.empid 'employee',
+                              concat(fname, ' ', lname) as 'name',
+                              c.Nature_of_Complaint 'noc',
+                              'CENTRAL OFFICE'as city_mun,
+                              cr.area_coverage_no,
+                              (Select barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no) as barangay
+                      FROM complaint_receiver cr
+                      INNER JOIN complaints c
+                        ON cr.complaintID = c.Nature_of_Complaint
+                      INNER JOIN receiver_area_coverage rac
+                        ON cr.area_coverage_no = rac.area_coverage_no
+                      LEFT OUTER JOIN receiver_brgy_coverage rbc
+                        ON cr.area_coverage_no = rbc.area_coverage_no
+                      INNER JOIN employee e
+                        ON cr.empid = e.EmpID
+                      WHERE c.Nature_of_Complaint = '". $nature . "'
+                      ORDER BY cr.area_coverage_no DESC ";
+    }
 
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
@@ -995,7 +1023,7 @@ session_start();
 				echo "<td>" . $row['name'] . "</td>";
 				echo "<td>" . $row['noc'] . "</td>";
 				echo "<td>" . $row['city_mun'] . "</td>";
-				echo "<td>" . $row['brgy'] . "</td>";
+				echo "<td>" . $row['barangay'] . "</td>";
 				echo "</tr>";
 			}
 			echo "</table>";
@@ -1213,17 +1241,17 @@ session_start();
     echo json_encode($complainantInfo);
   }
 
-  function itexmo($number,$message,$apicode,$passwd){
-		$url = 'https://www.itexmo.com/php_api/api.php';
-		$itexmo = array('1' => $number, '2' => $message, '3' => $apicode, 'passwd' => $passwd);
-		$param = array(
-			'http' => array(
-				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-				'method'  => 'POST',
-				'content' => http_build_query($itexmo),
-			),
-		);
-		$context  = stream_context_create($param);
-		return file_get_contents($url, false, $context);
-}
+  if(isset($_POST['complainantcomplaintno'])){
+    global $db;
+    $thisQuery = "SELECT u.Contact from user u
+                  INNER JOIN user_complaint uc ON u.UserID = uc.ComplaintID
+                  WHERE uc.ComplaintNo = '" . $_POST['complainantcomplaintno'] . "'";
+    $results = mysqli_query($db,$thisQuery) or die(mysqli_error($db));
+
+    if(mysqli_num_rows($results) > 0){
+      while ($row = mysqli_fetch_assoc($results)) {
+        echo $row['Contact'];
+      }
+    }
+  }
 ?>

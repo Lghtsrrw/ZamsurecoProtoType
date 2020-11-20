@@ -81,6 +81,9 @@ $(document).ready(function(){
   $(".close").click(function(){
     $(".modal").css("display","none");
   });
+  $(".refresh").click(function(){
+    window.location.href = "employeeAgent.php";
+  });
 
   // Load dispatch modal on click 'Dispatch' on Complaint Modal
   $('#btnDispatch').click(function(){
@@ -145,6 +148,7 @@ $(document).ready(function(){
       console.log('Hello World');
     }
   });
+
   $('#btnSelectedEmp').click(function(){
     if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
       $.ajax({
@@ -173,6 +177,8 @@ $(document).ready(function(){
           window.location.href = 'employeeAgent.php';
         }
       })
+      var complainantNo = retrieveComplainantContact($('#cdNUM').val());
+      sendmessage(complainantNo, "Your complaint ticket witn TN: " + complainantNo +" has been dispatched to the appropriate personnel for immediate action.");
     }
   })
 
@@ -398,23 +404,42 @@ function performDispatch(){
   $('.modal').css("display","none")
   $('#divDispatchModal').css("display", "block")
 
-  var comno=$(".selected").find('td:nth-child(1)').html();
-  $('#cdNUM').val(comno)
+  // diplay this Nature of Complaint not equal to "Attitude of Employee"
+  if($(".selected").find('td:nth-child(2)').html() != "Attitude of Employee"){
+    var comno=$(".selected").find('td:nth-child(1)').html();
+    $('#cdNUM').val(comno)
 
-  var value=$(".selected").find('td:nth-child(2)').html();
-  $('#cdNOC').val(value)
+    var value=$(".selected").find('td:nth-child(2)').html();
+    $('#cdNOC').val(value)
 
-  var location = $(".selected").find('td:nth-child(7)').html();
-  $('#cdLOC').val( location )
+    var location = $(".selected").find('td:nth-child(5)').html();
+    $('#cdLOC').val( location )
 
-  var brgy = $(".selected").find('td:nth-child(8)').html();
-  $('#cdbrgy').val(brgy)
+    var brgy = $(".selected").find('td:nth-child(6)').html();
+    $('#cdbrgy').val(brgy)
+  }else { //if equal to Attitude of Employee Display This
+    var comno=$(".selected").find('td:nth-child(1)').html();
+    $('#cdNUM').val(comno)
+
+    var value=$(".selected").find('td:nth-child(2)').html();
+    $('#cdNOC').val(value)
+
+    $('#attitude').css('display','block')
+    $('#nonAttitude').css('display','none')
+
+    var complainee=$(".selected").find('td:nth-child(4)').html();
+    $('#cdcomplainee').val(complainee)
+
+  }
+
 
   $('#btnDispatch').prop("disabled", true);
 
   $('#divTblComplaineReceiver').load("databaseConnection/DatabaseQueries.php", {
     natureofcomplaint: $('#cdNOC').val(),
-    citymunicipal: $('#cdLOC').val()
+    citymunicipal: $('#cdLOC').val(),
+    crbrgy: $('#cdbrgy').val(),
+    complainee: $('#cdcomplainee').val()
   });
 }
 
@@ -442,4 +467,35 @@ function displayBrgyCov(){
   }else {
     $('#idBrgyCov').css("display","none");
   }
+}
+
+function sendmessage(cp, txtmessage){
+  $.ajax({
+    type: "POST",
+    url: "smsapi/sms.php",
+    data:{
+      'phonenumber': cp,
+      'message': txtmessage
+    },
+    success: function(result){
+      console.log(result);
+    }
+  })
+}
+
+function retrieveComplainantContact(value){
+  var returnValue = '';
+  $.ajax({
+    type: "POST",
+    url: "databaseConnection/DatabaseQueries.php",
+    data:{
+      'complainantcomplaintno': value
+    },
+    success: function(result){
+      console.log(result);
+      returnValue = result;
+    }
+  })
+
+  return returnValue;
 }
