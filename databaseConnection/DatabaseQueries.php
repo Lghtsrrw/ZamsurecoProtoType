@@ -419,7 +419,7 @@ session_start();
 
       $_SESSION['submit'] = "1";
       $_SESSION['trackno'] = $trackno;
-      header('location: index.php');
+
 		}
 	}
 

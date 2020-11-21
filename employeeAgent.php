@@ -53,10 +53,10 @@ if (isLoggedIn()) {
       ?>
 
       <!-- Button declaration -->
-      <button id = "btnComplaints" class="mainBtn">Complaint List</button>
-      <button id = "btnCrew" class="mainBtn">Update Complaint Status</button>
-      <button id = "btnRegSupp" class="mainBtn">Register Support</button>
-      <button id = "btnMngDspt" class="mainBtn">Dispatch Management</button>
+      <button id = "btnComplaints" class="mainBtn">Complaint-list</button>
+      <button id = "btnCrew" class="mainBtn" disabled>View assigned-complaints</button>
+      <button id = "btnRegSupp" class="mainBtn">Register support</button>
+      <button id = "btnMngDspt" class="mainBtn">Dispatch management</button>
       <br>
     </div>
 
@@ -142,6 +142,12 @@ if (isLoggedIn()) {
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <h2>Employee List</h2>
+
+        <div class="" style="clear:both; border:">
+        <input type="text" placeholder="Search" name="" value="" style="float:left; width: auto ">
+        <button type="button" name="button" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" alt=""> </button>
+        </div>
+
         <div class="div4Table">
           <table id="tblEmpList">
             <tr>

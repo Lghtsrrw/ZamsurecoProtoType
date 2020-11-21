@@ -145,7 +145,9 @@ $(document).ready(function(){
 
   $('#ticketBtnId').click(function(){
     sendmessage($('#lblcontact').text(), "Complaint Ticket: " + $('#trackingno').html() + " has been submitted and is subject for review.");
+    window.location.href = 'index.php';
   })
+
 });
 // Functions declaration area
 function showSubmitMessage(){

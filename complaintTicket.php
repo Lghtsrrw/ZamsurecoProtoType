@@ -43,10 +43,9 @@ require('databaseConnection/DatabaseQueries.php');
               </p>
           </div>
         <hr>
-
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>
+        <form action="index.php" method="post">
           <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
-
           <input
             type="text"
             name="inputComplaint"
@@ -60,12 +59,11 @@ require('databaseConnection/DatabaseQueries.php');
           <datalist id="_noclist">
             <?php fillNatureOfComplaint(); ?>
           </datalist>
-
+          <hr>
           <div id="divDescription" style="display:none">
             <label for="description"><b>Message</b></label><br>
             <textarea id="descID" name="ndesc" maxlength="100" class="classDescription"></textarea><br><br>
           </div>
-
           <div id="divAddressSelect" style="display:none">
             <div id = "divRegion">
               <input
