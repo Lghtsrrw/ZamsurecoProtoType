@@ -177,7 +177,7 @@ $(document).ready(function(){
 
           var complainantNo = retrieveComplainantContact($('#cdNUM').val());
           sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
-          
+
           window.location.href = 'employeeAgent.php';
         }
       })
@@ -350,6 +350,16 @@ $(document).ready(function(){
     var _tblValue = document.createTextNode(brgycover);
     _tblCell.appendChild(_tblValue);
     arrEmpLocCov['Brgy'].push(brgycover);
+  })
+
+  $('#btnEmpSearch').click(function(){
+    if ($('#txtEmpSearch').val() != "") {
+      $('.tblAllData').load("databaseConnection/DatabaseQueries.php", {
+        employee_tobe_search: $('#inSearch').val()
+      });
+    }else {
+      $('#txtEmpSearch').css('border-color','red');
+    }
   })
 });
 function hideModals(){

@@ -78,20 +78,20 @@ if (isLoggedIn()) {
           <span class="close" title="Close Modal">&times;</span>
         </div>
         <h3>Active Complaint</h3>
-        <div class="" style="width:100%; clear: none">
-          <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto;">
-          <button type="button" name="btnSearch" id="btnIDSearch" class="mainBtn" style="height:42px;">Search</button>
-          <button type="button" id="btnDispatch" class="mainBtn" style="height:42px;" disabled>Dispatch</button>
+        <div>
+          <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto; float:left">
+          <button type="button" name="btnSearch" id="btnIDSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" alt=""></button>
         </div>
+        <button type="button" id="btnDispatch" class="mainBtn" style="height:42px;" disabled>Dispatch</button>
 
         <div class="tblAllData" style="overflow:auto">
-          <div id="div4Table" >
+          <div id="div4TableEmp" >
             <table border="1" id="tblData">
               <tr>
                 <th>Complaint No</th>
                 <th>Nature of Complaint</th>
                 <th>Description</th>
-                <th>Location : Complainee</th>
+                <th>Location | Complainee</th>
                 <th>City | Municipal</th>
                 <th>Barangay</th>
                 <th>Arealandmark / Office</th>
@@ -144,8 +144,8 @@ if (isLoggedIn()) {
         <h2>Employee List</h2>
 
         <div class="" style="clear:both; border:">
-        <input type="text" placeholder="Search" name="" value="" style="float:left; width: auto ">
-        <button type="button" name="button" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" alt=""> </button>
+        <input type="text" id="txtEmpSearch" placeholder="Search" name="" value="" style="float:left; width: auto " required>
+        <button type="button" id="btnEmpSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" autocomplete="off"> </button>
         </div>
 
         <div class="div4Table">
@@ -161,7 +161,6 @@ if (isLoggedIn()) {
         </div>
       </div>
     </div>
-
     <!-- Dispatch Mananagement Dispatch modal -->
     <div class="modal" id="divMngCmplntDispt">
       <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px">

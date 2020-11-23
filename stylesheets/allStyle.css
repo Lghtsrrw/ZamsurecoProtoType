@@ -12,14 +12,12 @@ input[type=text], input[type=password],input[type=number] option{
   border-radius: 1em;
   box-sizing: border-box;
 }
-
-/* background */
-#backgroundthingy{
-  background: url('img/payment.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+#tblComplaintDetails th{
+  text-align: right;
+}
+#tblComplaintDetails tr{
+  border: none;
+  background-color: whitesmoke;
 }
 #container{
   border: 1px solid black;
@@ -109,7 +107,7 @@ a {
   height: auto;
 }
 
-.div4Table{
+.div4Table, .div4TableEmp{
   overflow: auto;
 }
 fieldset{

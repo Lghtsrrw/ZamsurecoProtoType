@@ -27,9 +27,11 @@ require('databaseConnection/DatabaseQueries.php');
       </div>
 
       <?php if(isset($_GET['TN'])) :?>
-        <script type="text/javascript">
-          displayComplainantInfo(<?php echo $_GET['TN']; ?>);
-        </script>
+          <script type="text/javascript">
+            displayComplainantInfo(<?php echo $_GET['TN']; ?>);
+            displayTicket(<?php echo $_GET['TN']; ?>);
+          </script>
+
         <div class="btnContainer" style="border: 1px solid slategrey; background-color: mintcream">
           <h4>User Information</h4>
           <table style="resize:auto; width:auto; border:none">
@@ -38,11 +40,11 @@ require('databaseConnection/DatabaseQueries.php');
               <td id="cname"></td>
             </tr>
             <tr>
-              <th style="text-align: right">Agent Assignee: </th>
+              <th style="text-align: right">Agent assignee: </th>
               <td id="aname"></td>
             </tr>
             <tr>
-              <th style="text-align: right">Support Assigned: </th>
+              <th style="text-align: right">Support assigned: </th>
               <td id="sname"></td>
             </tr>
             <tr>
@@ -54,8 +56,42 @@ require('databaseConnection/DatabaseQueries.php');
               <td id="cemail"></td>
             </tr>
           </table>
+        </div>
+
+        <hr>
+        <div class="btnContainer" style="border: 1px solid slategrey; background-color: mintcream; text-align:left">
+          <h4>Complaint Details</h4>
+          <table id="tblComplaintDetails" style="border:none; background-color: white; width:auto">
+            <tr style="">
+                <th>Ticket no: </th>
+                <td id="ticketno"></td>
+            </tr>
+            <tr>
+              <th><label for="">Nature of complaint</th>
+              <td id="naturecomp"></td>
+            </tr>
+            <tr>
+              <th>Message</th>
+              <td id="complaintDescription"></td>
+            </tr>
+            <tr>
+              <th>Address / Complainee</th>
+              <td id="location"></td>
+            </tr>
+            <tr>
+              <th>Land-mark</th>
+              <td id="arealandmark"></td>
+            </tr>
+          </table>
+
+
+          <label for=""></label>
+          <label for=""></label>
+          <br>
+          <label for=""></label>
 
         </div>
+
         <hr>
         <div class="btnContainer" style="border: 1px solid slategrey; background-color: mintcream">
           <h4>Updates</h3>

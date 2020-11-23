@@ -20,3 +20,19 @@ function displayComplainantInfo(val){
     }
   })
 }
+
+function displayTicket(val){
+  $.ajax({
+    type: "POST",
+    url: 'databaseConnection/DatabaseQueries.php',
+    data: { 'complaintdetails': val },
+    success: function(result){
+      var arrcom = jQuery.parseJSON(result);
+      $('#ticketno').text(arrcom[0]);
+      $('#naturecomp').text(arrcom[2]);
+      $('#complaintDescription').text(arrcom[1]);
+      $('#location').text(arrcom[3]);
+      $('#arealandmark').text(arrcom[4]);
+    }
+  })
+}

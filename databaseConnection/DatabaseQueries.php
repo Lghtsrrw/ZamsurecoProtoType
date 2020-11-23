@@ -434,7 +434,7 @@ session_start();
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
-        $locationcomplainee = (!empty($row['cRegion']) && !empty($row['cProvince'])) ? $row['cRegion'].' '. $row['cProvince'] : $row['loca'];
+        $locationcomplainee = (!empty($row['AddressNo'])) ? $row['cRegion'].' '. $row['cProvince'] : $row['loca'];
 				echo "<tr>";
 				echo "<td>" . $row['ComplaintNo'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
@@ -451,8 +451,8 @@ session_start();
 	function fillSearchTable($id){
 		global $db;
 		$queryAddress = "SELECT *,c.location as 'loca' FROM complaints c
-										LEFT OUTER JOIN address a ON c.location = a.addressNo
-										LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
+                    LEFT OUTER JOIN address a ON c.location = a.addressNo
+                    LEFT JOIN complaint_assign ca ON c.ComplaintNo = ca.complaintno
 										WHERE (ca.complaintno is null)
 										AND (c.complaintNo LIKE '%" . $id . "%'
 										OR description LIKE '%" . $id . "%'
@@ -464,13 +464,12 @@ session_start();
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
+        $locationcomplainee = (!empty($row['AddressNo'])) ? $row['cRegion'].' '. $row['cProvince'] : $row['loca'];
 				echo "<tr>";
 				echo "<td>" . $row['ComplaintNo'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
 				echo "<td>" . $row['Description'] . "</td>";
-				echo "<td>" . $row['loca'] . "</td>";
-				echo "<td>" . $row['cRegion'] . "</td>";
-				echo "<td>" . $row['cProvince'] . "</td>";
+				echo "<td>" . $locationcomplainee . "</td>";
 				echo "<td>" . $row['cCityMun'] . "</td>";
 				echo "<td>" . $row['cBrgy'] . "</td>";
         echo "<td>" . $row['Area_Landmark'] . "</td>";
@@ -1241,6 +1240,29 @@ session_start();
     echo json_encode($complainantInfo);
   }
 
+  if(isset($_POST['complaintdetails'])){
+    displayComplaintDetails($_POST['complaintdetails']);
+  }
+  function displayComplaintDetails($val){
+    global $db;
+    $arrCompVal = array();
+    $query = "SELECT * from complaints c LEFT OUTER JOIN address a ON c.Location = a.AddressNo where c.ComplaintNo = '$val'";
+    $results = mysqli_query($db,$query) or die(mysqli_error($db));
+    if (mysqli_num_rows($results) > 0) {
+      while ($row = mysqli_fetch_assoc($results)) {
+        array_push($arrCompVal,
+                  $row['ComplaintNo'],
+                  $row['Description'],
+                  $row['Nature_of_Complaint'],
+                  (!empty($row['cRegion']) && !empty($row['cProvince']) && !empty($row['cCityMun']) && !empty($row['cBrgy']))
+                  ? $row['cRegion']. ', ' . $row['cProvince'] . ', ' . $row['cCityMun'] . ', ' . $row['cBrgy']
+                  : $row['Location'],
+                  $row['Area_Landmark']);
+      }
+    }
+    echo json_encode($arrCompVal);
+  }
+
   if(isset($_POST['complainantcomplaintno'])){
     global $db;
     $thisQuery = "SELECT u.Contact from user u
@@ -1253,5 +1275,14 @@ session_start();
         echo $row['Contact'];
       }
     }
+  }
+
+  if(isset($_POST['employee_tobe_search'])){
+    displaySearchedEmp($_POST['employee_tobe_search']);
+  }
+  function displaySearchedEmp($val){
+    // global $db;
+    //
+    // $query ="SELECT * FROM employee"
   }
 ?>
