@@ -1277,12 +1277,27 @@ session_start();
     }
   }
 
-  if(isset($_POST['employee_tobe_search'])){
-    displaySearchedEmp($_POST['employee_tobe_search']);
+  if(isset($_POST['employee_id_search'])){
+    displaySearchedEmp($_POST['employee_id_search']);
   }
   function displaySearchedEmp($val){
-    // global $db;
-    //
-    // $query ="SELECT * FROM employee"
+    global $db;
+    $passingarray = array();
+    $query ="SELECT * FROM employee WHERE EmpID LIKE '%$val%'
+            OR Fname LIKE '%$val%'
+            OR Mname LIKE '%$val%'
+            OR Lname LIKE '%$val%'
+            OR Area LIKE '%$val%'
+            OR Dept LIKE '%$val%'";
+    $results = mysqli_query($db, $query) or die(mysqli_error($db));
+    if(mysqli_num_rows($results) > 0){
+      while ($row = mysqli_fetch_assoc($results)) {
+        $innerarray = array();
+        array_push($innerarray,$row['EmpID'], $row['Fname'].' '.$row['Lname'], $row['Area'],$row['Dept']);
+        array_push($passingarray, $innerarray);
+      }
+    }
+    // echo $passingarray;
+    echo json_encode($passingarray);
   }
 ?>

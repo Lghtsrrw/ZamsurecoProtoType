@@ -354,9 +354,23 @@ $(document).ready(function(){
 
   $('#btnEmpSearch').click(function(){
     if ($('#txtEmpSearch').val() != "") {
-      $('.tblAllData').load("databaseConnection/DatabaseQueries.php", {
-        employee_tobe_search: $('#inSearch').val()
-      });
+      $('#txtEmpSearch').css('border-color','#ccc');
+      // $('.tblAllData').load("databaseConnection/DatabaseQueries.php", {
+      //   employee_tobe_search: $('#txtEmpSearch').val()
+      // });
+
+      $.ajax({
+        type: 'POST',
+        url: 'databaseConnection/DatabaseQueries.php',
+        data:{
+          'employee_id_search': $('#txtEmpSearch').val()
+        },
+        success: function(result){
+          console.log(result);
+          var arrEmployeeSearch = jQuery.parseJSON(result);
+          console.log(arrEmployeeSearch);
+        }
+      })
     }else {
       $('#txtEmpSearch').css('border-color','red');
     }
