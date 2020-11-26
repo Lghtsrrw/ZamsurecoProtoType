@@ -369,6 +369,18 @@ $(document).ready(function(){
           console.log(result);
           var arrEmployeeSearch = jQuery.parseJSON(result);
           console.log(arrEmployeeSearch);
+          console.log(arrEmployeeSearch.length);
+
+         $("#tblEmpList").find("tr:gt(0)").remove();
+          var table = $('<table>').addClass('foo');
+          for(i=0; i<arrEmployeeSearch.length; i++){
+              var row = $('<tr>').addClass('bar').text('result ' + i);
+              $("#tblEmpList").append(row);
+              for (var j = 0; j < arrEmployeeSearch[i].length; j++) {
+                console.log(arrEmployeeSearch[i][j]);
+              }
+          }
+          $('#tblSearchEmp').append(table);
         }
       })
     }else {

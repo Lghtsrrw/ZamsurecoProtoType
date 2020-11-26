@@ -85,7 +85,7 @@ if (isLoggedIn()) {
         <button type="button" id="btnDispatch" class="mainBtn" style="height:42px;" disabled>Dispatch</button>
 
         <div class="tblAllData" style="overflow:auto">
-          <div id="div4TableEmp" >
+          <div id="div4TableEmp">
             <table border="1" id="tblData">
               <tr>
                 <th>Complaint No</th>
@@ -148,7 +148,7 @@ if (isLoggedIn()) {
         <button type="button" id="btnEmpSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" autocomplete="off"> </button>
         </div>
 
-        <div class="div4Table">
+        <div class="div4Table" id="tblSearchEmp">
           <table id="tblEmpList">
             <tr>
               <th>Employee ID</th>
