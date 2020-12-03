@@ -1300,4 +1300,30 @@ session_start();
     // echo $passingarray;
     echo json_encode($passingarray);
   }
+
+  if (isset($_POST['employee-agent'])) {
+    displayAssignedComplaints($_POST['employee-agent']);
+    // echo $_POST['employee-agent'];
+  }
+
+  function displayAssignedComplaints($val){
+    global $db;
+    $passingarray = array();
+    $testvar = '';
+    $query ="SELECT c.ComplaintNo, Nature_of_Complaint, ca.empid_support, concat(e.Fname,' ',e.Lname)as'EmpName', datetime_assigned
+              FROM complaint_assign ca
+              INNER JOIN complaints c ON ca.complaintno = c.ComplaintNo
+              INNER JOIN employee e ON ca.empid_support = e.EmpID
+              WHERE ca.empid_agent = '$val'";
+    $results = mysqli_query($db, $query) or die(mysqli_error($db));
+    if(mysqli_num_rows($results) > 0){
+      while ($row = mysqli_fetch_assoc($results)) {
+        $innerarray = array();
+        array_push($innerarray,$row['ComplaintNo'], $row['Nature_of_Complaint'].' '.$row['empid_support'], $row['EmpName'],$row['datetime_assigned']);
+        array_push($passingarray, $innerarray);
+      }
+    }
+    // echo $passingarray;
+    echo json_encode($passingarray);
+  }
 ?>

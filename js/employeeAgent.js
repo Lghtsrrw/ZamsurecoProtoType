@@ -40,7 +40,6 @@ $(document).ready(function(){
           ){
             $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
-
         });
       });
     });
@@ -353,12 +352,7 @@ $(document).ready(function(){
   })
 
   $('#btnEmpSearch').click(function(){
-    if ($('#txtEmpSearch').val() != "") {
       $('#txtEmpSearch').css('border-color','#ccc');
-      // $('.tblAllData').load("databaseConnection/DatabaseQueries.php", {
-      //   employee_tobe_search: $('#txtEmpSearch').val()
-      // });
-
       $.ajax({
         type: 'POST',
         url: 'databaseConnection/DatabaseQueries.php',
@@ -374,18 +368,22 @@ $(document).ready(function(){
          $("#tblEmpList").find("tr:gt(0)").remove();
           var table = $('<table>').addClass('foo');
           for(i=0; i<arrEmployeeSearch.length; i++){
-              var row = $('<tr>').addClass('bar').text('result ' + i);
+              var row = $('<tr>').addClass('bar');
               $("#tblEmpList").append(row);
               for (var j = 0; j < arrEmployeeSearch[i].length; j++) {
-                console.log(arrEmployeeSearch[i][j]);
+                var col = $('<td>').addClass('col').text(arrEmployeeSearch[i][j])
+                row.append(col);
               }
+              $("#tblEmpList").append(row);
           }
-          $('#tblSearchEmp').append(table);
         }
       })
-    }else {
-      $('#txtEmpSearch').css('border-color','red');
-    }
+  })
+
+  $('#btnCrew').click(function(){
+    $('#divComplaintAssigned').css('display','block')
+    fillAssignedComplaint();
+    // console.log("HelloWorld");
   })
 });
 function hideModals(){
@@ -537,3 +535,32 @@ function retrieveComplainantContact(value){
 
   return returnValue;
 }
+
+function fillAssignedComplaint(){
+  $.ajax({
+    type: 'POST',
+    url: 'databaseConnection/DatabaseQueries.php',
+    data:{
+      'employee-agent': $('#txtUserID').val()
+    },
+    success: function(result){
+      console.log(result);
+      var arrAssignedComplaint = jQuery.parseJSON(result);
+      console.log(arrAssignedComplaint);
+      console.log(arrAssignedComplaint.length);
+
+       $("#tblAssignedComplaint").find("tr:gt(0)").remove();
+       var table = $('<table>').addClass('foo');
+       for(i=0; i<arrAssignedComplaint.length; i++){
+            var row = $('<tr>').addClass('bar');
+            $("#tblEmpList").append(row);
+            for (var j = 0; j < arrAssignedComplaint[i].length; j++) {
+              var col = $('<td>').addClass('col').text(arrAssignedComplaint[i][j])
+              row.append(col);
+            }
+            table.append(row);
+            $('.div4Table').append(table)
+        }
+      }
+  })
+  }

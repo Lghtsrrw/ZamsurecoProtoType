@@ -54,7 +54,7 @@ if (isLoggedIn()) {
 
       <!-- Button declaration -->
       <button id = "btnComplaints" class="mainBtn">Complaint-list</button>
-      <button id = "btnCrew" class="mainBtn" disabled>View assigned-complaints</button>
+      <button id = "btnCrew" class="mainBtn">View assigned-complaints</button>
       <button id = "btnRegSupp" class="mainBtn">Register support</button>
       <button id = "btnMngDspt" class="mainBtn">Dispatch management</button>
       <br>
@@ -161,6 +161,7 @@ if (isLoggedIn()) {
         </div>
       </div>
     </div>
+
     <!-- Dispatch Mananagement Dispatch modal -->
     <div class="modal" id="divMngCmplntDispt">
       <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px">
@@ -345,5 +346,29 @@ if (isLoggedIn()) {
         </div>
       </div>
     </div>
+
+    <!-- Complaint-Assigned list -->
+    <div class="modal" id="divComplaintAssigned">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
+        <input type="text" id="txtUserID" name="" value=" <?php echo $_SESSION['user']['EmpID']; ?>" readonly>
+        <h2>Supports assigned</h2>
+
+        <div class="div4Table">
+          <table id="tblAssignedComplaint" style="resize: auto">
+            <tr>
+              <th>Complaint No</th>
+              <th>Nature of Complaint</th>
+              <th>Assigned Employee ID</th>
+              <th>Assigned Employee</th>
+              <th>Date&Time created</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
