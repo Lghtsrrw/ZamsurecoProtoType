@@ -353,15 +353,15 @@ if (isLoggedIn()) {
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
         </div>
-        <input type="text" id="txtUserID" name="" value=" <?php echo $_SESSION['user']['EmpID']; ?>" readonly>
+        <input type="hidden" id="txtUserID" name="" value="<?php echo $_SESSION['user']['EmpID']; ?>" readonly>
         <h2>Supports assigned</h2>
 
         <div class="div4Table">
           <table id="tblAssignedComplaint" style="resize: auto">
             <tr>
               <th>Complaint No</th>
-              <th>Nature of Complaint</th>
               <th>Assigned Employee ID</th>
+              <th>Nature of Complaint</th>
               <th>Assigned Employee</th>
               <th>Date&Time created</th>
             </tr>

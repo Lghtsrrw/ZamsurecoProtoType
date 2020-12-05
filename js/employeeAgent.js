@@ -537,30 +537,56 @@ function retrieveComplainantContact(value){
 }
 
 function fillAssignedComplaint(){
-  $.ajax({
-    type: 'POST',
-    url: 'databaseConnection/DatabaseQueries.php',
-    data:{
-      'employee-agent': $('#txtUserID').val()
-    },
-    success: function(result){
-      console.log(result);
-      var arrAssignedComplaint = jQuery.parseJSON(result);
-      console.log(arrAssignedComplaint);
-      console.log(arrAssignedComplaint.length);
+  // $.ajax({
+  //   type: 'POST',
+  //   url: 'databaseConnection/DatabaseQueries.php',
+  //   data:{
+  //     'employee_agent': $('#txtUserID').val()
+  //   },
+  //   success: function(result){
+  //     console.log(result);
+  //     var arrAssignedComplaint = jQuery.parseJSON(result);
+  //     console.log(arrAssignedComplaint);
+  //     console.log(arrAssignedComplaint.length);
+  //
+  //      $("#tblAssignedComplaint").find("tr:gt(0)").remove();
+  //      var table = $('<table>').addClass('foo');
+  //      for(i=0; i<arrAssignedComplaint.length; i++){
+  //           var row = $('<tr>').addClass('bar');
+  //           $("#tblEmpList").append(row);
+  //           for (var j = 0; j < arrAssignedComplaint[i].length; j++) {
+  //             var col = $('<td>').addClass('col').text(arrAssignedComplaint[i][j])
+  //             row.append(col);
+  //           }
+  //           table.append(row);
+  //           $('#tblAssignedComplaint').append(row)
+  //       }
+  //     }
+  //   })
+
+    $.ajax({
+      type: 'POST',
+      url: 'databaseConnection/DatabaseQueries.php',
+      data:{
+        'assigned_complaint': $('#txtUserID').val()
+      },
+      success: function(result){
+        console.log(result);
+        var arrAssignedComplaint = jQuery.parseJSON(result);
+        console.log(arrAssignedComplaint);
+        console.log(arrAssignedComplaint.length);
 
        $("#tblAssignedComplaint").find("tr:gt(0)").remove();
-       var table = $('<table>').addClass('foo');
-       for(i=0; i<arrAssignedComplaint.length; i++){
+        var table = $('<table>').addClass('foo');
+        for(i=0; i<arrAssignedComplaint.length; i++){
             var row = $('<tr>').addClass('bar');
             $("#tblEmpList").append(row);
             for (var j = 0; j < arrAssignedComplaint[i].length; j++) {
               var col = $('<td>').addClass('col').text(arrAssignedComplaint[i][j])
               row.append(col);
             }
-            table.append(row);
-            $('.div4Table').append(table)
+            $("#tblAssignedComplaint").append(row);
         }
       }
-  })
+    })
   }
