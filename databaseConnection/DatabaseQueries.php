@@ -825,7 +825,8 @@ session_start();
 	function displayBill($val){
 		global $db;
 		$queryAddress = "SELECT distinct * FROM bill
-										WHERE AccountNo like '$val'";
+										WHERE AccountNo like '$val'
+                    Order By DueDate DESC";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{

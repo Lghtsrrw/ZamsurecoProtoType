@@ -121,5 +121,23 @@ if (isGuest()) {
 			</div>
 		</div>
 	</div>
+
+	<!-- Payment modal -->
+	<div id="paymentModal" class="modal">
+		<div class="modal-content animate">
+			<div class="clscontainer">
+				<span class="close" title="Close Modal">&times;</span>
+			</div>
+			<div class="container" style="padding: 20px">
+				<div class="titleHeader">
+		      <span class="headerText"><h1>Payment Method</h1></span>
+		    </div>
+					<div class="" style="width:100%">
+					<button type="button" class="mainBtn" id="btnPaymentMethod">Payment Method</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </body>
 </html>

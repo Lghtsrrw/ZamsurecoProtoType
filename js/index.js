@@ -2,8 +2,11 @@ $(document).ready(function() {
 
   $("#btnComplaints").click(function(){
     $("#complaintModal").css("display","block");
-  });
+  })
 
+  $('#btnPayBills').click(function(){
+    $("#paymentModal").css("display","block");
+  })
   $(".close").click(function(){
     $(".modal").css("display","none");
   });

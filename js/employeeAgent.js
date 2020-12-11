@@ -149,38 +149,11 @@ $(document).ready(function(){
   });
 
   $('#btnSelectedEmp').click(function(){
-    if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
-      $.ajax({
-        type: "POST",
-        url: 'databaseConnection/DatabaseQueries.php',
-        data: { 'complaintno': $('#cdNUM').val(),
-                'empidsupp': $('.selected').find('td:first').html()},
-        success: function(result){
-          console.log(result);
-          window.location.href = 'employeeAgent.php';
-        }
-      })
-      $('#complainthandlerBtn').css('display','none')
-    }
+    assignComplaint();
   })
 
   $('#btnAssignEmployeeSupport').click(function(){
-    if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
-      $.ajax({
-        type: "POST",
-        url: 'databaseConnection/DatabaseQueries.php',
-        data: { 'complaintno': $('#cdNUM').val(),
-                'empidsupp': $('#empSupp').val()},
-        success: function(result){
-          console.log(result);
-
-          var complainantNo = retrieveComplainantContact($('#cdNUM').val());
-          sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
-
-          window.location.href = 'employeeAgent.php';
-        }
-      })
-    }
+    assignComplaint();
   })
 
   // removing rows in table remove value
@@ -535,35 +508,25 @@ function retrieveComplainantContact(value){
 
   return returnValue;
 }
+function assignComplaint() {
+  if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
+    $.ajax({
+      type: "POST",
+      url: 'databaseConnection/DatabaseQueries.php',
+      data: { 'complaintno': $('#cdNUM').val(),
+              'empidsupp': $('#empSupp').val()},
+      success: function(result){
+        console.log(result);
 
+        var complainantNo = retrieveComplainantContact($('#cdNUM').val());
+        sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+
+        console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+      }
+    })
+  }
+}
 function fillAssignedComplaint(){
-  // $.ajax({
-  //   type: 'POST',
-  //   url: 'databaseConnection/DatabaseQueries.php',
-  //   data:{
-  //     'employee_agent': $('#txtUserID').val()
-  //   },
-  //   success: function(result){
-  //     console.log(result);
-  //     var arrAssignedComplaint = jQuery.parseJSON(result);
-  //     console.log(arrAssignedComplaint);
-  //     console.log(arrAssignedComplaint.length);
-  //
-  //      $("#tblAssignedComplaint").find("tr:gt(0)").remove();
-  //      var table = $('<table>').addClass('foo');
-  //      for(i=0; i<arrAssignedComplaint.length; i++){
-  //           var row = $('<tr>').addClass('bar');
-  //           $("#tblEmpList").append(row);
-  //           for (var j = 0; j < arrAssignedComplaint[i].length; j++) {
-  //             var col = $('<td>').addClass('col').text(arrAssignedComplaint[i][j])
-  //             row.append(col);
-  //           }
-  //           table.append(row);
-  //           $('#tblAssignedComplaint').append(row)
-  //       }
-  //     }
-  //   })
-
     $.ajax({
       type: 'POST',
       url: 'databaseConnection/DatabaseQueries.php',
@@ -577,7 +540,6 @@ function fillAssignedComplaint(){
         console.log(arrAssignedComplaint.length);
 
        $("#tblAssignedComplaint").find("tr:gt(0)").remove();
-        var table = $('<table>').addClass('foo');
         for(i=0; i<arrAssignedComplaint.length; i++){
             var row = $('<tr>').addClass('bar');
             $("#tblEmpList").append(row);
