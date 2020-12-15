@@ -17,6 +17,7 @@
             },
             success: function(result){
               console.log(result);
+              $('#lblMessage').html(result)
             }
           })
         })
@@ -28,5 +29,6 @@
       <input type="text" id="phonenumber" name="" value="">
       <input type="text" id="message" name="" value="">
       <button type="button" id="sendnow" name="button"> Send Message</button>
+      <label id="lblMessage"></label>
   </body>
 </html>

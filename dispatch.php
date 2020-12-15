@@ -2,7 +2,7 @@
 require('databaseConnection/DatabaseQueries.php');
 
 if (isLoggedIn()) {
-    header('location: index.php');
+    header('location:');
 }elseif (isGuest()) {
   header('location: guestHomepage.php');
 }elseif (isAgent()) {

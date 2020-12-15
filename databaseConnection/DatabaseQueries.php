@@ -434,7 +434,7 @@ session_start();
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 			while ($row = mysqli_fetch_assoc($results)) {
-        $locationcomplainee = (!empty($row['AddressNo'])) ? $row['cRegion'].' '. $row['cProvince'] : $row['loca'];
+        $locationcomplainee = (!empty($row['AddressNo'])) ? $row['cProvince'] : $row['loca'];
 				echo "<tr>";
 				echo "<td>" . $row['ComplaintNo'] . "</td>";
 				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
@@ -861,12 +861,16 @@ session_start();
 		$queryAddress = "SELECT c.ComplaintNo as 'No',
 														Description,
 														Nature_of_Complaint,
-														CONCAT(coalesce(cregion,''),' ',coalesce(cprovince,''),' ',coalesce(ccitymun,''),' ',coalesce(cbrgy,''),' ', c.location) AS 'Location',
+                            a.AddressNo,
+                            cProvince,
+                            cCityMun,
+                            cBrgy,
+                            c.Location,
 														Date_Time_Complaint,
                             (select Status from complaint_status where complaintno = c.ComplaintNo order by status_datetime desc limit 1)as _Status
 										FROM complaints c
 										INNER JOIN user_complaint uc ON c.ComplaintNo = uc.ComplaintNo
-										LEFT JOIN address a ON a.addressno = c.location
+										LEFT JOIN address a ON a.AddressNo = c.location
 										INNER JOIN user u ON u.userID = uc.complaintID
 										WHERE uc.complaintID = '$val'
 										ORDER BY c.ComplaintNo desc";
@@ -875,12 +879,13 @@ session_start();
 		{
 			while ($row = mysqli_fetch_assoc($results))
 			{
+        $location = (!empty($row['AddressNo']))? $row['cProvince'] . ', ' . $row['cCityMun'] . ', ' . $row['cBrgy'] : $row['Location'];
 				echo "<tr>";
 				echo "<td>". $row['No'] ."</td>";
 				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td>". $row['Description'] ."</td>";
 				echo "<td>". $row['Nature_of_Complaint'] ."</td>";
-				echo "<td>". $row['Location'] ."</td>";
+				echo "<td>". $location ."</td>";
 				echo "<td>". $row['Date_Time_Complaint'] ."</td>";
 				echo "<td>". $row['_Status'] ."</td>";
 				echo "</tr>";
@@ -894,8 +899,10 @@ session_start();
                             c.complaintno,
 														description,
 														Nature_of_Complaint,
-														concat(cRegion,', ',cProvince,', ', cCityMun,', ',cBrgy)
-												AS 'loca',
+                            a.addressNo,
+                            cProvince,
+                            cCityMun,
+                            cBrgy,
                             c.location
                         AS 'locaII',
 														Area_landmark,
@@ -923,11 +930,12 @@ session_start();
 
 			while ($row = mysqli_fetch_assoc($results)) {
           if ($row['Status'] !== 'Resolved') {
+            $location = (!empty($row['addressNo'])) ? $row['cProvince'] . ', ' . $row['cCityMun'] . ', ' . $row['cBrgy'] : $row['locaII'];
             echo "<tr>";
     				echo "<td>" . $row['complaintno'] . "</td>";
     				echo "<td>" . $row['description'] . "</td>";
     				echo "<td>" . $row['Nature_of_Complaint'] . "</td>";
-    				echo "<td>" . $row['loca'] . ': '. $row['locaII'] . "</td>";
+    				echo "<td>" . $location . "</td>";
     				echo "<td>" . $row['Area_landmark'] . "</td>";
     				echo "<td>" . $row['datetime_assigned'] . "</td>";
     				echo "<td>" . $row['empid_agent'] . "</td>";
@@ -991,7 +999,7 @@ session_start();
                               c.Nature_of_Complaint 'noc',
                               'CENTRAL OFFICE'as city_mun,
                               cr.area_coverage_no,
-                              (Select barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no) as barangay
+                              (SELECT DISTINCT barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no LIMIT 1) as barangay
                       FROM complaint_receiver cr
                       INNER JOIN complaints c
                         ON cr.complaintID = c.Nature_of_Complaint

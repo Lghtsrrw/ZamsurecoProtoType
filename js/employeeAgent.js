@@ -509,7 +509,8 @@ function retrieveComplainantContact(value){
   return returnValue;
 }
 function assignComplaint() {
-  if(confirm("Are you sure you want to assign "+ $('#empSupp').val() + " for this complaint?")){
+  var complainantNo = "";
+  if(confirm("Are you sure you want to assign " + $('#empSupp').val() + " for this complaint?")){
     $.ajax({
       type: "POST",
       url: 'databaseConnection/DatabaseQueries.php',
@@ -517,13 +518,12 @@ function assignComplaint() {
               'empidsupp': $('#empSupp').val()},
       success: function(result){
         console.log(result);
-
-        var complainantNo = retrieveComplainantContact($('#cdNUM').val());
-        sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
-
-        console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+        complainantNo = retrieveComplainantContact($('#cdNUM').val());
       }
     })
+    sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+    console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+
   }
 }
 function fillAssignedComplaint(){

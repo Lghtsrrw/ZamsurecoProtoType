@@ -2,9 +2,9 @@
 require 'databaseConnection/DatabaseQueries.php';
 
 if (isLoggedIn()) {
-    header('location: index.php');
+    header('location:');
 }elseif (isGuest()) {
-  header('location: guestHomepage.php');
+  header('location: guestHomepagehp.php');
 }elseif (isSupport()) {
   header('location: dispatch.php');
 } elseif(empty(isset($_SESSION['user']))){
