@@ -12,7 +12,6 @@ $(document).keypress(
         $('#ticketBtnId').hide();
       }
     }
-
     if(event.which == "27") {
         event.preventDefault();
         $('.modal').css('display','none')
@@ -35,11 +34,12 @@ $(document).ready(function(){
             ){
             $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
-          if (desc.provCode == "1042" &&
-              desc.citymunDesc == "DON VICTORIANO CHIONGBIAN  (DON MARIANO MARCOS)"
-          ){
+
+          if (desc.provCode == "1042" && desc.citymunDesc == "DON VICTORIANO CHIONGBIAN  (DON MARIANO MARCOS)")
+          {
             $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
+
         });
       });
     });
@@ -426,7 +426,8 @@ function performDispatch(){
 
     var brgy = $(".selected").find('td:nth-child(6)').html();
     $('#cdbrgy').val(brgy)
-  }else { //if equal to Attitude of Employee Display This
+  }
+  else { //if equal to Attitude of Employee Display This
     var comno=$(".selected").find('td:nth-child(1)').html();
     $('#cdNUM').val(comno)
 
@@ -438,9 +439,7 @@ function performDispatch(){
 
     var complainee=$(".selected").find('td:nth-child(4)').html();
     $('#cdcomplainee').val(complainee)
-
   }
-
 
   $('#btnDispatch').prop("disabled", true);
 
@@ -523,7 +522,6 @@ function assignComplaint() {
     })
     sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
     console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
-
   }
 }
 function fillAssignedComplaint(){

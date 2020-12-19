@@ -1145,7 +1145,7 @@ session_start();
 			 $_SESSION['user']['password'] = $encryptedPassword;
 			 echo "Updated Successfully";
 			$_SESSION['success'] = "Password updated successfully";
-			header('location: index.php');
+      echo "Success";
 		}
 	}
 

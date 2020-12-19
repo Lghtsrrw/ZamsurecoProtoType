@@ -33,7 +33,10 @@ $(document).ready(function() {
     }
   })
 
-
+  $('#btnUpdateStatus').click(function() {
+    sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+    console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+  })
 
   $('#btnChangePass').click(function(){
     $('#divChangePass').css('display','block')
@@ -55,11 +58,10 @@ $(document).ready(function() {
             invalidOldAndNew();
           }else {
             console.log(result);
+            $('.modal').css('display', 'none')
           }
         }
       })
-    }else {
-      alert('no Value');
     }
   })
 });
@@ -95,4 +97,18 @@ function invalidOldAndNew(){
   $('#oldpassword').css('border','1px solid red');
   $('#newpassword').css('border','1px solid red');
   $('#notif').text("New-password must not be the same as the previous-password.");
+}
+
+function sendmessage(cp, txtmessage){
+  $.ajax({
+    type: "POST",
+    url: "smsapi/sms.php",
+    data:{
+      'phonenumber': cp,
+      'message': txtmessage
+    },
+    success: function(result){
+      console.log(result);
+    }
+  })
 }
