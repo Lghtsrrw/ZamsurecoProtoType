@@ -1,5 +1,6 @@
 <?php
 session_start();
+// include('smsapi/sms.php');
   /* Database credentials. Assuming you are running MySQL
   server with default setting (user 'root' with no password) */
   define('DB_SERVER', 'localhost');
@@ -954,23 +955,6 @@ session_start();
 	}
 	function displayPossibleComplaintReceiver($nature, $citymun,$_brgy,$complainee){
 		global $db;
-
-		$queryAddress = "SELECT DISTINCT e.empid 'employee',
-														concat(fname, ' ', lname) as 'name',
-														c.Nature_of_Complaint 'noc',
-														city_mun,
-                            cr.area_coverage_no,
-                            (Select barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no) as barangay
-										FROM complaint_receiver cr
-										INNER JOIN complaints c
-											ON cr.complaintID = c.Nature_of_Complaint
-										INNER JOIN receiver_area_coverage rac
-											ON cr.area_coverage_no = rac.area_coverage_no
-                    LEFT OUTER JOIN receiver_brgy_coverage rbc
-                      ON cr.area_coverage_no = rbc.area_coverage_no
-										INNER JOIN employee e
-											ON cr.empid = e.EmpID ";
-
     $queryAddress = "";
 
     if ($nature != 'Attitude of Employee') {
@@ -979,7 +963,7 @@ session_start();
   														c.Nature_of_Complaint 'noc',
   														city_mun,
                               cr.area_coverage_no,
-                              (Select barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no) as barangay
+                              (Select barangay from receiver_brgy_coverage rbc where rbc.area_coverage_no = rac.area_coverage_no LIMIT 1) as barangay
   										FROM complaint_receiver cr
   										INNER JOIN complaints c
   											ON cr.complaintID = c.Nature_of_Complaint
@@ -990,8 +974,10 @@ session_start();
   										INNER JOIN employee e
   											ON cr.empid = e.EmpID
                       WHERE c.Nature_of_Complaint = '". $nature . "'
-                      AND city_mun = '". $citymun ."'
-                      OR barangay = '". $_brgy ."'
+                      AND (
+                        city_mun = '". $citymun ."'
+                        OR
+                        barangay = '". $_brgy ."' )
                       ORDER BY cr.area_coverage_no DESC";
     }elseif ($nature == 'Attitude of Employee') {
       $queryAddress = "SELECT DISTINCT e.empid 'employee',
@@ -1089,7 +1075,7 @@ session_start();
 		$agentid = $_SESSION['user']['EmpID'];
 
 		$queryAssignComplaint = "INSERT INTO complaint_assign (complaintno, empid_agent, empid_support, datetime_assigned) values ('$val1', '$agentid','$val2', now())";
-		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db ));
+		$results = mysqli_query($db,$queryAssignComplaint) or die(mysqli_error($db));
 
     savetoComplaintStatus($agentid, 'Dispatched to personnel-in-charge', $val1, 'Complaint has been dispatched to the appropriate personnel for immediate action.');
 		echo "Successfully Assigned";
@@ -1155,7 +1141,7 @@ session_start();
     $sqlQuery = "INSERT INTO complaint_status
                 VALUES ('$empid',now(),'$status','$complaintno','$remarks') ";
     if (mysqli_query($db, $sqlQuery)) {
-      console_log("Status has been updated successfully");
+      echo "Status has been updated successfully";
     } else {
       echo "Error:<br>" . mysqli_error($db);
     }
@@ -1274,6 +1260,7 @@ session_start();
 
   if(isset($_POST['complainantcomplaintno'])){
     global $db;
+    $u_contact = 0;
     $thisQuery = "SELECT u.Contact from user u
                   INNER JOIN user_complaint uc ON u.UserID = uc.ComplaintID
                   WHERE uc.ComplaintNo = '" . $_POST['complainantcomplaintno'] . "'";
@@ -1282,8 +1269,10 @@ session_start();
     if(mysqli_num_rows($results) > 0){
       while ($row = mysqli_fetch_assoc($results)) {
         echo $row['Contact'];
+        $u_contact = $row['Contact'];
       }
     }
+
   }
 
   if(isset($_POST['employee_id_search'])){

@@ -34,8 +34,7 @@ $(document).ready(function() {
   })
 
   $('#btnUpdateStatus').click(function() {
-    sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
-    console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+    retrieveComplainantContact($('#lblComplaintno').val());
   })
 
   $('#btnChangePass').click(function(){
@@ -109,6 +108,21 @@ function sendmessage(cp, txtmessage){
     },
     success: function(result){
       console.log(result);
+    }
+  })
+}
+
+function retrieveComplainantContact(value){
+  var returnValue = '';
+  $.ajax({
+    type: "POST",
+    url: "databaseConnection/DatabaseQueries.php",
+    data:{
+      'complainantcomplaintno': value
+    },
+    success: function(result){
+        sendmessage(result, `Hey there! You got a response from the personnel in-charged for Complaint No: ${value}`);
+        // console.log(result);
     }
   })
 }

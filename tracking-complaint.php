@@ -79,7 +79,7 @@ require('databaseConnection/DatabaseQueries.php');
               <td id="location"></td>
             </tr>
             <tr>
-              <th>Land-mark</th>
+              <th>Land-mark / Office</th>
               <td id="arealandmark"></td>
             </tr>
           </table>

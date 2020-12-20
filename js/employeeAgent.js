@@ -149,11 +149,13 @@ $(document).ready(function(){
   });
 
   $('#btnSelectedEmp').click(function(){
-    assignComplaint();
+    // assignComplaint();
+    retrieveComplainantContact($('#cdNUM').val());
   })
 
   $('#btnAssignEmployeeSupport').click(function(){
-    assignComplaint();
+    // assignComplaint();
+    retrieveComplainantContact($('#cdNUM').val());
   })
 
   // removing rows in table remove value
@@ -500,15 +502,13 @@ function retrieveComplainantContact(value){
       'complainantcomplaintno': value
     },
     success: function(result){
-      console.log(result);
-      returnValue = result;
+      assignComplaint(result);
     }
   })
 
   return returnValue;
 }
-function assignComplaint() {
-  var complainantNo = "";
+function assignComplaint(contact_num) {
   if(confirm("Are you sure you want to assign " + $('#empSupp').val() + " for this complaint?")){
     $.ajax({
       type: "POST",
@@ -516,12 +516,15 @@ function assignComplaint() {
       data: { 'complaintno': $('#cdNUM').val(),
               'empidsupp': $('#empSupp').val()},
       success: function(result){
-        console.log(result);
-        complainantNo = retrieveComplainantContact($('#cdNUM').val());
+
+        let thiscomplaintno = $('#cdNUM').val();
+        // sendmessage(contact_num, `Your complaint ticket with TN:  ${thiscomplaintno} has been dispatched to the appropriate personnel.`);
+        location.reload();
       }
     })
-    sendmessage(complainantNo, "Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
-    console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
+
+
+    // console.log("Your complaint ticket witn TN: " +  $('#cdNUM').val() +" has been dispatched to the appropriate personnel for immediate action.");
   }
 }
 function fillAssignedComplaint(){
