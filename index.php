@@ -54,14 +54,17 @@ if (isGuest()) {
 		<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
 		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->
-		<button id = "btnPayBills" class="mainBtn">Pay Bills</button>
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
 
 		<!-- Display Bills  -->
 		<div id="divBillList" style="width: 100%; text-align: left">
 			<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
-			<p><b>Bills</b></p>
+
+			<p><b>Bills</b>
+				<input type="text"  style="width: auto" id="txtbillamount" name="" value="" readonly>
+				<button style="float:right" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button></p>
+
 			<table id='tblBill'>
 			<tr>
 			<th>Period Covered</th>
@@ -70,6 +73,7 @@ if (isGuest()) {
 			<th>Before Due</th>
 			<th>After Due</th>
 			<th>Due Date</th>
+			<th>Amount Paid</th>
 			</tr>
 			<!-- bill -->
 			<?php displayBill($_SESSION['user']['AcctNo']); ?>
@@ -133,7 +137,14 @@ if (isGuest()) {
 		      <span class="headerText"><h1>Payment Method</h1></span>
 		    </div>
 					<div class="" style="width:100%">
-					<button type="button" class="mainBtn" id="btnPaymentMethod">Payment Method</button>
+
+						<form action="upload.php" method="post" enctype="multipart/form-data">
+						    Upload your receipt:
+						    <input type="file" name="file">
+						    <!-- <input type="submit" name="submit" value="Upload"> -->
+							<button type="submit" name="submit" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button>
+						</form>
+					<!-- <button type="button" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button> -->
 				</div>
 
 			</div>

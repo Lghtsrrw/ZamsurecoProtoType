@@ -10,6 +10,7 @@ session_start();
 
   /* Attempt to connect to MySQL database */
   $mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
   $db = $mysqli;
 
   // Check connection
@@ -841,6 +842,7 @@ session_start();
 				echo "<td>" . $row['beforeDue'] . "</td>";
 				echo "<td>" . $row['afterDue'] . "</td>";
 				echo "<td>" . $row['DueDate'] . "</td>";
+				echo "<td>" . $row['AmountPaid'] . "</td>";
 				echo "</tr>";
 			}
 		}

@@ -33,6 +33,14 @@ $(document).ready(function() {
     $('#btnTrackComplaint').prop('disabled',false);
   })
 
+  $('body').on("click","#tblBill tr", function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
+    var value=$(this).find('td:last').html();
+    $('#txtbillamount').val(value)
+    $('#btnPayBills').prop('disabled', false)
+
+  })
+
   $('.container').on('click', function() {
     $('#tblComplaintList tr').removeClass('selected');
     $('#btnTrackComplaint').prop('disabled',true);
