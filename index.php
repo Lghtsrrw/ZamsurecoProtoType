@@ -8,7 +8,7 @@ if (isGuest()) {
 }elseif (isSupport()) {
   header('location: dispatch.php');
 }elseif(empty(isset($_SESSION['user']))){
-	header('location: signin.php');
+	header('location: userauthenticate.php');
 }
 ?>
 

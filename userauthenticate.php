@@ -1,3 +1,19 @@
+<?php
+require('databaseConnection/DatabaseQueries.php');
+
+  if (isset($_SESSION['user'])) {
+    if(isLoggedIn()){
+      header('location: index.php');
+    }elseif(isGuest()){
+      header('location: guestHomepage.php');
+    }elseif (isAgent()) {
+      header('location: employeeAgent.php');
+    }elseif (isSupport()) {
+      header('location: dispatchs.php');
+    }
+  }
+ ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -19,15 +35,32 @@
         <button id = "btnTrack" class="mainBtn" style="width:auto">TRACK COMPLAINT</button>
         <button id = "btnGuest" class="mainBtn" style="width:auto; background-color:#f1964c; ">LOGIN AS GUEST</button>
       </div>
+      <?php echo display_error(); ?>
     </div>
   </head>
-
+  <!-- Trigger Sign Up/ Register modal -->
+  <?php if (isset($_GET['register'])): ?>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#btnRegister').click();
+    });
+    </script>
+  <?php endif; ?>
+  <!-- Trigger Login modal -->
+  <?php if (isset($_GET['login'])): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#btnLogin').click();
+      });
+    </script>
+  <?php endif; ?>
   <body style="
   background: url('img/bg.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; top: 100px;">
+
 
     <!-- Modals declaration -->
     <!-- modal for LoginPage -->
@@ -142,7 +175,7 @@
           <input type="text" id="mgAddress" placeholder="Enter address" name="gAddress" required> <br>
           <hr>
           <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-          <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn"style="width:100%;">Enter as Guest</button>
+          <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn" style="width:100%;">Enter as Guest</button>
         </div>
       </form>
     </div>
