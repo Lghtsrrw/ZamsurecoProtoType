@@ -26,7 +26,7 @@ require('databaseConnection/DatabaseQueries.php');
   </head>
 
   <body style="
-  background: url('img/payment.png') no-repeat center center fixed;
+  background: url('img/bg.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -59,7 +59,7 @@ require('databaseConnection/DatabaseQueries.php');
         <!-- title -->
         <div class="logoimg">
           <img src="img/logo.png" id="logotitle">
-          <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
+          <h3>ZAMSURECO - I ELECTRIC SERVICE</h3>
         </div>
 
         <!-- displays errors -->
@@ -83,7 +83,7 @@ require('databaseConnection/DatabaseQueries.php');
         </div>
         <div class="imgcontainer">
           <img src="img/userprofile.png" alt="Avatar" class="avatar">
-          <h1>MCO's Sign-in Page</h1>
+          <h3>Member Consumer Owner's Sign-in</h3>
         </div>
         <div class="container"> <!-- Check -->
           <input type="text" placeholder="Username" name="username">

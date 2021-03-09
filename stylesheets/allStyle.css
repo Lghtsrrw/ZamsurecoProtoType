@@ -38,7 +38,8 @@ input[type=text], input[type=password],input[type=number] option{
 }
 .divHeader{
   background-color: #ffda7d;
-  color: #334f7d;
+  background-color: rgba(255, 218, 125,0.9);
+  color: #334F7D;
   text-align: center;
   position: fixed;
   width: 100%;

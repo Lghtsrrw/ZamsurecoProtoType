@@ -24,11 +24,11 @@ require('databaseConnection/DatabaseQueries.php');
     <title>Employee Login</title>
   </head>
   <body style="
-  background: url('img/payment.png') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;">
+    background: url('img/bg.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;">
     <div class="divLogin">
       <!-- Image and Title -->
       <div class="logoimg">
