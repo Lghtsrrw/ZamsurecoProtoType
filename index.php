@@ -14,6 +14,7 @@ if (isGuest()) {
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +28,7 @@ if (isGuest()) {
 <body>
 
 	<div class="btnContainer">
-		<fieldset style="width:80%; margin:1% auto; ">
+		<fieldset style="width:80%; ">
 
 		<!-- logout Button -->
 		<div class="clscontainer">
@@ -35,8 +36,10 @@ if (isGuest()) {
 		</div>
 
 	  <div class="logoimg">
+
 	  <img src="img/logo.png" id="logotitle">
-	  <h3>ZAMSURECO-I MOBILE APPLICATION</h3>
+	  <h3>ZAMSURECO-I ELECTRIC SERVICE</h3>
+
 	  </div>
 
 		<?php if (isset($_SESSION['user']['IDType']) && $_SESSION['user']['IDType'] == 'User') : ?>
@@ -53,7 +56,7 @@ if (isGuest()) {
 
 		<div class="divBtn">
 		<button id = "btnComplaints" class="mainBtn">Complaints</button>
-		<!-- <button id = "btnInquireBill" class="mainBtn">Inquire Bill</button> -->
+		<button id = "btnInquiry" class="mainBtn">Inquiry</button>
 		<button id = "btnEvents" class="mainBtn">Events</button>
 		<button id = "btnPortal" class="mainBtn">Portal</button>
 
@@ -121,7 +124,6 @@ if (isGuest()) {
 						<?php userComplaintTable($_SESSION['user']['username']); ?>
 					</table>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -150,5 +152,31 @@ if (isGuest()) {
 			</div>
 		</div>
 	</div>
+
+	<!-- Inquiry modal -->
+	<div id="inquiryModal" class="modal">
+		<div class="modal-content animate">
+			<div class="clscontainer">
+				<span class="close" title="Close Modal">&times;</span>
+			</div>
+			<div class="container" style="padding: 20px">
+				<div class="titleHeader">
+		      <span class="headerText"><h1>Payment Method</h1></span>
+		    </div>
+					<div class="" style="width:100%">
+
+						<form action="upload.php" method="post" enctype="multipart/form-data">
+						    Upload your receipt:
+						    <input type="file" name="file">
+						    <!-- <input type="submit" name="submit" value="Upload"> -->
+							<button type="submit" name="submit" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button>
+						</form>
+					<!-- <button type="button" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button> -->
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

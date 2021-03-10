@@ -258,7 +258,6 @@ li{
   width: 100px;
   height: 100px;
 }
-
 /* Set a style for all buttons */
 
 button{
@@ -434,9 +433,8 @@ span.psw {
 }
 
 .btnContainer{
+  width: 100%;
   text-align: center;
-  padding: 20px;
-  padding-left: 50px
   margin: 0px auto;
 }
 

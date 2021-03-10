@@ -181,6 +181,7 @@ session_start();
 
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success']  = "You are now logged in";
+        $_SESSION['error'] = "Some Error";
 				header('location: index.php');
 
 			}else {

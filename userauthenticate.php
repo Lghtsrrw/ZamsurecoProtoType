@@ -35,7 +35,6 @@ require('databaseConnection/DatabaseQueries.php');
         <button id = "btnTrack" class="mainBtn" style="width:auto">TRACK COMPLAINT</button>
         <button id = "btnGuest" class="mainBtn" style="width:auto; background-color:#f1964c; ">LOGIN AS GUEST</button>
       </div>
-      <?php echo display_error(); ?>
     </div>
   </head>
   <!-- Trigger Sign Up/ Register modal -->
@@ -61,6 +60,13 @@ require('databaseConnection/DatabaseQueries.php');
   -o-background-size: cover;
   background-size: cover; top: 100px;">
 
+    <?php if(isset($_SESSION['error'])):?>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('#id05').css("display","block");
+        });
+      </script>
+    <?php endif; ?>
 
     <!-- Modals declaration -->
     <!-- modal for LoginPage -->
@@ -178,6 +184,19 @@ require('databaseConnection/DatabaseQueries.php');
           <button type="submit" class="mainBtn" name="guestbtn" id="mguestbtn" style="width:100%;">Enter as Guest</button>
         </div>
       </form>
+    </div>
+
+    <!-- modal for Error -->
+    <div id="id05" class="modal">
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
+        <div class="imgcontainer">
+          <img src="img/userprofile.png" alt="Avatar" class="avatar">
+        </div>
+        <div class="container">
+          <?php echo display_error(); ?>
+        </div>
     </div>
     <!-- Modals declaration end -->
 

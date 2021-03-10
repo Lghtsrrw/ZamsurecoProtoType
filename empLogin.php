@@ -23,12 +23,8 @@ require('databaseConnection/DatabaseQueries.php');
   	<script src="js/jquery-3.5.1.min.js"></script>
     <title>Employee Login</title>
   </head>
-  <body style="
-    background: url('img/bg.png') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;">
+
+  <body style="background: url('img/bg.png') no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
     <div class="divLogin">
       <!-- Image and Title -->
       <div class="logoimg">
