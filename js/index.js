@@ -14,7 +14,9 @@ $(document).ready(function() {
   $("#btnCreateComplaint").click(function(){
     window.location.href = "complaintTicket.php";
   });
-
+  $('#btnInquiry').click(function(){
+    $('#inquiryModal').css("display", "block")
+  })
   $("#btnTrackComplaint").click(function(){
     window.location.href = 'tracking-complaint.php?TN=' + $('#inComplaintNo').val();
   });

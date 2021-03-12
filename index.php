@@ -28,7 +28,6 @@ if (isGuest()) {
 <body>
 
 	<div class="btnContainer">
-		<fieldset style="width:80%; ">
 
 		<!-- logout Button -->
 		<div class="clscontainer">
@@ -61,14 +60,15 @@ if (isGuest()) {
 		<button id = "btnPortal" class="mainBtn">Portal</button>
 
 		<!-- Display Bills  -->
-		<div id="divBillList" style="width: 100%; text-align: left">
+
+		<!-- <div id="divBillList" style="width: 100%; text-align: left">
 			<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
 
 			<p><b>Bills</b>
 				<input type="text"  style="width: auto" id="txtbillamount" name="" value="" readonly>
 				<button style="float:right" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button></p>
 
-			<table id='tblBill'>
+			<table id='tblBill' style="display:inline-block">
 			<tr>
 			<th>Period Covered</th>
 			<th>Kwh Used</th>
@@ -78,14 +78,13 @@ if (isGuest()) {
 			<th>Due Date</th>
 			<th>Amount Paid</th>
 			</tr>
-			<!-- bill -->
 			<?php displayBill($_SESSION['user']['AcctNo']); ?>
 			</table>
 			<?php else : ?>
 				<p><b>Bills</b></p>
 				<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
 			<?php endif ?>
-		</div>
+		</div> -->
 
 			<!-- condtional: submit Ticket and Tracking No -->
 			<?php if(isset($_SESSION['submit'])) : ?>
@@ -100,7 +99,6 @@ if (isGuest()) {
 				endif
 			?>
 		</div>
-	</fieldset>
 
 <!-- begin modal -->
 	<!-- Complaint Modal -->
@@ -161,17 +159,14 @@ if (isGuest()) {
 			</div>
 			<div class="container" style="padding: 20px">
 				<div class="titleHeader">
-		      <span class="headerText"><h1>Payment Method</h1></span>
+		      <span class="headerText"><h1>Inquiries</h1></span>
 		    </div>
 					<div class="" style="width:100%">
-
-						<form action="upload.php" method="post" enctype="multipart/form-data">
-						    Upload your receipt:
-						    <input type="file" name="file">
-						    <!-- <input type="submit" name="submit" value="Upload"> -->
-							<button type="submit" name="submit" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button>
-						</form>
+						<h3>Display List of Inquiry Here.......</h3>
 					<!-- <button type="button" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button> -->
+					<button id = "btnBills" class="mainBtn">Inquire Bills</button>
+					<button id = "btnBills" class="mainBtn">Inquire Bills</button>
+					<button id = "btnBills" class="mainBtn">Inquire Bills</button>
 				</div>
 
 			</div>
