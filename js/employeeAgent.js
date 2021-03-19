@@ -34,12 +34,10 @@ $(document).ready(function(){
             ){
             $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
-
           if (desc.provCode == "1042" && desc.citymunDesc == "DON VICTORIANO CHIONGBIAN  (DON MARIANO MARCOS)")
           {
             $('#empLocaCover').append($("<option>").val(desc.citymunDesc).text(desc.citymunCode));
           }
-
         });
       });
     });

@@ -38,11 +38,12 @@ input[type=text], input[type=password],input[type=number] option{
 }
 .divHeader{
   background-color: #ffda7d;
-  background-color: rgba(255, 218, 125,0.9);
+  background-color: rgba(255, 218, 125,0.5);
   color: #334F7D;
   text-align: center;
   position: fixed;
   width: 100%;
+  height:auto;
   top: 0;
   right: 0;
   font-size: 2vh;
@@ -50,7 +51,6 @@ input[type=text], input[type=password],input[type=number] option{
   overflow: visible;
   padding: 0;
   margin: 0;
-  border: 1px solid black;
 }
 .inputInvalid{
   border: 1px solid red;
@@ -187,7 +187,7 @@ tr:nth-child(even){background-color: #e8e8e8}
   border: 1px solid #ccc;
   padding: 10px;
   background-color: white;
-  margin-top: 10%;
+  margin-top: 30%;
   opacity: .9;
 }
 
@@ -445,9 +445,10 @@ span.psw {
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  margin: 10% auto 30% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
   width:90%; /* Could be more or less, depending on screen size */
+  opacity: 0.9;
 }
 
 /* The Close Button (x) */

@@ -84,12 +84,6 @@ require('databaseConnection/DatabaseQueries.php');
             </tr>
           </table>
 
-
-          <label for=""></label>
-          <label for=""></label>
-          <br>
-          <label for=""></label>
-
         </div>
 
         <hr>

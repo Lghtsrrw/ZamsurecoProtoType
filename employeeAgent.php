@@ -113,14 +113,15 @@ if (isLoggedIn()) {
         <button id = "btnEmpList" class="mainBtn2">Employee List</button>
         <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
-          <b><label for="">Full name</label></b><br>
-          <input type="text" placeholder="First-name" name="txtFname" onkeyup="this.value = this.value.toUpperCase();" required><br>
-          <input type="text" placeholder="Middile-initial" name="txtMname" onkeyup="this.value = this.value.toUpperCase();" maxlength="1"><br>
-          <input type="text" placeholder="Last-name"name="txtLname" onkeyup="this.value = this.value.toUpperCase();" required>
-          <b><label for="">Area</label></b><br>
-          <input type="text" name="txtArea" onkeyup="this.value = this.value.toUpperCase();" required>
-          <b><label for="">Department</label></b><br>
-          <input type="text" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" required>
+
+          <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto">
+            <label for="">Z1-</label>
+            <input type="text" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
+            <button type="button" name="button" style="border-radius:1em; width:auto; background-color: #d1d1d1; color:Black">Enter</button>
+          </div>
+          <input type="text" placeholder="Full name" id="txtFullName" name="txtFname" onkeyup="this.value = this.value.toUpperCase();" required><br>
+          <input type="text" placeholder="Area" id="txtArea" name="txtArea" onkeyup="this.value = this.value.toUpperCase();" required>
+          <input type="text" placeholder="Department" id="txtDepartment" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" required>
           <div class="divBtn" style="text-align: left;">
             <fieldset>
               <legend>Account</legend>

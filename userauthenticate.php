@@ -202,7 +202,7 @@ require('databaseConnection/DatabaseQueries.php');
 
   </body>
 
-  <footer style="">
+  <footer style="opacity: 0.8">
     <div class="divFooter">
       <p>Zamsureco-I Electric Service | 2020</p>
       <p></p>
