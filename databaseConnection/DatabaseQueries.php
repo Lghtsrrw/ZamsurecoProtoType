@@ -1326,4 +1326,32 @@ session_start();
     // echo $passingarray;
     echo json_encode($passingarray);
   }
+
+  function fillEmpID(){
+			global $db;
+
+			$sql = mysqli_query($db,"SELECT empid from employees") or die (mysqli_error($db));
+
+			while ($row = mysqli_fetch_assoc($sql)) {
+				echo "<option >". $row['empid'] ."</option>";
+			}
+	}
+
+  if(isset($_POST['searchEmpID'])){
+    retrieveEmployeeInfo($_POST['searchEmpID']);
+  }
+
+  function retrieveEmployeeInfo($var){
+    global $db;
+
+    $passed_array = array();
+    $query ="SELECT empName, Area_Assigned, Dept from employees where empid = " . $var;
+    $results = mysqli_query($db, $query) or die(mysqli_error($db));
+    if(mysqli_num_rows($results) > 0){
+      while ($row = mysqli_fetch_assoc($results)) {
+        array_push($passed_array, $row['empName'], $row['Area_Assigned'], $row['Dept']);
+      }
+    }
+    echo json_encode($passed_array);
+  }
 ?>

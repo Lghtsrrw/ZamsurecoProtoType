@@ -116,8 +116,13 @@ if (isLoggedIn()) {
 
           <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto">
             <label for="">Z1-</label>
-            <input type="text" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
-            <button type="button" name="button" style="border-radius:1em; width:auto; background-color: #d1d1d1; color:Black">Enter</button>
+
+            <input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
+            <datalist id="list_empid">
+              <?php fillEmpID(); ?>
+            </datalist>
+
+            <button type="button" id="btnEnterEmpID" name="btnEnterEmpID" style="border-radius:1em; width:auto; background-color: #d1d1d1; color:Black">Enter</button>
           </div>
           <input type="text" placeholder="Full name" id="txtFullName" name="txtFname" onkeyup="this.value = this.value.toUpperCase();" required><br>
           <input type="text" placeholder="Area" id="txtArea" name="txtArea" onkeyup="this.value = this.value.toUpperCase();" required>

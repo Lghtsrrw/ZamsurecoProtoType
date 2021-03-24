@@ -358,6 +358,27 @@ $(document).ready(function(){
     fillAssignedComplaint();
     // console.log("HelloWorld");
   })
+
+  $('#btnEnterEmpID').click(function(){
+    $.ajax({
+      type: 'POST',
+      url: 'databaseConnection/DatabaseQueries.php',
+      data:{
+        'searchEmpID': $('#btnEnterEmpID').val()
+      },
+      success: function(result){
+        console.log(result);
+        var arrEmployeeSearch = jQuery.parseJSON(result);
+        console.log(arrEmployeeSearch);
+        console.log(arrEmployeeSearch.length);
+
+        $('#txtFullName').val(arrEmployeeSearch[0])
+        $('#txtArea').val(arrEmployeeSearch[1])
+        $('#txtDepartment').val(arrEmployeeSearch[2])
+      }
+    })
+  })
+
 });
 function hideModals(){
   $('#divTbl').css("display","none");

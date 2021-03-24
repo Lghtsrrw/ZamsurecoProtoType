@@ -17,13 +17,7 @@ require('databaseConnection/DatabaseQueries.php');
 </head>
 
 <body style="background-color: #fcffe8">
-  <div id="divLogout" style="width:100%">
-    <h5>
-      <a id="btnBack" href="#">BACK</a>
-      <a id="btnLogout" href="index.php?logout='1'" style='color:red; float:right'>LOGOUT</a>
-    </h5>
-  </div>
-  <div id = "divTicket">
+  <div id = "divTicket" style="display:none">
     <div class="titleHeader" style="">
       <span class="headerText"><img src="img/logo.png" id="logotitle" style="float:left; height: 80px; width: 80px"></span>
       <span class="headerText"><b><label style="font-size:25px">Create ticket</label></b></span>
