@@ -521,43 +521,41 @@ session_start();
 		$password = md5($psw);
 
 		if(empty($_POST['txtFname'])){
-			array_push($errors, "Insert your First-name");
-		}
-		if(empty($_POST['txtMname'])){
-			$mname = '';
-		}
-		if(empty($_POST['txtLname'])){
-			array_push($errors, "Insert your Last-name");
+			array_push($errors, "Insert your name");
 		}
 		if(empty($_POST['txtArea'])){
-			array_push($errors, "Fill in Area-location");
+			$mname = '';
 		}
 		if(empty($_POST['txtDept'])){
-			array_push($errors, "Insert your department");
+			array_push($errors, "Need Department");
 		}
 
 		if(count($errors) == 0){
-			// save to Employee Table
-			if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
-        console_log('support created');
-			}else {
-			 echo "Error:<br>" . mysqli_error($db);
-			}
+
+      // save to Employee Table
+			// if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
+      //   console_log('support created');
+			// }else {
+			//  echo "Error:<br>" . mysqli_error($db);
+			// }
+
 			// save to System Account Table
 			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
         console_log("SAVE SUPPORT ");
 			}else {
 				echo "Error:<br>" . mysqli_error($db);
 			}
+
 			// save to ID Verification Table
 			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), 'Support')")) {
-				console_log(' SAVED ID VER');
+				console_log('SAVED ID VER');
 			}else {
 				echo "Error:<br>" . mysqli_error($db);
 			}
 
 			$_SESSION['savedsupp'] = $empid;
 			header('location: employeeAgent.php');
+
 		}
 	}
 
@@ -1341,17 +1339,17 @@ session_start();
     retrieveEmployeeInfo($_POST['searchEmpID']);
   }
 
-  function retrieveEmployeeInfo($var){
+  function retrieveEmployeeInfo($val){
     global $db;
 
-    $passed_array = array();
-    $query ="SELECT empName, Area_Assigned, Dept from employees where empid = " . $var;
+    $passingarray = array();
+    $query ="SELECT * FROM employees where empid = '$val'";
     $results = mysqli_query($db, $query) or die(mysqli_error($db));
     if(mysqli_num_rows($results) > 0){
       while ($row = mysqli_fetch_assoc($results)) {
-        array_push($passed_array, $row['empName'], $row['Area_Assigned'], $row['Dept']);
+        array_push($passingarray,$row['empName'], $row['Area_Assigned'], $row['Dept']);
       }
     }
-    echo json_encode($passed_array);
+    echo json_encode($passingarray);
   }
 ?>

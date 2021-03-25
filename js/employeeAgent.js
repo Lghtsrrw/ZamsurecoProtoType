@@ -360,21 +360,21 @@ $(document).ready(function(){
   })
 
   $('#btnEnterEmpID').click(function(){
+
     $.ajax({
       type: 'POST',
       url: 'databaseConnection/DatabaseQueries.php',
       data:{
-        'searchEmpID': $('#btnEnterEmpID').val()
+        'searchEmpID': $('#txtEmpID').val()
       },
       success: function(result){
-        console.log(result);
-        var arrEmployeeSearch = jQuery.parseJSON(result);
-        console.log(arrEmployeeSearch);
-        console.log(arrEmployeeSearch.length);
+        var empInfo = JSON.parse(result);
+        console.log(empInfo);
 
-        $('#txtFullName').val(arrEmployeeSearch[0])
-        $('#txtArea').val(arrEmployeeSearch[1])
-        $('#txtDepartment').val(arrEmployeeSearch[2])
+
+        $('#txtFullName').val(empInfo[0])
+        $('#txtArea').val(empInfo[1])
+        $('#txtDepartment').val(empInfo[2])
       }
     })
   })

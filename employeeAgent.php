@@ -124,9 +124,9 @@ if (isLoggedIn()) {
 
             <button type="button" id="btnEnterEmpID" name="btnEnterEmpID" style="border-radius:1em; width:auto; background-color: #d1d1d1; color:Black">Enter</button>
           </div>
-          <input type="text" placeholder="Full name" id="txtFullName" name="txtFname" onkeyup="this.value = this.value.toUpperCase();" required><br>
-          <input type="text" placeholder="Area" id="txtArea" name="txtArea" onkeyup="this.value = this.value.toUpperCase();" required>
-          <input type="text" placeholder="Department" id="txtDepartment" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" required>
+          <input type="text" placeholder="Full name" id="txtFullName" name="txtFname" onkeyup="this.value = this.value.toUpperCase();" readonly><br>
+          <input type="text" placeholder="Area" id="txtArea" name="txtArea" onkeyup="this.value = this.value.toUpperCase();" readonly>
+          <input type="text" placeholder="Department" id="txtDepartment" name="txtDept" onkeyup="this.value = this.value.toUpperCase();" readonly>
           <div class="divBtn" style="text-align: left;">
             <fieldset>
               <legend>Account</legend>

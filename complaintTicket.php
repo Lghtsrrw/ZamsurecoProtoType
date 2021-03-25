@@ -17,7 +17,7 @@ require('databaseConnection/DatabaseQueries.php');
 </head>
 
 <body style="background-color: #fcffe8">
-  <div id = "divTicket" style="display:none">
+  <div id = "divTicket">
     <div class="titleHeader" style="">
       <span class="headerText"><img src="img/logo.png" id="logotitle" style="float:left; height: 80px; width: 80px"></span>
       <span class="headerText"><b><label style="font-size:25px">Create ticket</label></b></span>
