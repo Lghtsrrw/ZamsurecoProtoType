@@ -31,7 +31,7 @@ if (isGuest()) {
 
 		<!-- logout Button -->
 		<div class="clscontainer">
-				<button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red;">Log-out</button>
+				<button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red; ">Log-out</button>
 		</div>
 
 	  <div class="logoimg">
@@ -54,37 +54,37 @@ if (isGuest()) {
 		<?php unset($_SESSION['success']); endif; ?>
 
 		<div class="divBtn">
-		<button id = "btnComplaints" class="mainBtn">Complaints</button>
-		<button id = "btnInquiry" class="mainBtn">Inquiry</button>
-		<button id = "btnEvents" class="mainBtn">Events</button>
-		<button id = "btnPortal" class="mainBtn">Portal</button>
+			<button id = "btnComplaints" class="mainBtn">Complaints</button>
+			<button id = "btnInquiry" class="mainBtn">Inquiry</button>
+			<button id = "btnEvents" class="mainBtn">Events</button>
+			<button id = "btnPortal" class="mainBtn">Portal</button>
 
-		<!-- Display Bills  -->
+			<!-- Display Bills  -->
 
-		<!-- <div id="divBillList" style="width: 100%; text-align: left">
-			<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
+			<!-- <div id="divBillList" style="width: 100%; text-align: left">
+				<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
 
-			<p><b>Bills</b>
-				<input type="text"  style="width: auto" id="txtbillamount" name="" value="" readonly>
-				<button style="float:right" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button></p>
+				<p><b>Bills</b>
+					<input type="text"  style="width: auto" id="txtbillamount" name="" value="" readonly>
+					<button style="float:right" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button></p>
 
-			<table id='tblBill' style="display:inline-block">
-			<tr>
-			<th>Period Covered</th>
-			<th>Kwh Used</th>
-			<th>On Due</th>
-			<th>Before Due</th>
-			<th>After Due</th>
-			<th>Due Date</th>
-			<th>Amount Paid</th>
-			</tr>
-			<?php displayBill($_SESSION['user']['AcctNo']); ?>
-			</table>
-			<?php else : ?>
-				<p><b>Bills</b></p>
-				<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
-			<?php endif ?>
-		</div> -->
+				<table id='tblBill' style="display:inline-block">
+					<tr>
+						<th>Period Covered</th>
+						<th>Kwh Used</th>
+						<th>On Due</th>
+						<th>Before Due</th>
+						<th>After Due</th>
+						<th>Due Date</th>
+						<th>Amount Paid</th>
+					</tr>
+					<?php displayBill($_SESSION['user']['AcctNo']); ?>
+				</table>
+				<?php else : ?>
+					<p><b>Bills</b></p>
+					<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
+				<?php endif ?>
+			</div> -->
 
 			<!-- condtional: submit Ticket and Tracking No -->
 			<?php if(isset($_SESSION['submit'])) : ?>
