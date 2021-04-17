@@ -1,9 +1,7 @@
 <?php
 require 'databaseConnection/DatabaseQueries.php';
 
-if (isLoggedIn()) {
-    header('location:');
-}elseif (isGuest()) {
+if (isGuest()) {
   header('location: guestHomepagehp.php');
 }elseif (isSupport()) {
   header('location: dispatch.php');
@@ -55,16 +53,18 @@ if (isLoggedIn()) {
       <!-- Button declaration -->
       <button id = "btnComplaints" class="mainBtn">Complaint-list</button>
       <button id = "btnCrew" class="mainBtn">View assigned-complaints</button>
-      <button id = "btnRegSupp" class="mainBtn">Register support</button>
+      <button id = "btnRegSupp" class="mainBtn">Add Support</button>
+      <button id = "btnBillList" class="mainBtn">Add Biller</button>
       <button id = "btnMngDspt" class="mainBtn">Dispatch management</button>
       <br>
     </div>
-
+    
     <!-- Display process success of failure -->
     <?php if(isset($_SESSION['savesupp'])) : ?>
     <div id="divSubmitMessage" style="margin-top: 20px">
       <h4>COMPLAINT RECEIVER UPDATED</h4>
     </div>
+
     <?php
     unset($_SESSION['savesupp']);
     endif
@@ -115,9 +115,8 @@ if (isLoggedIn()) {
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
 
           <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto">
-            <label for="">Z1-</label>
-
-            <input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
+            <label for="">Z1-</label><input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
+            
             <datalist id="list_empid">
               <?php fillEmpID(); ?>
             </datalist>

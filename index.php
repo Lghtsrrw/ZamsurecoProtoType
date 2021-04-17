@@ -165,8 +165,8 @@ if (isGuest()) {
 						<h3>Display List of Inquiry Here.......</h3>
 					<!-- <button type="button" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button> -->
 					<button id = "btnBills" class="mainBtn">Inquire Bills</button>
-					<button id = "btnBills" class="mainBtn">Inquire Bills</button>
-					<button id = "btnBills" class="mainBtn">Inquire Bills</button>
+					<!-- <button id = "btnBills" class="mainBtn"></button> -->
+					<button id = "btnBills" class="mainBtn">Others</button>
 				</div>
 
 			</div>

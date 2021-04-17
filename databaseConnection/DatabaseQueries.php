@@ -168,11 +168,15 @@ session_start();
 			$password1 = md5($password);
 
 			$query = "SELECT * FROM syst_acct sa
-								INNER JOIN id_verification iv
-								ON sa.userid = iv.userID
-								INNER JOIN user u
-								ON u.userID = sa.userid
-								WHERE sa.username='$username' AND sa.password='$password1' LIMIT 1";
+						INNER JOIN id_verification iv
+							ON sa.username = iv.userID
+						LEFT JOIN employee emp
+							ON emp.empID = sa.userid
+						LEFT JOIN user u
+							ON u.userID = sa.userid
+						WHERE sa.username='$username' 
+							AND sa.password='$password1' 
+						LIMIT 1";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) { // user found
@@ -181,7 +185,6 @@ session_start();
 
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success']  = "You are now logged in";
-        $_SESSION['error'] = "Some Error";
 				header('location: index.php');
 
 			}else {
