@@ -48,7 +48,7 @@ $(document).ready(function(){
   // Logout Button
   $('#btnLogout').on("click",function(){
     if (confirm("Are you sure you want to Log-out?") == true) {
-        window.location.href = "empLogin.php?logout='1'";
+        window.location.href = "index.php?logout='1'";
     }
   });
 
@@ -360,6 +360,7 @@ $(document).ready(function(){
   })
 
   $('#btnEnterEmpID').click(function(){
+
     $.ajax({
       type: 'POST',
       url: 'databaseConnection/DatabaseQueries.php',
@@ -367,18 +368,13 @@ $(document).ready(function(){
         'searchEmpID': $('#txtEmpID').val()
       },
       success: function(result){
-        // console.log(result);
-        // var arrEmployeeSearch = jQuery.parseJSON(result);
-        // console.log(arrEmployeeSearch);
-        // console.log(arrEmployeeSearch.length);
-
         var empInfo = JSON.parse(result);
         console.log(empInfo);
 
 
-        // $('#txtFullName').val(empInfo[0])
-        // $('#txtArea').val(empInfo[1])
-        // $('#txtDepartment').val(empInfo[2])
+        $('#txtFullName').val(empInfo[0])
+        $('#txtArea').val(empInfo[1])
+        $('#txtDepartment').val(empInfo[2])
       }
     })
   })
@@ -559,10 +555,9 @@ function fillAssignedComplaint(){
       },
       success: function(result){
         console.log(result);
-        // var arrAssignedComplaint = jQuery.parseJSON(result);
-        var arrAssignedComplaint = result;
-        console.log(result);
-        console.log(result.length);
+        var arrAssignedComplaint = jQuery.parseJSON(result);
+        console.log(arrAssignedComplaint);
+        console.log(arrAssignedComplaint.length);
 
        $("#tblAssignedComplaint").find("tr:gt(0)").remove();
         for(i=0; i<arrAssignedComplaint.length; i++){
@@ -574,6 +569,6 @@ function fillAssignedComplaint(){
             }
             $("#tblAssignedComplaint").append(row);
         }
-      } 
-    });
+      }
+    })
   }
