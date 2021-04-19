@@ -39,14 +39,14 @@ if (isGuest()) {
 
       <!-- Show current user -->
       <?php if (isset($_SESSION['success'])) : ?>
-    			<h5>
-    				Logged in as:
+    			<h5>Logged in as:
     				<?php
     				echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
             echo "User Type: " . $_SESSION['user']['IDType'] . "<br>";
     				?>
     			</h5>
       <?php
+      else: echo "ERROR";
       endif
       ?>
 
