@@ -20,6 +20,10 @@ if (isGuest()) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
 	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
+
+	<script src="js/jquery-3.5.1.min.js"></script>
+	<script src="js/index.js"></script>
+
 	<title>Zamzureco-1</title>
 </head>
 
@@ -78,7 +82,7 @@ if (isGuest()) {
 					<input type="text"  style="width: auto" id="txtbillamount" name="" value="" readonly>
 					<button id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button></p>
 
-				<table id='tblBill' style="">
+				<table id='tblBill'>
 					<tr>
 						<th>Period Covered</th>
 						<th>Kwh Used</th>
@@ -169,8 +173,6 @@ if (isGuest()) {
 			</div>
 		</div>
 	</div>
-
-	<script src="js/jquery-3.5.1.min.js"></script>
-	<script src="js/index.js"></script>
+	
 </body>
 </html>

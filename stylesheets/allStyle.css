@@ -188,6 +188,9 @@ tr:nth-child(even){background-color: #e8e8e8}
   padding: 10px;
   background-color: white;
   opacity: .9;
+  width: auto; 
+  text-align: left; 
+  overflow-x:auto;
 }
 
 
@@ -437,7 +440,7 @@ span.psw {
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto 30% auto; /* 5% from the top, 15% from the bottom and centered */
+  margin: 1% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
   width:90%; /* Could be more or less, depending on screen size */
 }

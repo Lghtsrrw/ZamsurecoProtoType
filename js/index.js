@@ -49,7 +49,7 @@ $(document).ready(function() {
   })
 
   $('#btnBills').on('click',function(){
-    console.log("Hellow");
+    // console.log("Hellow");
     window.location.href = "user_bills";
   })
 });

@@ -17,9 +17,9 @@ if (isGuest()) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="icon" type="../image/x-ico" href="img/favicon.ico"/>
+	  <link rel="icon" type="image/x-ico" href="../img/favicon.ico"/>
     
-    <title>Un-paid</title>
+    <title>Account Payable</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbar-fixed/">
 
     <!-- Bootstrap core CSS -->
@@ -47,9 +47,9 @@ if (isGuest()) {
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../"> <img src="../img/logo.png" alt="" width="25">Bills</a>
+        <a class="navbar-brand" href="../"><img src="../img/logo.png" alt="" width="25">MEMBER-CONSUMER BILLS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -59,7 +59,7 @@ if (isGuest()) {
               <a class="nav-link"  href="../user_bills">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="user_unpaid.php">Un-paid</a>
+              <a class="nav-link active" aria-current="page" href="user_unpaid.php">Account Payable</a>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
@@ -74,7 +74,7 @@ if (isGuest()) {
     </nav>
 
     <main class="container">
-        <h3>Member-Consumer Bills</h3>
+        <h3>Account Payable</h3>
         <hr>
         <!-- Display Bills  -->
         <div class="div-unstyles" id="bg-light p-5 rounded" style="width: auto; text-align: left; overflow:auto">
@@ -86,8 +86,8 @@ if (isGuest()) {
             <button class="btn btn-lg btn-primary" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button>
             <br><br>
             <div id="bg-light p-5 rounded">
-              <table id='tblBill' style="display:inline-block; width:100%">
-                <tr>
+              <table id='tblBill'class="table table-striped table-hover" style="display:inline-block; width:100%">
+                <tr class="table-active">
                   <th>Period Covered</th>
                   <th>Kwh Used</th>
                   <th>On Due</th>
@@ -106,8 +106,9 @@ if (isGuest()) {
         </div>
         <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View navbar docs &raquo;</a> -->
     </main>
-
     
+    <script src="../bootstrap-5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/jquery-3.5.1.min.js"></script>  
 	<script src="../js/index.js"></script>
   </body>
 </html>

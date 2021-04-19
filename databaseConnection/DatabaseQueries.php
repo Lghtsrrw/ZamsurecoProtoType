@@ -815,13 +815,13 @@ session_start();
 	function ifBillExist($val){
 		global $db;
 		$queryAddress = "SELECT * from bill
-										WHERE AccountNo = '$val'";
+							WHERE AccountNo = '$val'";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) == 0)
 		{
 			$val = false;
 		}else {
-				$val = true;
+			$val = true;
 		}
 		return $val;
 	}
@@ -829,15 +829,16 @@ session_start();
 	function displayBill($val){
 		global $db;
 		$queryAddress = "SELECT distinct * FROM bill
-										WHERE AccountNo like '$val'
-                    Order By DueDate DESC";
+							WHERE AccountNo like '$val'
+								-- AND year(DueDate) = ". date("Y") ."
+                    		Order By DueDate DESC";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 
 			while ($row = mysqli_fetch_assoc($results))
 			{
-				echo "<tr>";
+				echo "<tr class='table-secondary'>";
 				echo "<td>" . $row['PeriodCovered'] . "</td>";
 				echo "<td>" . $row['KwHUsed'] . "</td>";
 				echo "<td>" . $row['onDue'] . "</td>";
