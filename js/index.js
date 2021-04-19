@@ -47,4 +47,9 @@ $(document).ready(function() {
     $('#tblComplaintList tr').removeClass('selected');
     $('#btnTrackComplaint').prop('disabled',true);
   })
+
+  $('#btnBills').on('click',function(){
+    console.log("Hellow");
+    window.location.href = "user_bills";
+  })
 });

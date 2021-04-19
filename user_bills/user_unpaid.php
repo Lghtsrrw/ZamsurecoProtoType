@@ -19,7 +19,7 @@ if (isGuest()) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <link rel="icon" type="../image/x-ico" href="img/favicon.ico"/>
     
-    <title>Bills</title>
+    <title>Un-paid</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbar-fixed/">
 
     <!-- Bootstrap core CSS -->
@@ -56,10 +56,10 @@ if (isGuest()) {
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="../user_bills">Home</a>
+              <a class="nav-link"  href="../user_bills">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="user_unpaid.php">Un-paid</a>
+              <a class="nav-link active" aria-current="page" href="user_unpaid.php">Un-paid</a>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
@@ -79,7 +79,12 @@ if (isGuest()) {
         <!-- Display Bills  -->
         <div class="div-unstyles" id="bg-light p-5 rounded" style="width: auto; text-align: left; overflow:auto">
         <?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
+
+            <label class="form-label">Bills</label>
+            <input type="text" class="form-control" id="txtbillamount" name="" value="" readonly>
           
+            <button class="btn btn-lg btn-primary" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button>
+            <br><br>
             <div id="bg-light p-5 rounded">
               <table id='tblBill' style="display:inline-block; width:100%">
                 <tr>

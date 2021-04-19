@@ -33,7 +33,7 @@ if (isGuest()) {
       </div>
 
       <div class="logoimg">
-        <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
+        <img src="img/logo.png" id="logotitle">
         <h3>ZAMSURECO-I  AGENT</h3>
       </div>
 
@@ -54,7 +54,7 @@ if (isGuest()) {
       <button id = "btnComplaints" class="mainBtn">Complaint-list</button>
       <button id = "btnCrew" class="mainBtn">View assigned-complaints</button>
       <button id = "btnRegSupp" class="mainBtn">Add Support</button>
-      <button id = "btnBillList" class="mainBtn">Add Biller</button>
+      <button id = "btnBillList" class="mainBtn">Billing Report</button>
       <button id = "btnMngDspt" class="mainBtn">Dispatch management</button>
       <br>
     </div>

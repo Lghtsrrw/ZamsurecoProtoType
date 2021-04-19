@@ -1,5 +1,5 @@
 body {
-  font-family: Century Gothic, 'Arial Narrow', Arial, sans-serif;
+  font-family: serif, Century Gothic, 'Arial Narrow', Arial;
 }
 
 /* Full-width input fields */
@@ -182,12 +182,11 @@ tr:nth-child(even){background-color: #e8e8e8}
 }
 
 .divLogin, #divBillList{
-  margin:auto;
+  margin:2%;
   width: 80%;
   border: 1px solid #ccc;
   padding: 10px;
   background-color: white;
-  margin-top: 30%;
   opacity: .9;
 }
 
@@ -255,12 +254,13 @@ li{
   text-align: center;
 }
 #logotitle{
-  width: 100px;
-  height: 100px;
+  width: 10vh;
+  height: 10vh;
 }
 /* Set a style for all buttons */
 
 button{
+  font-family: serif;
   background-color: #4c80f1;
   border-color: #0E2F44;
   color: rgb(228, 255, 108);
@@ -271,15 +271,7 @@ button{
   width: 100%;
   font-size: 1.5vh;
 }
-.logoimg{
-  width:100%;
-  clear:both;
-  text-align: center;
-}
-#logotitle{
-  width: 100px;
-  height: 100px;
-}
+
 .mainBtn{
   background-color: #4c80f1;
   border: 1px solid #00008c;
@@ -305,7 +297,7 @@ button{
   border-radius: 1em;
   background-color: black;
   border: 1px solid #0E2F44;
-  color: white);
+  color: white;
   padding: 14px 20px;
   margin: 8px 0;
   cursor: pointer;

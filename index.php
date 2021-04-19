@@ -20,8 +20,6 @@ if (isGuest()) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
 	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
-	<script src="js/jquery-3.5.1.min.js"></script>
-	<script src="js/index.js"></script>
 	<title>Zamzureco-1</title>
 </head>
 
@@ -52,23 +50,35 @@ if (isGuest()) {
 				<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
 			</div>
 		<?php unset($_SESSION['success']); endif; ?>
-
+		
 		<div class="divBtn">
 			<button id = "btnComplaints" class="mainBtn">Complaints</button>
 			<button id = "btnInquiry" class="mainBtn">Inquiry</button>
 			<button id = "btnEvents" class="mainBtn">Events</button>
 			<button id = "btnPortal" class="mainBtn">Portal</button>
+			<!-- condtional: submit Ticket and Tracking No -->
+			<?php if(isset($_SESSION['submit'])) : ?>
+			<div id="divSubmitMessage">
+		 	  <p>Ticket successfully submitted.</p>
+				<p style="font-size: 10px;">Tracking No: <b><?php echo $_SESSION['trackno']; ?></b></p>
+			</div>
+
+			<?php
+				unset($_SESSION['submit']);
+				unset($_SESSION['trackno']);
+				endif
+			?>
 
 			<!-- Display Bills  -->
 
-			<!-- <div id="divBillList" style="width: 100%; text-align: left">
+			<div id="divBillList" style="width: auto; text-align: left; overflow:auto">
 				<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
 
 				<p><b>Bills</b>
 					<input type="text"  style="width: auto" id="txtbillamount" name="" value="" readonly>
-					<button style="float:right" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button></p>
+					<button id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button></p>
 
-				<table id='tblBill' style="display:inline-block">
+				<table id='tblBill' style="">
 					<tr>
 						<th>Period Covered</th>
 						<th>Kwh Used</th>
@@ -84,20 +94,8 @@ if (isGuest()) {
 					<p><b>Bills</b></p>
 					<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
 				<?php endif ?>
-			</div> -->
-
-			<!-- condtional: submit Ticket and Tracking No -->
-			<?php if(isset($_SESSION['submit'])) : ?>
-			<div id="divSubmitMessage">
-		 	  <p>Ticket successfully submitted.</p>
-				<p style="font-size: 10px;">Tracking No: <b><?php echo $_SESSION['trackno']; ?></b></p>
 			</div>
 
-			<?php
-				unset($_SESSION['submit']);
-				unset($_SESSION['trackno']);
-				endif
-			?>
 		</div>
 
 <!-- begin modal -->
@@ -165,12 +163,14 @@ if (isGuest()) {
 						<h3>Display List of Inquiry Here.......</h3>
 					<!-- <button type="button" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button> -->
 					<button id = "btnBills" class="mainBtn">Bills</button>
-					<button id = "btnBills" class="mainBtn">Others</button>
+					<button id = "btnOthers" class="mainBtn">Others</button>
 				</div>
 
 			</div>
 		</div>
 	</div>
 
+	<script src="js/jquery-3.5.1.min.js"></script>
+	<script src="js/index.js"></script>
 </body>
 </html>

@@ -1,5 +1,17 @@
 /* Show it is fixed to the top */
 body {
-  min-height: 75rem;
+  min-height: 10rem;
   padding-top: 4.5rem;
+}
+
+table {
+  border-style: none;
+  border-radius: 1vh;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: auto;
+  border: 1px solid #666;
+  text-align: center;
+  table-layout: auto;
+  word-wrap : break-word;
 }
