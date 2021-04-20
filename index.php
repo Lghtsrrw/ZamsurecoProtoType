@@ -33,15 +33,13 @@ if (isGuest()) {
 
 		<!-- logout Button -->
 		<div class="clscontainer">
-				<button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red; ">Log-out</button>
+			<button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red; ">Log-out</button>
 		</div>
 
-	  <div class="logoimg">
-
-	  <img src="img/logo.png" id="logotitle">
-	  <h3>ZAMSURECO-I ELECTRIC SERVICE</h3>
-
-	  </div>
+		<div class="logoimg">
+		<img src="img/logo.png" id="logotitle">
+		<h3>ZAMSURECO-I ELECTRIC SERVICE</h3>
+		</div>
 
 		<?php if (isset($_SESSION['user']['IDType']) && $_SESSION['user']['IDType'] == 'User') : ?>
 		<div class="success" >
@@ -75,7 +73,7 @@ if (isGuest()) {
 
 			<!-- Display Bills  -->
 
-			<div id="divBillList" style="width: auto; text-align: left; overflow:auto">
+			<div id="divBillList" style="">
 				<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
 
 				<p><b>Bills</b>

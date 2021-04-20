@@ -1,5 +1,6 @@
 <?php
 require('../databaseConnection/DatabaseQueries.php');
+require_once 'upload.php';
 
 if (isGuest()) {
 	header('location: ../guestHomepage.php');
@@ -19,13 +20,15 @@ if (isGuest()) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <link rel="icon" type="image/x-ico" href="../img/favicon.ico"/>
     
-    <title>Account Payable</title>
+    <title>Bills Payment</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbar-fixed/">
 
     <!-- Bootstrap core CSS -->
       <link href="../bootstrap-5.0.0/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	    <!-- <link href="../stylesheets/allStyle.css" rel="stylesheet" type="text/css">  -->
 
+    
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -56,13 +59,13 @@ if (isGuest()) {
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link"  href="../user_bills">Home</a>
+              <a class="nav-link" href="../user_bills">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="user_unpaid.php">Account Payable</a>
+              <a class="nav-link" href="user_unpaid.php">Account Payable</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="bills_payment.php">Bills Payment</a>
+              <a class="nav-link active"  aria-current="page" href="bills_payment.php">Bills Payment</a>
             </li>
           </ul>
           <form class="d-flex">
@@ -73,21 +76,25 @@ if (isGuest()) {
       </div>
     </nav>
 
+    <?php
+      
+      if(isset($_GET['message'])):
+    ?>
+      <script>alert("<?php echo $_GET['message']; ?>")</script>
+    <?php
+      endif;
+    ?>
+
     <main class="container">
-        <h3>Account Payable</h3>
+        <h3>Bills Payment</h3>
         <hr>
         <!-- Display Bills  -->
         <div class="div-unstyles" id="bg-light p-5 rounded" style="width: auto; text-align: left; overflow:auto">
         <?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
-
-            <label class="form-label">Bills</label>
-            <input type="text" class="form-control" id="txtbillamount" name="" value="" readonly>
           
-            <button class="btn btn-lg btn-primary" id = "btnPayBills" class="mainBtn" disabled>Pay Bills</button>
-            <br><br>
             <div id="bg-light p-5 rounded">
-              <table id='tblBill'class="table table-striped table-hover" style="display:inline-block; width:100%">
-                <tr class="table-active">
+              <table id='tblBill' class='table table-striped table-hover' style="display:inline-block; width:auto">
+                <tr>
                   <th>Period Covered</th>
                   <th>Kwh Used</th>
                   <th>On Due</th>
@@ -105,10 +112,41 @@ if (isGuest()) {
             <?php endif ?>
         </div>
         <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View navbar docs &raquo;</a> -->
+
+        <form action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" method="post" enctype="multipart/form-data">
+          <label>Select Image File:</label>
+          <!-- <input type="file" > -->
+          
+          <input type="file" name="image">
+          <input type="submit" name="submit">
+        </form>
+
+        <?php 
+          // Include the database configuration file  
+          require_once '../databaseConnection/databaseQueries.php'; 
+          
+          // Get image data from database 
+          $result = $db->query("SELECT receiptimage FROM receiptimage ORDER BY uploaded DESC"); 
+          ?>
+
+          <?php if($result->num_rows > 0){ ?> 
+              <div class="gallery"> 
+                  <?php while($row = $result->fetch_assoc()){ ?> 
+                      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['receiptimage']); ?>" width = '25%' /> 
+                  <?php } ?> 
+              </div> 
+          <?php }else{ ?> 
+              <p class="status error">Image(s) not found...</p> 
+          <?php } 
+        ?>
     </main>
     
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="../bootstrap-5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../bootstrap-5.0.0/js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.min.js"></script>  
-	<script src="../js/index.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
   </body>
 </html>

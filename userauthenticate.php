@@ -139,6 +139,7 @@ require('databaseConnection/DatabaseQueries.php');
           </div>
           <hr>
           <p>Already have an account? <a href="?login=1">Sign-in here!</a>.</p>
+          <!-- <small id="emailHelp">Already have an account? <a href="?login=1">Sign-in here!</a>.</small> -->
           <button type="submit" class="mainBtn" name="register_btn" id="registerbtn" style="width:100%;">Register</button>
         </div>
       </form>

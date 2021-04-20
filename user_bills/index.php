@@ -61,9 +61,9 @@ if (isGuest()) {
             <li class="nav-item">
               <a class="nav-link" href="user_unpaid.php">Account Payable</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="bills_payment.php">Bills Payment</a>
+            </li>
           </ul>
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
