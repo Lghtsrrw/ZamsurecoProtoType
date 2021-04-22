@@ -18,7 +18,6 @@ if(isset($_POST["submit"])){
          
             // Insert image content into database 
             $insert = $db->query("INSERT into receiptimage (receiptimage, uploaded,acctno,duedate) VALUES ('$imgContent', NOW(), '4040010001', NOW())"); 
-             
             if($insert){ 
                 $status = 'success'; 
                 $statusMsg = "File uploaded successfully."; 
@@ -33,7 +32,7 @@ if(isset($_POST["submit"])){
     } 
     
     // Display status message
-    header( "Location: bills_payment.php?message=$statusMsg" );
+    header( "Location: bills_history.php?message=$statusMsg" );
 } 
  
 

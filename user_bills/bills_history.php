@@ -65,7 +65,7 @@ if (isGuest()) {
               <a class="nav-link" href="user_unpaid.php">Account Payable</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active"  aria-current="page" href="bills_payment.php">Bills Payment</a>
+              <a class="nav-link active"  aria-current="page" href="bills_history.php">Bills Payment</a>
             </li>
           </ul>
           <form class="d-flex">
@@ -77,7 +77,6 @@ if (isGuest()) {
     </nav>
 
     <?php
-      
       if(isset($_GET['message'])):
     ?>
       <script>alert("<?php echo $_GET['message']; ?>")</script>
@@ -85,46 +84,44 @@ if (isGuest()) {
       endif;
     ?>
 
-    <main class="container">
-        <h3>Bills Payment</h3>
-        <hr>
-        <!-- Display Bills  -->
-        <div class="div-unstyles" id="bg-light p-5 rounded" style="width: auto; text-align: left; overflow:auto">
-        <?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
-          
-            <div id="bg-light p-5 rounded">
-              <table id='tblBill' class='table table-striped table-hover' style="display:inline-block; width:auto">
-                <tr>
-                  <th>Period Covered</th>
-                  <th>Kwh Used</th>
-                  <th>On Due</th>
-                  <th>Before Due</th>
-                  <th>After Due</th>
-                  <th>Due Date</th>
-                  <th>Amount Paid</th>
-                </tr>
-                <?php displayBill($_SESSION['user']['AcctNo']); ?>
-              </table>
-            </div>
-            <?php else : ?>
-              <p><b>Bills</b></p>
-              <p style="font-size: 12px; color: red">No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
-            <?php endif ?>
-        </div>
+  <main class="container">
+    <h3>Bills Payment</h3>
+    <hr>
+    <!-- Display Bills  -->
+    <!-- <div class="div-unstyles" id="bg-light p-5 rounded" style="width: auto; text-align: left; overflow:auto">
+      <?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
+        
+          <div id="bg-light p-5 rounded">
+            <table id='tblBill' class='table table-striped table-hover' style="display:inline-block; width:auto">
+              <tr>
+                <th>Period Covered</th>
+                <th>Kwh Used</th>
+                <th>On Due</th>
+                <th>Before Due</th>
+                <th>After Due</th>
+                <th>Due Date</th>
+                <th>Amount Paid</th>
+              </tr>
+              <?php displayBill($_SESSION['user']['AcctNo']); ?>
+            </table>
+          </div>
+          <?php else : ?>
+            <p><b>Bills</b></p>
+            <p style="font-size: 12px; color: red">No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
+          <?php endif ?>
+    </div> -->
+        <!-- End Display Bills -->
         <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View navbar docs &raquo;</a> -->
 
         <form action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" method="post" enctype="multipart/form-data">
-          <label>Select Image File:</label>
-          <!-- <input type="file" > -->
-          
+          <label>Select Receipt Image:</label>
           <input type="file" name="image">
           <input type="submit" name="submit">
         </form>
 
         <?php 
           // Include the database configuration file  
-          require_once '../databaseConnection/databaseQueries.php'; 
-          
+          require_once '../databaseConnection/databaseQueries.php';
           // Get image data from database 
           $result = $db->query("SELECT receiptimage FROM receiptimage ORDER BY uploaded DESC"); 
           ?>
@@ -138,7 +135,7 @@ if (isGuest()) {
           <?php }else{ ?> 
               <p class="status error">Image(s) not found...</p> 
           <?php } 
-        ?>
+          ?>
     </main>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

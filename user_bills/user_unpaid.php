@@ -62,7 +62,7 @@ if (isGuest()) {
               <a class="nav-link active" aria-current="page" href="user_unpaid.php">Account Payable</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="bills_payment.php">Bills Payment</a>
+              <a class="nav-link" href="bills_history.php">Bills Payment</a>
             </li>
           </ul>
           <form class="d-flex">
