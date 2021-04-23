@@ -11,11 +11,11 @@ if(isset($_POST["submit"])){
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
          
         // Allow certain file formats 
-        $allowTypes = array('jpg','png','jpeg','gif'); 
+        $allowTypes = array('jpg','png','jpeg','gif','ico'); 
         if(in_array($fileType, $allowTypes)){ 
             $image = $_FILES['image']['tmp_name']; 
             $imgContent = addslashes(file_get_contents($image)); 
-         
+        
             // Insert image content into database 
             $insert = $db->query("INSERT into receiptimage (receiptimage, uploaded,acctno,duedate) VALUES ('$imgContent', NOW(), '4040010001', NOW())"); 
             if($insert){ 
@@ -23,17 +23,20 @@ if(isset($_POST["submit"])){
                 $statusMsg = "File uploaded successfully."; 
             }else{ 
                 $statusMsg = "File upload failed, please try again."; 
-            }  
+            }
+
         }else{ 
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
-        } 
+        }
     }else{ 
         $statusMsg = 'Please select an image file to upload.'; 
     } 
     
     // Display status message
-    header( "Location: bills_history.php?message=$statusMsg" );
-} 
- 
+    // $_SESSION['message'] = $statusMsg;
+    // if(isset($_SESSION['users'])){
+    // }
 
+    header( "Location: bills_history.php?message=$statusMsg" );
+}   
 ?>

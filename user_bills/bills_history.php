@@ -1,6 +1,6 @@
 <?php
 require('../databaseConnection/DatabaseQueries.php');
-require_once 'upload.php';
+require('upload.php');
 
 if (isGuest()) {
 	header('location: ../guestHomepage.php');
@@ -79,8 +79,11 @@ if (isGuest()) {
     <?php
       if(isset($_GET['message'])):
     ?>
-      <script>alert("<?php echo $_GET['message']; ?>")</script>
+      <script>
+        alert($_GET['message']);
+      </script>
     <?php
+        unset($_GET['message']);
       endif;
     ?>
 
@@ -111,21 +114,18 @@ if (isGuest()) {
           <?php endif ?>
     </div> -->
         <!-- End Display Bills -->
-        <!-- <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View navbar docs &raquo;</a> -->
 
-        <form action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
           <label>Select Receipt Image:</label>
           <input type="file" name="image">
           <input type="submit" name="submit">
         </form>
-
         <?php 
           // Include the database configuration file  
           require_once '../databaseConnection/databaseQueries.php';
           // Get image data from database 
           $result = $db->query("SELECT receiptimage FROM receiptimage ORDER BY uploaded DESC"); 
           ?>
-
           <?php if($result->num_rows > 0){ ?> 
               <div class="gallery"> 
                   <?php while($row = $result->fetch_assoc()){ ?> 
@@ -134,16 +134,16 @@ if (isGuest()) {
               </div> 
           <?php }else{ ?> 
               <p class="status error">Image(s) not found...</p> 
-          <?php } 
-          ?>
+          <?php } ?>
     </main>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="../bootstrap-5.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="../bootstrap-5.0.0/js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.min.js"></script>  
     <script src="../js/index.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    
 
   </body>
 </html>
