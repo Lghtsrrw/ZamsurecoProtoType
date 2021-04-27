@@ -15,9 +15,11 @@ if(isset($_POST["submit"])){
         if(in_array($fileType, $allowTypes)){ 
             $image = $_FILES['image']['tmp_name']; 
             $imgContent = addslashes(file_get_contents($image)); 
+            
+            $acctNo = $_SESSION['user']['AcctNo'];
         
             // Insert image content into database 
-            $insert = $db->query("INSERT into receiptimage (receiptimage, uploaded,acctno,duedate) VALUES ('$imgContent', NOW(), '4040010001', NOW())"); 
+            $insert = $db->query("INSERT into receiptimage (receiptimage, uploaded,acctno,duedate) VALUES ('$imgContent', NOW(), $acctNo, NOW())"); 
             if($insert){ 
                 $status = 'success'; 
                 $statusMsg = "File uploaded successfully."; 

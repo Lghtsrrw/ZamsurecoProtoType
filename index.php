@@ -14,38 +14,31 @@ if (isGuest()) {
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
 	<link href="stylesheets/allStyle.css" rel="stylesheet" type="text/css">
-
 	<script src="js/jquery-3.5.1.min.js"></script>
 	<script src="js/index.js"></script>
-
 	<title>Zamzureco-1</title>
 </head>
 
 <body>
-
 	<div class="btnContainer">
-
 		<!-- logout Button -->
 		<div class="clscontainer">
 			<button id = "btnLogout" class="mainBtn" style="width:auto; float:right; background-color: red; ">Log-out</button>
 		</div>
-
 		<div class="logoimg">
-		<img src="img/logo.png" id="logotitle">
-		<h3>ZAMSURECO-I ELECTRIC SERVICE</h3>
+			<img src="img/logo.png" id="logotitle">
+			<h3>ZAMSURECO-I ELECTRIC SERVICE</h3>
 		</div>
-
 		<?php if (isset($_SESSION['user']['IDType']) && $_SESSION['user']['IDType'] == 'User') : ?>
-		<div class="success" >
-			<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
-			<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
-		</div>
+			<div class="success" >
+				<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
+				<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
+			</div>
 		<?php elseif(isset($_SESSION['user']['IDType']) && $_SESSION['user']['IDType'] == 'Guest' ): ?>
 			<div class="success" >
 				<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
@@ -146,7 +139,6 @@ if (isGuest()) {
 						</form>
 					<!-- <button type="button" class="mainBtn" id="btnPaymentMethod">Upload Receipt</button> -->
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -167,10 +159,8 @@ if (isGuest()) {
 					<button id = "btnBills" class="mainBtn">Bills</button>
 					<button id = "btnOthers" class="mainBtn">Others</button>
 				</div>
-
 			</div>
 		</div>
 	</div>
-	
 </body>
 </html>

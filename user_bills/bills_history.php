@@ -88,6 +88,7 @@ if (isGuest()) {
     ?>
 
   <main class="container">
+    <p> <?php echo $_SESSION['user']['AcctNo']; ?> </p>
     <h3>Bills Payment</h3>
     <hr>
     <!-- Display Bills  -->
@@ -120,21 +121,24 @@ if (isGuest()) {
           <input type="file" name="image">
           <input type="submit" name="submit">
         </form>
+
         <?php 
           // Include the database configuration file  
           require_once '../databaseConnection/databaseQueries.php';
           // Get image data from database 
-          $result = $db->query("SELECT receiptimage FROM receiptimage ORDER BY uploaded DESC"); 
+          $acctNo = $_SESSION['user']['AcctNo'];
+          $result = $db->query("SELECT receiptimage FROM receiptimage where acctno = '$acctNo' ORDER BY uploaded DESC"); 
           ?>
           <?php if($result->num_rows > 0){ ?> 
               <div class="gallery"> 
                   <?php while($row = $result->fetch_assoc()){ ?> 
                       <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['receiptimage']); ?>" width = '25%' /> 
-                  <?php } ?> 
+                  <?php } ?>
               </div> 
           <?php }else{ ?> 
               <p class="status error">Image(s) not found...</p> 
           <?php } ?>
+
     </main>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

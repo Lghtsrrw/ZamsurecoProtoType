@@ -830,7 +830,7 @@ session_start();
 		global $db;
 		$queryAddress = "SELECT distinct * FROM bill
 							WHERE AccountNo like '$val'
-								-- AND year(DueDate) = ". date("Y") ."
+							-- AND year(DueDate) = ". date("Y") ." --
                     		Order By DueDate DESC";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
