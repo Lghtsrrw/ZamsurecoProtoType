@@ -5,8 +5,10 @@ if (isGuest()) {
   header('location: guestHomepagehp.php');
 }elseif (isSupport()) {
   header('location: dispatch.php');
+}elseif (isCollection()) {
+	header('location: collection_agent');
 } elseif(empty(isset($_SESSION['user']))){
-  header('location: empLogin.php');
+  header('location: index.php');
 }
 
 ?>
@@ -39,22 +41,23 @@ if (isGuest()) {
 
       <!-- Show current user -->
       <?php if (isset($_SESSION['success'])) : ?>
-    			<h5>Logged in as:
+    			<h5>
     				<?php
-    				echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
-            echo "User Type: " . $_SESSION['user']['IDType'] . "<br>";
+    				// echo $_SESSION['user']['Mname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
+            echo "User Type: " . $_SESSION['user']['IDType'] . "<br>" . $_SESSION['user']['Mname'] ;
     				?>
     			</h5>
       <?php
-      else: echo "ERROR";
+      else: 
+        echo "ERROR";
       endif
       ?>
 
       <!-- Button declaration -->
       <button id = "btnComplaints" class="mainBtn">Complaint-list</button>
       <button id = "btnCrew" class="mainBtn">View assigned-complaints</button>
-      <button id = "btnRegSupp" class="mainBtn">Add Support</button>
-      <button id = "btnBillList" class="mainBtn">Billing Report</button>
+      <button id = "btnRegSupp" class="mainBtn">Add user</button>
+      <button id = "btnBillList" class="mainBtn">Receipt Master-List </button>
       <button id = "btnMngDspt" class="mainBtn">Dispatch management</button>
       <br>
     </div>
@@ -86,7 +89,7 @@ if (isGuest()) {
 
         <div class="tblAllData" style="overflow:auto">
           <div id="div4TableEmp">
-            <table border="1" id="tblData">
+            <table border ="1" id="tblData">
               <tr>
                 <th>Complaint No</th>
                 <th>Nature of Complaint</th>
@@ -114,7 +117,13 @@ if (isGuest()) {
         <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
 
-          <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto">
+          <input type="text" list="user_type" id="txtUserType" name="txtUserType" placeholder="User-Type" style="width:15%">
+          <datalist id="user_type">
+            <option>Support</option>
+            <option>Collection</option>
+          </datalist>
+
+          <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto">            
             <label for="">Z1-</label><input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
             
             <datalist id="list_empid">

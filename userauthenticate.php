@@ -9,7 +9,7 @@ require('databaseConnection/DatabaseQueries.php');
     }elseif (isAgent()) {
       header('location: employeeAgent.php');
     }elseif (isSupport()) {
-      header('location: dispatchs.php');
+      header('location: dispatch.php');
     }
   }
  ?>

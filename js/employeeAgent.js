@@ -52,6 +52,10 @@ $(document).ready(function(){
     }
   });
 
+  $('#btnBillList').on("click", function(){
+    window.location.href = "billing_report.php";
+  })
+
   // Adding rows and Value to TBl in Dispatch Manage Modal
   $('#idEmpLocat').change(function(){
 

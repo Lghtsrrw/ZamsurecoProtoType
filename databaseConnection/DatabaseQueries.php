@@ -320,6 +320,14 @@ session_start();
 		}
 	}
 
+	function isCollection(){
+		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Collection' ) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	function isSupport(){
 		if (isset($_SESSION['user']) && $_SESSION['user']['IDType'] == 'Support' ) {
 			return true;
@@ -517,6 +525,7 @@ session_start();
 		$lname = $_POST['txtLname'];
 		$area = $_POST['txtArea'];
 		$dept = $_POST['txtDept'];
+		$usertype = $_POST['txtUserType'];
 
 		$username = $_POST['txtEmpUsername'];
 		$psw = $_POST['txtEmpPass'];
@@ -534,23 +543,16 @@ session_start();
 		}
 
 		if(count($errors) == 0){
-
-      // save to Employee Table
-			// if ( mysqli_query($db,"INSERT INTO employee values ('$empid', '$fname', '$mname', '$lname', '$area', '$dept')")) {
-      //   console_log('support created');
-			// }else {
-			//  echo "Error:<br>" . mysqli_error($db);
-			// }
-
+			
 			// save to System Account Table
 			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
-        console_log("SAVE SUPPORT ");
+				console_log("SAVE SUPPORT ");
 			}else {
 				echo "Error:<br>" . mysqli_error($db);
 			}
 
 			// save to ID Verification Table
-			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), 'Support')")) {
+			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), '$txtUser')")) {
 				console_log('SAVED ID VER');
 			}else {
 				echo "Error:<br>" . mysqli_error($db);
@@ -1190,7 +1192,7 @@ session_start();
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0){
 
-      echo "<tr>";
+      	echo "<tr>";
 			echo "<th>Status</th>";
 			echo "<th>Remarks</th>";
 			echo "<th>Date & time updated</th>";
@@ -1203,8 +1205,8 @@ session_start();
 				echo "</tr>";
 			}
 		}else {
-				echo "<p style='color:red; float:center'>No action taken yet.</p>";
-        header('location: index.php');
+			echo "<p style='color:red; float:center'>No action taken yet.</p>";
+       		header('location: index.php');
 		}
   }
 
@@ -1287,12 +1289,12 @@ session_start();
   function displaySearchedEmp($val){
     global $db;
     $passingarray = array();
-    $query ="SELECT * FROM employee WHERE EmpID LIKE '%$val%'
-            OR Fname LIKE '%$val%'
-            OR Mname LIKE '%$val%'
-            OR Lname LIKE '%$val%'
-            OR Area LIKE '%$val%'
-            OR Dept LIKE '%$val%'";
+	$query =" 	SELECT * FROM employee WHERE EmpID LIKE '%$val%'
+				OR Fname LIKE '%$val%'
+				OR Mname LIKE '%$val%'
+				OR Lname LIKE '%$val%'
+				OR Area LIKE '%$val%'
+				OR Dept LIKE '%$val%'";
     $results = mysqli_query($db, $query) or die(mysqli_error($db));
     if(mysqli_num_rows($results) > 0){
       while ($row = mysqli_fetch_assoc($results)) {

@@ -37,9 +37,8 @@ require('databaseConnection/DatabaseQueries.php');
               </p>
           </div>
         <hr>
-<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>
         <form action="index.php" method="post">
-          <label for="natureOfComplaint"><b>Nature of Complaint </b></label><br>
+          <label for="natureOfComplaint"><b>Nature of Complaint</b></label><br>
           <input
             type="text"
             name="inputComplaint"

@@ -7,6 +7,8 @@ require('databaseConnection/DatabaseQueries.php');
     header('location: employeeAgent.php');
   }elseif (isSupport()) {
     header('location: dispatch.php');
+  }elseif (isCollection()) {
+    header('location: collection_agent');
   } elseif(empty(isset($_SESSION['user']))){
     header('location: signin.php');
   }

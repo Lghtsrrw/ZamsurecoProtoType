@@ -10,6 +10,8 @@ require('databaseConnection/DatabaseQueries.php');
       header('location: employeeAgent.php');
     }elseif (isSupport()) {
       header('location: dispatchs.php');
+    }elseif (isCollection()) {
+      header('location: collection_agent');
     }
   }
  ?>
@@ -51,7 +53,6 @@ require('databaseConnection/DatabaseQueries.php');
     <!-- buttons declaration -->
     <div class ="btnContainer">
       <fieldset style="width:80%; margin: 10% auto; background-color:white; opacity: .9">
-
 
         <!-- title -->
         <div class="logoimg">

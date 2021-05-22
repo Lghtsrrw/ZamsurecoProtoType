@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   $('#btnLogout').on("click",function(){
     if (confirm("Are you sure you want to Log-out?") == true) {
-        window.location.href = "empLogin.php?logout='1'";
+        window.location.href = "dispatch.php?logout='1'";
     }
   });
   $('.close').click(function() {

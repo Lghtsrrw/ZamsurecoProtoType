@@ -27,8 +27,6 @@ if (isGuest()) {
       <link href="../bootstrap-5.0.0/css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	    <!-- <link href="../stylesheets/allStyle.css" rel="stylesheet" type="text/css">  -->
-
-    
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -50,6 +48,7 @@ if (isGuest()) {
   </head>
 
   <body>
+
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="../"><img src="../img/logo.png" alt="" width="25">MEMBER-CONSUMER BILLS</a>
