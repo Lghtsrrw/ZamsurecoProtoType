@@ -117,11 +117,20 @@ if (isGuest()) {
         <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
 
-          <input type="text" list="user_type" id="txtUserType" name="txtUserType" placeholder="User-Type" style="width:15%">
+          <!-- <input autocomplete="off" type="text" list="user_type" id="txtUserType" name="txtUserType" placeholder="User-Type" style="width:auto">
           <datalist id="user_type">
             <option>Support</option>
             <option>Collection</option>
-          </datalist>
+          </datalist> -->
+
+          <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto; margin: 10px 0px 10px 0px">            
+            <label for="">Type - </label><input autocomplete="off" type="text" list="user_type" name="txt_UserType" placeholder="User-Type" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
+            
+            <datalist id="user_type">
+              <option>Support</option>
+              <option>Collection</option>
+            </datalist>
+          </div>
 
           <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto">            
             <label for="">Z1-</label><input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">

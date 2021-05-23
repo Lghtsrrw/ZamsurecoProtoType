@@ -13,12 +13,12 @@ if (isGuest()) {
 
 function fillCollectionTable(){
     global $db;
-    $queryAddress = "SELECT * from receiptimage ";
+    $queryAddress = "SELECT * FROM receiptimage ";
     $results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
     if(mysqli_num_rows($results) > 0){
       while ($row = mysqli_fetch_assoc($results)) {
         echo "<tr>";
-        echo "<td style='width:30%'><img src='data:image/jpg;charset=utf8;base64,". base64_encode($row['receiptimage']) . "' width = '25%' /> </td>";
+        echo "<td style='width:auto'><img src='data:image/jpg;charset=utf8;base64,". base64_encode($row['receiptimage']) . "' width = '50%' /> </td>";
         echo "<td>" . $row['uploaded'] . "</td>";
         echo "<td>" . $row['acctno'] . "</td>";
         echo "<td>" . $row['duedate'] . "</td>";
@@ -64,11 +64,11 @@ function fillCollectionTable(){
     </style>
     
     <!-- Custom styles for this template -->
-    <link href="navbar-top-fixed.css" rel="stylesheet">
+    <link href="../user_bills/navbar-top-fixed.css" rel="stylesheet">
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light" tyle="background-color: #e3f2fd;">
       <div class="container-fluid">
         <a class="navbar-brand" href="../"><img src="../img/logo.png" alt="" width="25">Collection </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,16 +79,16 @@ function fillCollectionTable(){
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="../collection_agent">Home</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="user_unpaid.php">Account Payable</a>
+            <li class="nav-item">
+              <a class="nav-link" href="change_password.php">Change Password</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="bills_history.php">Bills Payment</a>
-            </li> -->
+              <a class="nav-link" href="verified_list.php">Verified list</a>
+            </li>
           </ul>
           <form class="d-flex">
             <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-            <button class="btn btn-outline-success" id="btnLogout" type="submit">Logout</button>
+            <button class="btn btn-outline-dark" id="btnLogout" type="submit">Logout</button>
           </form>
         </div>
       </div>
@@ -96,7 +96,7 @@ function fillCollectionTable(){
 
     <main class="container">
       
-      <div style="margin:10%; text-align: center;">
+      <!-- <div style="margin:10%; text-align: center;"> -->
         <table class="table table-borderless">
           <thead>
             <tr>
@@ -111,12 +111,12 @@ function fillCollectionTable(){
             <?php fillCollectionTable(); ?>
           </tbody>
         </table>
-      </div>
+      <!-- </div> -->
 
     </main>
 
     <script src="../bootstrap-5.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="../js/jquery-3.5.1.min.js"></script>  
-    <script src="../js/index.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

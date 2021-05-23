@@ -525,7 +525,7 @@ session_start();
 		$lname = $_POST['txtLname'];
 		$area = $_POST['txtArea'];
 		$dept = $_POST['txtDept'];
-		$usertype = $_POST['txtUserType'];
+		$usertype = $_POST['txt_UserType'];
 
 		$username = $_POST['txtEmpUsername'];
 		$psw = $_POST['txtEmpPass'];
@@ -552,7 +552,7 @@ session_start();
 			}
 
 			// save to ID Verification Table
-			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), '$txtUser')")) {
+			if (mysqli_query($db, "INSERT INTO id_verification VALUES ('$username', now(), '$usertype')")) {
 				console_log('SAVED ID VER');
 			}else {
 				echo "Error:<br>" . mysqli_error($db);
