@@ -133,7 +133,7 @@ if (isGuest()) {
           </div>
 
           <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto">            
-            <label for="">Z1-</label><input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
+            <label for="">Z1-</label><input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="txtNewEmpID" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
             
             <datalist id="list_empid">
               <?php fillEmpID(); ?>
@@ -148,7 +148,7 @@ if (isGuest()) {
             <fieldset>
               <legend>Account</legend>
               <b><label for="">Username</label></b>
-              <input type="text" name="txtEmpUsername" value="" required>
+              <input type="text" name="txtEmpUsername" value="" autocomplete="off" required>
               <b><label for="">Password</label></b>
               <input type="password" name="txtEmpPass" value="1234" readonly>
             </fieldset>
@@ -178,6 +178,7 @@ if (isGuest()) {
               <th>Name</th>
               <th>Area</th>
               <th>Department</th>
+              <th>Username</th>
             </tr>
             <?php fillEmpListTable(); ?>
           </table>

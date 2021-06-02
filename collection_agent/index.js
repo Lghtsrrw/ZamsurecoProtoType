@@ -4,4 +4,6 @@ $(document).ready(function(){
             window.location.href = "index.php?logout='1'";
         }
     })
+
+    $('#tblUnverifiedReceipt').css('cursor','pointer');
 });

@@ -18,7 +18,7 @@ function fillCollectionTable(){
     if(mysqli_num_rows($results) > 0){
       while ($row = mysqli_fetch_assoc($results)) {
         echo "<tr>";
-        echo "<td style='width:auto'><img src='data:image/jpg;charset=utf8;base64,". base64_encode($row['receiptimage']) . "' width = '50%' /> </td>";
+        echo "<td style='width:auto'><img src='data:image/jpg;charset=utf8;base64,". base64_encode($row['receiptimage']) . "' width = '50%' /></td>";
         echo "<td>" . $row['uploaded'] . "</td>";
         echo "<td>" . $row['acctno'] . "</td>";
         echo "<td>" . $row['duedate'] . "</td>";
@@ -97,7 +97,7 @@ function fillCollectionTable(){
     <main class="container">
       
       <!-- <div style="margin:10%; text-align: center;"> -->
-        <table class="table table-borderless">
+        <table class="table table-borderless" id="tblUnverifiedReceipt">
           <thead>
             <tr>
               <th scope="col">Receipt Image</th>
