@@ -167,7 +167,7 @@ session_start();
 		if (count($errors) == 0) {
 			$password1 = md5($password);
 
-			$query = "SELECT * FROM syst_acct sa
+			$query = "SELECT *, concat(emp.Fname,' ',emp.Lname)as'EmployeeName', concat(u.Fname,' ',u.Lname)as'UserName' FROM syst_acct sa
 						INNER JOIN id_verification iv
 							ON sa.username = iv.userID
 						LEFT JOIN employee emp
@@ -496,7 +496,7 @@ session_start();
 
 	function fillEmpListTable(){
 		global $db;
-		$queryAddress = "SELECT EmpID, concat(fname, ' ', mname,' ',lname)as'Name', Area, Dept, username  FROM employee ee INNER JOIN syst_acct sa ON ee.EmpID = sa.userid";
+		$queryAddress = "SELECT EmpID, concat(fname, ' ', mname,' ',lname)as'Name', Area, Dept  FROM employee";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
@@ -507,7 +507,6 @@ session_start();
 				echo "<td>" . $row['Name'] . "</td>";
 				echo "<td>" . $row['Area'] . "</td>";
 				echo "<td>" . $row['Dept'] . "</td>";
-				echo "<td>" . $row['username'] . "</td>";
 				echo "</tr>";
 			}
 		}
@@ -568,13 +567,13 @@ session_start();
 
 	function retrieveEmployeeList(){
 		global $db;
-		$queryAddress = "SELECT *, empname as 'name' FROM employees";
+		$queryAddress = "SELECT * FROM employees";
 		$results = mysqli_query($db,$queryAddress) or die(mysqli_error($db));
 		if(mysqli_num_rows($results) > 0)
 		{
 			while ($row = mysqli_fetch_assoc($results))
 			{
-				echo "<option value=".$row['empid'].">" . $row['name'] . "</option>";
+				echo "<option value=".$row['empid'].">" . $row['empName'] . "</option>";
 			}
 		}
 	}

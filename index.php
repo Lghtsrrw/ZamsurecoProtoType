@@ -9,8 +9,6 @@ if (isGuest()) {
   header('location: dispatch.php');
 }elseif (isCollection()) {
 	header('location: collection_agent');
-}elseif (isLoggedIn()) {
-	header('location: ../index.php');
 }elseif(empty(isset($_SESSION['user']))){
 	header('location: userauthenticate.php');
 }
@@ -40,12 +38,12 @@ if (isGuest()) {
 		</div>
 		<?php if (isset($_SESSION['user']['IDType']) && $_SESSION['user']['IDType'] == 'User') : ?>
 			<div class="success" >
-				<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
+				<p>You are logged in as <b><?php echo $_SESSION['user']['UserName']; ?></b></p>
 				<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
 			</div>
 		<?php elseif(isset($_SESSION['user']['IDType']) && $_SESSION['user']['IDType'] == 'Guest' ): ?>
 			<div class="success" >
-				<p>You are logged in as <b><?php echo $_SESSION['user']['Fname'] . ' ' . $_SESSION['user']['Lname']; ?></b></p>
+				<p>You are logged in as <b><?php echo $_SESSION['user']['UserName']; ?></b></p>
 				<p>Account No.: <b><?php echo $_SESSION['user']['AcctNo']; ?></b></p>
 			</div>
 		<?php unset($_SESSION['success']); endif; ?>

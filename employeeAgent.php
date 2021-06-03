@@ -1,16 +1,15 @@
 <?php
-require 'databaseConnection/DatabaseQueries.php';
+  require 'databaseConnection/DatabaseQueries.php';
 
-if (isGuest()) {
-  header('location: guestHomepagehp.php');
-}elseif (isSupport()) {
-  header('location: dispatch.php');
-}elseif (isCollection()) {
-	header('location: collection_agent');
-} elseif(empty(isset($_SESSION['user']))){
-  header('location: index.php');
-}
-
+  if (isGuest()) {
+    header('location: guestHomepagehp.php');
+  }elseif (isSupport()) {
+    header('location: dispatch.php');
+  }elseif (isCollection()) {
+    header('location: collection_agent');
+  } elseif(empty(isset($_SESSION['user']))){
+    header('location: index.php');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -41,12 +40,10 @@ if (isGuest()) {
 
       <!-- Show current user -->
       <?php if (isset($_SESSION['success'])) : ?>
-    			<h5>
-    				<?php
-    				// echo $_SESSION['user']['Mname'] . ' ' . $_SESSION['user']['Lname'] . "<br>";
-            echo "User Type: " . $_SESSION['user']['IDType'] . "<br>" . $_SESSION['user']['Mname'] ;
-    				?>
-    			</h5>
+        <div class="success" >
+				<p>Logged in as <b><?php echo $_SESSION['user']['EmployeeName']; ?></b></p>
+				<p>User Type: <b><?php echo $_SESSION['user']['IDType']; ?></b></p>
+			</div>
       <?php
       else: 
         echo "ERROR";
@@ -168,7 +165,7 @@ if (isGuest()) {
 
         <div class="" style="clear:both; border:">
         <input type="text" id="txtEmpSearch" placeholder="Search" name="" value="" style="float:left; width: auto " required>
-        <button type="button" id="btnEmpSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" autocomplete="off"> </button>
+        <button type="button" id="btnEmpSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px;" autocomplete="off"> </button>
         </div>
 
         <div class="div4Table" id="tblSearchEmp">
@@ -178,7 +175,6 @@ if (isGuest()) {
               <th>Name</th>
               <th>Area</th>
               <th>Department</th>
-              <th>Username</th>
             </tr>
             <?php fillEmpListTable(); ?>
           </table>

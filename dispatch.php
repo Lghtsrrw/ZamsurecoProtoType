@@ -55,7 +55,7 @@ if (isLoggedIn()) {
       <br>
       <div class="" style="text-align: right; width:100%">
         <label>User ID: <b><?php echo $_SESSION['user']['EmpID']; ?></b></label><br>
-        <label>Support Name: <b><?php echo $_SESSION['user']['Fname'] . ' '. $_SESSION['user']['Lname']; ?></b></label><br>
+        <label>Support Name: <b><?php echo $_SESSION['user']['EmployeeName']; ?></b></label><br>
         <button type="button" class="mainBtn2" id="btnChangePass" style="padding:10px; background-color:green">Change Password</button>
       </div>
       <hr>
