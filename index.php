@@ -69,7 +69,7 @@ if (isGuest()) {
 
 			<!-- Display Bills  -->
 
-			<div id="divBillList" style="">
+			<!-- <div id="divBillList" style="">
 				<?php if (ifBillExist($_SESSION['user']['AcctNo'])) : ?>
 
 				<p>
@@ -94,13 +94,13 @@ if (isGuest()) {
 					<p><b>Bills</b></p>
 					<p style="font-size: 12px; color: red"> No bills available to display for Account No.: <i><?php echo $_SESSION['user']['AcctNo']; ?></i> </p>
 				<?php endif ?>
-			</div>
+			</div> -->
 		</div>
 
 <!-- begin modal -->
 	<!-- Complaint Modal -->
 	<div id="complaintModal" class="modal">
-		<div class="modal-content animate">
+		<div class="modal-content animate"> 
 			<div class="clscontainer">
 				<span class="close" title="Close Modal">&times;</span>
 			</div>

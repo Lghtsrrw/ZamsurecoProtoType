@@ -18,7 +18,8 @@ function fillCollectionTable(){
     if(mysqli_num_rows($results) > 0){
       while ($row = mysqli_fetch_assoc($results)) {
         echo "<tr>";
-        echo "<td style='width:auto'><img src='data:image/jpg;charset=utf8;base64,". base64_encode($row['receiptimage']) . "' width = '50%' /></td>";
+        // echo "<td style='width:auto'><img src='data:image/jpg;charset=utf8;base64,". base64_encode($row['receiptimage']) . "' width = '50%' /></td>";
+        echo "<td><img src='data:image/jpg;charset=utf8;base64,". base64_encode($row['receiptimage']) . "' class='img-fluid' alt='Responsive image'></td>";
         echo "<td>" . $row['uploaded'] . "</td>";
         echo "<td>" . $row['acctno'] . "</td>";
         echo "<td>" . $row['duedate'] . "</td>";
@@ -65,6 +66,12 @@ function fillCollectionTable(){
     
     <!-- Custom styles for this template -->
     <link href="../user_bills/navbar-top-fixed.css" rel="stylesheet">
+
+    <!-- JS File -->
+    <script src="../bootstrap-5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/jquery-3.5.1.min.js"></script>  
+    <script src="index.js"></script>
+    
   </head>
 
   <body>
@@ -94,10 +101,10 @@ function fillCollectionTable(){
       </div>
     </nav>
 
-    <main class="container">
+    <main class="container" >
       
-      <!-- <div style="margin:10%; text-align: center;"> -->
-        <table class="table table-borderless" id="tblUnverifiedReceipt">
+      <div style=" text-align: center; overflow:scroll">
+        <table class="table table-striped border-dark" id="tblUnverifiedReceipt">
           <thead>
             <tr>
               <th scope="col">Receipt Image</th>
@@ -111,12 +118,8 @@ function fillCollectionTable(){
             <?php fillCollectionTable(); ?>
           </tbody>
         </table>
-      <!-- </div> -->
+      </div>
 
     </main>
-
-    <script src="../bootstrap-5.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/jquery-3.5.1.min.js"></script>  
-    <script src="index.js"></script>
   </body>
 </html>

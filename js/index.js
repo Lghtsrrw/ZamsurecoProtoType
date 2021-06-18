@@ -23,7 +23,8 @@ $(document).ready(function() {
 
   $('#btnLogout').on("click",function(){
     if (confirm("Are you sure you want to Log-out?") == true) {
-        window.location.href = "index.php?logout='1'";
+        window.location.href = "?logout='1'";
+        console.log('LogOut!')
     }
   });
 
@@ -53,3 +54,4 @@ $(document).ready(function() {
     window.location.href = "user_bills";
   })
 });
+0
