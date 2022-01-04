@@ -49,7 +49,7 @@ if (isLoggedIn()) {
       ?>
       <!-- title -->
       <div class="logoimg">
-      <img src="img/logo.png" id="logotitle" style="height:200px; width:200px;">
+      <img src="img/logo.png" id="logotitle" style="height:10vh; width:10vh;">
       <h3>ZAMSURECO-I SUPPORT</h3>
       </div>
       <br>
@@ -83,7 +83,7 @@ if (isLoggedIn()) {
         <h1>Status</h1>
         <div class="" style="overflow:auto">
           <form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-            <label for="">Complanint No: </label><br>
+            <label for="">Complaint No: </label><br>
             <input type="text" id="lblComplaintno" name="inSupportComplaintNo" value="" style="width:auto;" readonly>
             <input type="text" id="lblNatureofComplaint" value="" style="width:auto;" readonly>
             <br><br>

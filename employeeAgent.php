@@ -43,6 +43,8 @@
         <div class="success" >
 				<p>Logged in as <b><?php echo $_SESSION['user']['EmployeeName']; ?></b></p>
 				<p>User Type: <b><?php echo $_SESSION['user']['IDType']; ?></b></p>
+        <p>ID: <b><?php echo $_SESSION['user']['EmpID']; ?></b></p>
+        <input type="text" id="txtUserID" name="" value="<?php echo $_SESSION['user']['EmpID']; ?>" readonly>
 			</div>
       <?php
       else: 
@@ -111,7 +113,7 @@
         </div>
         <h1>Employee Registration Form</h1>
         <button id = "btnEmpList" class="mainBtn2">Employee List</button>
-        <form class="frmEmpReg" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <form class="frmEmpReg" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
 
           <!-- <input autocomplete="off" type="text" list="user_type" id="txtUserType" name="txtUserType" placeholder="User-Type" style="width:auto">

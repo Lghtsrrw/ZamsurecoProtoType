@@ -277,7 +277,7 @@ button{
 
 .mainBtn{
   background-color: #4c80f1;
-  border: 1px solid #00008c;
+  border: 1px solid #0000ff;
   border-radius: 1em;
   color: white;
   padding: 14px 20px;
@@ -441,7 +441,7 @@ span.psw {
 .modal-content {
   background-color: #fefefe;
   margin: 1% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
+  border: 2px solid #888;
   width:90%; /* Could be more or less, depending on screen size */
 }
 

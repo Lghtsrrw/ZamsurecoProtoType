@@ -359,8 +359,8 @@ $(document).ready(function(){
 
   $('#btnCrew').click(function(){
     $('#divComplaintAssigned').css('display','block')
-    fillAssignedComplaint();
-    // console.log("HelloWorld");
+    // fillAssignedComplaint();
+    console.log("HelloWorld");
   })
 
   $('#btnEnterEmpID').click(function(){
@@ -438,7 +438,7 @@ function performDispatch(){
   $('.modal').css("display","none")
   $('#divDispatchModal').css("display", "block")
 
-  // diplay this Nature of Complaint not equal to "Attitude of Employee"
+  // diplay this Nature of Complaint 'NOT' equal to "Attitude of Employee"
   if($(".selected").find('td:nth-child(2)').html() != "Attitude of Employee"){
     var comno=$(".selected").find('td:nth-child(1)').html();
     $('#cdNUM').val(comno)
@@ -559,6 +559,7 @@ function fillAssignedComplaint(){
       },
       success: function(result){
         console.log(result);
+        // alert(result);
         var arrAssignedComplaint = jQuery.parseJSON(result);
         console.log(arrAssignedComplaint);
         console.log(arrAssignedComplaint.length);

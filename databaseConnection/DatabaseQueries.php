@@ -174,8 +174,8 @@ session_start();
 							ON emp.empID = sa.userid
 						LEFT JOIN user u
 							ON u.userID = sa.userid
-						WHERE sa.username='$username' 
-							AND sa.password='$password1' 
+						WHERE sa.username='$username'
+							AND sa.password='$password1'
 						LIMIT 1";
 			$results = mysqli_query($db, $query);
 
@@ -544,7 +544,7 @@ session_start();
 		}
 
 		if(count($errors) == 0){
-			
+
 			// save to System Account Table
 			if (mysqli_query($db, "INSERT INTO syst_acct VALUES ('$username', '$password', '$empid')")) {
 				console_log("SAVE SUPPORT ");
@@ -1310,7 +1310,6 @@ session_start();
 
   if (isset($_POST['assigned_complaint'])) {
     displayAssignedComplaints($_POST['assigned_complaint']);
-    // echo $_POST['employee-agent'];
   }
 
   function displayAssignedComplaints($val){
@@ -1324,12 +1323,16 @@ session_start();
     if(mysqli_num_rows($results) > 0){
       while ($row = mysqli_fetch_assoc($results)) {
         $innerarray = array();
+
         array_push($innerarray,$row['ComplaintNo'], $row['empid_support'], $row['Nature_of_Complaint'], $row['EmpName'],$row['datetime_assigned']);
         array_push($passingarray, $innerarray);
+		// console_log($innerarray);
       }
     }
+	// echo "Hello";
     // echo $passingarray;
     echo json_encode($passingarray);
+	// console_log(json_encode($passingarray));/
   }
 
   function fillEmpID(){
