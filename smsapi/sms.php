@@ -15,7 +15,7 @@ function itexmo($number,$message,$apicode,$passwd){
 }
 
 if(isset($_POST['phonenumber']) && isset($_POST['message'])){
-  $result = itexmo($_POST['phonenumber'], $_POST['message'], 'TR-SYEDR222746_ZCGWZ', 'yu%ap]7([(');
+  $result = itexmo($_POST['phonenumber'], $_POST['message'], 'ST-SYEDR506553_3Y6IB', '4]d7tw$iq#');
   if ($result == ""){
   echo "iTexMo: No response from server!!!
   Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.

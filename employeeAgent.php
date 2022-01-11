@@ -14,16 +14,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
-    <link rel="stylesheet" type ="text/css"href="stylesheets/allStyle.css">
-    <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/employeeAgent.js"></script>
-    <title>Employee</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-ico" href="img/favicon.ico"/>
+  <link rel="stylesheet" type ="text/css"href="stylesheets/allStyle.css">
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/employeeAgent.js"></script>
+  <title>Employee</title>
   </head>
 
   <body style="background-color: #fcffed">
+
     <?php display_error(); ?>
 
     <div id="divTicket">
@@ -48,7 +49,7 @@
 			</div>
       <?php
       else: 
-        echo "ERROR";
+        echo "ERROR, There is no current user on this Page";
       endif
       ?>
 
@@ -73,40 +74,152 @@
     ?>
 
     <!-- modal section -->
-    <!-- List of Active Complaint -->
-    <div class="modal" id="divTbl" >
-      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px">
+    
+    <!-- List of Registered-Support Modal-->
+    <div class="modal" id="divEmpList">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
         </div>
-        <h3>Active Complaint</h3>
-        <div>
-          <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto; float:left">
-          <button type="button" name="btnSearch" id="btnIDSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" alt=""></button>
-        </div>
-        <button type="button" id="btnDispatch" class="mainBtn" style="height:42px;" disabled>Dispatch</button>
+        <h2>Employee List</h2>
 
-        <div class="tblAllData" style="overflow:auto">
-          <div id="div4TableEmp">
-            <table border ="1" id="tblData">
-              <tr>
-                <th>Complaint No</th>
-                <th>Nature of Complaint</th>
-                <th>Description</th>
-                <th>Location | Complainee</th>
-                <th>City | Municipal</th>
-                <th>Barangay</th>
-                <th>Arealandmark / Office</th>
-              </tr>
-              <?php fillComplaintTable(); ?>
-            </table>
-          </div>
+        <div class="" style="clear:both;">
+          <input type="text" id="txtEmpSearch" placeholder="Search" name="" value="" style="float:left; width: auto " required>
+          <button type="button" id="btnEmpSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px;" autocomplete="off"> </button>
+        </div>
+
+        <div class="div4Table" id="tblSearchEmp">
+          <table id="tblEmpList">
+            <tr>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Area</th>
+              <th>Department</th>
+            </tr>
+              <?php fillEmpListTable(); ?>
+          </table>
         </div>
       </div>
     </div>
 
+    <!-- Complaint Handler Modal -->
+    <div class="modal" id="divCmplntHndlr">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
+        <div class="">
+          <h2>Complaint Handler</h2>
+            <div class="locationFloatLeft" style="width:50%; float: left;">
+              <fieldset style="height:250px;overflow-x:auto;">
+                <legend>Location</legend>
+                <div class="div4Table">
+                  <?php fillCmplntHndlrLocation(); ?>
+                </div>
+                  <input type="hidden" id="selectedRow" value="">
+                  <input type="hidden" id="selectedOffice" value="">
+              </fieldset>
+            </div>
+            <div class="locationFloatRight" style="width:50%; float: right;">
+              <!-- Automated Entry in js file using AJAX -->
+            </div>
+            <div class="divEmpDetails" style="width:100%; overflow: auto;height:auto;;float: bottom;">
+              <!-- Automated Entry in js file using AJAX -->
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complaint-Assigned list -->
+    <div class="modal" id="divComplaintAssigned">
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+        <div class="clscontainer">
+          <span class="close" title="Close Modal">&times;</span>
+        </div>
+        <input type="hidden" id="txtUserID" name="" value="<?php echo $_SESSION['user']['EmpID']; ?>" readonly>
+        <h2>Supports assigned</h2>
+
+        <div class="div4Table">
+          <table id="tblAssignedComplaint" style="resize: auto">
+            <tr>
+              <th>Complaint No</th>
+              <th>Assigned Employee ID</th>
+              <th>Nature of Complaint</th>
+              <th>Assigned Employee</th>
+              <th>Date&Time created</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dispatch Modal -->
+    <div class="modal" id="divDispatchModal">
+      <div class="modal-content animate" id="divIdTblComplaint" style="padding:10px;">
+        <div class="clscontainer">
+          <span class="refresh" title="Close Modal">&times;</span>
+        </div>
+        <div class=""style="overflow-x:auto;">
+          <h2>DISPATCH</h2>
+          <div id="complaintDetails" class="divDispatchModalStyle" style="float:left" >
+            <p><b>COMPLAINT DETAILS</b></p>
+            <label class="detailsLabels" >COMPLAINT NO</label><br>
+            <input type="text" name="" id="cdNUM"  value="" readonly>
+            <label class="detailsLabels" >NATURE OF COMPLAINT</label><br>
+            <input type="text" name="" id="cdNOC"value="" readonly>
+            <div id="nonAttitude">
+              <label class="detailsLabels" id='dispatchCity' >CITY/MUNICIPAL</label><br>
+              <input type="text" name="" id="cdLOC" value="" readonly>
+              <label class="detailsLabels" id="dispatchBrgy">BARANGAY</label>
+              <input type="text" name="" id="cdbrgy" value="" readonly>
+            </div>
+            <div id="attitude" style="display: none">
+              <label class="detailsLabels" id='dispatchComplainee' >COMPLAINEE</label><br>
+              <input type="text" name="" id="cdcomplainee" value="" readonly>
+            </div>
+
+          </div>
+
+          <div id="complaintReceiver" class="divDispatchModalStyle" style="float:right;">
+            <p><b>COMPLAINT RECEIVER</b></p>
+
+            <!-- this div is autoGenerated in employeeAgent.js  -->
+            <div id="divTblComplaineReceiver">
+            </div>
+            <!-- End autoGenerated -->
+
+            <input type="hidden" id="empSupp" value="">
+            <div id="complainthandlerBtn" style="position: relative;">
+              <button type="button" id="btnSelectedEmp" class="mainBtn" disabled>Select Support</button>
+              <button type="button" id="btnSet" class="mainBtn" >Manually assign receiver</button>
+            </div>
+
+            <!-- hidden Div -->
+            <div id="setEmpSupp" style="display:none;padding-top:10px;">
+              <div class="clscontainer">
+                <span  onclick="$('#setEmpSupp').css('display','none'); $('#complainthandlerBtn').css('display','block'); $('#divTblComplaineReceiver').css('display','block')" title="Close Modal" style="position: absolute;right: 1%;top: auto;color: #000;font-size: 35px;font-weight: bold;"><a>&times;</a></span>
+              </div>
+              <fieldset>
+                <legend><b>Assign Receiver</b></legend>
+                <br>
+                <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Employee ID" list="setEmpIDList" id="setEmpID" value="">
+                <datalist id="setEmpIDList">
+                  <?php fillEmpSupportList(); ?>
+                </datalist>
+                <input type="text" placeholder="Employee Name" id="setEmpName" value="" readonly>
+                <button type="button" id="btnAssignEmployeeSupport" class="mainBtn" disabled>Set Support</button>
+              </fieldset>
+            </div>
+            <!-- End hiddenDiv -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- Support Registration Modal  -->
     <div class="modal" id="divRegSupp">
+      <h1>HelloWorld</h1>
       <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
@@ -116,11 +229,11 @@
         <form class="frmEmpReg" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <h5>Registration ID: <?php echo generateEmployeeID(); ?></h5>
 
-          <!-- <input autocomplete="off" type="text" list="user_type" id="txtUserType" name="txtUserType" placeholder="User-Type" style="width:auto">
+          <input autocomplete="off" type="text" list="user_type" id="txtUserType" name="txtUserType" placeholder="User-Type" style="width:auto">
           <datalist id="user_type">
             <option>Support</option>  
             <option>Collection</option>
-          </datalist> -->
+          </datalist>
 
           <div class="" style="border:1px solid black;border-radius: 1em; padding-left:10px; padding-right: 10px; display:inline-block; width : auto; margin: 10px 0px 10px 0px">            
             <label for="">Type - </label><input autocomplete="off" type="text" list="user_type" name="txt_UserType" placeholder="-" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
@@ -135,7 +248,7 @@
             <label for="">Z1-</label><input type="text" list="list_empid" placeholder="ID" id="txtEmpID" onkeyup="this.value = this.value.toUpperCase();" name="txtNewEmpID" value="" style="border:none;float:none; width:auto; height:100%; padding: 3px 3px; border-radius: 0.5em">
             
             <datalist id="list_empid">
-              <?php fillEmpID(); ?>
+              <?php //fillEmpID(); ?>
             </datalist>
 
             <button type="button" id="btnEnterEmpID" name="btnEnterEmpID" style="border-radius:1em; width:auto; background-color: #d1d1d1; color:Black">Enter</button>
@@ -157,33 +270,38 @@
       </div>
     </div>
 
-    <!-- List of Registered-Support Modal-->
-    <div class="modal" id="divEmpList">
-      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
+    <!-- List of Active Complaint -->
+    <div class="modal" id="divTbl" >
+      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px">
         <div class="clscontainer">
           <span class="close" title="Close Modal">&times;</span>
         </div>
-        <h2>Employee List</h2>
-
-        <div class="" style="clear:both; border:">
-        <input type="text" id="txtEmpSearch" placeholder="Search" name="" value="" style="float:left; width: auto " required>
-        <button type="button" id="btnEmpSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px;" autocomplete="off"> </button>
+        <h3>Active Complaint</h3>
+        <div>
+          <input type="text" name="" placeholder="Search" value="" class="cSearch" id="inSearch" style="width:auto; float:left">
+          <button type="button" name="btnSearch" id="btnIDSearch" style="width:auto; padding: 6px; background-color: white"> <img src="img/search.png" style="height: 30px" alt=""></button>
         </div>
+        <button type="button" id="btnDispatch" class="mainBtn" style="height:42px;" disabled>Dispatch</button>
 
-        <div class="div4Table" id="tblSearchEmp">
-          <table id="tblEmpList">
-            <tr>
-              <th>Employee ID</th>
-              <th>Name</th>
-              <th>Area</th>
-              <th>Department</th>
-            </tr>
-            <?php fillEmpListTable(); ?>
-          </table>
+        <div class="tblAllData" style="overflow:auto">
+          <div id="div4TableEmp">
+            <table border="1" id="tblData">
+              <tr>
+                <th>Complaint No</th>
+                <th>Nature of Complaint</th>
+                <th>Description</th>
+                <th>Location | Complainee</th>
+                <th>City | Municipal</th>
+                <th>Barangay</th>
+                <th>Arealandmark / Office</th>
+              </tr>
+              <?php fillComplaintTable(); ?>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-
+    
     <!-- Dispatch Mananagement Dispatch modal -->
     <div class="modal" id="divMngCmplntDispt">
       <div class="modal-content animate"  id="divIdTblComplaint" style="overflow-x:auto; padding:10px">
@@ -277,120 +395,6 @@
         </form>
       </div>
     </div>
-
-    <!-- Complaint Handlr Modal -->
-    <div class="modal" id="divCmplntHndlr">
-      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <div class="clscontainer">
-          <span class="close" title="Close Modal">&times;</span>
-        </div>
-        <div class="">
-          <h2>Complaint Handler</h2>
-            <div class="locationFloatLeft" style="width:50%; float: left;">
-              <fieldset style="height:250px;overflow-x:auto;">
-                <legend>Location</legend>
-                <div class="div4Table">
-                  <?php fillCmplntHndlrLocation(); ?>
-                </div>
-                  <input type="hidden" id="selectedRow" value="">
-                  <input type="hidden" id="selectedOffice" value="">
-              </fieldset>
-            </div>
-            <div class="locationFloatRight" style="width:50%; float: right;">
-              <!-- Automated Entry in js file using AJAX -->
-            </div>
-            <div class="divEmpDetails" style="width:100%; overflow: auto;height:auto;;float: bottom;">
-              <!-- Automated Entry in js file using AJAX -->
-            </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dispatch Modal -->
-    <div class="modal" id="divDispatchModal">
-      <div class="modal-content animate" id="divIdTblComplaint" style="padding:10px;">
-        <div class="clscontainer">
-          <span class="refresh" title="Close Modal">&times;</span>
-        </div>
-        <div class=""style="overflow-x:auto;">
-          <h2>DISPATCH</h2>
-          <div id="complaintDetails" class="divDispatchModalStyle" style="float:left" >
-            <p><b>COMPLAINT DETAILS</b></p>
-            <label class="detailsLabels" >COMPLAINT NO</label><br>
-            <input type="text" name="" id="cdNUM"  value="" readonly>
-            <label class="detailsLabels" >NATURE OF COMPLAINT</label><br>
-            <input type="text" name="" id="cdNOC"value="" readonly>
-            <div id="nonAttitude">
-              <label class="detailsLabels" id='dispatchCity' >CITY/MUNICIPAL</label><br>
-              <input type="text" name="" id="cdLOC" value="" readonly>
-              <label class="detailsLabels" id="dispatchBrgy">BARANGAY</label>
-              <input type="text" name="" id="cdbrgy" value="" readonly>
-            </div>
-            <div id="attitude" style="display: none">
-              <label class="detailsLabels" id='dispatchComplainee' >COMPLAINEE</label><br>
-              <input type="text" name="" id="cdcomplainee" value="" readonly>
-            </div>
-
-          </div>
-          <div id="complaintReceiver" class="divDispatchModalStyle" style="float:right;">
-            <p><b>COMPLAINT RECEIVER</b></p>
-
-            <!-- this div is autoGenerated in employeeAgent.js  -->
-            <div id="divTblComplaineReceiver">
-            </div>
-            <!-- End autoGenerated -->
-
-            <input type="hidden" id="empSupp" value="">
-            <div id="complainthandlerBtn" style="position: relative;">
-              <button type="button" id="btnSelectedEmp" class="mainBtn" disabled>Select Support</button>
-              <button type="button" id="btnSet" class="mainBtn" >Manually assign receiver</button>
-            </div>
-
-            <!-- hidden Div -->
-            <div id="setEmpSupp" style="display:none;padding-top:10px;">
-              <div class="clscontainer">
-                <span  onclick="$('#setEmpSupp').css('display','none'); $('#complainthandlerBtn').css('display','block'); $('#divTblComplaineReceiver').css('display','block')" title="Close Modal" style="position: absolute;right: 1%;top: auto;color: #000;font-size: 35px;font-weight: bold;"><a>&times;</a></span>
-              </div>
-              <fieldset>
-                <legend><b>Assign Receiver</b></legend>
-                <br>
-                <input type="text" onclick="javascript:if($(this).val() !== '') {$(this).val('');} return false;" placeholder="Employee ID" list="setEmpIDList" id="setEmpID" value="">
-                <datalist id="setEmpIDList">
-                  <?php fillEmpSupportList(); ?>
-                </datalist>
-                <input type="text" placeholder="Employee Name" id="setEmpName" value="" readonly>
-                <button type="button" id="btnAssignEmployeeSupport" class="mainBtn" disabled>Set Support</button>
-              </fieldset>
-            </div>
-            <!-- End hiddenDiv -->
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Complaint-Assigned list -->
-    <div class="modal" id="divComplaintAssigned">
-      <div class="modal-content animate" id="divIdTblComplaint" style="overflow-x:auto; padding:10px;">
-        <div class="clscontainer">
-          <span class="close" title="Close Modal">&times;</span>
-        </div>
-        <input type="hidden" id="txtUserID" name="" value="<?php echo $_SESSION['user']['EmpID']; ?>" readonly>
-        <h2>Supports assigned</h2>
-
-        <div class="div4Table">
-          <table id="tblAssignedComplaint" style="resize: auto">
-            <tr>
-              <th>Complaint No</th>
-              <th>Assigned Employee ID</th>
-              <th>Nature of Complaint</th>
-              <th>Assigned Employee</th>
-              <th>Date&Time created</th>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
+    
   </body>
 </html>

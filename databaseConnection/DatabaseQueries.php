@@ -10,7 +10,6 @@ session_start();
 
   /* Attempt to connect to MySQL database */
   $mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
   $db = $mysqli;
 
   // Check connection
@@ -27,7 +26,6 @@ session_start();
 		if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
 	    session_unset();
 	    session_destroy();
-			session_start();
 		}
 
 		$_SESSION['LAST_ACTIVITY'] = $time;

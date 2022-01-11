@@ -88,24 +88,27 @@ $(document).ready(function(){
 
   // Load dispatch modal on click 'Dispatch' on Complaint Modal
   $('#btnDispatch').click(function(){
-      performDispatch();
+    performDispatch();
   });
 
   $('#btnComplaints').click(function(){
+    $(".modal").css("display","none");
     $('#divTbl').css("display","block");
   });
 
   $('#btnRegSupp').click(function(){
+    alert("HelloWorld");
+    // $(".modal").css("display","none");
     $('#divRegSupp').css("display","block")
   });
 
   $("#btnEmpList").click(function(){
-    $('#divRegSupp').css("display","none")
-
-    $('#divEmpList').css("display","block")
+    $('.modal').css("display","none");
+    $('#divEmpList').css("display","block");
   })
 
   $('#btnMngDspt').click(function(){
+    // $(".modal").css("display","none");
     $('#divMngCmplntDispt').css("display","block")
   });
 
@@ -127,7 +130,7 @@ $(document).ready(function(){
     $('#btnDispatch').prop("disabled", true);
   })
 
-  // compplaint Handler Table
+  // complaint Handler Table
   $('body').on("click",'#compHandler tr', function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     $('#empSupp').val($(this).find('td:first').html());
@@ -359,8 +362,8 @@ $(document).ready(function(){
 
   $('#btnCrew').click(function(){
     $('#divComplaintAssigned').css('display','block')
-    // fillAssignedComplaint();
-    console.log("HelloWorld");
+    fillAssignedComplaint();
+    // console.log("HelloWorld");
   })
 
   $('#btnEnterEmpID').click(function(){
@@ -435,7 +438,7 @@ function retrieveMunicipalID(_value){
 }
 
 function performDispatch(){
-  $('.modal').css("display","none")
+  $('.modal').css("display","none");
   $('#divDispatchModal').css("display", "block")
 
   // diplay this Nature of Complaint 'NOT' equal to "Attitude of Employee"
